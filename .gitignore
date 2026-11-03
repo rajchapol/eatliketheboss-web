@@ -5,3 +5,4 @@ dist/
 studio/node_modules/
 studio/dist/
 .DS_Store
+studio/.sanity/
