@@ -2,6 +2,7 @@
 // Everything in [square brackets] is a placeholder. Real content comes from Sanity.
 import type { Article, City, Settings } from '../lib/types';
 import citiesJson from './cities.json';
+import settingsJson from './settings.json';
 
 export const cities: City[] = citiesJson as City[];
 const city = (s: string) => cities.find((c) => c.slug === s)!;
@@ -56,23 +57,4 @@ export const articles: Article[] = [
   },
 ];
 
-export const settings: Settings = {
-  aboutHeadline: 'กินจริง เล่าตามจริงครับ',
-  aboutBio: [
-    'สวัสดีครับ ผมชื่อบอส คนเขียนเพจบอสพาชิม หรือ Eat Like The Boss ผมเริ่มเขียนรีวิวร้าน Fine Dining ตั้งแต่ปี 2017 จากความชอบส่วนตัวล้วนๆ ทั้งร้านในกรุงเทพฯ และร้านที่ตั้งใจบินไปกินที่ญี่ปุ่น ฮ่องกง และอีกหลายเมืองทั่วโลก',
-    'ผมทำงานในวงการ Hospitality และ F&B มากว่า 15 ปี เลยมองมื้ออาหารทั้งในมุมคนกินและมุมคนทำร้าน และชอบคิดต่อเสมอว่ามื้อนี้ควรเปิดไวน์อะไร และปี 2026 ผมเป็นคณะกรรมการ Tatler Best Asia-Pacific และงานจัดอันดับอาหารอีกหลายงานครับ',
-  ],
-  aboutShortBio:
-    'รีวิว Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี กรรมการ Tatler Best Asia-Pacific และงานจัดอันดับอาหารอีกหลายงาน',
-  whyHonest: [
-    'สิ่งที่ผมตั้งใจตั้งแต่วันแรกคือเล่าให้ตรงที่สุดครับ จานไหนอร่อยก็บอกว่าอร่อยพร้อมเหตุผล จานไหนไม่ถูกปากก็บอกตรงๆ ว่าติดตรงไหน',
-    'ผมเชื่อว่าคนที่กำลังจะจองร้านราคาหลักหมื่น ควรได้อ่านข้อมูลที่จริงใจก่อนตัดสินใจ ทั้งเรื่องเชฟ วัตถุดิบ บรรยากาศ และราคาที่จ่ายจริง',
-  ],
-  howIReview: [
-    { title: 'บอกตรงทุกมื้อ', text: 'ท้ายทุกบทความมี The Boss\'s Bill มื้อไหนได้รับเชิญหรือเป็นงานโฆษณา ผมติดป้าย AD หรือ Event ไว้ชัดเจนเสมอครับ' },
-    { title: 'ไม่ให้ดาว ไม่ให้คะแนน', text: 'ตัวเลขบอกไม่ได้ว่าจานนั้นดีเพราะอะไร ผมเลยเลิกให้คะแนน ความชอบและข้อติทั้งหมดอยู่ในเนื้อความแทนครับ' },
-    { title: 'ถอดแว่นชิม', text: 'จานที่อร่อยจนผมต้องขอถอดแว่นชิม จะได้ตราถอดแว่นในบทความ และรวมไว้ใน Glasses Off Awards ทุกปี' },
-  ],
-  workWithMe:
-    'ร้านอาหาร แบรนด์ไวน์ และผู้จัดงาน ติดต่อร่วมงานกับผมได้ครับ ทุกโพสต์ที่ได้รับเชิญจะติดป้าย AD หรือ Event เสมอ ส่วนความเห็นในบทความยังเป็นของผมทั้งหมด',
-};
+export const settings: Settings = settingsJson as Settings;

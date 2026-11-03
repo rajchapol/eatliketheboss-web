@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// One-time: create the starting cities in Sanity (safe to re-run; it won't overwrite edits).
+// One-time: create the starting cities and About/settings copy in Sanity (safe to re-run; it won't overwrite edits).
 //   node scripts/seed-sanity.mjs
 import { readFileSync, existsSync } from 'node:fs';
 import { createClient } from '@sanity/client';
@@ -12,5 +12,7 @@ for (const c of cities) {
   const { slug, intro, ...rest } = c;
   tx.createIfNotExists({ _id: `city-${slug}`, _type: 'city', slug: { _type: 'slug', current: slug }, ...rest, ...(intro && !intro.startsWith('[') ? { intro } : {}) });
 }
+const settings = JSON.parse(readFileSync('src/data/settings.json', 'utf8'));
+tx.createIfNotExists({ _id: 'settings', _type: 'settings', ...settings, howIReview: settings.howIReview.map((h, i) => ({ _key: `h${i}`, ...h })) });
 await tx.commit();
 console.log(`✓ สร้างเมือง ${cities.length} เมืองใน Sanity แล้ว`);

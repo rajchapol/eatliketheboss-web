@@ -1,6 +1,5 @@
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
-import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemas';
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'YOUR_PROJECT_ID';
@@ -24,7 +23,6 @@ export default defineConfig({
             S.listItem().title('ตั้งค่าเว็บ / เกี่ยวกับบอส').child(S.document().schemaType('settings').documentId('settings')),
           ]),
     }),
-    visionTool(),
   ],
   schema: { types: schemaTypes },
   document: {
