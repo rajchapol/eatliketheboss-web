@@ -32,7 +32,7 @@ export const article = defineType({
     defineField({ name: 'series', title: 'ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
       options: { list: [{ title: 'บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
       validation: (r) => r.required() }),
-    defineField({ name: 'no', title: 'Tasting Notes No.', type: 'number', group: 'main', validation: (r) => r.required().integer().positive() }),
+    defineField({ name: 'no', title: 'Tasting Notes No. (เลิกใช้)', description: 'เว็บนับเลขให้อัตโนมัติตามวัน Visit', type: 'number', hidden: true }),
     defineField({ name: 'episode', title: 'Ep.', type: 'number', group: 'main', hidden: ({ document }) => document?.series !== 'history' }),
     defineField({ name: 'title', title: 'ชื่อบทความเต็ม', description: 'เช่น บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรย (ไม่ต้องใส่อีโมจิ)', type: 'string', group: 'main', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug (ส่วนท้าย URL)', description: 'ภาษาอังกฤษตัวเล็ก คั่นด้วย - เช่น sezanne — ตั้งแล้วห้ามเปลี่ยน', type: 'slug', group: 'main',
@@ -67,8 +67,8 @@ export const article = defineType({
     defineField({ name: 'tag', title: 'มื้อนี้ได้รับเชิญ / โฆษณา?', type: 'string', group: 'meta',
       options: { list: [{ title: 'จ่ายเอง (ไม่มีป้าย)', value: '' }, { title: 'AD', value: 'AD' }, { title: 'Event', value: 'Event' }], layout: 'radio', direction: 'horizontal' } }),
     defineField({ name: 'bill', title: "The Boss's Bill", description: 'เขียนตามที่บอสให้ เช่น 6,999 THB++ (ไม่ต้องใส่ถ้าเป็น AD/Event)', type: 'string', group: 'meta', hidden: ({ document }) => Boolean(document?.tag) }),
-    defineField({ name: 'visit', title: 'Visit', description: 'รูปแบบ Mon-YYYY เช่น Oct-2026', type: 'string', group: 'meta',
-      validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }) }),
+    defineField({ name: 'visit', title: 'Visit', description: 'เดือนที่ไปกินจริง รูปแบบ Mon-YYYY เช่น Oct-2026 · เว็บใช้เรียงเลข Tasting Notes No. (มื้อเก่าสุด = No. 001)', type: 'string', group: 'meta',
+      validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }).custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องใส่ Visit' : true)) }),
     defineField({ name: 'hashtags', title: 'แฮชแท็ก (ไม่ต้องใส่ #, ไม่เกิน 10)', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' }, group: 'meta', validation: (r) => r.max(10) }),
     defineField({ name: 'publishedAt', title: 'วันที่เผยแพร่', type: 'date', group: 'meta', initialValue: () => new Date().toISOString().slice(0, 10), validation: (r) => r.required() }),
     defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', validation: (r) => r.max(60) }),
@@ -76,8 +76,8 @@ export const article = defineType({
       validation: (r) => r.min(80).max(160).warning() }),
   ],
   orderings: [{ title: 'ใหม่สุด', name: 'newest', by: [{ field: 'publishedAt', direction: 'desc' }] }],
-  preview: { select: { title: 'title', no: 'no', lang: 'language', media: 'cover' },
-    prepare: ({ title, no, lang, media }: any) => ({ title, subtitle: `No. ${no ?? '?'} · ${String(lang || 'th').toUpperCase()}`, media }) },
+  preview: { select: { title: 'title', visit: 'visit', lang: 'language', media: 'cover' },
+    prepare: ({ title, visit, lang, media }: any) => ({ title, subtitle: `Visit ${visit || '—'} · ${String(lang || 'th').toUpperCase()}`, media }) },
 });
 
 export const city = defineType({

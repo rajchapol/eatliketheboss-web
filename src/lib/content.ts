@@ -38,9 +38,26 @@ export function getCities(): Promise<City[]> {
     .then((rows: any[]) => rows.map((c) => ({ ...c, cover: img(c.cover, `ภาพเมือง ${c.nameEn}`) }))));
 }
 
-/** All published articles in every language, newest first. */
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+/** Sort key from the Visit field ("Oct-2026"); articles without a visit use the publish date. */
+const visitKey = (a: Article) => {
+  const m = /^([A-Za-z]{3})-(\d{4})$/.exec(a.visit || '');
+  const ym = m && MONTHS.includes(m[1].toLowerCase()) ? `${m[2]}-${String(MONTHS.indexOf(m[1].toLowerCase()) + 1).padStart(2, '0')}` : (a.publishedAt || '').slice(0, 7);
+  return `${ym}|${a.publishedAt || ''}|${a.slug}`;
+};
+/**
+ * Tasting Notes No. = order of the visit (oldest meal = No. 001), counted on the original (Thai) articles.
+ * Translations share the number of their original. Lists come back newest visit first.
+ */
+function numberByVisit(all: Article[]): Article[] {
+  const originals = all.filter((a) => a.id === a.baseId).sort((a, b) => visitKey(a).localeCompare(visitKey(b)));
+  const noOf = new Map(originals.map((a, i) => [a.baseId, i + 1]));
+  return all.map((a) => ({ ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 })).sort((a, b) => b.no - a.no || a.language.localeCompare(b.language));
+}
+
+/** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
-  if (!client) return Promise.resolve([...seed.articles].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)));
+  if (!client) return Promise.resolve(numberByVisit([...seed.articles]));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
@@ -65,7 +82,8 @@ export function getAllArticles(): Promise<Article[]> {
           readingMinutes: readMinutes(bodyHtml, dishes),
         };
       }),
-    ));
+    )
+    .then(numberByVisit));
 }
 
 export async function getArticles(lang: Locale = DEFAULT_LOCALE) {

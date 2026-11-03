@@ -66,7 +66,7 @@ const id = `article-${slug}${lang === 'th' ? '' : `-${lang}`}`;
 const doc = {
   _id: id, _type: 'article', language: lang,
   ...(lang !== 'th' ? { translationOf: { _type: 'reference', _ref: `article-${slug}` } } : {}),
-  series: fm.series || 'review', no: fm.no, episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
+  series: fm.series || 'review', episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
   tagline: fm.tagline, city: cityRef, restaurant: fm.restaurant, cover: await upload(fm.cover),
   body: bodyBlocks, quote: fm.quote,
   dishes: await Promise.all(dishes.map(async (d) => ({ _type: 'dish', _key: key(), name: d.name, description: d.description, glassesOff: d.glassesOff, image: await upload(d.image) }))),
