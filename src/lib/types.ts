@@ -70,4 +70,21 @@ export interface Settings {
   whyHonest: string[];
   howIReview: { title: string; text: string }[];
   workWithMe: string;
+  tagline: string;
+  siteDescription: string;
+  featuredArticleId?: string;
+  homeFinderLabel: string;
+  homeAwardsText: string;
+  invitedNote: string;
+  aboutStats: { value: string; label: string }[];
+  seriesText: { review: string; history: string; drinks: string };
+  finderTitle: string;
+  finderIntro: string;
+  destinationsIntro: string;
+  awardsIntro: string;
+  facebook: string;
+  instagram: string;
+  contactEmail: string;
+  ogImageUrl?: string;
+  homeCitySlugs?: string[];
 }

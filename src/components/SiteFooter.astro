@@ -15,18 +15,18 @@ const year = new Date().getFullYear();
   <footer class="site-footer" style="color:#fff">
     <div class="goldrule"></div>
     <nav aria-label="ลิงก์ทั้งหมด" class="wrap" style="padding-top:48px;padding-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;font-size:14px">
-      <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">SERIES</span>
         <a href="/review/">บอสพาชิม — รีวิวร้าน</a>
         <a href="/history/">มื้ออาหารเปลี่ยนโลก</a>
         <a href="/drinks/">บอสพาดื่ม</a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">CITIES</span>
         {cities.map((c) => <a href={`/city/${c.slug}/`}>{c.nameTh}</a>)}
         <a href="/destinations/">ทุกเมือง</a>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">EXPLORE</span>
         <a href="/restaurants/">ค้นหาร้าน</a>
         <a href="/glasses-off-awards/">Glasses Off Awards</a>

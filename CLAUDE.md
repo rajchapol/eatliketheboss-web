@@ -31,7 +31,8 @@ You never need to touch `src/` to post.
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |
-| Site URL, socials, email, series, motifs | `src/lib/config.ts` |
+| Site copy (tagline, page intros, series text, about, socials, email, OG image) | Sanity → ตั้งค่าเว็บ (defaults: `src/data/settings.json`) |
+| Site URL, series keys, motifs | `src/lib/config.ts` |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
