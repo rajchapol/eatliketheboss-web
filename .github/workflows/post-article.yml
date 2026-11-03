@@ -1,0 +1,65 @@
+# Publishes articles to Sanity when a post file is pushed to main.
+# Claude pushes posts/<slug>.md (and posts/images/<slug>/) only after the Boss approves each post.
+# The write token lives only in the GitHub secret SANITY_WRITE_TOKEN (Settings → Secrets and variables → Actions).
+name: Post article to Sanity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'posts/**.md'
+      - '!posts/_template.md'
+  workflow_dispatch:
+    inputs:
+      file:
+        description: 'Post file to publish, e.g. posts/gofio.md'
+        required: true
+      dry:
+        description: 'Dry run only (print, send nothing)'
+        type: boolean
+        default: false
+
+concurrency:
+  group: post-article
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Find post files
+        id: files
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "list=${{ inputs.file }}" >> "$GITHUB_OUTPUT"
+          else
+            BEFORE="${{ github.event.before }}"
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then BEFORE="HEAD~1"; fi
+            LIST=$(git diff --name-only --diff-filter=AM "$BEFORE" "${{ github.sha }}" -- 'posts/*.md' | grep -v '_template.md' | tr '\n' ' ')
+            echo "list=$LIST" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check token
+        if: steps.files.outputs.list != ''
+        run: |
+          if [ -z "$SANITY_WRITE_TOKEN" ] && [ "${{ inputs.dry }}" != "true" ]; then
+            echo "::error::Missing secret SANITY_WRITE_TOKEN"; exit 1
+          fi
+      - name: Publish
+        if: steps.files.outputs.list != ''
+        run: |
+          for f in ${{ steps.files.outputs.list }}; do
+            echo "== $f"
+            if [ "${{ inputs.dry }}" = "true" ]; then npm run post -- "$f" --dry; else npm run post -- "$f"; fi
+          done
