@@ -1,12 +1,13 @@
-// One place that loads content. Uses Sanity when SANITY_PROJECT_ID is set,
-// otherwise the sample content in src/data/seed.ts so the site always builds.
+// One place that loads content. Uses the live Sanity project (ID is public, not a secret).
+// Set SANITY_PROJECT_ID=sample to build from the sample content in src/data/seed.ts.
 import { createClient } from '@sanity/client';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
 import { DEFAULT_LOCALE, SERIES, localePrefix, type Locale } from './config';
 
-const projectId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID;
+const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
+const projectId = envId === 'sample' ? '' : envId;
 const dataset = import.meta.env.SANITY_DATASET || process.env.SANITY_DATASET || 'production';
 export const usingSanity = Boolean(projectId);
 

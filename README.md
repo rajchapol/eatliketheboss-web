@@ -1,6 +1,6 @@
 # บอสพาชิม · Eat Like The Boss — เว็บไซต์
 
-เว็บรีวิว Fine Dining ของบอส สร้างด้วย **Astro** + **Sanity** (ระบบหลังบ้าน) + **Cloudflare Pages** (โฮสต์)
+เว็บรีวิว Fine Dining ของบอส สร้างด้วย **Astro** + **Sanity** (ระบบหลังบ้าน) + **Cloudflare Workers** (โฮสต์)
 โดเมน: **eatlikeboss.com**
 
 ตอนนี้เว็บ build ได้แล้วด้วยเนื้อหาตัวอย่าง (ข้อความใน [วงเล็บ]) พอต่อ Sanity แล้ว เนื้อหาจริงจะขึ้นแทนอัตโนมัติ
@@ -30,14 +30,14 @@ npm install
 node scripts/seed-sanity.mjs
 ```
 
-### 4. ขึ้นเว็บบน Cloudflare Pages
-1. https://dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git** → เลือก repo `eatliketheboss-web`
-2. Framework: **Astro** · Build command: `npm run build` · Output: `dist`
-3. **Environment variables:** `SANITY_PROJECT_ID` = Project ID, `SANITY_DATASET` = `production`, `NODE_VERSION` = `22`
-4. Deploy แล้ว **Custom domains** → เพิ่ม `eatlikeboss.com` (ถ้าโดเมนอยู่ที่อื่น ต้องชี้ DNS หรือย้าย nameserver มา Cloudflare ตามที่หน้าจอบอก)
+### 4. ขึ้นเว็บบน Cloudflare (Workers)
+1. https://dash.cloudflare.com → **Workers & Pages → Create → Import a repository** → เลือก repo `eatliketheboss-web`
+2. Project name: `eatlikeboss` (ต้องตรงกับ `wrangler.jsonc`) · Build command: `npm run build` · Deploy command: `npx wrangler deploy`
+3. ไม่ต้องตั้ง environment variables (Project ID อยู่ในโค้ดแล้ว)
+4. Deploy แล้ว → **Settings → Domains & Routes → Add → Custom domain** → `eatlikeboss.com` และ `www.eatlikeboss.com`
 
 ### 5. ให้เว็บอัปเดตเองเมื่อกด Publish ใน Sanity
-1. Cloudflare Pages → โปรเจกต์ → **Settings → Builds → Deploy hooks** → สร้าง hook ชื่อ `sanity` → คัดลอก URL
+1. Cloudflare → Worker `eatlikeboss` → **Settings → Build → Deploy hooks** → สร้าง hook ชื่อ `sanity` (branch `main`) → คัดลอก URL
 2. Sanity manage → **API → Webhooks** → Create: URL = deploy hook, Dataset = production, Trigger on = Create/Update/Delete, Filter = `_type in ["article","city","settings"]`
 
 เสร็จแล้ว: Publish ใน Studio หรือให้ Claude โพสต์ → เว็บอัปเดตภายในไม่กี่นาที

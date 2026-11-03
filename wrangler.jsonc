@@ -1,0 +1,10 @@
+// Cloudflare Workers static site. Build: npm run build → deploy: npx wrangler deploy
+{
+  "name": "eatlikeboss",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

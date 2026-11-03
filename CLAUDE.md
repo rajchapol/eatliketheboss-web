@@ -3,9 +3,9 @@
 Read this first. Keep edits small: read only the files you need, prefer find-and-replace over rewrites.
 
 ## Stack
-- **Astro** static site (`src/`), built on **Cloudflare Pages** from `main`.
+- **Astro** static site (`src/`), built on **Cloudflare Workers (static assets, `wrangler.jsonc`)** from `main`, domain eatlikeboss.com.
 - **Sanity** holds all content (articles, cities, About copy). Studio code in `studio/` (deployed at eatliketheboss.sanity.studio).
-- Without `SANITY_PROJECT_ID` the site builds from sample content in `src/data/` (placeholders in [brackets]).
+- Content comes from Sanity project `ohviqc5c` by default; `SANITY_PROJECT_ID=sample npm run build` uses sample content in `src/data/` (placeholders in [brackets]).
 - Publishing in Sanity triggers a Cloudflare rebuild via webhook → live in a few minutes.
 
 ## Posting an article (the cheap way)
