@@ -18,7 +18,7 @@ interface Props {
   lineart?: boolean;
   dark?: boolean;
 }
-const { title, description = SITE.description, image = '/img/og-default.png', lang = DEFAULT_LOCALE,
+const { title, description = SITE.description, image = '/img/og-default.jpg', lang = DEFAULT_LOCALE,
   jsonLd = [], active, type = 'website', noindex = false, lineart = true, dark = false } = Astro.props;
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;

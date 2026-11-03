@@ -43,7 +43,7 @@ export const breadcrumbs = (items: { name: string; href: string }[]) => ({
 
 export function articleLd(a: Article) {
   const url = abs(articleUrl(a));
-  const image = a.cover ? [imgUrl(a.cover, 1600)] : [abs('/img/og-default.png')];
+  const image = a.cover ? [imgUrl(a.cover, 1600)] : [abs('/img/og-default.jpg')];
   const base = {
     '@context': 'https://schema.org',
     headline: a.title,
