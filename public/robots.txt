@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /restaurants/?*
 
-Sitemap: https://eatlikethebossth.com/sitemap-index.xml
+Sitemap: https://eatlikeboss.com/sitemap-index.xml

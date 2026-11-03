@@ -1,6 +1,6 @@
 // Site-wide settings. Change here, every page follows.
 export const SITE = {
-  url: 'https://eatlikethebossth.com',
+  url: 'https://eatlikeboss.com',
   name: 'บอสพาชิม · Eat Like The Boss',
   shortName: 'Eat Like The Boss',
   tagline: 'สัมผัสศิลปะแห่งรสชาติ และประสบการณ์การกินอย่างเหนือระดับ ในแบบฉบับของบอส',
