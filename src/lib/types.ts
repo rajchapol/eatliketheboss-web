@@ -5,6 +5,8 @@ export interface Img {
   alt: string;
   width?: number;
   height?: number;
+  crop?: { top: number; bottom: number; left: number; right: number }; // set in Sanity Studio
+  hotspot?: { x: number; y: number; width: number; height: number }; // focal point for crops
 }
 
 export interface City {

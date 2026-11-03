@@ -5,10 +5,10 @@ import Photo from '../components/Photo.astro';
 import { getArticles, glassesOffDishes, articleUrl, getSettings } from '../lib/content';
 const st = await getSettings();
 import { SITE } from '../lib/config';
+import { romanAt as roman } from '../lib/roman';
 
 const items = glassesOffDishes(await getArticles('th'));
 const years = [...new Set(items.map((x) => x.article.publishedAt.slice(0, 4)))].sort().reverse();
-const roman = (n: number) => ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'][n] ?? String(n + 1);
 const ld = {
   '@context': 'https://schema.org', '@type': 'ItemList', name: 'Glasses Off Awards',
   itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.dish.name, url: new URL(articleUrl(x.article), SITE.url).href })),

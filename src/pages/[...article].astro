@@ -7,6 +7,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import { SERIES } from '../lib/config';
 import { getAllArticles, articleUrl, translationsOf, imgUrl } from '../lib/content';
 import { articleLd, breadcrumbs } from '../lib/seo';
+import { romanAt as roman } from '../lib/roman';
 import type { Article } from '../lib/types';
 
 export async function getStaticPaths() {
@@ -17,9 +18,11 @@ const { a } = Astro.props as { a: Article };
 const all = await getAllArticles();
 const tr = await translationsOf(a);
 const alternates = tr.map((t) => ({ lang: t.language, href: articleUrl(t) }));
-const more = all.filter((x) => x.language === a.language && x.id !== a.id && (x.city?.slug === a.city?.slug || x.series === a.series)).slice(0, 3);
+// Same city first, then the same series to fill up to three.
+const others = all.filter((x) => x.language === a.language && x.id !== a.id);
+const sameCity = (x: Article) => Boolean(a.city && x.city?.slug === a.city.slug);
+const more = [...others.filter(sameCity), ...others.filter((x) => !sameCity(x) && x.series === a.series)].slice(0, 3);
 const s = SERIES[a.series];
-const roman = (n: number) => ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX'][n] ?? String(n + 1);
 const glassesIdx = a.dishes.findIndex((d) => d.glassesOff);
 const crumbs = [
   { name: 'หน้าแรก', href: '/' },

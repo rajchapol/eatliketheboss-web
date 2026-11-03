@@ -5,6 +5,7 @@ import Photo from '../components/Photo.astro';
 import { SITE, SERIES } from '../lib/config';
 import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings } from '../lib/content';
 import { organization, website } from '../lib/seo';
+import { romanAt as roman } from '../lib/roman';
 
 const articles = await getArticles('th');
 const settings = await getSettings();
@@ -14,7 +15,6 @@ const year = new Date().getFullYear();
 const awards = glassesOffDishes(articles).slice(0, 4);
 const allCities = await getCities();
 const quickCities = (settings.homeCitySlugs?.length ? settings.homeCitySlugs : ['bangkok', 'tokyo', 'osaka']).map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities;
-const roman = ['I.', 'II.', 'III.', 'IV.', 'V.', 'VI.'];
 const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).replace(' ', '-');
 ---
 <Base title="หน้าแรก" active="articles" jsonLd={[organization(), website()]}>
@@ -100,7 +100,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
         {awards.map(({ dish, article }, i) => (
           <li class="fx-lift" style="background:rgba(7,59,62,.6);box-shadow:0 0 0 1px rgba(212,179,114,.55),0 16px 36px rgba(0,0,0,.25)">
             <a href={articleUrl(article)} style="display:flex;flex-direction:column;gap:8px;padding:24px">
-              <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{roman[i]}</span>
+              <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{roman(i)}.</span>
               <strong style="font-size:18px;font-weight:600">{dish.name}</strong>
               <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.82)">{article.restaurant?.name} — {article.city?.nameEn}</span>
             </a>

@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../lib/config';
 import { getSettings } from '../lib/content';
 import { person } from '../lib/seo';
+import { romanAt as roman } from '../lib/roman';
 const s = await getSettings();
-const roman = ['I.', 'II.', 'III.', 'IV.', 'V.'];
 ---
 <Base title="เกี่ยวกับบอส" description={s.aboutShortBio} active="about" jsonLd={[{ '@context': 'https://schema.org', '@type': 'AboutPage', mainEntity: person() }]}>
   <main class="wrap">
@@ -39,7 +39,7 @@ const roman = ['I.', 'II.', 'III.', 'IV.', 'V.'];
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;padding-top:32px">
         {s.howIReview.map((h, i) => (
           <div style="background:#fbf7ef;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22)">
-            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;line-height:1;color:#6e3f08">{roman[i]}</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;line-height:1;color:#6e3f08">{roman(i)}.</span>
             <h3 style="margin:0;font-size:20px;font-weight:600">{h.title}</h3>
             <p style="margin:0;font-size:16px;line-height:1.8;font-weight:300">{h.text}</p>
           </div>

@@ -1,6 +1,7 @@
 // One place that loads content. Uses the live Sanity project (ID is public, not a secret).
 // Set SANITY_PROJECT_ID=sample to build from the sample content in src/data/seed.ts.
 import { createClient } from '@sanity/client';
+import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
@@ -17,7 +18,8 @@ const client = usingSanity
 
 const img = (i: any, fallbackAlt = ''): Img | undefined =>
   i?.asset?.url
-    ? { url: i.asset.url, alt: i.alt || fallbackAlt, width: i.asset.metadata?.dimensions?.width, height: i.asset.metadata?.dimensions?.height }
+    ? { url: i.asset.url, alt: i.alt || fallbackAlt, width: i.asset.metadata?.dimensions?.width, height: i.asset.metadata?.dimensions?.height,
+        crop: i.crop || undefined, hotspot: i.hotspot || undefined }
     : undefined;
 
 const readMinutes = (html: string, dishes: { description: string }[]) => {
@@ -118,11 +120,23 @@ export async function translationsOf(a: Article) {
   return (await getAllArticles()).filter((x) => x.baseId === a.baseId);
 }
 
-/** Image URL at a given width (Sanity CDN), or the url as-is for other hosts. */
+/**
+ * Image URL at a given width (Sanity CDN), or the url as-is for other hosts.
+ * With a height, the crop follows the crop + hotspot set in Studio instead of the centre.
+ */
 export function imgUrl(i: Img | undefined, w: number, h?: number) {
   if (!i?.url) return undefined;
-  if (!i.url.includes('cdn.sanity.io')) return i.url;
-  return `${i.url}?w=${w}${h ? `&h=${h}&fit=crop` : ''}&auto=format&q=80`;
+  const m = /^https:\/\/cdn\.sanity\.io\/images\/([^/]+)\/([^/]+)\//.exec(i.url);
+  if (!m) return i.url;
+  try {
+    let b = createImageUrlBuilder({ projectId: m[1], dataset: m[2] })
+      .image({ asset: { url: i.url }, crop: i.crop, hotspot: i.hotspot } as any)
+      .width(w).auto('format').quality(80);
+    if (h) b = b.height(h);
+    return b.url();
+  } catch {
+    return `${i.url}?w=${w}${h ? `&h=${h}&fit=crop` : ''}&auto=format&q=80`; // URL without dimensions: centre crop
+  }
 }
 export function srcset(i: Img | undefined, widths: number[], ratio?: number) {
   if (!i?.url || !i.url.includes('cdn.sanity.io')) return undefined;
