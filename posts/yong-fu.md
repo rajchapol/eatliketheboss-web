@@ -12,7 +12,7 @@ restaurant:
   area: "North Bund"
   cuisine: "จีน"
   awards: ["MICHELIN 1★", "Black Pearl 3 เพชร"]
-cover: "./images/yong-fu/cover.jpg | ขานกพิราบทอดกรอบยัดไส้ปูพันเชือกขาวบนจานลายดอกไม้ ร้าน Yong Fu เซี่ยงไฮ้"
+cover: "./images/yong-fu/cover.jpg | ปูดองหนิงโปหั่นชิ้นในซอสสีเข้ม โรยพริกและต้นหอม ในชามลายครามขอบน้ำเงิน ร้าน Yong Fu เซี่ยงไฮ้"
 tag: ""
 bill: ""
 visit: Oct-2026
