@@ -6,9 +6,9 @@ export const SITE = {
   tagline: 'สัมผัสศิลปะแห่งรสชาติ และประสบการณ์การกินอย่างเหนือระดับ ในแบบฉบับของบอส',
   description:
     'รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี',
-  facebook: 'https://www.facebook.com/', // TODO: ใส่ลิงก์เพจจริง
-  instagram: 'https://www.instagram.com/', // TODO: ใส่ลิงก์จริง
-  contactEmail: '', // TODO: อีเมลติดต่อร่วมงาน
+  facebook: 'https://www.facebook.com/eatliketheboss',
+  instagram: 'https://www.instagram.com/eatliketheboss/',
+  contactEmail: 'eatlikethebossth@gmail.com',
 };
 
 export const LOCALES = ['th', 'en', 'ja', 'zh'] as const;
