@@ -1,0 +1,74 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Photo from '../../components/Photo.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { MOTIFS } from '../../lib/config';
+import { getCities, getArticles, articleUrl } from '../../lib/content';
+import { breadcrumbs } from '../../lib/seo';
+import type { City } from '../../lib/types';
+
+export async function getStaticPaths() {
+  return (await getCities()).map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: City };
+const list = (await getArticles('th')).filter((a) => a.city?.slug === c.slug && a.series === 'review');
+const motif = MOTIFS[c.motif] ?? MOTIFS.loop;
+const glassesCount = list.reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
+const picks = list.filter((a) => a.dishes.some((d) => d.glassesOff)).slice(0, 3);
+const groups = [...new Set(list.map((a) => a.restaurant?.cuisine ?? 'อื่นๆ'))].map((cu) => ({ name: cu, rows: list.filter((a) => (a.restaurant?.cuisine ?? 'อื่นๆ') === cu) }));
+const desc = c.intro && !c.intro.startsWith('[') ? c.intro : `รวมร้าน Fine Dining ใน${c.nameTh} (${c.nameEn}) ที่บอสไปชิมมาแล้ว ${list.length} ร้าน พร้อม The Boss's Bill`;
+---
+<Base title={`ร้าน Fine Dining ใน${c.nameTh} ${c.nameEn}`} description={desc} active="destinations"
+  jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: 'จุดหมาย', href: '/destinations/' }, { name: c.nameEn, href: `/city/${c.slug}/` }])]}>
+  <section aria-labelledby="city" class="on-dark" style="position:relative;min-height:520px;display:flex;align-items:flex-end;background:#0b5357">
+    <div style="position:absolute;inset:0"><Photo img={c.cover} label={`ภาพเต็มความกว้าง: ${c.nameEn}`} dark eager sizes="100vw" widths={[800, 1280, 1920]} /></div>
+    <div aria-hidden="true" class={`${motif.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:55%;opacity:.55"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:75%;background:linear-gradient(0deg,rgba(7,59,62,.92) 0%,rgba(7,59,62,.45) 55%,rgba(7,59,62,0) 100%)"></div>
+    <div class="wrap" style="position:relative;width:100%;padding-bottom:56px;color:#fff;display:flex;flex-direction:column;gap:12px">
+      <p class="crumbs" style="color:#fff"><a href="/destinations/">จุดหมาย</a> / {c.country}</p>
+      <h1 id="city" style="margin:0;display:flex;align-items:center;flex-wrap:wrap;gap:20px">
+        <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(64px,10cqi,96px);line-height:1">{c.nameEn}</span>
+        <span style="font-size:36px;font-weight:400">{c.nameTh}</span>
+        <span aria-hidden="true" class={motif.cls} style="width:56px;height:56px;border-radius:50%;background-color:#073b3e;box-shadow:0 0 0 1px #d4b372,0 0 18px rgba(253,234,192,.35)"></span>
+      </h1>
+      <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px 24px;font-family:'Ekkamai New',sans-serif;font-size:16px;color:rgba(255,255,255,.88)"><span>{list.length} ร้าน</span><span>|</span><span>{glassesCount} จานถอดแว่นชิม</span></p>
+    </div>
+  </section>
+  <div aria-hidden="true" class={motif.cls} style="height:40px;background-color:#073b3e;box-shadow:inset 0 1px 0 #c39e5c,inset 0 -1px 0 #c39e5c"></div>
+  <p style="margin:0;background:#073b3e;color:#fdeac0;text-align:center;padding:0 32px 14px;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.16em">ลายประจำเมือง · {motif.label}</p>
+
+  {c.intro && !c.intro.startsWith('[') && <p class="wrap" style="padding-top:56px;margin:0 auto;font-size:19px;line-height:1.85;font-weight:300;max-width:880px">{c.intro}</p>}
+
+  {picks.length > 0 && (
+    <section aria-labelledby="pk" class="wrap" style="padding-top:80px">
+      <h2 id="pk" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">Boss's Picks in {c.nameEn}</h2>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:40px 32px;padding-top:32px">{picks.map((a) => <ArticleCard a={a} />)}</div>
+    </section>
+  )}
+
+  <div class="wrap" style="padding-bottom:96px">
+    {groups.map((g) => (
+      <section style="padding-top:80px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">
+          <h2 style="margin:0;font-size:30px;font-weight:600">{g.name}</h2>
+          <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">{g.rows.length} ร้าน</span>
+        </div>
+        <div class="rule"></div>
+        {g.rows.map((a) => (
+          <a href={articleUrl(a)} class="fx-row" style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding:20px 0;border-bottom:1px solid rgba(195,158,92,.35)">
+            <span style="flex:0 0 120px;aspect-ratio:4/3;display:block;overflow:hidden"><Photo img={a.cover} label="ภาพ" ratio={0.75} widths={[240, 360]} sizes="120px" /></span>
+            <span style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name}</span>
+              <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
+            </span>
+            <span style="flex:0 0 80px;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#0b5357">{a.tag ? <span style="display:inline-flex;gap:4px;align-items:center"><Icon name={a.tag === 'AD' ? 'megaphone' : 'star'} size={14} />{a.tag}</span> : a.restaurant?.priceBand}</span>
+            <span style="flex:0 0 120px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
+          </a>
+        ))}
+      </section>
+    ))}
+    {list.length === 0 && <p style="padding-top:64px;font-size:18px;font-weight:300">ยังไม่มีร้านในเมืองนี้ครับ</p>}
+  </div>
+</Base>

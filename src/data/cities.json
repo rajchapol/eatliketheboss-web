@@ -1,0 +1,76 @@
+[
+ {
+  "slug": "bangkok",
+  "nameEn": "Bangkok",
+  "nameTh": "กรุงเทพฯ",
+  "country": "ประเทศไทย",
+  "region": "th",
+  "motif": "prajam"
+ },
+ {
+  "slug": "phuket",
+  "nameEn": "Phuket",
+  "nameTh": "ภูเก็ต",
+  "country": "ประเทศไทย",
+  "region": "th",
+  "motif": "loop"
+ },
+ {
+  "slug": "chiang-mai",
+  "nameEn": "Chiang Mai",
+  "nameTh": "เชียงใหม่",
+  "country": "ประเทศไทย",
+  "region": "th",
+  "motif": "loop"
+ },
+ {
+  "slug": "tokyo",
+  "nameEn": "Tokyo",
+  "nameTh": "โตเกียว",
+  "country": "ญี่ปุ่น",
+  "region": "jp",
+  "motif": "seigaiha",
+  "featured": true,
+  "intro": "[ประโยคแนะนำเมืองในมุมของบอส 1–2 บรรทัด]"
+ },
+ {
+  "slug": "osaka",
+  "nameEn": "Osaka",
+  "nameTh": "โอซาก้า",
+  "country": "ญี่ปุ่น",
+  "region": "jp",
+  "motif": "kikko"
+ },
+ {
+  "slug": "kyoto",
+  "nameEn": "Kyoto",
+  "nameTh": "เกียวโต",
+  "country": "ญี่ปุ่น",
+  "region": "jp",
+  "motif": "shippo"
+ },
+ {
+  "slug": "hong-kong",
+  "nameEn": "Hong Kong",
+  "nameTh": "ฮ่องกง",
+  "country": "ฮ่องกง",
+  "region": "cn",
+  "motif": "fret"
+ },
+ {
+  "slug": "shanghai",
+  "nameEn": "Shanghai",
+  "nameTh": "เซี่ยงไฮ้",
+  "country": "จีน",
+  "region": "cn",
+  "motif": "loop"
+ },
+ {
+  "slug": "singapore",
+  "nameEn": "Singapore",
+  "nameTh": "สิงคโปร์",
+  "country": "สิงคโปร์",
+  "region": "cn",
+  "motif": "loop"
+ }
+]

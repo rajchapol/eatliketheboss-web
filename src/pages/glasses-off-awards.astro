@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import { getArticles, glassesOffDishes, articleUrl } from '../lib/content';
+
+const items = glassesOffDishes(await getArticles('th'));
+const years = [...new Set(items.map((x) => x.article.publishedAt.slice(0, 4)))].sort().reverse();
+const roman = (n: number) => ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'][n] ?? String(n + 1);
+const ld = {
+  '@context': 'https://schema.org', '@type': 'ItemList', name: 'Glasses Off Awards',
+  itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.dish.name, url: new URL(articleUrl(x.article), 'https://eatlikethebossth.com').href })),
+};
+---
+<Base title="Glasses Off Awards — จานที่อร่อยจนบอสต้องถอดแว่นชิม" description="รวมทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน" active="awards" dark jsonLd={[ld]}>
+  <section aria-labelledby="aw" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
+    <div class="wrap" style="max-width:900px;padding-top:96px;padding-bottom:72px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+      <Icon name="glasses" size={96} class="gold-glow" style="color:#d4b372;stroke-width:1.1" />
+      <h1 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(48px,9cqi,80px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span></h1>
+      <p style="margin:8px 0 0;max-width:34em;font-size:18px;line-height:1.85;font-weight:300;color:rgba(255,255,255,.9)">ทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน แต่ผูกกับจานที่ทำให้หยุดและยิ้มได้จริงๆ</p>
+      {years.length > 1 && <nav aria-label="เลือกปี" style="display:flex;gap:8px;margin-top:16px;font-family:'Ekkamai New',sans-serif;font-size:15px">{years.map((y) => <a href={`#y${y}`} style="padding:8px 20px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{y}</a>)}</nav>}
+    </div>
+  </section>
+  <main class="wrap" style="padding-bottom:96px">
+    {years.map((y) => (
+      <section id={`y${y}`} aria-label={`Glasses Off Awards ${y}`} style="padding-top:56px">
+        <h2 class="gold-grad" style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:48px">{y}</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:32px">
+          {items.filter((x) => x.article.publishedAt.startsWith(y)).map((x, i) => (
+            <a href={articleUrl(x.article)} class="fx-lift" style="display:flex;flex-direction:column;gap:14px;padding:20px 20px 28px;background:rgba(11,83,87,.55);box-shadow:0 0 0 1px rgba(212,179,114,.55),0 16px 36px rgba(0,0,0,.25)">
+              <span class="fx-zoom" style="display:block;aspect-ratio:4/3"><Photo img={x.dish.image} label="ภาพจาน" dark ratio={0.75} widths={[400, 600]} sizes="360px" /></span>
+              <span style="display:flex;justify-content:space-between;align-items:baseline"><span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{roman(i)}.</span><span style="font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.12em;color:#fdeac0">{x.article.city?.nameEn.toUpperCase()}</span></span>
+              <span style="font-size:22px;font-weight:600;line-height:1.4">{x.dish.name}</span>
+              <span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:rgba(255,255,255,.85)">{x.article.restaurant?.name} — Tasting Notes No. {String(x.article.no).padStart(3, '0')}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+    {items.length === 0 && <p style="padding-top:56px;text-align:center">ยังไม่มีจานถอดแว่นชิมครับ</p>}
+  </main>
+</Base>

@@ -1,0 +1,14 @@
+---
+// A photo that fills its box, or a labelled placeholder when there is no image yet.
+import type { Img } from '../lib/types';
+import { imgUrl, srcset } from '../lib/content';
+interface Props { img?: Img; label: string; ratio?: number; widths?: number[]; sizes?: string; eager?: boolean; dark?: boolean }
+const { img, label, ratio, widths = [480, 800, 1200, 1600], sizes = '(max-width: 720px) 100vw, 60vw', eager = false, dark = false } = Astro.props;
+const src = imgUrl(img, widths[1] ?? 800, ratio ? Math.round((widths[1] ?? 800) * ratio) : undefined);
+---
+{img && src ? (
+  <img class="cover" src={src} srcset={srcset(img, widths, ratio)} sizes={sizes} alt={img.alt || label}
+    loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined} />
+) : (
+  <span class={`ph ${dark ? 'ph-dark' : ''}`}>[{label}]</span>
+)}

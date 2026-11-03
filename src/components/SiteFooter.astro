@@ -1,0 +1,42 @@
+---
+import { SITE } from '../lib/config';
+import { getCities } from '../lib/content';
+interface Props { lineart?: boolean }
+const { lineart = true } = Astro.props;
+const cities = (await getCities()).filter((c) => ['bangkok', 'tokyo', 'osaka', 'hong-kong'].includes(c.slug));
+const year = new Date().getFullYear();
+---
+<div style="font-family:'Ekkamai New',sans-serif">
+  {lineart && (
+    <div aria-hidden="true" class="lineart-band" style="display:flex;justify-content:center;overflow:hidden;padding:32px 20px 8px">
+      <img src="/img/lineart-dark.webp" alt="" width="1460" height="510" loading="lazy" class="fade-edges" style="display:block;width:min(100%,960px);height:auto" />
+    </div>
+  )}
+  <footer class="site-footer" style="color:#fff">
+    <div class="goldrule"></div>
+    <nav aria-label="ลิงก์ทั้งหมด" class="wrap" style="padding-top:48px;padding-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;font-size:14px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">SERIES</span>
+        <a href="/review/">บอสพาชิม — รีวิวร้าน</a>
+        <a href="/history/">มื้ออาหารเปลี่ยนโลก</a>
+        <a href="/drinks/">บอสพาดื่ม</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">CITIES</span>
+        {cities.map((c) => <a href={`/city/${c.slug}/`}>{c.nameTh}</a>)}
+        <a href="/destinations/">ทุกเมือง</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">EXPLORE</span>
+        <a href="/restaurants/">ค้นหาร้าน</a>
+        <a href="/glasses-off-awards/">Glasses Off Awards</a>
+        <a href="/about/">เกี่ยวกับบอส</a>
+        <a href="/about/#work">ติดต่อร่วมงาน</a>
+      </div>
+    </nav>
+    <div class="wrap" style="padding-top:32px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px">
+      <span>© {year} บอสพาชิม — Eat Like The Boss</span>
+      <span style="color:#fdeac0"><a href={SITE.facebook} rel="me">Facebook</a> | <a href={SITE.instagram} rel="me">Instagram</a> | <a href="/rss.xml">RSS</a></span>
+    </div>
+  </footer>
+</div>

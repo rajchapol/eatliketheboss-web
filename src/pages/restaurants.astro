@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getArticles, getCities } from '../lib/content';
+
+const list = (await getArticles('th')).filter((a) => a.series === 'review');
+const cityList = (await getCities()).filter((c) => list.some((a) => a.city?.slug === c.slug));
+const cuisines = [...new Set(list.map((a) => a.restaurant?.cuisine).filter(Boolean))] as string[];
+const prices = ['฿฿', '฿฿฿', '฿฿฿฿'];
+const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;height:44px;padding:0 16px;white-space:nowrap;border:1px solid rgba(11,83,87,.4);background:#fff;color:#1a2632;font-family:'Ekkamai New',sans-serif;font-size:15px";
+---
+<Base title="ค้นหาร้าน — ร้าน Fine Dining ที่บอสไปชิมแล้ว" description="ค้นหาร้าน Fine Dining ที่บอสไปชิมมาแล้ว จากชื่อร้าน เชฟ เมือง ประเภทอาหาร หรือระดับราคา พร้อมจานถอดแว่นชิม" active="finder">
+  <style is:global>
+    .chip[aria-pressed="true"]{background:linear-gradient(120deg,#073b3e 0%,#0b5357 100%)!important;color:#fdeac0!important;border-color:#0b5357!important;box-shadow:0 0 0 1px rgba(212,179,114,.7),0 6px 16px rgba(195,158,92,.4)}
+    .card[hidden]{display:none!important}
+  </style>
+  <section aria-labelledby="ft" style="position:relative;overflow:hidden">
+    <div aria-hidden="true" class="pat-loop-light" style="position:absolute;top:0;right:0;bottom:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 75%);mask-image:linear-gradient(90deg,transparent,#000 75%)"></div>
+    <div class="wrap" style="position:relative;padding-top:88px;padding-bottom:48px;display:flex;flex-direction:column;gap:20px">
+      <p class="overline">RESTAURANT FINDER</p>
+      <h1 id="ft" class="ink-grad gold-lift" style="margin:0;font-size:clamp(34px,6cqi,52px);font-weight:600;line-height:1.25">ค้นหาร้านที่บอสไปชิมมาแล้ว</h1>
+      <p style="margin:0;max-width:34em;font-size:18px;line-height:1.8;font-weight:300">ค้นจากชื่อร้าน เมือง ประเภทอาหาร หรือระดับราคา ทุกร้านมีบันทึกการชิมฉบับเต็มและ The Boss's Bill ส่วนมื้อที่ได้รับเชิญหรือเป็นงานโฆษณา ติดป้าย AD หรือ Event ไว้ชัดเจนครับ</p>
+    </div>
+  </section>
+
+  <section aria-label="ตัวกรองร้าน" class="wrap">
+    <div style="padding:0 16px 16px 0">
+      <form id="filters" class="pat-linen" onsubmit="return false" style="background-color:#fbf7ef;padding:clamp(20px,4cqi,32px);display:flex;flex-direction:column;gap:24px;box-shadow:0 0 0 1px rgba(212,179,114,.6),16px 16px 0 0 #d4b372,16px 16px 44px 0 rgba(195,158,92,.3)">
+        <label style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">ค้นหา
+          <span style="position:relative;display:block">
+            <Icon name="search" size={22} style="position:absolute;left:18px;top:17px;color:#0b5357" />
+            <input id="q" type="search" placeholder="ชื่อร้าน เชฟ หรือเมือง" style="width:100%;height:56px;padding:0 18px 0 54px;border:1px solid rgba(11,83,87,.4);border-bottom:2px solid #c39e5c;background:#fff;font-family:'Ekkamai New',sans-serif;font-size:18px;color:#1a2632" />
+          </span>
+        </label>
+        <div style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">
+          <span>เมือง</span>
+          <div class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px" data-group="city">
+            <button type="button" class="chip" data-v="" aria-pressed="true" style={chip}>ทุกเมือง</button>
+            {cityList.map((c) => <button type="button" class="chip" data-v={c.slug} aria-pressed="false" style={chip}><Icon name="pin" size={16} />{c.nameEn}</button>)}
+          </div>
+        </div>
+        <div class="sm-stack" style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end">
+          <label class="sm-full" style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">ประเภทอาหาร
+            <select id="cuisine" style="height:44px;min-width:200px;padding:0 12px;border:1px solid rgba(11,83,87,.4);background:#fff;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#1a2632">
+              <option value="">ทั้งหมด</option>{cuisines.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </label>
+          <div style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">
+            <span>ระดับราคา</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px" data-group="price">
+              <button type="button" class="chip" data-v="" aria-pressed="true" style={chip}>ทุกระดับ</button>
+              {prices.map((p) => <button type="button" class="chip" data-v={p} aria-pressed="false" style={chip}>{p}</button>)}
+            </div>
+          </div>
+          <button type="button" class="chip" id="glasses" aria-pressed="false" style={chip}><Icon name="glasses" size={18} />เฉพาะร้านที่มีจานถอดแว่นชิม</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section aria-labelledby="rs" class="wrap" style="padding-top:56px;padding-bottom:96px">
+    <div class="sm-stack" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 24px;padding-bottom:16px">
+      <h2 id="rs" aria-live="polite" style="margin:0;display:flex;align-items:baseline;gap:12px;font-size:22px;font-weight:400">พบ <span id="count" class="bronze-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:52px;line-height:1">{list.length}</span> ร้าน</h2>
+      <button type="button" id="reset" style="display:inline-flex;align-items:center;gap:6px;min-height:44px;border:0;background:none;padding:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357"><span style="border-bottom:1px solid #c39e5c">ล้างตัวกรอง</span></button>
+    </div>
+    <div class="rule"></div>
+    <div id="results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:40px 32px;padding-top:40px">
+      {list.map((a) => <ArticleCard a={a} />)}
+    </div>
+    <p id="empty" hidden style="margin-top:48px;text-align:center;font-size:18px;font-weight:300">ยังไม่พบร้านที่ตรงกับตัวกรอง ลองล้างตัวกรองหรือค้นด้วยคำอื่นครับ</p>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const st = { q: new URLSearchParams(location.search).get('q') || '', city: new URLSearchParams(location.search).get('city') || '', price: '', cuisine: '', glasses: false };
+      const q = document.getElementById('q'), sel = document.getElementById('cuisine'), g = document.getElementById('glasses');
+      const cards = [...document.querySelectorAll('#results .card')];
+      const press = (group, v) => document.querySelectorAll(`[data-group="${group}"] .chip`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+      const run = () => {
+        const term = st.q.trim().toLowerCase(); let n = 0;
+        cards.forEach((c) => {
+          const ok = (!st.city || c.dataset.city === st.city) && (!st.price || c.dataset.price === st.price) && (!st.cuisine || c.dataset.cuisine === st.cuisine) && (!st.glasses || c.dataset.glasses) && (!term || c.dataset.text.includes(term));
+          c.hidden = !ok; if (ok) n++;
+        });
+        document.getElementById('count').textContent = n; document.getElementById('empty').hidden = n > 0;
+      };
+      q.value = st.q; press('city', st.city);
+      q.addEventListener('input', () => { st.q = q.value; run(); });
+      sel.addEventListener('change', () => { st.cuisine = sel.value; run(); });
+      g.addEventListener('click', () => { st.glasses = !st.glasses; g.setAttribute('aria-pressed', String(st.glasses)); run(); });
+      document.querySelectorAll('[data-group]').forEach((grp) => grp.addEventListener('click', (e) => {
+        const b = e.target.closest('.chip'); if (!b) return; st[grp.dataset.group] = b.dataset.v; press(grp.dataset.group, b.dataset.v); run();
+      }));
+      document.getElementById('reset').addEventListener('click', () => { Object.assign(st, { q: '', city: '', price: '', cuisine: '', glasses: false }); q.value = ''; sel.value = ''; g.setAttribute('aria-pressed', 'false'); press('city', ''); press('price', ''); run(); });
+      run();
+    })();
+  </script>
+</Base>

@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/config';
+import { getSettings } from '../lib/content';
+import { person } from '../lib/seo';
+const s = await getSettings();
+const roman = ['I.', 'II.', 'III.', 'IV.', 'V.'];
+---
+<Base title="เกี่ยวกับบอส" description={s.aboutShortBio} active="about" jsonLd={[{ '@context': 'https://schema.org', '@type': 'AboutPage', mainEntity: person() }]}>
+  <main class="wrap">
+    <section aria-labelledby="ab" style="display:flex;flex-wrap:wrap;gap:48px 72px;padding-top:96px;padding-bottom:72px;align-items:center">
+      <div style="flex:0 0 280px;width:280px;height:280px;border-radius:50%;background:#fbf7ef;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(212,179,114,.6),0 18px 40px rgba(195,158,92,.3)">
+        <img src="/img/monogram.webp" alt="ELB monogram" width="220" height="220" style="width:220px;height:auto" />
+      </div>
+      <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:20px">
+        <p class="overline">ABOUT THE BOSS</p>
+        <h1 id="ab" class="ink-grad gold-lift" style="margin:0;font-size:clamp(36px,6cqi,48px);font-weight:600;line-height:1.3">{s.aboutHeadline}</h1>
+        <p style="margin:0;font-size:22px;line-height:1.6;font-weight:300"><span class="mark">{SITE.tagline}</span></p>
+        {s.aboutBio.map((p) => <p style="margin:0;max-width:36em;font-size:17px;line-height:1.85;font-weight:300">{p}</p>)}
+      </div>
+    </section>
+
+    <section aria-label="ตัวเลข" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:72px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);background:#fbf7ef">
+      {[['2017', 'เริ่มเขียนรีวิว'], ['15+', 'ปีในวงการ Hospitality และ F&B'], ['Tatler', 'Best Asia-Pacific panelist & more']].map(([n, l], i) => (
+        <div style={`padding:28px;display:flex;flex-direction:column;gap:6px;${i < 2 ? 'border-right:1px solid rgba(195,158,92,.35)' : ''}`}><span class="ink-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1">{n}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{l}</span></div>
+      ))}
+    </section>
+
+    <div aria-hidden="true" style="margin:-24px 0 72px;display:flex;justify-content:center"><img src="/img/lineart-light.webp" alt="" width="1460" height="510" loading="lazy" class="fade-edges" style="display:block;width:min(100%,1000px);height:auto" /></div>
+
+    <section aria-labelledby="why" style="display:flex;flex-wrap:wrap;gap:32px 72px;padding-bottom:96px;align-items:flex-start">
+      <h2 id="why" class="ink-grad gold-lift" style="flex:0 0 320px;margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1.05">Why honest matters</h2>
+      <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">{s.whyHonest.map((p, i) => <p style={`margin:0;font-size:${i ? 17 : 19}px;line-height:1.85;font-weight:300`}>{p}</p>)}</div>
+    </section>
+
+    <section aria-labelledby="how" style="padding-bottom:96px">
+      <h2 id="how" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">How the Boss reviews</h2>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;padding-top:32px">
+        {s.howIReview.map((h, i) => (
+          <div style="background:#fbf7ef;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22)">
+            <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;line-height:1;color:#6e3f08">{roman[i]}</span>
+            <h3 style="margin:0;font-size:20px;font-weight:600">{h.title}</h3>
+            <p style="margin:0;font-size:16px;line-height:1.8;font-weight:300">{h.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="series" style="padding-bottom:96px">
+      <h2 id="series" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">The series</h2>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 48px">
+        {[['บอสพาชิม', '/review/', 'รีวิวร้าน Fine Dining ทั้งในไทยและต่างประเทศ เล่าทีละจาน ตั้งแต่จานแรกจนของหวาน'], ['มื้ออาหารเปลี่ยนโลก', '/history/', 'เรื่องเล่าของมื้ออาหารและงานเลี้ยงที่มีผลต่อประวัติศาสตร์'], ['บอสพาดื่ม', '/drinks/', 'ไวน์ สุรา และโรงบ่มที่ผมอยากเล่าต่อ จากมุมของคนในวงการ']].map(([t, h, d]) => (
+          <a href={h} class="fx-row" style="padding:28px 0;border-bottom:1px solid rgba(195,158,92,.35);display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font-size:22px;font-weight:600;color:#0b5357">{t}</h3><p style="margin:0;font-size:16px;line-height:1.8;font-weight:300">{d}</p></a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <section id="work" aria-labelledby="ct" class="band-teal on-dark" style="color:#fff">
+    <div class="goldrule"></div>
+    <div class="wrap" style="padding-top:80px;padding-bottom:80px;display:flex;flex-wrap:wrap;gap:32px 64px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:14px">
+        <h2 id="ct" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:44px;line-height:1">Work with <span class="gold-grad gold-glow" style="font-style:italic">the Boss</span></h2>
+        <p style="margin:0;max-width:32em;font-size:17px;line-height:1.85;font-weight:300">{s.workWithMe}</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:'Ekkamai New',sans-serif;font-size:16px">
+        {SITE.contactEmail && <a href={`mailto:${SITE.contactEmail}`} class="btn-gold">{SITE.contactEmail}</a>}
+        <a href={SITE.facebook} rel="me" style="display:inline-flex;align-items:center;min-height:48px;padding:0 28px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">Facebook</a>
+        <a href={SITE.instagram} rel="me" style="display:inline-flex;align-items:center;min-height:48px;padding:0 28px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">Instagram</a>
+      </div>
+    </div>
+  </section>
+</Base>
