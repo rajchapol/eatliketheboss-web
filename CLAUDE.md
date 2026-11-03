@@ -12,6 +12,7 @@ Read this first. Keep edits small: read only the files you need, prefer find-and
 1. Write the article in the Boss's voice with the `eatliketheboss-writing-style` skill (Google Doc draft is the source of truth).
 2. Copy `posts/_template.md` to `posts/<slug>.md` and fill it. Put photos in `posts/images/<slug>/` (or use https URLs). Every image needs real alt text after `|`.
 3. `npm run post -- posts/<slug>.md --dry` to check, then `npm run post -- posts/<slug>.md` to publish. Needs `.env` with `SANITY_PROJECT_ID` and `SANITY_WRITE_TOKEN`.
+   **From a Claude session (no token needed):** run the `--dry` check locally, then — only after the Boss approves that post — commit `posts/<slug>.md` + its images and push to `main`. `.github/workflows/post-article.yml` publishes every changed `posts/*.md` with the GitHub secret `SANITY_WRITE_TOKEN`. Re-run or dry-run any file from Actions → Post article to Sanity → Run workflow. Never ask for or store the token itself.
 4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
 You never need to touch `src/` to post.
 
