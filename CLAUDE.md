@@ -32,13 +32,17 @@ You never need to touch `src/` to post.
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |
-| Site URL, socials, email, series, motifs | `src/lib/config.ts` |
+| Site copy (tagline, page intros, series text, about, socials, email, OG image) | Sanity → ตั้งค่าเว็บ (defaults: `src/data/settings.json`) |
+| Site URL, series keys, motifs | `src/lib/config.ts` |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
 
 ## URLs (never change once live; add a redirect in `public/_redirects` if you must)
 `/review/<city>/<slug>/` · `/history/<slug>/` · `/drinks/<slug>/` · `/city/<slug>/` · `/restaurants/` · `/destinations/` · `/glasses-off-awards/` · `/about/` · other languages prefixed `/en/ /ja/ /zh/`.
+
+## Numbering
+Tasting Notes No. is automatic: order of `visit` (Mon-YYYY; oldest meal = No. 001, same month → earlier publish date first). Lists show newest visit first. Never set `no` by hand.
 
 ## SEO checklist per article
 Meta title ≤ 60 chars, description 120–155, slug in English, alt text on every photo, publish date, city set. Full rules: `docs/SEO.md`.

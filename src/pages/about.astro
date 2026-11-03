@@ -21,8 +21,8 @@ const roman = ['I.', 'II.', 'III.', 'IV.', 'V.'];
     </section>
 
     <section aria-label="ตัวเลข" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:72px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);background:#fbf7ef">
-      {[['2017', 'เริ่มเขียนรีวิว'], ['15+', 'ปีในวงการ Hospitality และ F&B'], ['Tatler', 'Best Asia-Pacific panelist & more']].map(([n, l], i) => (
-        <div style={`padding:28px;display:flex;flex-direction:column;gap:6px;${i < 2 ? 'border-right:1px solid rgba(195,158,92,.35)' : ''}`}><span class="ink-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1">{n}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{l}</span></div>
+      {s.aboutStats.map(({ value: n, label: l }, i, all) => (
+        <div style={`padding:28px;display:flex;flex-direction:column;gap:6px;${i < all.length - 1 ? 'border-right:1px solid rgba(195,158,92,.35)' : ''}`}><span class="ink-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1">{n}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{l}</span></div>
       ))}
     </section>
 
@@ -51,7 +51,7 @@ const roman = ['I.', 'II.', 'III.', 'IV.', 'V.'];
       <h2 id="series" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">The series</h2>
       <div class="rule"></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 48px">
-        {[['บอสพาชิม', '/review/', 'รีวิวร้าน Fine Dining ทั้งในไทยและต่างประเทศ เล่าทีละจาน ตั้งแต่จานแรกจนของหวาน'], ['มื้ออาหารเปลี่ยนโลก', '/history/', 'เรื่องเล่าของมื้ออาหารและงานเลี้ยงที่มีผลต่อประวัติศาสตร์'], ['บอสพาดื่ม', '/drinks/', 'ไวน์ สุรา และโรงบ่มที่ผมอยากเล่าต่อ จากมุมของคนในวงการ']].map(([t, h, d]) => (
+        {[['บอสพาชิม', '/review/', s.seriesText.review], ['มื้ออาหารเปลี่ยนโลก', '/history/', s.seriesText.history], ['บอสพาดื่ม', '/drinks/', s.seriesText.drinks]].map(([t, h, d]) => (
           <a href={h} class="fx-row" style="padding:28px 0;border-bottom:1px solid rgba(195,158,92,.35);display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font-size:22px;font-weight:600;color:#0b5357">{t}</h3><p style="margin:0;font-size:16px;line-height:1.8;font-weight:300">{d}</p></a>
         ))}
       </div>

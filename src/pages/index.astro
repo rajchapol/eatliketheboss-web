@@ -7,12 +7,13 @@ import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings } fro
 import { organization, website } from '../lib/seo';
 
 const articles = await getArticles('th');
-const lead = articles.find((a) => a.series === 'review') ?? articles[0];
+const settings = await getSettings();
+const lead = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId) ?? articles.find((a) => a.series === 'review') ?? articles[0];
 const index = articles.slice(0, 10);
 const year = new Date().getFullYear();
 const awards = glassesOffDishes(articles).slice(0, 4);
-const quickCities = (await getCities()).filter((c) => ['bangkok', 'tokyo', 'osaka'].includes(c.slug));
-const settings = await getSettings();
+const allCities = await getCities();
+const quickCities = (settings.homeCitySlugs?.length ? settings.homeCitySlugs : ['bangkok', 'tokyo', 'osaka']).map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities;
 const roman = ['I.', 'II.', 'III.', 'IV.', 'V.', 'VI.'];
 const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).replace(' ', '-');
 ---
@@ -21,7 +22,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
 
   <section aria-label="ค้นหาร้าน" class="pat-linen" style="background-color:#fbf7ef;box-shadow:0 10px 24px rgba(195,158,92,.18)">
     <form action="/restaurants/" method="get" class="wrap" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;font-family:'Ekkamai New',sans-serif">
-      <label for="q" style="font-size:15px;color:#4a5560">หาร้านที่บอสไปชิมมาแล้ว</label>
+      <label for="q" style="font-size:15px;color:#4a5560">{settings.homeFinderLabel}</label>
       <span style="flex:1 1 320px;position:relative;display:block">
         <Icon name="search" style="position:absolute;left:16px;top:14px;color:#0b5357" />
         <input id="q" name="q" type="search" placeholder="ชื่อร้าน เชฟ หรือเมือง…" style="width:100%;height:48px;padding:0 18px 0 48px;border:1px solid rgba(11,83,87,.4);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
@@ -64,6 +65,13 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
       <a href="/review/" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">บันทึกการชิมทั้งหมด</a>
     </div>
     <div class="rule fx-draw"></div>
+    {index.length === 0 && (
+      <div style="padding:48px 0;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+        <img src="/img/brand/empty-state-cloche.svg" alt="" width="220" height="138" style="height:auto" />
+        <p style="margin:0;font-size:18px;font-weight:300">บันทึกการชิมฉบับแรกกำลังจะเสิร์ฟเร็วๆ นี้ครับ</p>
+        <a href={SITE.facebook} rel="me" class="fx-under" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ติดตามบอสพาชิมบน Facebook ระหว่างรอ</a>
+      </div>
+    )}
     {index.map((a) => (
       <a href={articleUrl(a)} class="fx-row" style="display:flex;flex-wrap:wrap;gap:4px 24px;align-items:baseline;padding:24px 0;border-bottom:1px solid rgba(195,158,92,.3)">
         <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08;flex:0 0 96px">No. {String(a.no).padStart(3, '0')}</span>
@@ -86,7 +94,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
       <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
         <div style="display:flex;align-items:center;gap:20px"><Icon name="glasses" size={56} class="gold-glow" style="color:#d4b372;stroke-width:1.2" />
           <h2 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5cqi,44px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span> {year}</h2></div>
-        <p style="margin:0;max-width:26em;font-size:17px;line-height:1.8;font-weight:300">ทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิมในปีนี้</p>
+        <p style="margin:0;max-width:26em;font-size:17px;line-height:1.8;font-weight:300">{settings.homeAwardsText}</p>
       </div>
       <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
         {awards.map(({ dish, article }, i) => (
@@ -110,7 +118,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
     <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">
       <h2 id="ab" style="margin:0;font-size:32px;font-weight:600;line-height:1.3"><a href="/about/">เกี่ยวกับบอส</a></h2>
       <p style="margin:0;max-width:36em;font-size:17px;line-height:1.85;font-weight:300">{settings.aboutShortBio}</p>
-      <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">มื้อที่ได้รับเชิญหรือเป็นงานโฆษณา ติดป้าย AD หรือ Event ชัดเจนเสมอ</p>
+      <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{settings.invitedNote}</p>
     </div>
   </section>
 </Base>

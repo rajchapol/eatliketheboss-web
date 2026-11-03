@@ -27,7 +27,10 @@ const crumbs = [
   ...(a.city ? [{ name: a.city.nameEn, href: `/city/${a.city.slug}/` }] : []),
   { name: a.restaurant?.name ?? a.title, href: articleUrl(a) },
 ];
-const description = a.seoDescription || a.tagline || a.title;
+const autoDesc = a.series === 'review'
+  ? `${a.tagline ? a.tagline + ' — ' : ''}รีวิว ${a.restaurant?.name ?? a.title}${a.city ? ` ${a.city.nameTh}` : ''} โดยบอสพาชิม เล่าทีละจาน พร้อม The Boss's Bill และจานถอดแว่นชิม`
+  : `${a.tagline ? a.tagline + ' — ' : ''}${a.title} จากซีรีส์${SERIES[a.series].th} โดยบอสพาชิม · Eat Like The Boss`;
+const description = a.seoDescription || autoDesc;
 const thDate = (iso: string) => new Date(iso).toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <Base title={a.seoTitle || `${a.restaurant?.name ?? a.title}${a.city ? ` ${a.city.nameEn}` : ''} รีวิว`} description={description}
@@ -147,7 +150,7 @@ const thDate = (iso: string) => new Date(iso).toLocaleDateString('th-TH', { day:
 
   <div class="lb on-dark" hidden role="dialog" aria-modal="true" aria-label="ดูรูปใหญ่" style="position:fixed;inset:0;z-index:50;padding:24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(7,30,32,.95);color:#fff">
     <button type="button" class="lb-btn" data-lb-close aria-label="ปิดรูปใหญ่" style="position:absolute;top:16px;right:16px;padding:0"><Icon name="close" /></button>
-    <img data-lb-img alt="" style="max-width:min(100%,900px);max-height:calc(100vh - 200px);object-fit:contain;box-shadow:0 0 0 1px #d4b372" />
+    <img data-lb-img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" style="max-width:min(100%,900px);max-height:calc(100vh - 200px);object-fit:contain;box-shadow:0 0 0 1px #d4b372" />
     <p data-lb-cap style="margin:0;font-size:18px;font-weight:600;text-align:center"></p>
     <div style="display:flex;align-items:center;gap:16px">
       <button type="button" class="lb-btn" data-lb-prev aria-label="จานก่อนหน้า"><Icon name="prev" />ก่อนหน้า</button>
