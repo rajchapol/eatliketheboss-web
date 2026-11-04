@@ -1,0 +1,14 @@
+---
+// The five main-menu links (icon + label), shared by the header and the compact bar.
+import Icon from './Icon.astro';
+import { NAV_LABELS, NAV_ITEMS } from '../lib/i18n';
+import type { Locale } from '../lib/config';
+interface Props { active?: string; lang: Locale }
+const { active, lang } = Astro.props;
+const N = NAV_LABELS[lang];
+---
+{NAV_ITEMS.map(([key, href, icon]) => (
+  <a href={href} aria-current={key === active ? 'page' : undefined}>
+    <Icon name={icon} size={18} class="nav-ico" />
+    {key === 'awards' ? <span><span class="nav-long">Glasses Off </span>Awards</span> : <span>{N[key]}</span>}
+  </a>))}

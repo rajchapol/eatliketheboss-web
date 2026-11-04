@@ -1,11 +1,30 @@
 ---
+// Not found: a way back in — search the restaurants, or pick one of the latest reviews.
 import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getArticles, getSettings, groupByRestaurant } from '../lib/content';
+const st = await getSettings();
+const latest = groupByRestaurant((await getArticles('th')).filter((a) => a.series === 'review')).slice(0, 3).map((r) => r.latest);
 ---
 <Base title="ไม่พบหน้านี้" noindex>
-  <section class="wrap" style="padding-top:120px;padding-bottom:120px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
+  <section class="wrap" style="padding-top:96px;padding-bottom:72px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
     <img src="/img/brand/error-404.svg" alt="" width="320" height="200" style="max-width:80vw;height:auto" />
     <h1 style="margin:0;font-size:32px;font-weight:600">ไม่พบหน้านี้ครับ</h1>
-    <p style="margin:0;font-size:18px;font-weight:400">หน้านี้อาจถูกย้ายไปแล้ว ลองค้นหาร้านหรือกลับไปหน้าแรกได้เลยครับ</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="/restaurants/" class="btn-teal">ค้นหาร้าน</a><a href="/" class="btn-gold">หน้าแรก</a></div>
+    <p style="margin:0;font-size:18px;font-weight:400">หน้านี้อาจถูกย้ายไปแล้ว ลองค้นหาร้านที่อยากอ่าน หรือเลือกจากรีวิวล่าสุดด้านล่างได้เลยครับ</p>
+    <form action="/restaurants/" method="get" role="search" style="position:relative;width:min(100%,520px);margin-top:8px">
+      <label for="q404" class="sr-only">ค้นหาร้าน</label>
+      <Icon name="search" style="position:absolute;left:18px;top:14px;color:#0b5357" />
+      <input id="q404" name="q" type="search" placeholder={st.homeSearchPlaceholder} style="width:100%;height:48px;padding:0 120px 0 48px;border:1px solid rgba(11,83,87,.4);border-radius:var(--r-pill);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
+      <button type="submit" class="btn-teal" style="position:absolute;right:4px;top:4px;min-height:40px;padding:0 18px;border:0;cursor:pointer">ค้นหา</button>
+    </form>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center"><a href="/destinations/" class="btn-gold">ดูตามเมือง</a><a href="/" class="btn-teal">หน้าแรก</a></div>
   </section>
+  {latest.length > 0 && (
+    <section aria-labelledby="latest404" class="wrap" style="padding-bottom:96px">
+      <h2 id="latest404" class="ink-grad" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:40px;line-height:1.1">Latest Tasting Notes</h2>
+      <div class="rule"></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:32px">{latest.map((a) => <ArticleCard a={a} />)}</div>
+    </section>
+  )}
 </Base>

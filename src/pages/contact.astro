@@ -61,7 +61,7 @@ const label = "display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai N
       {!key && <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">กดส่งแล้วจะเปิดแอปอีเมลของคุณพร้อมข้อความที่กรอกไว้</p>}
     </form>
   </section>
-  <script is:inline>
+  <script>
     (() => {
       const f = document.querySelector('[data-contact]'); if (!f) return;
       const status = f.querySelector('[data-status]'), send = f.querySelector('[data-send]'), rec = f.querySelector('[data-recommend]');

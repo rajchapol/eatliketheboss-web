@@ -93,7 +93,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
     ))}
     {list.length === 0 && <p style="padding-top:48px;font-size:18px">ยังไม่มีร้านในเมืองนี้ครับ</p>}
   </section>
-  <script is:inline>
+  <script>
     document.querySelectorAll('[data-cuisine-filter]').forEach((root) => {
       const chips = root.querySelectorAll('[data-cu]'), groups = root.querySelectorAll('[data-group]'), count = root.querySelector('[data-count]');
       chips.forEach((b) => b.addEventListener('click', () => {

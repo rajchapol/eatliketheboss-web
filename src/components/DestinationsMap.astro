@@ -60,7 +60,7 @@ const v0 = VIEWS[start];
     </div>
   </section>
 )}
-<script is:inline>
+<script>
   document.querySelectorAll('[data-map]').forEach((root) => {
     const VIEWS = JSON.parse(root.dataset.views), svg = root.querySelector('[data-svg]'), box = root.querySelector('[data-box]');
     const pins = [...root.querySelectorAll('.map-pin')], btns = [...root.querySelectorAll('[data-view]')];

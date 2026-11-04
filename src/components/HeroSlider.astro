@@ -48,7 +48,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     )}
   </section>
 )}
-<script is:inline>
+<script>
   document.querySelectorAll('[data-slider]').forEach((root) => {
     const track = root.querySelector('[data-track]'); const slides = [...track.children]; if (slides.length < 2) return;
     const dots = [...root.querySelectorAll('[data-dot]')], count = root.querySelector('[data-count]');
