@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { TranslationsPanel, LANGS } from '../components/TranslationsPanel';
+import { charCount } from '../components/CharCount';
 // Tab icons: one import per icon (the root entry no longer exports them in @sanity/icons v5).
 import { HomeIcon } from '@sanity/icons/Home';
 import { DocumentTextIcon } from '@sanity/icons/DocumentText';
@@ -110,9 +111,9 @@ export const article = defineType({
       validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }).custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องใส่ Visit' : true)) }),
     defineField({ name: 'hashtags', title: 'แฮชแท็ก (ไม่ต้องใส่ #, ไม่เกิน 10)', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' }, group: 'meta', validation: (r) => r.max(10) }),
     defineField({ name: 'publishedAt', title: 'วันที่เผยแพร่', type: 'date', group: 'meta', initialValue: () => new Date().toISOString().slice(0, 10), validation: (r) => r.required() }),
-    defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', validation: (r) => r.max(60) }),
+    defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', components: { input: charCount(0, 60) }, validation: (r) => r.max(60) }),
     defineField({ name: 'seoDescription', title: 'Meta description', description: '120–155 ตัวอักษร ในน้ำเสียงบอส ห้ามมีดาวหรือคะแนน', type: 'text', rows: 3, group: 'seo',
-      validation: (r) => r.min(80).max(160).warning() }),
+      components: { input: charCount(120, 155) as any }, validation: (r) => r.min(120).max(155).warning('ควรยาว 120–155 ตัวอักษร') }),
   ],
   orderings: [{ title: 'ใหม่สุด', name: 'newest', by: [{ field: 'publishedAt', direction: 'desc' }] }],
   preview: { select: { title: 'title', name: 'restaurant.name', series: 'series', ep: 'episode', visit: 'visit', lang: 'language', city: 'city.nameEn', media: 'cover' },

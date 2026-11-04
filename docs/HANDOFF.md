@@ -4,7 +4,7 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
-## Session 2026-11-04 (late night) · Studio translations reworked
+## Session 2026-11-04 (late night) · Studio translations reworked, to-do lists, safer delete, open on site
 
 The Boss: Studio's translation fields were hard to use — you couldn't tell which article a translation was linked to.
 - **Tab "5 ภาษา / คำแปล"** (`studio/schemas/index.ts`, panel `studio/components/TranslationsPanel.tsx`):
@@ -14,6 +14,23 @@ The Boss: Studio's translation fields were hard to use — you couldn't tell whi
 - **Slug** is unique per language (a translation keeps the Thai slug).
 - **Article preview** everywhere (lists, reference picker): the restaurant name first, then `TH/EN/JA/ZH · city · Visit`.
 - `@sanity/ui` is now a direct Studio dependency. Studio redeploys when this reaches main.
+- **Studio menu** (`studio/sanity.config.ts`):
+  - **บทความ (ภาษาไทย):** ทั้งหมด / by series / แยกตามเมือง.
+  - **คำแปล:** split by language.
+  - **งานที่ต้องทำ:** lists that empty themselves as things get fixed:
+    - new drafts never published;
+    - drafts with unpublished edits;
+    - no price band;
+    - no Visit;
+    - no cover;
+    - photos without alt;
+    - SEO missing or wrong length;
+    - Thai articles with no English translation.
+- **Article actions** (`studio/components/actions.tsx`):
+  - **เปิดดูบนเว็บ** opens the live URL (same rules as `articleUrl()`).
+  - **ลบบทความ…** replaces Delete. Its dialog says which web page disappears, and refuses while other documents (translations) still reference the article, with links to them.
+- **SEO counters** (`studio/components/CharCount.tsx`): live count on Meta title (≤60) and description (120–155, warning outside).
+- The draft lists use `_id in path("drafts.**")`. If they come up empty although drafts exist, check how the Studio version lists drafts.
 - Not testable here: the Studio form needs a Sanity login and network. The schema validates (0 errors) and `sanity build` passes. Ask the Boss to try "+ English" on one article.
 
 ---
