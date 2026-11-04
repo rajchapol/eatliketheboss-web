@@ -16,6 +16,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
   - Phones and the compact bar: short English names only (Search / Cities / Notes / Awards / About), so all five fit at 320px.
 - **Sample data:** `src/data/seed.ts` now has an English translation of the Tokyo sample, so the sample build (and CI) covers translated pages and the switcher.
 - Checked with Playwright at 320/390/1280 on Thai article, English article and home: no overflow, no JS errors. Smoke test of all pages passes.
+- **Studio fixes after the Boss's screenshots:**
+  - **Thai lines overlapped** in the language panel and dialogs: @sanity/ui `<Text>` trims line boxes to the Latin cap height. Replaced with `components/Line.tsx` (line-height 1.6).
+  - **An empty "ไม่มีชื่อ" EN draft kept coming back after "ลบบทความ…".** The delete now removes `drafts.<id>` and `<id>` in one transaction, then closes the pane (`usePaneRouter().closeCurrent()`), so an open form cannot write it back. It also shows a toast.
+  - Not reproducible here (no Studio login). If it still returns, check which tool recreates it.
 
 ---
 

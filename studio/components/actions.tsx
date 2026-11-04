@@ -3,9 +3,12 @@
 // - "ลบบทความ…": a clearer delete. It says what disappears from the website, and refuses while translations
 //   still point at this Thai article (delete those first; the list links to them).
 import { useEffect, useState } from 'react';
-import { useClient, useDocumentOperation, type DocumentActionComponent, type DocumentActionProps } from 'sanity';
+import { useClient, type DocumentActionComponent, type DocumentActionProps } from 'sanity';
+import { usePaneRouter } from 'sanity/structure';
+import { useToast } from '@sanity/ui/toast';
 import { IntentLink } from 'sanity/router';
-import { Box, Button, Card, Flex, Stack, Text } from '@sanity/ui';
+import { Box, Button, Card, Flex, Stack } from '@sanity/ui';
+import { Line } from './Line';
 import { LaunchIcon } from '@sanity/icons/Launch';
 import { TrashIcon } from '@sanity/icons/Trash';
 
@@ -51,8 +54,9 @@ type Row = { _id: string; language?: string; title?: string; name?: string };
 
 export const SafeDeleteAction: DocumentActionComponent = (props: DocumentActionProps) => {
   const { id, type, draft, published, onComplete } = props;
-  const op = useDocumentOperation(id, type) as any;
   const client = useClient({ apiVersion: '2025-01-01' });
+  const pane = usePaneRouter();
+  const toast = useToast();
   const [open, setOpen] = useState(false);
   const [refs, setRefs] = useState<Row[] | null>(null);
   const [busy, setBusy] = useState(false);
@@ -71,7 +75,7 @@ export const SafeDeleteAction: DocumentActionComponent = (props: DocumentActionP
     label: 'ลบบทความ…',
     icon: TrashIcon,
     tone: 'critical',
-    disabled: Boolean(op.delete?.disabled),
+    disabled: !draft && !published,
     onHandle: () => setOpen(true),
     dialog: open && {
       type: 'dialog',
@@ -79,16 +83,16 @@ export const SafeDeleteAction: DocumentActionComponent = (props: DocumentActionP
       onClose: () => { setOpen(false); onComplete(); },
       content: (
         <Stack space={4}>
-          <Text size={1}>ลบทั้งฉบับร่างและฉบับที่เผยแพร่ กู้คืนจากปุ่มนี้ไม่ได้ (ดูประวัติย้อนหลังได้จากเมนู History ก่อนลบเท่านั้น)</Text>
-          {url ? <Text size={1}>หน้าเว็บ <code>{url.replace(SITE, '')}</code> จะหายไปหลังเว็บอัปเดต ลิงก์ที่เคยแชร์ไปจะเปิดไม่ได้</Text>
-            : <Text size={1} muted>บทความนี้ยังไม่เคยเผยแพร่ ลบแล้วไม่กระทบหน้าเว็บ</Text>}
-          {refs === null ? <Text size={1} muted>กำลังตรวจคำแปลที่ผูกอยู่…</Text> : blocked && (
+          <Line>ลบทั้งฉบับร่างและฉบับที่เผยแพร่ กู้คืนจากปุ่มนี้ไม่ได้ (ดูประวัติย้อนหลังได้จากเมนู History ก่อนลบเท่านั้น)</Line>
+          {url ? <Line>หน้าเว็บ <code>{url.replace(SITE, '')}</code> จะหายไปหลังเว็บอัปเดต ลิงก์ที่เคยแชร์ไปจะเปิดไม่ได้</Line>
+            : <Line muted>บทความนี้ยังไม่เคยเผยแพร่ ลบแล้วไม่กระทบหน้าเว็บ</Line>}
+          {refs === null ? <Line muted>กำลังตรวจคำแปลที่ผูกอยู่…</Line> : blocked && (
             <Card padding={3} radius={2} tone="caution" border>
               <Stack space={3}>
-                <Text size={1} weight="semibold">ยังลบไม่ได้: มีเอกสารผูกกับบทความนี้อยู่ {refs!.length} รายการ ลบหรือแก้รายการเหล่านี้ก่อน</Text>
+                <Line bold>ยังลบไม่ได้: มีเอกสารผูกกับบทความนี้อยู่ {refs!.length} รายการ ลบหรือแก้รายการเหล่านี้ก่อน</Line>
                 {refs!.map((r) => (
                   <Card key={r._id} as={IntentLink as any} intent="edit" params={{ id: r._id, type: 'article' }} padding={2} radius={2} border style={{ textDecoration: 'none' }}>
-                    <Text size={1}>{(r.language || 'th').toUpperCase()} · {r.name || r.title || r._id}</Text>
+                    <Line>{(r.language || 'th').toUpperCase()} · {r.name || r.title || r._id}</Line>
                   </Card>
                 ))}
               </Stack>
@@ -97,7 +101,20 @@ export const SafeDeleteAction: DocumentActionComponent = (props: DocumentActionP
           <Flex gap={2} justify="flex-end">
             <Button mode="ghost" text="ยกเลิก" onClick={() => { setOpen(false); onComplete(); }} />
             <Button tone="critical" icon={TrashIcon} text={busy ? 'กำลังลบ…' : 'ลบถาวร'} disabled={refs === null || blocked || busy}
-              onClick={() => { setBusy(true); op.delete.execute(); setOpen(false); onComplete(); }} />
+              onClick={async () => {
+                // Delete the draft and the published version in one transaction, then close this pane:
+                // an open form could otherwise write the empty document back (the "ไม่มีชื่อ" that kept returning).
+                setBusy(true);
+                try {
+                  await client.transaction().delete(`drafts.${bare(id)}`).delete(bare(id)).commit({ visibility: 'sync' });
+                  toast.push({ status: 'success', title: `ลบ "${name}" แล้ว` });
+                  setOpen(false); onComplete();
+                  try { pane.closeCurrent(); } catch { /* not in a structure pane */ }
+                } catch (e: any) {
+                  toast.push({ status: 'error', title: 'ลบไม่สำเร็จ', description: String(e?.message || e) });
+                  setBusy(false);
+                }
+              }} />
           </Flex>
         </Stack>
       ),
