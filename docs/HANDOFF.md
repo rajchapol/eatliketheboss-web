@@ -4,6 +4,16 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late night) · iPhone fixes
+
+The Boss said the effects look quite broken on a phone. WebKit can't be installed in the container (no download access), so the fixes target known Safari behaviour. All taps and layouts were re-tested in Chromium iPhone emulation.
+- **Fixed elements moved out of `.elb-page`:** the compact bar (now `src/components/MiniBar.astro`, rendered by `Base.astro`) and the reading-progress line. `.elb-page` is a CSS query container (`container-type`), and Safari can make a container the anchor for `position:fixed` children, so the bar scrolled with the page instead of sticking to the screen. Rule: **never put `position:fixed` UI inside `.elb-page`**; its phone CSS must use `@media`, not `@container`.
+- The hexagon clip uses an explicit polygon (no `clip-path: inherit`).
+- `translateZ(0)` on rounded photo wrappers keeps zoomed photos inside their corners in Safari.
+- Still waiting on the Boss's screenshots / device to confirm on a real iPhone.
+
+---
+
 ## Session 2026-11-04 (night) · Translation fix, copy protection, city regions
 
 - **PR #3 was merged before the effects bug-fix commit (`2539cf3`) was pushed.** That commit ships with this branch.

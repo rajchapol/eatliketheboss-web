@@ -281,7 +281,7 @@ img{max-width:100%;height:auto}
 .mini-logo img{display:block;width:62px;height:auto;filter:drop-shadow(0 0 10px rgba(253,234,192,.35))}
 .mini-nav{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}.mini-nav::-webkit-scrollbar{display:none}
 .mini-nav a{color:#fff;font-size:15px;padding:16px 0;border-bottom:2px solid transparent}.mini-nav a:hover{color:#fdeac0}.mini-nav a[aria-current]{color:#fdeac0;border-bottom-color:#d4b372}
-@container elb (max-width: 720px){.mini-in{gap:14px;min-height:52px}.mini-logo img{width:48px}.mini-nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.mini-nav a{font-size:14px;padding:14px 0}}
+@media (max-width: 720px){.mini-bar .wrap{padding-left:16px;padding-right:16px}.mini-in{gap:14px;min-height:52px}.mini-logo img{width:48px}.mini-nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.mini-nav a{font-size:14px;padding:14px 0}} /* the bar lives outside the .elb-page container, so a media query */
 @media (prefers-reduced-motion: reduce){.mini-bar{transition:none}}
 
 /* Slider: slow Ken Burns on the active photo, text arrives in steps */
@@ -336,7 +336,7 @@ img{max-width:100%;height:auto}
 .cell{position:absolute;display:block}
 .hx{position:absolute;inset:3%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(253,234,192,.28);transition:transform .35s cubic-bezier(.2,.7,.2,1),background .35s}
 .cell.gold .hx{background:linear-gradient(135deg,#fdeac0,#d4b372 45%,#926633)}
-.hx-in{position:absolute;inset:0;clip-path:inherit;transform:scale(.9);background:#0b3a3c}
+.hx-in{position:absolute;inset:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transform:scale(.9);background:#0b3a3c}
 .hx-in img,.hx-in .ph{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .35s}
 .cell:hover,.cell:focus-visible{z-index:3}
 .cell:hover .hx,.cell:focus-visible .hx{transform:scale(1.14);background:linear-gradient(135deg,#fff6dc,#d4b372)}
@@ -372,3 +372,7 @@ img{-webkit-user-drag:none;user-drag:none}
 img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 .toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));z-index:70;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:10px 18px;border-radius:var(--r-pill);background:rgba(7,40,42,.94);color:#fdeac0;font-family:'Ekkamai New',sans-serif;font-size:14px;box-shadow:0 0 0 1px rgba(212,179,114,.6),0 10px 24px rgba(0,0,0,.3);transition:opacity .25s,transform .25s;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Safari: keep zooming / transformed photos inside their rounded corners */
+.slide-photo,.dish-photo,.dish-photo-dark,.idx-thumb,.fx-zoom{transform:translateZ(0)}
+.card .fx-zoom{border-radius:var(--r-md) var(--r-md) 0 0}

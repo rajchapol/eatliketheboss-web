@@ -1,0 +1,25 @@
+---
+// Compact glass bar that slides in on an upward scroll (logic in Effects.astro).
+// Rendered by Base.astro OUTSIDE .elb-page: that wrapper is a CSS query container, and in some browsers
+// (Safari) a container becomes the anchor for position:fixed children, so the bar would scroll away.
+import { NAV_LABELS } from '../lib/i18n';
+import type { Locale } from '../lib/config';
+interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale }
+const { active = 'home', lang } = Astro.props;
+const N = NAV_LABELS[lang];
+const nav = [
+  ['finder', N.finder, '/restaurants/'],
+  ['destinations', N.destinations, '/destinations/'],
+  ['articles', N.articles, '/#notes'],
+  ['awards', N.awards, '/glasses-off-awards/'],
+  ['about', N.about, '/about/'],
+] as const;
+---
+<div class="mini-bar" data-minibar inert aria-hidden="true">
+  <div class="wrap mini-in">
+    <a href="/" class="mini-logo" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="" width="200" height="179" /></a>
+    <nav aria-label={lang === "th" ? "เมนูหลัก (แถบย่อ)" : "Main menu (compact)"} class="mini-nav">
+      {nav.map(([key, label, href]) => <a href={href} aria-current={key === active ? 'page' : undefined}>{label}</a>)}
+    </nav>
+  </div>
+</div>
