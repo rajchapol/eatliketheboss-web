@@ -4,6 +4,30 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late evening) · Bug check with real content
+
+**How it was checked:**
+- The sample build, plus a temporary build from the real `posts/*.md` (6 Shanghai articles, Thai and English, local photos).
+  - Generator script: scratchpad `mkseed.mjs`, not committed.
+  - It rewrites `src/data/seed.ts` and `public/pv-live/`; restore both afterwards with `git checkout src/data/seed.ts && rm -rf public/pv-live`.
+- A Playwright crawler opened every internal page at 360 and 1280 px and checked:
+  - JS/console errors and HTTP errors;
+  - broken links and images, and images without alt;
+  - duplicate ids and the h1 count;
+  - horizontal overflow;
+  - reveal elements left hidden;
+  - Thai left on English pages.
+- Also checked: JSON-LD parses, canonical, og:image files exist, sitemap, hreflang targets, RSS (Thai only), search / price filters / course jumps / glasses-off jump / language switch.
+
+**Fixed:**
+- Footer on English pages said "บอสพาชิม — Eat Like The Boss"; now just "Eat Like The Boss" (`SiteFooter.astro`).
+- The home page highlighted the "Tasting Notes" menu tab; now nothing is highlighted on home (`index.astro`: `active="home"`).
+- Sample content now goes through the same clean-up as Sanity content: `stripCtrl` and `cleanDish` in `getAllArticles()`. This drops stray \v characters and the repeated "จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม" quote. The live site already did this.
+
+**Everything else passed.**
+
+---
+
 ## Session 2026-11-04 (evening) · English translations live, switcher in the article, English menu
 
 - **Translations live:** PR #14 published the 6 Shanghai English translations through post-article.yml (run succeeded).

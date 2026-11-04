@@ -26,7 +26,7 @@ const quickCities = settings.homeCitySlugs?.length
   ? (settings.homeCitySlugs.map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities)
   : (await citiesByCount()).slice(0, 3).map((x) => x.city);
 ---
-<Base title="หน้าแรก" active="articles" jsonLd={[organization(), website()]}>
+<Base title="หน้าแรก" active="home" jsonLd={[organization(), website()]}>
   <h1 class="sr-only">บอสพาชิม Eat Like The Boss — รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก</h1>
 
   <section aria-label="ค้นหาร้าน" class="pat-linen" style="background-color:#fbf7ef;box-shadow:0 10px 24px rgba(195,158,92,.18)">

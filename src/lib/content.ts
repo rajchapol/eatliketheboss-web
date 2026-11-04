@@ -90,7 +90,9 @@ const withPriceBand = (a: Article): Article => {
 
 /** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
-  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles].map(withPriceBand))));
+  // Sample content gets the same clean-up as Sanity content (stray control characters, repeated glasses-off quote).
+  const tidy = (a: Article): Article => ({ ...a, bodyHtml: stripCtrl(a.bodyHtml), dishes: a.dishes.map((d) => ({ ...d, name: stripCtrl(d.name), description: cleanDish(d.description || '') })) });
+  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles].map(tidy).map(withPriceBand))));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
