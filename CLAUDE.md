@@ -33,7 +33,7 @@ You never need to touch `src/` to post.
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
 | Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
-| Menu (icon tabs; phone = 5 tabs that always fit), logo, language switcher | `src/components/SiteHeader.astro` + `MiniBar.astro`, items `NAV_ITEMS` in `src/lib/i18n.ts` |
+| Menu: English names on every page + small Thai name underneath (phones: short English names, 5 tabs that always fit), logo | `src/components/NavLinks.astro` (used by `SiteHeader.astro` + `MiniBar.astro`); items `NAV_ITEMS`, names `NAV_LABELS` / `NAV_SHORT` in `src/lib/i18n.ts` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |
@@ -47,7 +47,7 @@ You never need to touch `src/` to post.
 | Motion: scroll reveal (skipped on Back / pages already seen this visit), compact glass bar, card tilt, spotlight, count-up — no page transitions (the Boss found them disorienting) | `src/components/Effects.astro` (script) + "Effects v2" at the end of `site.css`; all off under reduced motion (`fx-on` class on `<html>`) |
 | Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
 | Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
-| Language switcher | `SiteHeader.astro`: shows only languages the page really exists in (hidden when Thai only). **No machine translation** — Google Translate broke the site in the same tab and failed in a new tab too; the Boss turned it off for good |
+| Language switcher | `src/components/LangSwitch.astro`, at the top of an article ("อ่านภาษา: ไทย · English"). Only articles are translated, so it is not in the header. It shows only languages the article really exists in. **No machine translation** — Google Translate broke the site twice; the Boss turned it off for good |
 | Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
 | Destinations map (pins, route, zoom) | `src/components/DestinationsMap.astro`; pin positions `CITY_COORDS` in `src/lib/config.ts` or Studio → เมือง → ตำแหน่งบนแผนที่; dots `public/img/map/` (rebuild: `scripts/make-map-dots.mjs`) |
 | Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |

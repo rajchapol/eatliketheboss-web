@@ -3,6 +3,7 @@
 // Interface text follows the article's language (src/lib/i18n.ts).
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import LangSwitch from '../components/LangSwitch.astro';
 import Photo from '../components/Photo.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import ShareBar from '../components/ShareBar.astro';
@@ -57,6 +58,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       <nav aria-label="breadcrumb" style="margin-bottom:36px"><ol class="crumbs" style="list-style:none;padding:0">
         {crumbs.map((c, i) => <li>{i < crumbs.length - 1 ? <><a href={c.href}>{c.name}</a> /</> : <span aria-current="page">{c.name}</span>}</li>)}
       </ol></nav>
+      <LangSwitch lang={L} alternates={alternates} />
       <div style="max-width:880px;display:flex;flex-direction:column;gap:20px">
         <p class="overline" style="flex-wrap:wrap">TASTING NOTES <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span>
           <span class="badge" style="letter-spacing:.04em;border:1px solid rgba(11,83,87,.5);font-size:13px;font-weight:700;color:#0b5357">{L === 'th' ? s.th : t(L, 'review')}{a.city ? ` in ${a.city.nameEn}` : ''}{a.episode ? ` Ep.${a.episode}` : ''}</span></p>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useClient, useFormValue } from 'sanity';
 import { IntentLink, useRouter } from 'sanity/router';
 import { Badge, Box, Button, Card, Flex, Stack, Text } from '@sanity/ui';
+import { Line } from './Line';
 import { useToast } from '@sanity/ui/toast';
 import { AddIcon } from '@sanity/icons/Add';
 import { LaunchIcon } from '@sanity/icons/Launch';
@@ -28,10 +29,10 @@ function DocLink({ row, tone }: { row: Row; tone?: 'primary' | 'default' }) {
       <Flex align="center" gap={3}>
         <Badge tone={row.language === 'th' ? 'primary' : 'positive'}>{LANGS.find((l) => l.id === row.language)?.short ?? '?'}</Badge>
         <Stack space={2} flex={1}>
-          <Text size={1} weight="semibold">{row.name || row.title || 'ไม่มีชื่อ'}</Text>
-          <Text size={1} muted>{[labelOf(row.language), row.city, row.visit && `Visit ${row.visit}`, row._id.startsWith('drafts.') ? 'ฉบับร่าง' : null].filter(Boolean).join(' · ')}</Text>
+          <Line bold>{row.name || row.title || 'ไม่มีชื่อ'}</Line>
+          <Line muted>{[labelOf(row.language), row.city, row.visit && `Visit ${row.visit}`, row._id.startsWith('drafts.') ? 'ฉบับร่าง' : null].filter(Boolean).join(' · ')}</Line>
         </Stack>
-        <Text size={1} muted><LaunchIcon /></Text>
+        <Line muted><LaunchIcon /></Line>
       </Flex>
     </Card>
   );
@@ -96,14 +97,14 @@ export function TranslationsPanel() {
     return (
       <Card padding={4} radius={2} tone="caution" border>
         <Stack space={3}>
-          <Text size={1} weight="semibold">บทความนี้ถูกเปลี่ยนเป็น {labelOf(language)} แต่ยังไม่ได้ผูกกับบทความไทย</Text>
-          <Text size={1}>ถ้าตั้งใจจะแปลบทความนี้ ให้เปลี่ยนกลับเป็นภาษาไทยก่อน แล้วกดปุ่ม "+ {labelOf(language)}" ที่จะขึ้นในแท็บนี้</Text>
+          <Line bold>บทความนี้ถูกเปลี่ยนเป็น {labelOf(language)} แต่ยังไม่ได้ผูกกับบทความไทย</Line>
+          <Line>ถ้าตั้งใจจะแปลบทความนี้ ให้เปลี่ยนกลับเป็นภาษาไทยก่อน แล้วกดปุ่ม "+ {labelOf(language)}" ที่จะขึ้นในแท็บนี้</Line>
           <Box><Button tone="primary" text={busy === 'th' ? 'กำลังเปลี่ยน…' : 'เปลี่ยนกลับเป็นบทความภาษาไทย'} disabled={Boolean(busy)} onClick={backToThai} /></Box>
         </Stack>
       </Card>
     );
   }
-  if (!rows) return <Text size={1} muted>กำลังโหลด…</Text>;
+  if (!rows) return <Line muted>กำลังโหลด…</Line>;
   const have = new Set(rows.map((r) => r.language));
   const published = thaiPublished; // a translation must point at a published Thai article
   const others = rows.filter((r) => bare(r._id) !== id);
@@ -111,16 +112,16 @@ export function TranslationsPanel() {
 
   return (
     <Stack space={3}>
-      <Text size={2} weight="semibold">{language === 'th' ? 'บทความนี้: ภาษาไทย (ต้นฉบับ)' : `บทความนี้: ${labelOf(language)} · แปลจากบทความไทยด้านล่าง (การ์ดสีฟ้า)`}</Text>
-      <Text size={1} muted>บทความนี้มีทั้งหมด {rows.length} ภาษา · กดเพื่อเปิด</Text>
+      <Line size={16} bold>{language === 'th' ? 'บทความนี้: ภาษาไทย (ต้นฉบับ)' : `บทความนี้: ${labelOf(language)} · แปลจากบทความไทยด้านล่าง (การ์ดสีฟ้า)`}</Line>
+      <Line muted>บทความนี้มีทั้งหมด {rows.length} ภาษา · กดเพื่อเปิด</Line>
       {others.length ? others.map((r) => <DocLink key={r._id} row={r} tone={r.language === 'th' ? 'primary' : 'default'} />)
-        : <Card padding={3} radius={2} border><Text size={1} muted>ยังไม่มีคำแปล</Text></Card>}
+        : <Card padding={3} radius={2} border><Line muted>ยังไม่มีคำแปล</Line></Card>}
       {language === 'th' && id && !published && (
-        <Card padding={3} radius={2} tone="caution" border><Text size={1}>กดเผยแพร่ (Publish) บทความไทยก่อน แล้วค่อยเพิ่มคำแปล</Text></Card>
+        <Card padding={3} radius={2} tone="caution" border><Line>กดเผยแพร่ (Publish) บทความไทยก่อน แล้วค่อยเพิ่มคำแปล</Line></Card>
       )}
       {language === 'th' && id && published && missing.length > 0 && (
         <Box>
-          <Text size={1} muted>เพิ่มคำแปล (คัดลอกร้าน รูป รายการจาน และข้อความไทยไปให้ แล้วแปลทับได้เลย)</Text>
+          <Line muted>เพิ่มคำแปล (คัดลอกร้าน รูป รายการจาน และข้อความไทยไปให้ แล้วแปลทับได้เลย)</Line>
           <Flex gap={2} wrap="wrap" marginTop={3}>
             {missing.map((l) => (
               <Button key={l.id} tone="primary" icon={AddIcon} text={busy === l.id ? 'กำลังสร้าง…' : l.label} disabled={Boolean(busy)} onClick={() => createTranslation(l.id)} />
