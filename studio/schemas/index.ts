@@ -41,11 +41,11 @@ export const article = defineType({
     { name: 'lang', title: '5 ภาษา / คำแปล', icon: TranslateIcon },
   ],
   fields: [
-    defineField({ name: 'language', title: 'บทความนี้เป็นภาษา', description: 'บทความใหม่เริ่มที่ภาษาไทย · คำแปลสร้างจากปุ่ม "เพิ่มคำแปล" ในบทความไทย จะตั้งค่าให้เอง', type: 'string', group: 'lang', initialValue: 'th',
+    defineField({ name: 'language', title: 'บทความนี้เป็นภาษา', description: 'บทความใหม่เริ่มที่ภาษาไทย · คำแปลให้สร้างจากปุ่ม "+ English / 日本語 / 中文" ในบทความไทย (แท็บนี้) ระบบผูกให้เอง ไม่ต้องเลือก', type: 'string', group: 'lang', initialValue: 'th',
       options: { list: LANGS.map((l) => ({ title: l.label, value: l.id })), layout: 'radio', direction: 'horizontal' },
       validation: (r) => r.required() }),
     defineField({ name: 'translationOf', title: 'แปลจากบทความ (ภาษาไทย)', description: 'คำแปลต้องผูกกับบทความไทย เว็บจึงรู้ว่าเป็นร้านเดียวกัน และขึ้นปุ่มเปลี่ยนภาษาให้', type: 'reference', to: [{ type: 'article' }], group: 'lang',
-      options: { filter: ({ document }: any) => ({ filter: 'language == "th" && series == $series', params: { series: document?.series || 'review' } }) },
+      options: { filter: 'coalesce(language, "th") == "th"' }, // every Thai article (no series filter: it hid the right one when series differed)
       hidden: ({ document }) => (document?.language || 'th') === 'th',
       validation: (r) => r.custom(async (ref: any, ctx: any) => {
         const doc = ctx.document;

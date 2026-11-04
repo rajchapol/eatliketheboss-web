@@ -4,6 +4,22 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late night, fix) · "+ English" now creates the translation itself
+
+The Boss tried "+ English" after PR #10. The new translation could not be linked to the article it came from; the picker showed other restaurants only.
+- Cause: not reproducible here (no Studio login). Two likely culprits were removed:
+  - the create-intent template (its parameters may not reach the template);
+  - the `series == $series` filter on `translationOf` (it hides the right article when series differ).
+- Fix (`studio/components/TranslationsPanel.tsx`): the button now writes the draft itself and opens it.
+  - The draft id is `<thai id>-<lang>`, the same ids `scripts/post-article.mjs` uses.
+  - It copies the Thai article and is already linked through `translationOf`.
+  - If that translation already exists, the button just opens it.
+  - The buttons appear only once the Thai article is published (a strong reference needs a published target).
+  - `translationOf` picker: every Thai article. The template `article-translation` is gone.
+- If the Boss's test left a stray translation, it shows in the panel / คำแปล list; delete it with "ลบบทความ…".
+
+---
+
 ## Session 2026-11-04 (late night) · Studio translations reworked, to-do lists, safer delete, open on site
 
 The Boss: Studio's translation fields were hard to use — you couldn't tell which article a translation was linked to.
