@@ -5,6 +5,8 @@ export default defineConfig({
   site: 'https://eatlikeboss.com',
   trailingSlash: 'always',
   output: 'static',
+  // The one stylesheet is ~8 KB gzipped: inline it so phones don't wait for a separate render-blocking request.
+  build: { inlineStylesheets: 'always' },
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/404'),

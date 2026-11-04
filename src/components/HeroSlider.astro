@@ -16,7 +16,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     </div>
     <div class="slides" data-track tabindex="-1">
       {slides.map((a, i) => (
-        <article class={i === 0 ? "slide is-active" : "slide"} role="group" aria-roledescription="slide" aria-label={`${i + 1} จาก ${slides.length}: ${a.restaurant?.name ?? a.title}`}>
+        <div class={i === 0 ? "slide is-active" : "slide"} role="group" aria-roledescription="slide" aria-label={`${i + 1} จาก ${slides.length}: ${a.restaurant?.name ?? a.title}`}>
           <a href={articleUrl(a)} class="slide-photo" tabindex="-1" aria-hidden="true">
             <Photo img={a.cover} label="ภาพปก 3:2" ratio={0.6667} eager={i === 0} widths={[640, 960, 1280, 1600]} sizes="(max-width: 720px) 100vw, 680px" />
           </a>
@@ -32,7 +32,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             </p>
             <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>
           </div>
-        </article>
+        </div>
       ))}
     </div>
     {slides.length > 1 && (

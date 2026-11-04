@@ -46,9 +46,9 @@ const v0 = VIEWS[start];
         <ol class="map-pins" style="list-style:none;margin:0;padding:0">
           {pins.map((p) => (
             <li class="map-pin" data-x={p.x} data-y={p.y} data-count={p.count} style={`left:${((p.x - v0[0]) / v0[2]) * 100}%;top:${((p.y - v0[1]) / v0[3]) * 100}%`}>
-              <a href={`/city/${p.slug}/`} aria-label={`${p.en} ${p.th} — ${p.count} ร้าน`}>
+              <a href={`/city/${p.slug}/`} aria-label={`${p.en} ${p.count} ร้าน (${p.th})`}>
                 <span class="pin-dot" aria-hidden="true"></span>
-                <span class="pin-label" aria-hidden="true">{p.en}<b>{p.count}</b></span>
+                <span class="pin-label" aria-hidden="true">{p.en} <b>{p.count}</b></span>
               </a>
             </li>
           ))}
