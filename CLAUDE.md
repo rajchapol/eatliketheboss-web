@@ -56,5 +56,9 @@ Tasting Notes No. is automatic: order of `visit` (Mon-YYYY; oldest meal = No. 00
 ## SEO checklist per article
 Meta title ≤ 60 chars, description 120–155, slug in English, alt text on every photo, publish date, city set. Full rules: `docs/SEO.md`.
 
+## Checks and previews
+- `.github/workflows/check.yml` builds every branch / PR (sample + live content). With the GitHub secret `CLOUDFLARE_API_TOKEN` it also uploads a Cloudflare preview and comments the link on the PR. Never ask for or store the token itself.
+- Cloudflare Web Analytics: paste the site token in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO (empty = off).
+
 ## Commands
 `npm run dev` (local preview) · `npm run build` · `npm run post -- <file>` · `node scripts/seed-sanity.mjs` (one-time cities).

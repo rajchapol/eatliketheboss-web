@@ -30,6 +30,7 @@ const alternates = Astro.props.alternates ?? [{ lang, href: path }];
 const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — ${t(lang, 'titleSuffix')}`;
 // Share image is always 1200×630: article covers are cropped in imgUrl(); the Sanity share image is cropped here.
 const settingsOg = (await getSettings()).ogImageUrl;
+const cfToken = ((await getSettings()).cfAnalyticsToken || '').trim();
 const ogImage = new URL(image === '/img/og-default.jpg' && settingsOg ? `${settingsOg}?w=1200&h=630&fit=crop&auto=format` : image, SITE.url).href;
 // Keep meta descriptions within ~155 characters (cut at a space when possible).
 const metaDescription = description.length <= 158 ? description : (() => { const cut = description.slice(0, 152); const sp = cut.lastIndexOf(' '); return (sp > 100 ? cut.slice(0, sp) : cut).trim() + '…'; })();
@@ -67,12 +68,13 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   <link rel="preload" href="/fonts/ekkamai-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/noto-serif-thai-thai-400.woff2" as="font" type="font/woff2" crossorigin />
   {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+  {/^[a-f0-9]{32}$/i.test(cfToken) && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>}
 </head>
 <body>
   <div class={`elb-page ${dark ? 'on-dark' : ''}`} style={dark ? 'background:#073b3e;color:#fff' : undefined}>
     <SiteHeader active={active} lang={lang} alternates={alternates} />
     <slot />
-    <SiteFooter lineart={lineart} />
+    <SiteFooter lineart={lineart} lang={lang} />
   </div>
   <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
   <script is:inline>

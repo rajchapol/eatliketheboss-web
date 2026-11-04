@@ -12,7 +12,8 @@ const all = visits.length ? visits : [a];
 const glasses = all.some((v) => v.dishes.some((d) => d.glassesOff));
 const s = SERIES[a.series];
 const repeat = all.length > 1;
-const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.city?.nameEn, v.city?.nameTh]).filter(Boolean).join(' ').toLowerCase();
+// Finder search text: names, chef, city and every dish name from every visit.
+const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.city?.nameEn, v.city?.nameTh, ...v.dishes.map((d) => d.name)]).filter(Boolean).join(' ').toLowerCase();
 ---
 <article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
   data-price={a.restaurant?.priceBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}

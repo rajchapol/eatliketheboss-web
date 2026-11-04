@@ -68,7 +68,9 @@ const doc = {
   _id: id, _type: 'article', language: lang,
   ...(lang !== 'th' ? { translationOf: { _type: 'reference', _ref: `article-${slug}` } } : {}),
   series: fm.series || 'review', episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
-  tagline: fm.tagline, city: cityRef, restaurant: fm.restaurant, cover: await upload(fm.cover),
+  tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover),
+  // restaurant.sameAs: <slug of the earlier review> links visits when the restaurant's name changed
+  restaurant: fm.restaurant && { ...fm.restaurant, sameAs: fm.restaurant.sameAs ? { _type: 'reference', _ref: `article-${fm.restaurant.sameAs}`, _weak: true } : undefined },
   body: bodyBlocks, quote: fm.quote,
   dishes: await Promise.all(dishes.map(async (d) => ({ _type: 'dish', _key: key(), name: d.name, description: d.description, glassesOff: d.glassesOff, image: await upload(d.image) }))),
   tag: fm.tag || '', bill: fm.tag ? undefined : fm.bill, visit: fm.visit, hashtags: (fm.hashtags || []).map((h) => String(h).replace(/^#/, '')),

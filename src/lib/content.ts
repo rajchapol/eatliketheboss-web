@@ -66,7 +66,7 @@ function numberByVisit(all: Article[]): Article[] {
 
 /** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
-  if (!client) return Promise.resolve(numberByVisit([...seed.articles]));
+  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles])));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
@@ -85,14 +85,15 @@ export function getAllArticles(): Promise<Article[]> {
         return {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
           no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, city: r.city || undefined,
-          restaurant: r.restaurant, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
+          restaurant: r.restaurant ? { ...r.restaurant, sameAs: r.restaurant.sameAs?._ref } : undefined, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
           dishes, bill: r.bill, tag: r.tag, visit: r.visit, hashtags: r.hashtags || [],
           publishedAt: r.publishedAt, updatedAt: r._updatedAt, seoTitle: r.seoTitle, seoDescription: r.seoDescription,
           readingMinutes: readMinutes(bodyHtml, dishes, r.language || DEFAULT_LOCALE),
         };
       }),
     )
-    .then(numberByVisit));
+    .then(numberByVisit)
+    .then(linkRestaurants));
 }
 
 export async function getArticles(lang: Locale = DEFAULT_LOCALE) {
@@ -188,8 +189,31 @@ export function visitLabel(a: Pick<Article, 'visit' | 'publishedAt'>) {
  * Keep the restaurant name identical across visits so repeat reviews group together.
  */
 export function restaurantKey(a: Article) {
+  if (a.restaurantGroup) return a.restaurantGroup;
+  return nameKey(a);
+}
+function nameKey(a: Article) {
   if (a.series !== 'review' || !a.restaurant?.name) return `article:${a.baseId}`;
   return `${a.city?.slug ?? ''}|${a.restaurant.name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '')}`;
+}
+/**
+ * Groups visits to one restaurant: same city + name, or linked in Studio with
+ * ร้าน → "รีวิวครั้งก่อนของร้านนี้" (for a renamed restaurant). Translations follow their original.
+ */
+function linkRestaurants(all: Article[]): Article[] {
+  const parent = new Map<string, string>();
+  const find = (x: string): string => { while (parent.has(x) && parent.get(x) !== x) x = parent.get(x)!; return x; };
+  const union = (a: string, b: string) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(rb, ra); };
+  const byName = new Map<string, string>();
+  const originals = all.filter((a) => a.id === a.baseId);
+  for (const a of originals) {
+    parent.set(a.baseId, find(a.baseId));
+    const k = nameKey(a);
+    if (byName.has(k)) union(byName.get(k)!, a.baseId); else byName.set(k, a.baseId);
+  }
+  const ids = new Set(originals.map((a) => a.baseId));
+  for (const a of originals) if (a.restaurant?.sameAs && ids.has(a.restaurant.sameAs)) union(a.restaurant.sameAs, a.baseId);
+  return all.map((a) => ({ ...a, restaurantGroup: a.series === 'review' ? `r:${find(a.baseId)}` : `article:${a.baseId}` }));
 }
 /** All visits to the same restaurant in the given list (newest visit first, as the list is sorted). */
 export function visitsOf(a: Article, list: Article[]) {

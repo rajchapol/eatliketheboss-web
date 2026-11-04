@@ -38,6 +38,7 @@ export interface Restaurant {
   cuisine?: string;
   priceBand?: '฿฿' | '฿฿฿' | '฿฿฿฿';
   awards?: string[];
+  sameAs?: string; // id of an earlier review of the same restaurant (when the name changed)
 }
 
 export interface Article {
@@ -65,6 +66,7 @@ export interface Article {
   seoTitle?: string;
   seoDescription?: string;
   readingMinutes: number;
+  restaurantGroup?: string; // set by linkRestaurants(): same value = same restaurant
 }
 
 export interface Settings {
@@ -90,5 +92,6 @@ export interface Settings {
   instagram: string;
   contactEmail: string;
   ogImageUrl?: string;
+  cfAnalyticsToken?: string; // Cloudflare Web Analytics site token (public); empty = no analytics
   homeCitySlugs?: string[];
 }

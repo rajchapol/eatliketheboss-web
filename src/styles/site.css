@@ -268,3 +268,4 @@ img{max-width:100%;height:auto}
 @keyframes glare-sweep{0%{transform:translateX(0) rotate(24deg);opacity:1}100%{transform:translateX(900px) rotate(24deg);opacity:0}}
 .specs.shade:not(.lit) .spec{filter:saturate(.75)}
 .spec{transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s,box-shadow .35s,filter 1.4s}
+.seal{display:block;width:180px;height:180px}.seal svg{display:block;width:100%;height:100%}
