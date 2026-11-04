@@ -49,7 +49,7 @@ const bill = [band, a.tag].filter(Boolean).join(' · ') || '—'; // The Boss's 
 const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.35)";
 ---
 <Base title={a.seoTitle || (a.series === 'review' ? `${name}${a.city ? ` ${a.city.nameEn}` : ''} ${t(L, 'reviewWord')}` : name)} description={description}
-  image={`/og/${articleUrl(a).replace(/^\/|\/$/g, '')}.jpg`} lang={L} alternates={alternates} type="article" active="articles"
+  image={`/og/${articleUrl(a).replace(/^\/|\/$/g, '')}.jpg?v=2`} /* bump ?v= when the share-image design changes: LINE and Facebook cache previews by URL */ lang={L} alternates={alternates} type="article" active="articles"
   published={a.publishedAt} modified={a.updatedAt}
   jsonLd={[articleLd(a), breadcrumbs(crumbs)]}>
   <article>

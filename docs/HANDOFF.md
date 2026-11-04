@@ -4,12 +4,21 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, later) · Share image redesigned for LINE previews
+
+The Boss: the LINE link preview looked bad. Cause: LINE shows the share image as a square cut from the middle, and the old design put the logo and name on the left (cut off), under a teal wash that dulled the food.
+- `src/lib/og.ts` now: photo in its real colours, darkened only behind the logo (top) and text (bottom); logo, "Tasting Notes No.", restaurant name (two balanced lines max) and city · cuisine all centred inside the middle 560px, so a square crop keeps everything. Chinese/Japanese/Korean characters are dropped from the image only (the fonts have none; a CJK font would add ~10 MB).
+- `og:image` carries `?v=2` (`src/pages/[...article].astro`): LINE and Facebook cache previews by URL, so bump it when the design changes. Links already shared in a chat keep their old preview there; new shares pick up the new one.
+
+---
+
 ## Session 2026-11-04 (night) · Easier-to-read menus (website + Studio)
 
 The Boss asked for the "tab menu" to be easier to read: both the website's top menu and the Studio tabs.
 - **Website menu** (`SiteHeader.astro`, `MiniBar.astro`, one list `NAV_ITEMS` in `src/lib/i18n.ts`): every item has a line icon (`search`, `pin`, new `book`, `glasses`, new `user` in `Icon.astro`). Desktop: pill tabs, the current page is a gold-edged pill. Phone (≤720px): five icon tabs in one glass box that always fit 320–430px — no more sideways scrolling or cut-off "Glasses Off Awar"; the awards tab reads "Awards" on phones (`.nav-long` hides "Glasses Off "). The compact bar on phones shows the same five tabs, full width, without the logo.
 - **Studio tabs** (`studio/schemas/index.ts`, icons from `@sanity/icons/<Name>` subpaths — now a direct Studio dependency): article tabs numbered in fill order "1 ร้าน & บทนำ · 2 รายการจาน · 3 ราคา & วันที่ไป · 4 SEO · 5 ภาษา" (+ "ทุกช่อง"); settings tabs short + icons, same words as the site menu; the 40-field "All fields" tab is hidden there. Group names (`main`, `meta`, …) are unchanged, so no content moves.
 - Studio redeploys itself when this reaches main (deploy-studio.yml).
+- **Done after merge (PR #6, 4 Nov 2026):** Studio redeployed; Actions → Fill settings texts run (dry, then apply: 24 empty fields filled + "วิธีรีวิว" item 1 reworded to the price-band policy). The Boss then set the price band on the 6 Shanghai articles, added the Web3Forms key (test message arrived) and checked the site on iPhone: all fine.
 
 ---
 
