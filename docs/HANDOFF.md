@@ -16,6 +16,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
   - Fix (`studio/sanity.config.ts`): Thai lists = `!defined(translationOf)` (every original). Translation lists need `defined(translationOf)`. New to-do "ภาษาเพี้ยน" lists originals whose language isn't th.
   - The Boss fixes each with "เปลี่ยนกลับเป็นบทความภาษาไทย" in tab 5, or by discarding the draft. Never publish those drafts as they are.
 - "หอยปีกนก" = torigai (Japanese cockle), per the Boss; the translation draft is updated.
+- **All 6 Shanghai English drafts** are in `drafts/translations/`: meet-the-bund, sui-tang-li, fu-he-hui, taian-table, wu-you-xian, yong-fu.
+  - Each passes `npm run post -- <file> --dry`: dish and image lists match the Thai source, no Thai left, glasses-off kept, SEO lengths OK.
+  - They wait for the Boss's approval, and the uncertain terms were sent to the Boss.
+  - **Approved 4 Nov 2026** after the Boss's corrections (ใบชะพลู = betel leaves, ลิลลี่บับ = lily buds). Moved to `posts/<slug>.en.md`; the merge to main publishes them through post-article.yml. Any "+ English" Studio draft with the same id (`article-<slug>-en`) should be discarded.
 - **Share counts:** Cloudflare Web Analytics has no click/custom events, so counting LINE/Facebook shares needs something extra (a small Worker endpoint or a cookieless analytics service). Asked the Boss.
 
 ---
