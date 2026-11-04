@@ -66,7 +66,6 @@ input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid 
 a.chip:hover{background:#0b5357;color:#fdeac0}
 .icon-btn{width:44px;height:44px;border-radius:var(--r-pill);display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(11,83,87,.35);background:#fbf7ef;color:#0b5357;cursor:pointer;transition:background .25s,color .25s}.icon-btn:hover{background:#0b5357;color:#fdeac0}
 .lang a{display:inline-flex;align-items:center;min-height:44px;padding:0 2px;color:#fdeac0}.lang a span{padding:6px 12px;border-radius:var(--r-pill)}
-.lang a.auto span{display:inline-flex;align-items:center;gap:3px}.lang a.auto .ico{opacity:.7}
 .lang a[aria-current] span{background:linear-gradient(135deg,#d4b372 0%,#fdeac0 55%,#c39e5c 100%);color:#1a2632;font-weight:700}
 
 /* ---------- article blocks ---------- */
@@ -132,7 +131,6 @@ a.chip:hover{background:#0b5357;color:#fdeac0}
 img{max-width:100%;height:auto}
 .wrap{max-width:1200px;margin:0 auto;padding-left:32px;padding-right:32px}
 @container elb (max-width: 720px){.wrap{padding-left:20px;padding-right:20px}
-.hdr .lang a.auto .ico{display:none}
 .hdr{display:grid!important;grid-template-columns:auto 1fr;padding-top:12px!important;padding-bottom:0!important;gap:8px 12px!important}
 .hdr .logo img{width:104px!important}
 .hdr .lang{justify-self:end;grid-row:1;grid-column:2}

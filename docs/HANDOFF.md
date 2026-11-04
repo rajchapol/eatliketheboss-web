@@ -4,6 +4,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, final) · Machine translation off for good
+
+PR #8 (Google Translate in a new tab) went live and the Boss found it still did not work ("ไม่รอด"): turned off. The switcher is back to real translations only (hidden on Thai-only pages). Kept from PR #8: the desktop header layout (language row above the menu) and the tighter phone pills. Don't add Google Translate back; the way to other languages is real translations (`posts/<slug>.<lang>.md`, Boss approves first).
+
+---
+
 ## Session 2026-11-04 (night, last) · Language switcher back (real translation first, else Google in a new tab)
 
 The Boss asked where the translator went (it was hidden: no article has a translation yet) and chose "both".
