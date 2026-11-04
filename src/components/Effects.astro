@@ -3,8 +3,15 @@
 // scroll reveal + stagger, photo fade-in, compact glass bar on scroll, card tilt + sheen,
 // cursor spotlight on dark bands, count-up numbers. Off when the reader prefers reduced motion
 // (the `fx-on` class on <html> is only added when motion is allowed; see Base.astro).
+// Also: light copy protection — photos can't be right-clicked / dragged / long-pressed to save,
+// and copied text (80+ characters) carries a credit line and a link back.
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/config';
+interface Props { lang?: Locale }
+const { lang = 'th' } = Astro.props;
+const msg = { photo: t(lang, 'photoRights'), source: t(lang, 'source'), site: 'บอสพาชิม · Eat Like The Boss' };
 ---
-<script is:inline>
+<script is:inline define:vars={{ msg }}>
   (() => {
     const root = document.documentElement;
     const on = root.classList.contains('fx-on');
@@ -14,6 +21,26 @@
     document.querySelectorAll('img.cover').forEach((img) => {
       const done = () => img.classList.add('loaded');
       if (img.complete) done(); else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+    });
+
+    // Copy protection (deterrent, not DRM: a screenshot always works).
+    let toastEl = null, toastTimer = 0;
+    const toast = (text) => {
+      if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'toast'; toastEl.setAttribute('role', 'status'); document.body.append(toastEl); }
+      toastEl.textContent = text; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+    };
+    document.addEventListener('contextmenu', (e) => { if (e.target.closest && e.target.closest('img, .hx, .slide-photo, .dish-photo, .dish-photo-dark')) { e.preventDefault(); toast(msg.photo); } });
+    document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('copy', (e) => {
+      const ae = document.activeElement; if (ae && /^(INPUT|TEXTAREA)$/.test(ae.tagName)) return;
+      const sel = getSelection(), text = sel ? sel.toString() : ''; if (text.trim().length < 80 || !e.clipboardData) return;
+      const url = location.href.split('#')[0], box = document.createElement('div');
+      for (let i = 0; i < sel.rangeCount; i++) box.append(sel.getRangeAt(i).cloneContents());
+      const a = document.createElement('a'); a.href = url; a.textContent = msg.site;
+      const credit = document.createElement('p'); credit.append(`— ${msg.source}: `, a);
+      e.clipboardData.setData('text/plain', `${text}\n\n— ${msg.source}: ${msg.site}\n${url}`);
+      e.clipboardData.setData('text/html', box.innerHTML + credit.outerHTML);
+      e.preventDefault();
     });
 
     // In-page links (#dish-N, course nav, back to top) scroll smoothly on click only; arriving from

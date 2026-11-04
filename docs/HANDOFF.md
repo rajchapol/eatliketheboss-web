@@ -4,6 +4,23 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night) · Translation fix, copy protection, city regions
+
+- **PR #3 was merged before the effects bug-fix commit (`2539cf3`) was pushed.** That commit ships with this branch.
+- **Google Translate fallback removed.** On the live site the proxied page broke: "TH" could not get back, and images showed as alt text, because Google rewrites every link and image. The switcher now shows only real translations and is hidden on Thai-only pages. Real translations = `posts/<slug>.<lang>.md` (see CLAUDE.md).
+- **Copy protection (deterrent):**
+  - `robots.txt` disallows AI-training crawlers (GPTBot, CCBot, Google-Extended, ClaudeBot, Applebot-Extended, Bytespider, meta-externalagent…). Search engines and AI search tools stay allowed.
+  - `<meta name="robots" content="max-image-preview:large, noai, noimageai">`.
+  - Photos: no right-click (shows a toast), no drag, no iOS long-press save.
+  - Copied text of 80+ characters gets "— ที่มา: บอสพาชิม · Eat Like The Boss + URL".
+  - Footer rights notice (i18n).
+  - JSON-LD: cover as ImageObject with creditText/copyrightNotice/creator/acquireLicensePage, plus copyrightHolder/copyrightYear.
+  - A screenshot always works; the Boss's photos also carry a logo watermark.
+- **City regions fixed in Sanity:** Actions → Fix city regions was run (dry, then apply). 7 cities moved jp/cn → asia. A Boss-made city "Istalbul" (typo for Istanbul) was already on europe; `CITY_COORDS` has both spellings.
+- **Housekeeping:** removed 6 unused CSS classes.
+
+---
+
 ## Session 2026-11-04 (evening) · Calmer motion, working language switcher, new glasses
 
 Feedback from the Boss after seeing the effects demo: the language switcher "doesn't work", some effects are disorienting when moving between pages, the round photos in the glasses look odd, and no Cloudflare previews.

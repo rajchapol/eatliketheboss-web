@@ -43,7 +43,9 @@ export const breadcrumbs = (items: { name: string; href: string }[]) => ({
 
 export function articleLd(a: Article) {
   const url = abs(articleUrl(a));
-  const image = a.cover ? [imgUrl(a.cover, 1600)] : [abs('/img/og-default.jpg')];
+  // Photos carry credit and copyright (shown by Google Images); the article names its copyright holder.
+  const photo = (url: string) => ({ '@type': 'ImageObject', url, creditText: 'Eat Like The Boss (บอสพาชิม)', copyrightNotice: '© Eat Like The Boss. All rights reserved.', creator: { '@id': abs('/about/#boss') }, acquireLicensePage: abs('/about/#work') });
+  const image = a.cover ? [photo(imgUrl(a.cover, 1600)!)] : [abs('/img/og-default.jpg')];
   const base = {
     '@context': 'https://schema.org',
     headline: a.title,
@@ -52,6 +54,8 @@ export function articleLd(a: Article) {
     dateModified: a.updatedAt || a.publishedAt,
     inLanguage: HREFLANG[a.language],
     author: person(),
+    copyrightHolder: { '@id': abs('/#org') },
+    copyrightYear: Number((a.publishedAt || '').slice(0, 4)) || undefined,
     publisher: { '@id': abs('/#org') },
     mainEntityOfPage: url,
   };
