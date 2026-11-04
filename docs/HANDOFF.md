@@ -23,6 +23,18 @@ Feedback from the Boss after seeing the effects demo: the language switcher "doe
   - On touch screens the cells are decoration only (too small to tap) and the hint links to the list below.
   - The sunglasses tint is kept.
 - **No Cloudflare previews:** the preview steps were removed from `check.yml` and `preview_urls` from `wrangler.jsonc`. The build check stays.
+- **Bug fixes from an independent review of the effects** (all verified with Playwright):
+  - Printing no longer blanks content.
+  - A single-slide slider shows its text.
+  - The hidden compact bar no longer casts a shadow band.
+  - The ticker repeats items (shown only with ≥6 restaurants) and is a swipeable strip on touch screens.
+  - Photos that already failed show their alt text.
+  - **No global `scroll-behavior:smooth`:** `#dish-N` links from other pages land instantly with no reveal; in-page links scroll smoothly on click.
+  - The compact bar needs ~40px of upward scroll, ignores scrolls we started, and stays hidden while the dish menu is stuck (so the course nav never jumps). `html{scroll-padding-top:72px}`.
+  - Hover-only effects (spotlight, button shine, ticker pause) only apply on mouse devices.
+  - Slider text animates only when a slide is chosen (not while swiping). Ken Burns is a transition, so it no longer snaps.
+  - Tap targets are ≥44px.
+  - Reveal reads all positions before writing; the card tilt updates once per frame.
 
 ---
 

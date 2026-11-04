@@ -46,12 +46,12 @@ const quickCities = settings.homeCitySlugs?.length
 
   <HeroSlider slides={slides} />
 
-  {latest.length > 2 && (
+  {latest.length >= 6 && (
     <nav class="ticker" aria-label="ร้านที่บอสไปชิมล่าสุด">
       <div class="ticker-track">
         {[0, 1].map((k) => (
           <ul aria-hidden={k ? 'true' : undefined}>
-            {latest.slice(0, 14).map((a) => <li><a href={articleUrl(a)} tabindex={k ? -1 : undefined}>{a.restaurant?.name ?? a.title}{a.city && <span>{a.city.nameEn}</span>}</a></li>)}
+            {Array.from({ length: Math.max(14, latest.length) }, (_, i) => latest.slice(0, 14)[i % Math.min(14, latest.length)]).map((a) => <li><a href={articleUrl(a)} tabindex={k ? -1 : undefined}>{a.restaurant?.name ?? a.title}{a.city && <span>{a.city.nameEn}</span>}</a></li>)}
           </ul>
         ))}
       </div>
