@@ -4,6 +4,30 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (very late) · Bill as price band, Studio by page, gallery, share, contact, share images
+
+**New policy from the Boss:** the site never says whether a meal was invited or paid. The Boss's Bill shows an approximate **price band** (฿฿/฿฿฿/฿฿฿฿); special event meals carry an **Event** pill. AD is kept as an option for paid posts (advertising disclosure); the Boss may decide to drop it.
+- **Studio article, Bill tab:**
+  - `billBand` is the band shown on the site.
+  - `tag` is "มื้ออีเวนต์?" (none / Event / AD).
+  - `bill` is the real price: optional, never shown, used by `priceBandFromBill()` (<3,000 / <8,000 / 8,000+ THB, rough FX).
+  - `restaurant.priceBand` is now hidden; older values still count.
+  - Awards are a plain editable list (the tags input could not edit an existing award).
+  - New `gallery` (ambience / chef photos, with captions) shows after the intro, before the dishes; posts support `gallery:` in frontmatter.
+  - The cover sits in the main tab.
+- **Studio settings (`ตั้งค่าเว็บ / ข้อความทุกหน้า`):** one tab per page, plus new fields for texts that were fixed in code (home search placeholder / titles, article menu title / glasses quote / share title, destinations + map titles, contact title / intro, footer rights).
+  - Defaults are in `src/data/settings.json`.
+  - **Actions → Fill settings texts** (manual, dry first) fills empty fields with these, and rewords the old "invited meal" texts only if never edited (`scripts/fill-settings.mjs`).
+- **Share bar** (`ShareBar.astro`): LINE, Facebook, copy link, and the phone share sheet. Shown at the top facts and at the end of the article.
+- **Contact page `/contact/`:** recommend a restaurant / work with the Boss / other. Sends via Web3Forms (key in settings); without a key it opens the reader's email app. Linked from the footer and About.
+- **Share images:** `src/lib/og.ts` renders `/og/<article>.jpg` (1200×630, ~70–90 KB) at build: cover + teal fade + gold frame + logo + "Tasting Notes No." + name + tagline + city · cuisine · visit.
+  - Uses resvg (HarfBuzz shaping) + sharp (JPEG); both are dependencies, marked `vite.ssr.external`.
+  - SARA AM is decomposed before rendering (the TTF mis-positions it in resvg).
+  - Fonts in `src/og/fonts` (OFL; Cormorant subset to Latin).
+- **Home ticker removed; CSS inlined.**
+
+---
+
 ## Session 2026-11-04 (late night) · iPhone fixes
 
 The Boss said the effects look quite broken on a phone. WebKit can't be installed in the container (no download access), so the fixes target known Safari behaviour. All taps and layouts were re-tested in Chromium iPhone emulation.

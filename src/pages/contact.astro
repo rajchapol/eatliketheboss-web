@@ -1,0 +1,95 @@
+---
+// Contact / recommend a restaurant. Sends to the Boss's inbox through Web3Forms (free; the access key is
+// public by design and is set in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO). Works without JS (normal form post);
+// with JS it sends in place. Without a key, it falls back to opening the reader's email app.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../lib/config';
+import { getSettings } from '../lib/content';
+const s = await getSettings();
+const key = (s.web3formsKey || '').trim();
+const topics = [
+  ['recommend', 'แนะนำร้านให้บอสไปชิม'],
+  ['work', 'ติดต่อร่วมงาน / โฆษณา / งานอีเวนต์'],
+  ['other', 'เรื่องอื่นๆ'],
+] as const;
+const field = "width:100%;min-height:48px;padding:12px 18px;border:1px solid rgba(11,83,87,.35);border-radius:var(--r-md);background:#fff;font:inherit;font-size:16px;color:#1a2632";
+const label = "display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955";
+---
+<Base title="ติดต่อบอส · แนะนำร้าน" description="แนะนำร้านที่อยากให้บอสไปชิม หรือติดต่อร่วมงาน โฆษณา และงานอีเวนต์กับบอสพาชิม · Eat Like The Boss ข้อความส่งตรงถึงบอส" active="about">
+  <section class="wrap" style="padding-top:80px;padding-bottom:96px;display:flex;flex-wrap:wrap;gap:40px 64px;align-items:flex-start">
+    <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px">
+      <p class="overline">CONTACT</p>
+      <h1 class="ink-grad" style="margin:0;font-size:clamp(34px,6cqi,48px);font-weight:600;line-height:1.25">{s.contactTitle}</h1>
+      <p style="margin:0;font-size:18px;line-height:1.85">{s.contactIntro}</p>
+      <p style="margin:0;font-size:16px;line-height:1.8;color:#3d4955">{s.workWithMe}</p>
+      {SITE.contactEmail && <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;display:flex;align-items:center;gap:8px"><Icon name="mail" size={18} style="color:#c39e5c" />หรืออีเมล <a href={`mailto:${SITE.contactEmail}`} style="color:#0b5357;border-bottom:1px solid #c39e5c">{SITE.contactEmail}</a></p>}
+    </div>
+
+    <form class="rl contact-form" data-contact data-key={key} data-to={SITE.contactEmail}
+      action={key ? 'https://api.web3forms.com/submit' : `mailto:${SITE.contactEmail}`} method="POST" {...(key ? {} : { enctype: 'text/plain' })}
+      style="flex:1 1 440px;min-width:0;background:#fbf7ef;padding:clamp(20px,4cqi,36px);display:flex;flex-direction:column;gap:20px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 24px 48px -16px rgba(11,83,87,.25)">
+      {key && <input type="hidden" name="access_key" value={key} />}
+      {key && <input type="hidden" name="redirect" value={new URL('/contact/?sent=1', SITE.url).href} />}
+      <input type="hidden" name="subject" value="[บอสพาชิม] ข้อความจากเว็บ" data-subject />
+      <input type="hidden" name="from_name" value="eatlikeboss.com" />
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
+
+      <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+        <legend style="padding:0;margin-bottom:10px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955">เรื่องที่ติดต่อ</legend>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          {topics.map(([v, t], i) => (
+            <label class="topic"><input type="radio" name="topic" value={t} data-topic={v} checked={i === 0} /><span>{t}</span></label>
+          ))}
+        </div>
+      </fieldset>
+
+      <div data-recommend style="display:flex;flex-wrap:wrap;gap:16px">
+        <label style={`${label};flex:2 1 220px`}>ชื่อร้าน<input name="restaurant" type="text" style={field} placeholder="เช่น Sézanne" /></label>
+        <label style={`${label};flex:1 1 140px`}>เมือง<input name="city" type="text" style={field} placeholder="เช่น Tokyo" /></label>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px">
+        <label style={`${label};flex:1 1 200px`}>ชื่อของคุณ<input name="name" type="text" required autocomplete="name" style={field} /></label>
+        <label style={`${label};flex:1 1 200px`}>อีเมล (สำหรับตอบกลับ)<input name="email" type="email" required autocomplete="email" style={field} /></label>
+      </div>
+      <label style={label}>ข้อความ<textarea name="message" required rows="5" style={`${field};resize:vertical`} placeholder="เล่าให้บอสฟังได้เลยครับ"></textarea></label>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px">
+        <button type="submit" class="btn-teal fx-btn" data-send style="border:0;cursor:pointer"><Icon name="mail" style="color:#d4b372" />ส่งข้อความ</button>
+        <p data-status role="status" aria-live="polite" style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357"></p>
+      </div>
+      {!key && <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">กดส่งแล้วจะเปิดแอปอีเมลของคุณพร้อมข้อความที่กรอกไว้</p>}
+    </form>
+  </section>
+  <script is:inline>
+    (() => {
+      const f = document.querySelector('[data-contact]'); if (!f) return;
+      const status = f.querySelector('[data-status]'), send = f.querySelector('[data-send]'), rec = f.querySelector('[data-recommend]');
+      const key = f.dataset.key, to = f.dataset.to;
+      const topicNow = () => f.querySelector('[name="topic"]:checked');
+      const sync = () => { rec.hidden = topicNow().dataset.topic !== 'recommend'; };
+      f.querySelectorAll('[name="topic"]').forEach((r) => r.addEventListener('change', sync)); sync();
+      if (new URLSearchParams(location.search).get('sent')) status.textContent = 'ส่งข้อความถึงบอสแล้ว ขอบคุณครับ';
+      f.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (f.botcheck.checked) return; // spam trap
+        const d = Object.fromEntries(new FormData(f));
+        const subject = `[บอสพาชิม] ${d.topic}${d.restaurant ? ': ' + d.restaurant : ''}${d.city ? ' (' + d.city + ')' : ''}`;
+        f.querySelector('[data-subject]').value = subject;
+        if (!key) {
+          const body = [`เรื่อง: ${d.topic}`, d.restaurant && `ร้าน: ${d.restaurant}`, d.city && `เมือง: ${d.city}`, `จาก: ${d.name} <${d.email}>`, '', d.message].filter((x) => x !== undefined && x !== '').join('\n');
+          location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; return;
+        }
+        send.disabled = true; status.textContent = 'กำลังส่ง…';
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ ...d, subject, replyto: d.email, access_key: key, botcheck: false }) });
+          const j = await res.json().catch(() => ({}));
+          if (res.ok && j.success !== false) { f.reset(); sync(); status.textContent = 'ส่งข้อความถึงบอสแล้ว ขอบคุณครับ'; }
+          else throw new Error(j.message || res.status);
+        } catch { status.textContent = `ส่งไม่สำเร็จ ลองใหม่อีกครั้ง หรืออีเมลหา ${to}`; }
+        finally { send.disabled = false; }
+      });
+    })();
+  </script>
+</Base>

@@ -2,16 +2,17 @@
 // Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances slowly.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { articleUrl, visitIso, visitLabel } from '../lib/content';
+import { articleUrl, visitIso, visitLabel, getSettings } from '../lib/content';
 import type { Article } from '../lib/types';
 interface Props { slides: Article[] }
 const { slides } = Astro.props;
+const st = await getSettings();
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 {slides.length > 0 && (
   <section class="slider wrap" aria-roledescription="carousel" aria-label="ร้านล่าสุดที่บอสไปชิม" data-slider style="padding-top:72px;padding-bottom:88px">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px">
-      <p class="overline">LATEST VISITS</p>
+      <p class="overline">{st.homeLatestTitle}</p>
       <a href="/review/" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้งหมด</a>
     </div>
     <div class="slides" data-track tabindex="-1">

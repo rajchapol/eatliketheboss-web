@@ -66,7 +66,8 @@ const s = await getSettings();
         <p style="margin:0;max-width:32em;font-size:17px;line-height:1.85;font-weight:400">{s.workWithMe}</p>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:12px;font-family:'Ekkamai New',sans-serif;font-size:16px">
-        {SITE.contactEmail && <a href={`mailto:${SITE.contactEmail}`} class="btn-gold">{SITE.contactEmail}</a>}
+        <a href="/contact/" class="btn-gold">ส่งข้อความหาบอส</a>
+        {SITE.contactEmail && <a href={`mailto:${SITE.contactEmail}`} class="chip" style="display:inline-flex;align-items:center;min-height:48px;padding:0 22px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{SITE.contactEmail}</a>}
         <a href={SITE.facebook} rel="me" class="chip" style="display:inline-flex;align-items:center;min-height:48px;padding:0 28px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">Facebook</a>
         <a href={SITE.instagram} rel="me" class="chip" style="display:inline-flex;align-items:center;min-height:48px;padding:0 28px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">Instagram</a>
       </div>

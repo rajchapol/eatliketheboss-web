@@ -363,3 +363,37 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
 /* Safari: keep zooming / transformed photos inside their rounded corners */
 .slide-photo,.dish-photo,.dish-photo-dark,.idx-thumb,.fx-zoom{transform:translateZ(0)}
 .card .fx-zoom{border-radius:var(--r-md) var(--r-md) 0 0}
+
+/* Article gallery: ambience / chef photos before the dishes */
+.gallery{display:grid;gap:20px}
+.gallery.g1{grid-template-columns:1fr}.gallery.g2{grid-template-columns:1fr 1fr}.gallery.g3{grid-template-columns:repeat(3,1fr)}
+.gal-item{margin:0;display:flex;flex-direction:column;gap:10px}
+.gal-photo{aspect-ratio:3/2;background:#e8dfcf;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 18px 36px -16px rgba(11,83,87,.3)}
+.gal-item figcaption{font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;padding-left:4px}
+@container elb (max-width: 720px){
+  .gallery.g2,.gallery.g3{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:85%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -20px;padding:0 20px 6px;scroll-padding:0 20px}
+  .gallery::-webkit-scrollbar{display:none}.gal-item{scroll-snap-align:start}
+}
+
+/* Share bar */
+.share-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.share-head{flex:1 1 100%;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;margin-bottom:2px}
+.share-pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--r-pill);border:1px solid rgba(11,83,87,.3);background:#fff;color:#1a2632;font-family:'Ekkamai New',sans-serif;font-size:14px;cursor:pointer;transition:background .2s,border-color .2s}
+.share-pill:hover{background:#fbf7ef;border-color:#c39e5c;color:#1a2632}
+.share-pill.done{background:#0b5357;color:#fdeac0;border-color:#0b5357}
+.share-dot{width:10px;height:10px;border-radius:50%}
+.share-pill[hidden]{display:none}
+
+/* Contact form */
+.topic{position:relative;display:inline-flex}
+.topic input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.topic span{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:var(--r-pill);border:1px solid rgba(11,83,87,.35);background:#fff;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#1a2632;transition:background .2s,color .2s}
+.topic input:checked+span{background:linear-gradient(120deg,#073b3e,#0b5357);color:#fdeac0;border-color:#0b5357}
+.topic input:focus-visible+span{outline:2px solid #1a2632;outline-offset:2px}
+.contact-form input:focus,.contact-form textarea:focus{outline:2px solid #0b5357;outline-offset:1px;border-color:#0b5357}
+[data-recommend][hidden]{display:none!important}
+.contact-form button[disabled]{opacity:.6;cursor:wait}
+/* The Boss's Bill: price band symbol + Event / AD pill */
+.bill-dd{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.bill-dd .band{font-size:17px;letter-spacing:.06em;color:#6e3f08}
+.tag-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--r-pill);background:#0b5357;color:#fdeac0;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:700;letter-spacing:.06em}

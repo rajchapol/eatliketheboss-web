@@ -1,11 +1,12 @@
 ---
 import { SITE } from '../lib/config';
-import { citiesByCount } from '../lib/content';
+import { citiesByCount, getSettings } from '../lib/content';
 import { t, NAV_LABELS } from '../lib/i18n';
 import type { Locale } from '../lib/config';
 interface Props { lineart?: boolean; lang?: Locale }
 const { lineart = true, lang = 'th' } = Astro.props;
 const N = NAV_LABELS[lang];
+const st = await getSettings();
 const cities = (await citiesByCount()).slice(0, 4).map((x) => x.city); // cities with the most restaurants
 const year = new Date().getFullYear();
 ---
@@ -34,11 +35,12 @@ const year = new Date().getFullYear();
         <a href="/restaurants/">{N.finder}</a>
         <a href="/glasses-off-awards/">{N.awards}</a>
         <a href="/about/">{N.about}</a>
-        <a href="/about/#work">{t(lang, 'workWith')}</a>
+        <a href="/contact/">{t(lang, 'workWith')}</a>
+        <a href="/contact/">{t(lang, 'recommend')}</a>
       </div>
     </nav>
     <div class="wrap" style="padding-top:32px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px">
-      <span>© {year} บอสพาชิม — Eat Like The Boss · {t(lang, 'rights')}</span>
+      <span>© {year} บอสพาชิม — Eat Like The Boss · {lang === 'th' ? st.footerRights : t(lang, 'rights')}</span>
       <span style="color:#fdeac0"><a href={SITE.facebook} rel="me">Facebook</a> | <a href={SITE.instagram} rel="me">Instagram</a> | <a href="/rss.xml">RSS</a></span>
     </div>
   </footer>

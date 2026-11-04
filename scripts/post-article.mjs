@@ -69,11 +69,17 @@ const doc = {
   ...(lang !== 'th' ? { translationOf: { _type: 'reference', _ref: `article-${slug}` } } : {}),
   series: fm.series || 'review', episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
   tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover),
+  // gallery: ["./images/<slug>/room.jpg | alt text | caption (optional)", …] → ambience / chef photos before the dishes
+  gallery: fm.gallery ? await Promise.all([].concat(fm.gallery).map(async (g) => {
+    const [path, alt, caption] = String(g).split('|').map((x) => x.trim());
+    const im = await upload(`${path} | ${alt || ''}`);
+    return { ...im, _key: key(), ...(caption ? { caption } : {}) };
+  })) : undefined,
   // restaurant.sameAs: <slug of the earlier review> links visits when the restaurant's name changed
   restaurant: fm.restaurant && { ...fm.restaurant, sameAs: fm.restaurant.sameAs ? { _type: 'reference', _ref: `article-${fm.restaurant.sameAs}`, _weak: true } : undefined },
   body: bodyBlocks, quote: fm.quote,
   dishes: await Promise.all(dishes.map(async (d) => ({ _type: 'dish', _key: key(), name: d.name, description: d.description, glassesOff: d.glassesOff, image: await upload(d.image) }))),
-  tag: fm.tag || '', bill: fm.tag ? undefined : fm.bill, visit: fm.visit, hashtags: (fm.hashtags || []).map((h) => String(h).replace(/^#/, '')),
+  tag: fm.tag || '', bill: fm.bill || undefined, billBand: fm.billBand || fm.restaurant?.priceBand || undefined, visit: fm.visit, hashtags: (fm.hashtags || []).map((h) => String(h).replace(/^#/, '')),
   publishedAt: String(fm.publishedAt || new Date().toISOString().slice(0, 10)), seoTitle: fm.seoTitle, seoDescription: fm.seoDescription,
 };
 
