@@ -39,6 +39,12 @@ jobs:
       - name: Build with live Sanity content
         run: npm run build
 
+      - name: Check Sanity Studio schema
+        working-directory: studio
+        env:
+          SANITY_TELEMETRY_DISABLED: '1'
+        run: npm ci --no-audit --no-fund && npx sanity schema validate
+
       - name: Upload preview to Cloudflare
         id: preview
         if: env.HAS_CF_TOKEN == 'true'

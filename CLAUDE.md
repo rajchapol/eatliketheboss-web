@@ -58,6 +58,7 @@ Meta title ≤ 60 chars, description 120–155, slug in English, alt text on eve
 
 ## Checks and previews
 - `.github/workflows/check.yml` builds every branch / PR (sample + live content). With the GitHub secret `CLOUDFLARE_API_TOKEN` it also uploads a Cloudflare preview and comments the link on the PR. Never ask for or store the token itself.
+- Studio: `.github/workflows/deploy-studio.yml` deploys it when `studio/**` changes on main (secret `SANITY_DEPLOY_TOKEN`); by hand: `cd studio && npm ci && npx sanity login && npx sanity deploy`.
 - Cloudflare Web Analytics: paste the site token in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO (empty = off).
 
 ## Commands
