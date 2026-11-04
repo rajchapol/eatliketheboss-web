@@ -8,7 +8,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 `scripts/post-article.mjs` used `createOrReplace`, so pushing a `posts/*.md` again wiped everything the Boss set later in Studio. Example: the price band of the 6 Shanghai reviews, which is empty in their files.
 - **Now:** when the article already exists, every top-level field the file leaves empty (`undefined`, `null`, `''`, `[]`) keeps its Sanity value. `restaurant` is merged field by field. The log lists the kept fields.
-- Fields the file fills still win, so text edited in Studio can still be overwritten by an older file. After the first post, edit in Studio.
+- **Follow-up, same night: patch only what changed.** The Boss asked to remove the "file only for the first post" rule.
+  - For an existing article the script now compares the file with its previous version in git: `--since <ref>` (the workflow passes `github.event.before`); without it, the file's previous commit, or HEAD when the file has uncommitted edits.
+  - It sends a patch with only the changed fields: frontmatter fields, `restaurant.<field>`, `body`, and per dish `dishes[_key=="…"].name/description/glassesOff/image`. A dish is matched in Sanity by its previous name, else by position. If the dish count changed, the whole list follows the file. Fields cleared in the file are unset. A slug change is refused.
+  - The empty-keeps merge above is now only the fallback when there is no previous version (no git history).
+  - Tested end to end against a mock Sanity client in a temporary git repo:
+    - editing the SEO title and one dish text → a patch of exactly those 2 paths, with the Studio price band, Event tag and another dish's Studio edit untouched;
+    - no change → nothing sent;
+    - manual re-run → the same 2 paths.
 - It also warns when a Studio draft (`drafts.<id>`) exists, since publishing that draft would overwrite the file's version.
 - Merge logic unit-tested with mock data. Dry runs are unchanged (they exit before reading Sanity).
 - Role hand-offs written in `docs/handoff/` (posting & translation · brand & graphics · web design).
