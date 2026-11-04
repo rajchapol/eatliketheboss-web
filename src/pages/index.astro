@@ -46,6 +46,18 @@ const quickCities = settings.homeCitySlugs?.length
 
   <HeroSlider slides={slides} />
 
+  {latest.length > 2 && (
+    <nav class="ticker" aria-label="ร้านที่บอสไปชิมล่าสุด">
+      <div class="ticker-track">
+        {[0, 1].map((k) => (
+          <ul aria-hidden={k ? 'true' : undefined}>
+            {latest.slice(0, 14).map((a) => <li><a href={articleUrl(a)} tabindex={k ? -1 : undefined}>{a.restaurant?.name ?? a.title}{a.city && <span>{a.city.nameEn}</span>}</a></li>)}
+          </ul>
+        ))}
+      </div>
+    </nav>
+  )}
+
   <section id="notes" aria-labelledby="index" class="wrap" style="padding-bottom:96px">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">
       <h2 id="index" class="ink-grad gold-lift" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:56px;line-height:1">The Index</h2>
@@ -76,7 +88,7 @@ const quickCities = settings.homeCitySlugs?.length
     <p style="margin:0;max-width:28em;font-size:clamp(22px,3.4cqi,28px);line-height:1.6;font-weight:400">{SITE.tagline}</p>
   </section>
 
-  <section aria-labelledby="aw" class="band-fan on-dark" style="color:#fff">
+  <section aria-labelledby="aw" class="band-fan on-dark spot" style="color:#fff">
     <div class="goldrule"></div>
     <div class="wrap sm-tight" style="padding-top:96px;padding-bottom:96px;display:flex;flex-direction:column;gap:48px">
       <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">

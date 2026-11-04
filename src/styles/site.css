@@ -195,18 +195,6 @@ img{max-width:100%;height:auto}
 /* ---------- Glasses Off: glasses made of dish photos ---------- */
 .specs{position:relative;width:100%;max-width:1080px;margin:0 auto;aspect-ratio:1000/385}
 .specs-frame{position:absolute;inset:0;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 12px rgba(253,234,192,.25))}
-.spec{position:absolute;display:block;aspect-ratio:1;border-radius:50%;z-index:1;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s,box-shadow .35s;animation:spec-in .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d,0ms)}
-.spec img,.spec .ph{border-radius:50%;width:100%;height:100%;object-fit:cover}
-.spec{box-shadow:0 0 0 1.5px rgba(253,234,192,.35),0 6px 14px rgba(0,0,0,.35)}
-.spec.gold{box-shadow:0 0 0 2.5px #d4b372,0 0 16px rgba(253,234,192,.45),0 6px 14px rgba(0,0,0,.35)}
-.specs:hover .spec:not(:hover){opacity:.5}
-.spec:hover,.spec:focus-visible{transform:scale(2.6);z-index:10;opacity:1;box-shadow:0 0 0 2px #fdeac0,0 18px 40px rgba(0,0,0,.55)}
-.spec-cap{position:absolute;left:50%;top:100%;transform:translate(-50%,10%) scale(.38);transform-origin:top center;display:flex;flex-direction:column;align-items:center;gap:2px;width:max-content;max-width:220px;padding:8px 12px;border-radius:var(--r-sm);background:rgba(7,40,42,.95);color:#fff;font-family:'Ekkamai New',sans-serif;font-size:14px;line-height:1.35;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s;box-shadow:0 0 0 1px rgba(212,179,114,.6)}
-.spec-cap svg{color:#d4b372}.spec-cap small{font-size:12px;color:#fdeac0}
-.spec:hover .spec-cap,.spec:focus-visible .spec-cap{opacity:1}
-@keyframes spec-in{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){.spec{animation:none;transition:none}}
-@media (hover: none){.specs:hover .spec:not(:hover){opacity:1}}
 .hint-touch{display:none}@media (hover: none){.hint-hover{display:none}.hint-touch{display:inline}}
 @container elb (max-width: 720px){.specs{width:calc(100% + 24px);margin-left:-12px}}
 
@@ -266,6 +254,105 @@ img{max-width:100%;height:auto}
 .glare{transition:opacity .6s}
 .specs.lit .glare{animation:glare-sweep 1.5s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes glare-sweep{0%{transform:translateX(0) rotate(24deg);opacity:1}100%{transform:translateX(900px) rotate(24deg);opacity:0}}
-.specs.shade:not(.lit) .spec{filter:saturate(.75)}
-.spec{transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s,box-shadow .35s,filter 1.4s}
 .seal{display:block;width:180px;height:180px}.seal svg{display:block;width:100%;height:100%}
+
+/* ======================================================================
+   Effects v2 — modern motion. Everything here is polish: with reduced motion
+   (no .fx-on on <html>) or without JS, content simply shows as before.
+   ====================================================================== */
+
+/* Scroll reveal (+ stagger via --i set by Effects.astro) */
+.fx-on .rv{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 50ms)}
+.fx-on .rv.in{opacity:1;transform:none}
+.fx-on .rv.settled{transition-delay:0s}
+.fx-on .fx-row.rv{transition-property:opacity,transform,background,padding}
+.fx-on .rule.rv{transform:scaleX(0);transform-origin:left;transition-duration:.7s}.fx-on .rule.rv.in{transform:none}
+/* dish photos open like a curtain */
+.fx-on .dish-pad.rv .dish-photo{clip-path:inset(0 0 100% 0 round var(--r-lg));transition:clip-path .8s cubic-bezier(.65,0,.35,1)}
+.fx-on .dish-pad.rv.in .dish-photo{clip-path:inset(0 0 0 0 round var(--r-lg))}
+
+/* Photos fade in when loaded */
+.fx-on img.cover{opacity:0;transition:opacity .7s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.fx-on img.cover.loaded{opacity:1}
+
+/* Headline gold sweep when a section title appears */
+.fx-on h2.ink-grad{background-image:linear-gradient(100deg,#1a2632 0%,#0b5357 30%,#0b5357 44%,#d4b372 50%,#0b5357 56%,#0b5357 70%,#1a2632 100%);background-size:300% 100%;background-position:0% 0}
+.fx-on h2.ink-grad.in:not(.no-anim){animation:ink-sweep 1.6s cubic-bezier(.4,0,.2,1) .2s both}
+@keyframes ink-sweep{from{background-position:0% 0}to{background-position:100% 0}}
+
+/* Compact glass bar */
+.mini-bar{position:fixed;left:0;right:0;top:0;z-index:45;transform:translateY(-110%);transition:transform .4s cubic-bezier(.2,.7,.2,1);background:linear-gradient(120deg,rgba(7,59,62,.82),rgba(11,83,87,.78));-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);box-shadow:0 1px 0 rgba(212,179,114,.5),0 12px 30px rgba(7,59,62,.25);font-family:'Ekkamai New',sans-serif}
+.mini-bar.is-shown{transform:none}
+.mini-in{display:flex;align-items:center;gap:24px;min-height:58px}
+.mini-logo img{display:block;width:62px;height:auto;filter:drop-shadow(0 0 10px rgba(253,234,192,.35))}
+.mini-nav{display:flex;gap:4px 22px;overflow-x:auto;scrollbar-width:none;white-space:nowrap}.mini-nav::-webkit-scrollbar{display:none}
+.mini-nav a{color:#fff;font-size:15px;padding:16px 0;border-bottom:2px solid transparent}.mini-nav a:hover{color:#fdeac0}.mini-nav a[aria-current]{color:#fdeac0;border-bottom-color:#d4b372}
+.course-nav{top:calc(var(--bar-offset,0px) + 8px)!important;transition:top .4s cubic-bezier(.2,.7,.2,1)}
+[id^="dish-"]{scroll-margin-top:calc(var(--bar-offset,0px) + 96px)}
+@container elb (max-width: 720px){.mini-in{gap:14px;min-height:52px}.mini-logo img{width:48px}.mini-nav{-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}.mini-nav a{font-size:14px;padding:14px 0}}
+@media (prefers-reduced-motion: reduce){.mini-bar{transition:none}}
+
+/* Slider: slow Ken Burns on the active photo, text arrives in steps */
+.slide-photo img.cover{transform:scale(1.02)}
+.fx-on .slide.is-active .slide-photo img.cover.loaded{animation:kenburns 9s ease-out both}
+@keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.06)}}
+.fx-on .slide .slide-text>*{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.fx-on .slide.is-active .slide-text>*{opacity:1;transform:none}
+.slide-text>:nth-child(2){transition-delay:.08s}.slide-text>:nth-child(3){transition-delay:.16s}.slide-text>:nth-child(4){transition-delay:.24s}.slide-text>:nth-child(5){transition-delay:.32s}
+
+/* Card tilt + gold sheen (mouse only) */
+.card.tilt{transform-style:preserve-3d;transition-property:transform,box-shadow,opacity;transition-duration:.45s,.35s,.8s;transition-timing-function:cubic-bezier(.2,.7,.2,1)}
+.card.tilt:hover{transform:perspective(1100px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-4px)}
+.card.tilt::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .35s;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(253,234,192,.28),rgba(253,234,192,0) 45%)}
+.card.tilt:hover::before{opacity:1}
+
+/* Cursor spotlight on dark bands */
+.spot{position:relative;isolation:isolate}
+.spot::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;opacity:0;transition:opacity .5s;background:radial-gradient(520px circle at var(--sx,50%) var(--sy,50%),rgba(253,234,192,.13),rgba(253,234,192,0) 60%)}
+.spot:hover::after{opacity:1}
+
+/* Gold button shine */
+.btn-gold,.btn-teal{position:relative;overflow:hidden}
+.btn-gold::after,.btn-teal::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;transform:skewX(-20deg);background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.45),rgba(255,255,255,0));transition:left .7s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.btn-gold:hover::after,.btn-teal:hover::after{left:120%}
+
+/* Article cover parallax (scroll-driven, no JS; ignored where unsupported) */
+@supports (animation-timeline: view()){
+  .fx-on .parallax img.cover{animation:plx linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  @keyframes plx{from{transform:translateY(-3%) scale(1.07)}to{transform:translateY(3%) scale(1.07)}}
+}
+
+/* Home ticker of latest restaurants */
+.ticker{overflow:hidden;border-block:1px solid rgba(195,158,92,.45);background:linear-gradient(90deg,#fbf7ef,#f4ece0 50%,#fbf7ef);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-track{display:flex;width:max-content;animation:ticker 48s linear infinite}
+.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+.ticker ul{display:flex;margin:0;padding:0;list-style:none}
+.ticker li{display:flex;align-items:center}
+.ticker li::before{content:"";width:7px;height:7px;margin:0 26px;transform:rotate(45deg);background:linear-gradient(135deg,#d4b372,#fdeac0);box-shadow:0 0 8px rgba(212,179,114,.6)}
+.ticker a{display:inline-flex;align-items:baseline;gap:10px;padding:16px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#0b5357;white-space:nowrap}
+.ticker a span{font-family:'Ekkamai New',sans-serif;font-style:normal;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#926633}
+.ticker a:hover{color:#6e3f08}
+@keyframes ticker{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.ticker{overflow-x:auto}.ticker-track{animation:none}.ticker ul[aria-hidden]{display:none}}
+/* Language buttons that open the Google-translated page: dotted underline = machine translation */
+.lang a.auto span{text-decoration:underline dotted rgba(253,234,192,.55);text-underline-offset:4px}
+
+/* Glasses Off lenses: honeycomb of hexagon photos, clipped to each lens */
+.lens{position:absolute;border-radius:50%;overflow:hidden;z-index:1;background:#062628;-webkit-mask-image:-webkit-radial-gradient(white,black)}
+.lens-grid{position:absolute;inset:-8%;translate:var(--tx,0px) var(--ty,0px);transition:translate .6s cubic-bezier(.2,.7,.2,1);animation:lens-drift 16s ease-in-out infinite}
+@keyframes lens-drift{0%,100%{transform:translate(0,0)}25%{transform:translate(2.2%,-1.6%)}50%{transform:translate(-1.4%,2%)}75%{transform:translate(-2%,-1.2%)}}
+.specs:hover .lens-grid{animation-play-state:paused}
+.cell{position:absolute;display:block}
+.hx{position:absolute;inset:3%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(253,234,192,.28);transition:transform .35s cubic-bezier(.2,.7,.2,1),background .35s}
+.cell.gold .hx{background:linear-gradient(135deg,#fdeac0,#d4b372 45%,#926633)}
+.hx-in{position:absolute;inset:0;clip-path:inherit;transform:scale(.9);background:#0b3a3c}
+.hx-in img,.hx-in .ph{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .35s}
+.cell:hover,.cell:focus-visible{z-index:3}
+.cell:hover .hx,.cell:focus-visible .hx{transform:scale(1.14);background:linear-gradient(135deg,#fff6dc,#d4b372)}
+.cell:hover .hx-in img,.cell:focus-visible .hx-in img{transform:scale(1.08);filter:brightness(1.08) saturate(1.1)}
+.specs:hover .cell:not(:hover) .hx-in img{filter:brightness(.72) saturate(.85)}
+.specs.shade:not(.lit) .hx-in img{filter:saturate(.7)}
+.specs-now{min-height:1.6em;margin:52px 0 0;text-align:center;font-family:'Ekkamai New',sans-serif;font-size:15px;color:rgba(255,255,255,.92)}
+.specs-now strong{font-family:'Noto Serif Thai',serif;font-size:19px;font-weight:600;color:#fff}.specs-now em{font-style:normal;font-size:12px;letter-spacing:.18em;color:#fdeac0}
+@media (prefers-reduced-motion: reduce){.lens-grid{animation:none;transition:none}.hx,.hx-in img{transition:none}}
+@media (hover: none){.specs:hover .cell:not(:hover) .hx-in img{filter:none}.cell{pointer-events:none}} /* touch: cells are too small to tap; the list below has proper targets */

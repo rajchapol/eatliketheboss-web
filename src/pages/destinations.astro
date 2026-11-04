@@ -38,7 +38,7 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
       {regions.map((g) => <a href={`#${g.id}`} class="chip" style="display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:44px;padding:0 18px;white-space:nowrap;border:1px solid rgba(11,83,87,.35);background:#fff">{g.name}<span style="font-size:12px;color:#6e3f08">{g.cities.length}</span></a>)}
     </nav>
     <dl style="margin:8px 0 0;display:flex;gap:40px;font-family:'Ekkamai New',sans-serif">
-      {[[countries, 'ประเทศ'], [cities.length, 'เมือง'], [totalRestaurants, 'ร้าน']].map(([n, l]) => <div style="display:flex;flex-direction:column-reverse;gap:4px"><dt style="font-size:14px;color:#3d4955">{l}</dt><dd class="bronze-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{n}</dd></div>)}
+      {[[countries, 'ประเทศ'], [cities.length, 'เมือง'], [totalRestaurants, 'ร้าน']].map(([n, l]) => <div style="display:flex;flex-direction:column-reverse;gap:4px"><dt style="font-size:14px;color:#3d4955">{l}</dt><dd class="bronze-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1" data-count-to={n}>{n}</dd></div>)}
     </dl>
   </section>
 

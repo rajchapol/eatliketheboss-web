@@ -3,6 +3,7 @@
 import '../styles/site.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import Effects from '../components/Effects.astro';
 import { SITE, HREFLANG, DEFAULT_LOCALE, type Locale } from '../lib/config';
 import { getSettings } from '../lib/content';
 import { t } from '../lib/i18n';
@@ -39,6 +40,7 @@ const metaDescription = description.length <= 158 ? description : (() => { const
 <html lang={HREFLANG[lang]}>
 <head>
   <meta charset="utf-8" />
+  <script is:inline>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('fx-on');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{fullTitle}</title>
   <meta name="description" content={metaDescription} />
@@ -76,6 +78,7 @@ const metaDescription = description.length <= 158 ? description : (() => { const
     <slot />
     <SiteFooter lineart={lineart} lang={lang} />
   </div>
+  <Effects />
   <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
   <script is:inline>
     (() => { const b = document.querySelector('[data-to-top]'); if (!b) return;

@@ -1,0 +1,32 @@
+# One-off data fix: moves cities saved with old region values (jp / cn / other) to the new continent groups.
+# Manual only: Actions → Fix city regions → Run workflow. Leave "Dry run" ticked first to see the list, then run again unticked.
+# Changes only the `region` field of city documents. Uses the existing secret SANITY_WRITE_TOKEN.
+name: Fix city regions
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node --experimental-strip-types scripts/fix-city-regions.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node --experimental-strip-types scripts/fix-city-regions.mjs
