@@ -1,6 +1,7 @@
 # Eat Like The Boss website — guide for Claude
 
 Read this first. Keep edits small: read only the files you need, prefer find-and-replace over rewrites.
+What earlier sessions changed, why, and what is still open: `docs/HANDOFF.md` (add your own entry at the top when you finish).
 
 ## Stack
 - **Astro** static site (`src/`), built on **Cloudflare Workers (static assets, `wrangler.jsonc`)** from `main`, domain eatlikeboss.com.
