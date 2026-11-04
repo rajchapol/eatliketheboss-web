@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, last) · Language switcher back (real translation first, else Google in a new tab)
+
+The Boss asked where the translator went (it was hidden: no article has a translation yet) and chose "both".
+- `SiteHeader.astro`: the switcher shows TH · EN · 日本語 · 中文 on every page. A real translation (`posts/<slug>.<lang>.md` or Studio) opens in place; otherwise `translate.google.com/translate?…&u=<page>` opens in a new tab with a small new-tab icon (`external` in `Icon.astro`; hidden on phones). The site itself is never wrapped by Google's proxy, so going back to Thai is just the original tab. The Google page may still show missing images; real translations are the fix.
+- Header layout (desktop): logo on the left; the language row sits small above the menu on the right (it used to drop under the logo). Phones: logo keeps its size (84px under 380px wide), language pills tighter.
+- Open: the Boss wants real translations too — ask which articles/languages first; drafts go in `posts/<slug>.<lang>.md`, published only after the Boss approves.
+
+---
+
 ## Session 2026-11-04 (night, later) · Share image redesigned for LINE previews
 
 The Boss: the LINE link preview looked bad. Cause: LINE shows the share image as a square cut from the middle, and the old design put the logo and name on the left (cut off), under a teal wash that dulled the food.
