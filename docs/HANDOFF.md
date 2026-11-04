@@ -4,6 +4,17 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, after hand-offs) · Re-posting keeps Studio values
+
+`scripts/post-article.mjs` used `createOrReplace`, so pushing a `posts/*.md` again wiped everything the Boss set later in Studio. Example: the price band of the 6 Shanghai reviews, which is empty in their files.
+- **Now:** when the article already exists, every top-level field the file leaves empty (`undefined`, `null`, `''`, `[]`) keeps its Sanity value. `restaurant` is merged field by field. The log lists the kept fields.
+- Fields the file fills still win, so text edited in Studio can still be overwritten by an older file. After the first post, edit in Studio.
+- It also warns when a Studio draft (`drafts.<id>`) exists, since publishing that draft would overwrite the file's version.
+- Merge logic unit-tested with mock data. Dry runs are unchanged (they exit before reading Sanity).
+- Role hand-offs written in `docs/handoff/` (posting & translation · brand & graphics · web design).
+
+---
+
 ## Session 2026-11-04 (late evening, 2) · Design pass: at-a-glance card, city list, price pills, footer, lede + quote
 
 The Boss picked all five design suggestions:

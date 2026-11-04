@@ -86,5 +86,26 @@ const doc = {
 if (doc.dishes.filter((d) => d.glassesOff).length > 2) throw new Error('ถอดแว่นชิมได้มากสุด 2 จาน');
 if (dry) { console.log(JSON.stringify(doc, null, 2)); process.exit(0); }
 if (!get('SANITY_WRITE_TOKEN')) throw new Error('ไม่มี SANITY_WRITE_TOKEN ใน .env');
-await client.createOrReplace(doc);
+// Re-posting a file must not wipe what the Boss set in Studio later (price band, Event tag, quote, gallery, SEO…):
+// for an article that already exists, every field the file leaves empty keeps its current Sanity value
+// (restaurant details are merged field by field). To clear a value, clear it in Studio.
+const isEmpty = (v) => v === undefined || v === null || v === '' || (Array.isArray(v) && v.length === 0);
+const keepStudio = (current, next, prefix, kept) => {
+  const out = { ...next };
+  for (const k of Object.keys(current)) {
+    if (k.startsWith('_')) continue;
+    if (isEmpty(next[k]) && !isEmpty(current[k])) { out[k] = current[k]; kept.push(prefix + k); }
+  }
+  return out;
+};
+const existing = await client.getDocument(id);
+let final = doc;
+if (existing) {
+  const kept = [];
+  final = keepStudio(existing, doc, '', kept);
+  if (doc.restaurant && existing.restaurant) final.restaurant = keepStudio(existing.restaurant, doc.restaurant, 'restaurant.', kept);
+  console.log(kept.length ? `ℹ︎ บทความนี้มีใน Sanity แล้ว · ช่องที่ไฟล์เว้นว่าง ใช้ค่าเดิมจาก Studio: ${kept.join(', ')}` : 'ℹ︎ บทความนี้มีใน Sanity แล้ว · อัปเดตตามไฟล์');
+}
+if (await client.getDocument(`drafts.${id}`)) console.warn(`⚠︎ มีฉบับร่างค้างใน Studio (drafts.${id}) ถ้ากด Publish ฉบับร่างนั้น จะทับสิ่งที่ลงจากไฟล์นี้ · ทิ้งร่าง (Discard changes) ถ้าไม่ต้องการ`);
+await client.createOrReplace(final);
 console.log(`✓ โพสต์แล้ว: ${id} — เว็บจะอัปเดตเองภายในไม่กี่นาที (Cloudflare build)`);
