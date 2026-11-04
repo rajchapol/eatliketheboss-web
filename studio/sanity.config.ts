@@ -41,11 +41,12 @@ export default defineConfig({
                 S.documentTypeList('city').title('เลือกเมือง').apiVersion(API)
                   .child((cityId: string) => list(`city-${cityId}`, 'บทความในเมืองนี้', `${TH} && city._ref == $cityId`, { cityId }))),
             ])),
+          // no "+" here: a translation is made from its Thai article (tab 5), which links it
           S.listItem().id('articles-translations').title('คำแปล (EN / 日本語 / 中文)').icon(TranslateIcon).child(
             S.list().id('translations-menu').title('คำแปล').items([
-              item('tr-en', 'English', '_type == "article" && language == "en"'),
-              item('tr-ja', '日本語', '_type == "article" && language == "ja"'),
-              item('tr-zh', '中文', '_type == "article" && language == "zh"'),
+              S.listItem().id('tr-en').title('English').schemaType('article').child(list('tr-en', 'English', '_type == "article" && language == "en"').initialValueTemplates([])),
+              S.listItem().id('tr-ja').title('日本語').schemaType('article').child(list('tr-ja', '日本語', '_type == "article" && language == "ja"').initialValueTemplates([])),
+              S.listItem().id('tr-zh').title('中文').schemaType('article').child(list('tr-zh', '中文', '_type == "article" && language == "zh"').initialValueTemplates([])),
             ])),
           S.divider(),
           // Work to do: each list empties itself as things get fixed

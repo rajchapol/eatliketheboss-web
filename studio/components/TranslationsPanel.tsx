@@ -84,8 +84,24 @@ export function TranslationsPanel() {
     return () => { live = false; sub.unsubscribe(); };
   }, [client, baseId]);
 
+  // A Thai article switched to another language by hand (before the language field was locked):
+  // one click puts it back to Thai (the draft keeps every other edit).
+  async function backToThai() {
+    setBusy('th');
+    try { await client.patch(`drafts.${id}`).set({ language: 'th' }).unset(['translationOf']).commit(); }
+    catch (e: any) { toast.push({ status: 'error', title: 'เปลี่ยนกลับไม่สำเร็จ', description: String(e?.message || e) }); }
+    finally { setBusy(null); }
+  }
   if (language !== 'th' && !baseId) {
-    return <Card padding={3} radius={2} tone="caution" border><Text size={1}>เลือกบทความภาษาไทยที่แปลมา ในช่อง "แปลจากบทความ" ด้านบนก่อนครับ</Text></Card>;
+    return (
+      <Card padding={4} radius={2} tone="caution" border>
+        <Stack space={3}>
+          <Text size={1} weight="semibold">บทความนี้ถูกเปลี่ยนเป็น {labelOf(language)} แต่ยังไม่ได้ผูกกับบทความไทย</Text>
+          <Text size={1}>ถ้าตั้งใจจะแปลบทความนี้ ให้เปลี่ยนกลับเป็นภาษาไทยก่อน แล้วกดปุ่ม "+ {labelOf(language)}" ที่จะขึ้นในแท็บนี้</Text>
+          <Box><Button tone="primary" text={busy === 'th' ? 'กำลังเปลี่ยน…' : 'เปลี่ยนกลับเป็นบทความภาษาไทย'} disabled={Boolean(busy)} onClick={backToThai} /></Box>
+        </Stack>
+      </Card>
+    );
   }
   if (!rows) return <Text size={1} muted>กำลังโหลด…</Text>;
   const have = new Set(rows.map((r) => r.language));
@@ -95,7 +111,7 @@ export function TranslationsPanel() {
 
   return (
     <Stack space={3}>
-      {language !== 'th' && <Text size={1} weight="semibold">คำแปลนี้ผูกกับบทความไทยด้านล่าง (การ์ดสีฟ้า)</Text>}
+      <Text size={2} weight="semibold">{language === 'th' ? 'บทความนี้: ภาษาไทย (ต้นฉบับ)' : `บทความนี้: ${labelOf(language)} · แปลจากบทความไทยด้านล่าง (การ์ดสีฟ้า)`}</Text>
       <Text size={1} muted>บทความนี้มีทั้งหมด {rows.length} ภาษา · กดเพื่อเปิด</Text>
       {others.length ? others.map((r) => <DocLink key={r._id} row={r} tone={r.language === 'th' ? 'primary' : 'default'} />)
         : <Card padding={3} radius={2} border><Text size={1} muted>ยังไม่มีคำแปล</Text></Card>}
@@ -107,7 +123,7 @@ export function TranslationsPanel() {
           <Text size={1} muted>เพิ่มคำแปล (คัดลอกร้าน รูป รายการจาน และข้อความไทยไปให้ แล้วแปลทับได้เลย)</Text>
           <Flex gap={2} wrap="wrap" marginTop={3}>
             {missing.map((l) => (
-              <Button key={l.id} mode="ghost" icon={AddIcon} text={busy === l.id ? 'กำลังสร้าง…' : l.label} disabled={Boolean(busy)} onClick={() => createTranslation(l.id)} />
+              <Button key={l.id} tone="primary" icon={AddIcon} text={busy === l.id ? 'กำลังสร้าง…' : l.label} disabled={Boolean(busy)} onClick={() => createTranslation(l.id)} />
             ))}
           </Flex>
         </Box>
