@@ -20,9 +20,9 @@ const s = await getSettings();
       </div>
     </section>
 
-    <section aria-label="ตัวเลข" class="rc" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:72px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);background:#fbf7ef">
+    <section aria-label="ตัวเลข" class="rc stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:72px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);background:#fbf7ef">
       {s.aboutStats.map(({ value: n, label: l }, i, all) => (
-        <div style={`padding:28px;display:flex;flex-direction:column;gap:6px;${i < all.length - 1 ? 'border-right:1px solid rgba(195,158,92,.35)' : ''}`}><span class="ink-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1">{n}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{l}</span></div>
+        <div style={`padding:28px;display:flex;flex-direction:column;gap:6px;${i < all.length - 1 ? 'border-right:1px solid rgba(195,158,92,.35)' : ''}`}><span class="ink-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:48px;line-height:1">{n}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955">{l}</span></div>
       ))}
     </section>
 

@@ -2,14 +2,14 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
-import { getArticles, glassesOffDishes, getSettings, dishUrl } from '../lib/content';
+import { getArticles, glassesOffDishes, getSettings, dishUrl, visitYear } from '../lib/content';
 const st = await getSettings();
 import { SITE } from '../lib/config';
 import { romanAt as roman } from '../lib/roman';
 
 const articles = await getArticles('th');
 const items = glassesOffDishes(articles);
-const years = [...new Set(items.map((x) => x.article.publishedAt.slice(0, 4)))].sort().reverse();
+const years = [...new Set(items.map((x) => visitYear(x.article)))].sort().reverse(); // by the year of the meal
 const ld = {
   '@context': 'https://schema.org', '@type': 'ItemList', name: 'Glasses Off Awards',
   itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.dish.name, url: new URL(dishUrl(x.article, x.index), SITE.url).href })),
@@ -27,7 +27,8 @@ const pool = [
   ...items.filter((x) => x.dish.image).map((x) => ({ ...x, gold: true })),
   ...articles.flatMap((a) => a.dishes.map((dish, index) => ({ dish, article: a, index, gold: false }))).filter((x) => x.dish.image && !x.dish.glassesOff),
 ];
-const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.length] })) : [];
+// With fewer photos than spots, photos repeat; the repeats are decoration only (hidden from keyboard and screen readers).
+const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.length], repeat: i >= pool.length })) : [];
 ---
 <Base title="Glasses Off Awards — จานที่อร่อยจนบอสต้องถอดแว่นชิม" description="รวมทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน" active="awards" dark jsonLd={[ld]}>
   <section aria-labelledby="aw" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
@@ -39,7 +40,7 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
     </div>
     {tiles.length > 0 && (
       <div class="wrap" style="padding-bottom:88px">
-        <div class="specs" role="list" aria-label="จานถอดแว่นชิม เรียงเป็นแว่นของบอส">
+        <div class="specs" role="group" aria-label="จานถอดแว่นชิม เรียงเป็นแว่นของบอส">
           <svg class="specs-frame" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" preserveAspectRatio="xMidYMid meet">
             <defs><linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fdeac0" /><stop offset=".5" stop-color="#d4b372" /><stop offset="1" stop-color="#926633" /></linearGradient></defs>
             <circle cx="270" cy={H / 2} r="197" fill="rgba(253,234,192,.04)" stroke="url(#rim)" stroke-width="5" />
@@ -49,10 +50,11 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
             <path d={`M918 ${H / 2 - 50} L992 ${H / 2 - 92}`} fill="none" stroke="url(#rim)" stroke-width="6" stroke-linecap="round" />
           </svg>
           {tiles.map((t, i) => (
-            <a role="listitem" href={dishUrl(t.article, t.index)} class={t.gold ? 'spec gold' : 'spec'}
+            <a href={dishUrl(t.article, t.index)} class={t.gold ? 'spec gold' : 'spec'}
+              aria-hidden={t.repeat ? 'true' : undefined} tabindex={t.repeat ? -1 : undefined}
               style={`left:${((t.x - D / 2) / W) * 100}%;top:${((t.y - D / 2) / H) * 100}%;width:${(D / W) * 100}%;--d:${(i % 19) * 40}ms`}>
               <Photo img={t.dish.image} label={t.dish.name} ratio={1} widths={[160, 320]} sizes="(max-width: 720px) 80px, 160px" />
-              <span class="spec-cap">{t.gold && <Icon name="glasses" size={14} />}{t.dish.name}<small>{t.article.restaurant?.name}</small></span>
+              <span class="spec-cap">{t.gold && <Icon name="glasses" size={14} />}{t.dish.name}<small>{t.article.restaurant?.name ?? t.article.title}</small></span>
             </a>
           ))}
         </div>
@@ -65,14 +67,14 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
       <section id={`y${y}`} aria-label={`Glasses Off Awards ${y}`} style="padding-top:64px;scroll-margin-top:24px">
         <h2 class="gold-grad" style="margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:52px;line-height:1.1">{y}</h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px">
-          {items.filter((x) => x.article.publishedAt.startsWith(y)).map((x, i) => (
+          {items.filter((x) => visitYear(x.article) === y).map((x, i) => (
             <a href={dishUrl(x.article, x.index)} class="fx-lift rc" style="display:flex;flex-direction:column;background:rgba(11,83,87,.6);box-shadow:0 0 0 1px rgba(212,179,114,.5),0 16px 36px rgba(0,0,0,.25)">
               <span class="fx-zoom" style="position:relative;display:block;aspect-ratio:3/2"><Photo img={x.dish.image ?? x.article.cover} label="ภาพจาน" dark ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 380px" />
                 <span style="position:absolute;left:16px;bottom:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1;color:#fdeac0;text-shadow:0 2px 14px rgba(0,0,0,.55)">{roman(i)}.</span>
-                <span class="badge badge-dark" style="position:absolute;right:12px;top:12px">{x.article.city?.nameEn}</span></span>
+                {x.article.city && <span class="badge badge-dark" style="position:absolute;right:12px;top:12px">{x.article.city.nameEn}</span>}</span>
               <span style="display:flex;flex-direction:column;gap:6px;padding:18px 20px 22px">
                 <span style="font-size:21px;font-weight:600;line-height:1.45;color:#fff">{x.dish.name}</span>
-                <span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:rgba(255,255,255,.92)">{x.article.restaurant?.name} · Tasting Notes No. {String(x.article.no).padStart(3, '0')}</span>
+                <span style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:rgba(255,255,255,.92)">{x.article.restaurant?.name ?? x.article.title} · Tasting Notes No. {String(x.article.no).padStart(3, '0')}</span>
               </span>
             </a>
           ))}

@@ -45,6 +45,7 @@ export const REGIONS = [
   { id: 'americas', name: 'อเมริกา', latin: 'The Americas' },
   { id: 'oceania', name: 'โอเชียเนีย', latin: 'Oceania' },
   { id: 'mea', name: 'ตะวันออกกลางและแอฟริกา', latin: 'Middle East & Africa' },
+  { id: 'other', name: 'เมืองอื่นๆ', latin: 'Worldwide' }, // country not recognised and no region set
 ] as const;
 export type RegionKey = (typeof REGIONS)[number]['id'];
 // Country (Thai name, as typed in Sanity) → continent, for cities still saved with the old region values.
@@ -58,11 +59,11 @@ const COUNTRY_REGION: Record<string, RegionKey> = Object.fromEntries(
     ['mea', 'สหรัฐอาหรับเอมิเรตส์ ดูไบ กาตาร์ ซาอุดีอาระเบีย อิสราเอล เลบานอน แอฟริกาใต้ โมร็อกโก อียิปต์'],
   ] as [RegionKey, string][]).flatMap(([r, names]) => names.split(' ').map((n) => [n, r])),
 );
-/** Continent group of a city: the Studio value, or worked out from the country for older entries (jp/cn/other). */
+/** Continent group of a city: worked out from the country when it is a known name, else the Studio value. */
 export function regionOf(c: { region?: string; country?: string }): RegionKey {
   const fromCountry = c.country ? COUNTRY_REGION[c.country.trim()] : undefined;
-  if (fromCountry === 'th' || c.region === 'th') return 'th';
-  if (REGIONS.some((r) => r.id === c.region)) return c.region as RegionKey;
-  if (c.region === 'jp' || c.region === 'cn') return 'asia';
-  return fromCountry ?? 'asia';
+  if (fromCountry) return fromCountry;
+  if (c.region === 'jp' || c.region === 'cn') return 'asia'; // older entries
+  if (c.region && c.region !== 'other' && REGIONS.some((r) => r.id === c.region)) return c.region as RegionKey;
+  return 'other';
 }

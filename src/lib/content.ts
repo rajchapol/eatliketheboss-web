@@ -30,7 +30,9 @@ const readMinutes = (html: string, dishes: { description: string }[], lang = 'th
 };
 
 // The Facebook post opens a glasses-off dish with 🕶️ "จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม"; the page already shows that line.
-const cleanDish = (s: string) => s.replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
+// Control characters pasted from Google Docs (vertical tab, zero-width space…) show as boxes; turn them into spaces.
+const stripCtrl = (s: string) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B\uFEFF]+/g, ' ');
+const cleanDish = (s: string) => stripCtrl(s).replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
 
 const IMG = `{..., asset->{url, metadata{dimensions}}}`;
 const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, "pickIds": picks[]._ref, cover${IMG}}`;
@@ -78,8 +80,8 @@ export function getAllArticles(): Promise<Article[]> {
     )
     .then((rows: any[]) =>
       rows.map((r): Article => {
-        const bodyHtml = r.body ? toHTML(r.body) : '';
-        const dishes = (r.dishes || []).map((d: any) => ({ name: d.name, description: cleanDish(d.description || ''), glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
+        const bodyHtml = r.body ? stripCtrl(toHTML(r.body)) : '';
+        const dishes = (r.dishes || []).map((d: any) => ({ name: stripCtrl(d.name || ''), description: cleanDish(d.description || ''), glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
         return {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
           no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, city: r.city || undefined,
@@ -161,10 +163,24 @@ export function visitIso(a: Pick<Article, 'visit' | 'publishedAt'>) {
   const i = m ? MONTHS.indexOf(m[1].toLowerCase()) : -1;
   return i >= 0 ? `${m![2]}-${String(i + 1).padStart(2, '0')}` : (a.publishedAt || '').slice(0, 7);
 }
+/** Year of the meal (visit), e.g. "2026" — awards are grouped by when the Boss ate the dish. */
+export const visitYear = (a: Pick<Article, 'visit' | 'publishedAt'>) => visitIso(a).slice(0, 4);
+
+/** Cities that have at least one review, most restaurants first (ties by name). */
+export async function citiesByCount() {
+  const reviews = (await getArticles(DEFAULT_LOCALE)).filter((a) => a.series === 'review');
+  const n = (slug: string) => groupByRestaurant(reviews.filter((a) => a.city?.slug === slug)).length;
+  return (await getCities()).map((c) => ({ city: c, count: n(c.slug) })).filter((x) => x.count > 0)
+    .sort((a, b) => b.count - a.count || a.city.nameEn.localeCompare(b.city.nameEn));
+}
+
 /** Visit month as written ("Oct-2026"), or the publish month in the same style. */
 export function visitLabel(a: Pick<Article, 'visit' | 'publishedAt'>) {
   if (a.visit) return a.visit;
-  return a.publishedAt ? new Date(a.publishedAt).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).replace(' ', '-') : '';
+  const [y, m] = (a.publishedAt || '').split('-');
+  if (!y || !m) return '';
+  const mon = MONTHS[Number(m) - 1] ?? '';
+  return `${mon.charAt(0).toUpperCase()}${mon.slice(1)}-${y}`; // same "Sep-2026" style as Visit (no locale "Sept")
 }
 
 /**
@@ -191,5 +207,5 @@ export function groupByRestaurant(list: Article[]) {
 export function cityPicks(city: City, list: Article[], max = 3) {
   const chosen = (city.pickIds ?? []).map((id) => list.find((a) => a.id === id || a.baseId === id)).filter(Boolean) as Article[];
   if (chosen.length) return chosen.slice(0, max);
-  return groupByRestaurant(list.filter((a) => a.dishes.some((d) => d.glassesOff))).map((g) => g.latest).slice(0, max);
+  return groupByRestaurant(list).filter((g) => g.visits.some((a) => a.dishes.some((d) => d.glassesOff))).map((g) => g.latest).slice(0, max);
 }

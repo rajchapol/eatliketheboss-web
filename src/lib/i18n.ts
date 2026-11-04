@@ -12,6 +12,8 @@ const T = {
   glassesOff: { th: 'ถอดแว่นชิม', en: 'Glasses Off', ja: 'グラスオフ', zh: '摘镜之味' },
   goToDish: { th: 'ไปที่จาน {n}', en: 'Go to course {n}', ja: '{n}皿目へ', zh: '前往第 {n} 道' },
   share: { th: 'แชร์บทความ', en: 'Share this article', ja: '記事をシェア', zh: '分享文章' },
+  shareShort: { th: 'แชร์', en: 'Share', ja: 'シェア', zh: '分享' },
+  toTop: { th: 'กลับขึ้นด้านบน', en: 'Back to top', ja: 'ページの先頭へ', zh: '回到顶部' },
   copied: { th: 'คัดลอกลิงก์แล้ว', en: 'Link copied', ja: 'リンクをコピーしました', zh: '链接已复制' },
   coverLabel: { th: 'ภาพเปิด', en: 'Cover photo', ja: 'カバー写真', zh: '封面图片' },
   atTable: { th: 'AT THE TABLE', en: 'AT THE TABLE', ja: 'AT THE TABLE', zh: 'AT THE TABLE' },

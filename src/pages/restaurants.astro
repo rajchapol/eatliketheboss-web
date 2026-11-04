@@ -9,7 +9,7 @@ const list = (await getArticles('th')).filter((a) => a.series === 'review');
 // One card per restaurant; repeat visits are listed inside the card.
 const groups = groupByRestaurant(list);
 const cityList = (await getCities()).filter((c) => list.some((a) => a.city?.slug === c.slug));
-const cuisines = [...new Set(list.map((a) => a.restaurant?.cuisine).filter(Boolean))] as string[];
+const cuisines = [...new Set(groups.map((g) => g.latest.restaurant?.cuisine).filter(Boolean))] as string[]; // match each card's (latest visit) cuisine
 const prices = ['฿฿', '฿฿฿', '฿฿฿฿'];
 const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;height:44px;padding:0 16px;white-space:nowrap;border:1px solid rgba(11,83,87,.4);background:#fff;color:#1a2632;font-family:'Ekkamai New',sans-serif;font-size:15px";
 ---

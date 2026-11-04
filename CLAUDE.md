@@ -30,6 +30,7 @@ You never need to touch `src/` to post.
 | Change | File |
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
+| Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
 | Menu, logo, language switcher | `src/components/SiteHeader.astro` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |

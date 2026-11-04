@@ -1,9 +1,9 @@
 ---
 import { SITE } from '../lib/config';
-import { getCities } from '../lib/content';
+import { citiesByCount } from '../lib/content';
 interface Props { lineart?: boolean }
 const { lineart = true } = Astro.props;
-const cities = (await getCities()).filter((c) => ['bangkok', 'tokyo', 'osaka', 'hong-kong'].includes(c.slug));
+const cities = (await citiesByCount()).slice(0, 4).map((x) => x.city); // cities with the most restaurants
 const year = new Date().getFullYear();
 ---
 <div style="font-family:'Ekkamai New',sans-serif">

@@ -78,7 +78,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
           <div class="fx-row" style="position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(195,158,92,.35)">
             <span class="rc" style="flex:0 0 132px;aspect-ratio:3/2;display:block;border-radius:var(--r-sm)"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[264, 396]} sizes="132px" /></span>
             <span style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px">
-              <a href={articleUrl(a)} class="card-link" style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name}</a>
+              <a href={articleUrl(a)} class="card-link" style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name ?? a.title}</a>
               <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
               {visits.length > 1 && (
                 <span class="over" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">รีวิว {visits.length} ครั้ง:

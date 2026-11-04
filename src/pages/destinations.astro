@@ -4,16 +4,18 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import { MOTIFS, REGIONS, regionOf } from '../lib/config';
-import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks } from '../lib/content';
+import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks, citiesByCount } from '../lib/content';
 import { romanAt as roman } from '../lib/roman';
 const st = await getSettings();
 
-const cities = await getCities();
+// Only cities that already have a review (all cities while the site is still empty).
+const withReviews = await citiesByCount();
+const cities = withReviews.length ? withReviews.map((x) => x.city).sort((a, b) => a.nameEn.localeCompare(b.nameEn)) : await getCities();
 const articles = (await getArticles('th')).filter((a) => a.series === 'review');
 const inCity = (slug: string) => articles.filter((a) => a.city?.slug === slug);
 const count = (slug: string) => groupByRestaurant(inCity(slug)).length; // restaurants, not visits
 const glasses = (slug: string) => inCity(slug).reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
-const featured = cities.find((c) => c.featured) ?? cities[0];
+const featured = cities.find((c) => c.featured) ?? withReviews[0]?.city ?? cities[0];
 const fm = MOTIFS[featured?.motif] ?? MOTIFS.loop;
 const fPicks = featured ? cityPicks(featured, inCity(featured.slug)) : [];
 const regions = REGIONS.map((r, i) => {

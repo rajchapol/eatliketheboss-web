@@ -89,7 +89,7 @@ export const city = defineType({
     defineField({ name: 'nameTh', title: 'ชื่อไทย', type: 'string', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'nameEn' }, validation: (r) => r.required() }),
     defineField({ name: 'country', title: 'ประเทศ (ไทย)', type: 'string' }),
-    defineField({ name: 'region', title: 'ภูมิภาค (กลุ่มในหน้าจุดหมาย)', description: 'ในหน้าจุดหมาย แต่ละภูมิภาคจะแบ่งย่อยตามช่อง "ประเทศ" อีกชั้น', type: 'string', initialValue: 'asia',
+    defineField({ name: 'region', title: 'ภูมิภาค (กลุ่มในหน้าจุดหมาย)', description: 'ถ้าพิมพ์ชื่อประเทศที่เว็บรู้จัก (เช่น ญี่ปุ่น ฝรั่งเศส) เว็บจัดกลุ่มให้เองตามประเทศ · ในหน้าจุดหมาย แต่ละภูมิภาคแบ่งย่อยตามช่อง "ประเทศ" อีกชั้น', type: 'string',
       options: { list: [{ title: 'ประเทศไทย', value: 'th' }, { title: 'เอเชีย', value: 'asia' }, { title: 'ยุโรป', value: 'europe' }, { title: 'อเมริกา', value: 'americas' }, { title: 'โอเชียเนีย', value: 'oceania' }, { title: 'ตะวันออกกลางและแอฟริกา', value: 'mea' }] } }),
     defineField({ name: 'motif', title: 'ลายประจำเมือง', type: 'string', initialValue: 'loop',
       options: { list: [{ title: 'Seigaiha (Tokyo)', value: 'seigaiha' }, { title: 'Shippo (Kyoto)', value: 'shippo' }, { title: 'Kikko (Osaka)', value: 'kikko' }, { title: 'ลายประจำยาม (Bangkok)', value: 'prajam' }, { title: '回纹 Fret (Hong Kong)', value: 'fret' }, { title: 'Gold Loop (ทั่วไป)', value: 'loop' }] } }),
@@ -97,7 +97,7 @@ export const city = defineType({
     photo('cover', 'ภาพเมือง'),
     defineField({ name: 'featured', title: 'แสดงเป็นเมืองแนะนำในหน้าจุดหมาย', type: 'boolean', initialValue: false }),
     defineField({ name: 'picks', title: "Boss's Picks ของเมืองนี้", description: 'เลือกได้สูงสุด 3 ร้าน เรียงตามลำดับที่ใส่ · เว้นว่าง = เว็บเลือกให้เอง (ร้านล่าสุดที่มีจานถอดแว่นชิม)', type: 'array',
-      of: [defineArrayMember({ type: 'reference', to: [{ type: 'article' }],
+      of: [defineArrayMember({ type: 'reference', weak: true, to: [{ type: 'article' }], // weak: deleting an article is never blocked
         options: { filter: ({ document }: any) => ({ filter: 'language == "th" && series == "review" && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
       validation: (r) => r.max(3) }),
   ],

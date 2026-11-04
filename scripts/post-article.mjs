@@ -17,7 +17,8 @@ const [file, ...flags] = process.argv.slice(2);
 const dry = flags.includes('--dry');
 if (!file) { console.error('ใช้: npm run post -- posts/<slug>.md [--dry]'); process.exit(1); }
 
-const src = readFileSync(file, 'utf8');
+// Google Docs pastes can carry vertical tabs / zero-width spaces that show as boxes on the site.
+const src = readFileSync(file, 'utf8').replace(/[\v\f\u200B\uFEFF]+/g, ' ');
 const m = src.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
 if (!m) throw new Error('ไฟล์ต้องขึ้นต้นด้วย frontmatter --- ... ---');
 const fm = parseYaml(m[1]);
