@@ -71,8 +71,8 @@ export default defineConfig({
     }),
   ],
   document: {
-    // Settings is a single document: no "create new" for it. Translations are made from the Thai article.
-    newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'settings' && t.templateId !== 'article-translation'),
+    // Settings is a single document: no "create new" for it. Translations: the panel in the Thai article (components/TranslationsPanel.tsx).
+    newDocumentOptions: (prev) => prev.filter((t) => t.templateId !== 'settings'),
     // Articles: "เปิดดูบนเว็บ" after Publish, and a delete that explains itself (see components/actions.tsx).
     actions: (prev, ctx) => {
       if (ctx.schemaType !== 'article') return prev;
@@ -84,23 +84,5 @@ export default defineConfig({
   },
   schema: {
     types: schemaTypes,
-    // "เพิ่มคำแปล" (Studio → Thai article → tab 5): a new article in that language, linked to the Thai one and
-    // pre-filled with everything that stays the same (restaurant, city, photos, dishes, Bill, Visit) plus the Thai
-    // text to translate over. Same slug, so the page lives at /<lang>/review/<city>/<slug>/.
-    templates: (prev) => [
-      ...prev,
-      {
-        id: 'article-translation',
-        title: 'คำแปลบทความ',
-        schemaType: 'article',
-        parameters: [{ name: 'sourceId', type: 'string' }, { name: 'language', type: 'string' }],
-        value: async ({ sourceId, language }: { sourceId: string; language: string }, { getClient }: any) => {
-          const src = await getClient({ apiVersion: '2025-01-01' }).fetch('coalesce(*[_id == "drafts." + $id][0], *[_id == $id][0])', { id: sourceId });
-          if (!src) return { language, translationOf: { _type: 'reference', _ref: sourceId } };
-          const { _id, _rev, _createdAt, _updatedAt, _type, translationOf, seoTitle, seoDescription, ...rest } = src;
-          return { ...rest, language, translationOf: { _type: 'reference', _ref: sourceId } };
-        },
-      },
-    ],
   },
 });
