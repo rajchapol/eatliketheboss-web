@@ -36,6 +36,8 @@ const T = {
   awards: { th: 'รางวัล', en: 'Awards', ja: '受賞', zh: '荣誉' },
   cityArea: { th: 'เมือง / ย่าน', en: 'City / Area', ja: '都市 / エリア', zh: '城市 / 区域' },
   menuTitle: { th: 'ศิลปะแห่งรสชาติในมื้อนี้', en: 'The art of taste in this meal', ja: 'この一食の味わい', zh: '本餐的味觉艺术' },
+  atGlance: { th: 'สรุปสั้น', en: 'At a glance', ja: 'ひと目で', zh: '一览' },
+  seeCourses: { th: 'ดูทั้ง {n} จาน', en: 'See all {n} courses', ja: '全{n}皿を見る', zh: '查看全部 {n} 道' },
   courses: { th: '{n} courses', en: '{n} courses', ja: '全{n}皿', zh: '共 {n} 道' },
   jumpToDish: { th: 'ข้ามไปที่จาน', en: 'Jump to a course', ja: '料理へ移動', zh: '跳至菜品' },
   dishPhoto: { th: 'ภาพจาน {n}', en: 'Course {n} photo', ja: '{n}皿目の写真', zh: '第 {n} 道图片' },

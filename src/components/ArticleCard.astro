@@ -16,7 +16,7 @@ const repeat = all.length > 1;
 const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.city?.nameEn, v.city?.nameTh, ...v.dishes.map((d) => d.name)]).filter(Boolean).join(' ').toLowerCase();
 ---
 <article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
-  data-price={a.restaurant?.priceBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}
+  data-price={a.billBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}
   style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
   <span style="position:relative;display:block;aspect-ratio:3/2">
     <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={a.cover} label="ภาพปก" ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 360px" /></span>
@@ -37,7 +37,7 @@ const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.orig
       <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">
         {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{a.restaurant.cuisine}</span>}
         {a.restaurant.awards?.length ? <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="award" size={16} style="color:#0b5357" />{a.restaurant.awards.join(', ')}</span> : null}
-        {a.restaurant.priceBand && <span style="color:#6e3f08;font-weight:700">{a.restaurant.priceBand}</span>}
+        {a.billBand && <span class="band-pill" title="The Boss's Bill (ระดับราคาโดยประมาณ)"><Icon name="bill" size={13} />{a.billBand}</span>}
       </span>
     )}
   </span>
