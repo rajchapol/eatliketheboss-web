@@ -45,7 +45,8 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   <title>{fullTitle}</title>
   <meta name="description" content={metaDescription} />
   <link rel="canonical" href={canonical} />
-  {noindex && <meta name="robots" content="noindex,follow" />}
+  {noindex ? <meta name="robots" content="noindex,follow" /> : <meta name="robots" content="max-image-preview:large, noai, noimageai" />}
+  <meta name="copyright" content="© Eat Like The Boss (บอสพาชิม). All rights reserved." />
   {alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={HREFLANG[a.lang]} href={new URL(a.href, SITE.url).href} />)}
   {alternates.length > 1 && <link rel="alternate" hreflang="x-default" href={new URL((alternates.find((a) => a.lang === DEFAULT_LOCALE) ?? alternates[0]).href, SITE.url).href} />}
   <meta property="og:type" content={type} />
@@ -78,7 +79,7 @@ const metaDescription = description.length <= 158 ? description : (() => { const
     <slot />
     <SiteFooter lineart={lineart} lang={lang} />
   </div>
-  <Effects />
+  <Effects lang={lang} />
   <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
   <script is:inline>
     (() => { const b = document.querySelector('[data-to-top]'); if (!b) return;

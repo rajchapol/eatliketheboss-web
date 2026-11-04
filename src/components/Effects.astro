@@ -3,61 +3,106 @@
 // scroll reveal + stagger, photo fade-in, compact glass bar on scroll, card tilt + sheen,
 // cursor spotlight on dark bands, count-up numbers. Off when the reader prefers reduced motion
 // (the `fx-on` class on <html> is only added when motion is allowed; see Base.astro).
+// Also: light copy protection — photos can't be right-clicked / dragged / long-pressed to save,
+// and copied text (80+ characters) carries a credit line and a link back.
+import { t } from '../lib/i18n';
+import type { Locale } from '../lib/config';
+interface Props { lang?: Locale }
+const { lang = 'th' } = Astro.props;
+const msg = { photo: t(lang, 'photoRights'), source: t(lang, 'source'), site: 'บอสพาชิม · Eat Like The Boss' };
 ---
-<script is:inline>
+<script is:inline define:vars={{ msg }}>
   (() => {
     const root = document.documentElement;
     const on = root.classList.contains('fx-on');
 
     // Photos fade in once loaded (only hidden while fx-on, so no-JS readers always see them).
+    // complete=true also covers images that already failed: show them so the alt text is visible.
     document.querySelectorAll('img.cover').forEach((img) => {
       const done = () => img.classList.add('loaded');
-      if (img.complete && img.naturalWidth) done(); else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+      if (img.complete) done(); else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
     });
 
-    // Compact glass bar: slides in after the big header has scrolled away; hides while scrolling down.
+    // Copy protection (deterrent, not DRM: a screenshot always works).
+    let toastEl = null, toastTimer = 0;
+    const toast = (text) => {
+      if (!toastEl) { toastEl = document.createElement('div'); toastEl.className = 'toast'; toastEl.setAttribute('role', 'status'); document.body.append(toastEl); }
+      toastEl.textContent = text; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+    };
+    document.addEventListener('contextmenu', (e) => { if (e.target.closest && e.target.closest('img, .hx, .slide-photo, .dish-photo, .dish-photo-dark')) { e.preventDefault(); toast(msg.photo); } });
+    document.addEventListener('dragstart', (e) => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+    document.addEventListener('copy', (e) => {
+      const ae = document.activeElement; if (ae && /^(INPUT|TEXTAREA)$/.test(ae.tagName)) return;
+      const sel = getSelection(), text = sel ? sel.toString() : ''; if (text.trim().length < 80 || !e.clipboardData) return;
+      const url = location.href.split('#')[0], box = document.createElement('div');
+      for (let i = 0; i < sel.rangeCount; i++) box.append(sel.getRangeAt(i).cloneContents());
+      const a = document.createElement('a'); a.href = url; a.textContent = msg.site;
+      const credit = document.createElement('p'); credit.append(`— ${msg.source}: `, a);
+      e.clipboardData.setData('text/plain', `${text}\n\n— ${msg.source}: ${msg.site}\n${url}`);
+      e.clipboardData.setData('text/html', box.innerHTML + credit.outerHTML);
+      e.preventDefault();
+    });
+
+    // In-page links (#dish-N, course nav, back to top) scroll smoothly on click only; arriving from
+    // another page with #dish-N jumps straight there (no long auto-scroll through the article).
+    let quietUntil = 0; // the compact bar ignores scrolling we started ourselves
+    const smooth = on ? 'smooth' : 'auto';
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]'); if (!a) return;
+      const id = a.getAttribute('href').slice(1), t = id ? document.getElementById(id) : null; if (!t && id !== 'top') return;
+      e.preventDefault(); quietUntil = performance.now() + 1200;
+      if (t) { t.scrollIntoView({ behavior: smooth, block: 'start' }); history.replaceState(null, '', '#' + id); }
+      else scrollTo({ top: 0, behavior: smooth });
+    });
+
+    // Compact glass bar: after the big header has scrolled away it shows on a clear upward scroll
+    // (~40px) and hides on scrolling down. It stays hidden while the dish menu (course nav) is stuck at the top.
     const bar = document.querySelector('[data-minibar]'), header = document.querySelector('.site-header');
+    const course = document.querySelector('.course-nav');
     if (bar && header) {
-      let lastY = scrollY, shown = false;
+      let lastY = scrollY, upRun = 0, shown = false, ticking = false;
       const set = (v) => {
         if (v === shown) return; shown = v;
         bar.classList.toggle('is-shown', v); bar.toggleAttribute('inert', !v); bar.setAttribute('aria-hidden', String(!v));
-        root.style.setProperty('--bar-offset', v ? bar.offsetHeight + 'px' : '0px');
       };
-      let ticking = false;
       const upd = () => {
         ticking = false;
-        const y = scrollY, dy = y - lastY, past = y > header.offsetTop + header.offsetHeight + 40;
-        if (!past) { set(false); lastY = y; return; }
-        if (Math.abs(dy) < 4) return; // ignore jitter; keep the current state
-        set(dy < 0); lastY = y;       // up → show, down → hide
+        const max = root.scrollHeight - innerHeight, y = Math.max(0, Math.min(scrollY, max)), dy = y - lastY; lastY = y;
+        if (y < header.offsetTop + header.offsetHeight + 40) { upRun = 0; return set(false); }
+        if (performance.now() < quietUntil) { upRun = 0; return; }
+        if (course && course.getBoundingClientRect().top <= 12 && course.parentElement.getBoundingClientRect().bottom > 120) { upRun = 0; return set(false); }
+        if (dy > 8) { upRun = 0; set(false); }
+        else if (dy < 0) { upRun -= dy; if (upRun > 40) set(true); }
       };
       addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
     }
 
     if (!on) return;
 
-    // Calm when moving around: no reveal animation after Back/Forward, or on a page already seen this visit.
+    // Calm when moving around: no reveal animation after Back/Forward, on a page already seen this visit,
+    // or when arriving at a #anchor.
     const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
     let seen = [];
     try { seen = JSON.parse(sessionStorage.getItem('fx-seen') || '[]'); } catch {}
-    const calm = (nav && nav.type === 'back_forward') || seen.includes(location.pathname);
+    const calm = (nav && nav.type === 'back_forward') || seen.includes(location.pathname) || location.hash.length > 1;
     try { if (!seen.includes(location.pathname)) sessionStorage.setItem('fx-seen', JSON.stringify([...seen, location.pathname].slice(-60))); } catch {}
 
     // Reveal on scroll. Things already on screen at load are shown straight away (no flash, no LCP delay).
     const SEL = '.card, .idx-row, .dish-pad, .go-band, .map-band, .specs, .rule, main h2, section > h2, .stats, aside.rc, .fx-lift, .fx-row, .slider-bar, [data-reveal]';
-    const items = [...document.querySelectorAll(SEL)].filter((el) => !el.closest('.site-header, .mini-bar, .site-footer, .slide, .specs .spec'));
+    const items = [...document.querySelectorAll(SEL)].filter((el) => !el.closest('.site-header, .mini-bar, .site-footer, .slide'));
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (!e.isIntersecting) return; const el = e.target; io.unobserve(el); el.classList.add('in');
       // once revealed, drop the stagger delay so hover effects respond instantly
       setTimeout(() => el.classList.add('settled'), 650 + Number(el.style.getPropertyValue('--i') || 0) * 50);
     }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    items.forEach((el) => {
-      const r = el.getBoundingClientRect();
-      if (calm || (r.top < innerHeight && r.bottom > 0)) { el.classList.add('in', 'no-anim'); return; }
-      // stagger siblings of the same kind (grid cards, index rows…)
-      const sibs = [...el.parentElement.children].filter((s) => s.matches(SEL));
-      el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 4)));
+    // read every position first, then write (one style recalculation instead of one per item)
+    const h = innerHeight, rects = items.map((el) => el.getBoundingClientRect());
+    const index = new Map(), count = new Map();
+    items.forEach((el) => { const p = el.parentElement, n = count.get(p) || 0; index.set(el, n); count.set(p, n + 1); });
+    items.forEach((el, k) => {
+      const r = rects[k];
+      if (calm || (r.top < h && r.bottom > 0)) { el.classList.add('in', 'no-anim'); return; }
+      el.style.setProperty('--i', String(Math.min(index.get(el), 4))); // stagger siblings (grid cards, index rows…)
       el.classList.add('rv'); io.observe(el);
     });
 
@@ -73,15 +118,18 @@
     const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!fine) return;
 
-    // Card tilt + gold sheen following the pointer.
+    // Card tilt + gold sheen following the pointer (one update per frame).
     document.querySelectorAll('.card, .fx-tilt').forEach((c) => {
       c.classList.add('tilt');
-      c.addEventListener('pointermove', (e) => {
-        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      let r = null, ev = null, raf = 0;
+      const draw = () => {
+        raf = 0; const x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
         c.style.setProperty('--rx', ((0.5 - y) * 2.5).toFixed(2) + 'deg'); c.style.setProperty('--ry', ((x - 0.5) * 3).toFixed(2) + 'deg');
         c.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--my', (y * 100).toFixed(1) + '%');
-      });
-      c.addEventListener('pointerleave', () => { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });
+      };
+      c.addEventListener('pointerenter', () => { r = c.getBoundingClientRect(); });
+      c.addEventListener('pointermove', (e) => { ev = e; if (!r) r = c.getBoundingClientRect(); if (!raf) raf = requestAnimationFrame(draw); });
+      c.addEventListener('pointerleave', () => { r = null; c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });
     });
 
     // Soft gold spotlight that follows the cursor on dark bands.
