@@ -3,8 +3,9 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
+import DestinationsMap from '../components/DestinationsMap.astro';
 import { MOTIFS, REGIONS, regionOf } from '../lib/config';
-import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks, citiesByCount } from '../lib/content';
+import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks, citiesByCount, visitIso } from '../lib/content';
 import { romanAt as roman } from '../lib/roman';
 const st = await getSettings();
 
@@ -25,6 +26,8 @@ const regions = REGIONS.map((r, i) => {
 }).filter((r) => r.cities.length).map((r, i) => ({ ...r, num: `${roman(i)}.` }));
 const countries = new Set(cities.map((c) => c.country)).size;
 const totalRestaurants = groupByRestaurant(articles).length;
+// Map: every city with a review, with the month of the first meal there (for the route order).
+const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisit: inCity(city.slug).map(visitIso).sort()[0] ?? '' }));
 ---
 <Base title="จุดหมาย — ร้าน Fine Dining แยกตามเมือง" description="เลือกเมือง แล้วดูทุกร้าน Fine Dining ที่บอสไปชิม ทั้งกรุงเทพฯ โตเกียว โอซาก้า ฮ่องกง และอีกหลายเมืองทั่วโลก" active="destinations">
   <section aria-labelledby="dt" class="wrap" style="padding-top:80px;padding-bottom:72px;display:flex;flex-direction:column;gap:20px">
@@ -38,6 +41,8 @@ const totalRestaurants = groupByRestaurant(articles).length;
       {[[countries, 'ประเทศ'], [cities.length, 'เมือง'], [totalRestaurants, 'ร้าน']].map(([n, l]) => <div style="display:flex;flex-direction:column-reverse;gap:4px"><dt style="font-size:14px;color:#3d4955">{l}</dt><dd class="bronze-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{n}</dd></div>)}
     </dl>
   </section>
+
+  <DestinationsMap cities={mapCities} />
 
   {featured && (
     <section aria-labelledby="fd" class="wrap">

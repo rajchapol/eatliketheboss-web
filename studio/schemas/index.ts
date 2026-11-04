@@ -94,6 +94,7 @@ export const city = defineType({
     defineField({ name: 'motif', title: 'ลายประจำเมือง', type: 'string', initialValue: 'loop',
       options: { list: [{ title: 'Seigaiha (Tokyo)', value: 'seigaiha' }, { title: 'Shippo (Kyoto)', value: 'shippo' }, { title: 'Kikko (Osaka)', value: 'kikko' }, { title: 'ลายประจำยาม (Bangkok)', value: 'prajam' }, { title: '回纹 Fret (Hong Kong)', value: 'fret' }, { title: 'Gold Loop (ทั่วไป)', value: 'loop' }] } }),
     defineField({ name: 'intro', title: 'คำแนะนำเมืองในมุมของบอส', type: 'text', rows: 3 }),
+    defineField({ name: 'location', title: 'ตำแหน่งบนแผนที่ (ไม่บังคับ)', description: 'เมืองหลักๆ เว็บรู้ตำแหน่งอยู่แล้ว ใส่เฉพาะเมืองที่ไม่ขึ้นบนแผนที่หน้าจุดหมาย', type: 'geopoint' }),
     photo('cover', 'ภาพเมือง'),
     defineField({ name: 'featured', title: 'แสดงเป็นเมืองแนะนำในหน้าจุดหมาย', type: 'boolean', initialValue: false }),
     defineField({ name: 'picks', title: "Boss's Picks ของเมืองนี้", description: 'เลือกได้สูงสุด 3 ร้าน เรียงตามลำดับที่ใส่ · เว้นว่าง = เว็บเลือกให้เอง (ร้านล่าสุดที่มีจานถอดแว่นชิม)', type: 'array',

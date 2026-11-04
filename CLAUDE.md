@@ -43,6 +43,7 @@ You never need to touch `src/` to post.
 | Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
 | Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
 | Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
+| Destinations map (pins, route, zoom) | `src/components/DestinationsMap.astro`; pin positions `CITY_COORDS` in `src/lib/config.ts` or Studio → เมือง → ตำแหน่งบนแผนที่; dots `public/img/map/` (rebuild: `scripts/make-map-dots.mjs`) |
 | Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |
 | Repeat visits | Same city + same restaurant name = one restaurant (`restaurantKey()` in `src/lib/content.ts`): one card with every visit, and a visit list on each article |
 

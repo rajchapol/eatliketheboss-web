@@ -57,6 +57,15 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
               <span class="spec-cap">{t.gold && <Icon name="glasses" size={14} />}{t.dish.name}<small>{t.article.restaurant?.name ?? t.article.title}</small></span>
             </a>
           ))}
+          <svg class="specs-tint" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <radialGradient id="lensTint" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="#1d4245" stop-opacity=".84" /><stop offset=".55" stop-color="#071a1c" stop-opacity=".93" /><stop offset="1" stop-color="#010708" stop-opacity=".97" /></radialGradient>
+              <linearGradient id="glare" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0" /><stop offset=".5" stop-color="#fff" stop-opacity=".26" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
+              <clipPath id="lenses"><circle cx="270" cy={H / 2} r="197" /><circle cx="730" cy={H / 2} r="197" /></clipPath>
+            </defs>
+            <g class="tint-dark"><circle cx="270" cy={H / 2} r="197" fill="url(#lensTint)" /><circle cx="730" cy={H / 2} r="197" fill="url(#lensTint)" /></g>
+            <g clip-path="url(#lenses)"><rect class="glare" x="40" y="-60" width="150" height={H + 120} fill="url(#glare)" transform="rotate(24 500 192)" /></g>
+          </svg>
         </div>
         <p style="margin:56px 0 0;text-align:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)"><span class="hint-hover">ชี้ที่รูปเพื่อขยาย · กดเพื่อไปที่จาน</span><span class="hint-touch">แตะรูปเพื่อไปที่จาน</span> · <span style="color:#fdeac0">วงทอง = จานถอดแว่นชิม</span></p>
       </div>
@@ -83,4 +92,12 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
     ))}
     {items.length === 0 && <p style="padding-top:56px;text-align:center">ยังไม่มีจานถอดแว่นชิมครับ</p>}
   </main>
+  <script is:inline>
+    // Sunglasses: the lenses start dark and clear ("glasses off") once the glasses are well in view.
+    (() => { const s = document.querySelector('.specs'); if (!s) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+      s.classList.add('shade');
+      const io = new IntersectionObserver(([e]) => { if (e.intersectionRatio >= 0.6) { io.disconnect(); setTimeout(() => s.classList.add('lit'), 900); } }, { threshold: [0, 0.6, 1] });
+      io.observe(s); })();
+  </script>
 </Base>

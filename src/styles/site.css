@@ -232,3 +232,39 @@ img{max-width:100%;height:auto}
 .stats>div:last-child{border-bottom:0}.stats .ink-grad{font-size:34px!important;flex:0 0 104px}
 }
 .search-go{position:absolute;right:5px;top:5px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:linear-gradient(120deg,#073b3e,#0b5357);color:#fdeac0;transition:transform .2s}.search-go:hover{transform:translateX(2px)}
+
+/* ---------- Destinations: The Boss's Map ---------- */
+.map-band{padding:clamp(20px,4cqi,40px);display:flex;flex-direction:column;gap:18px;background:radial-gradient(ellipse at 30% 0%,#0f6b6a 0%,#0b5357 45%,#062f32 100%);box-shadow:0 0 0 1px rgba(212,179,114,.45),0 30px 60px -24px rgba(7,59,62,.55);color:#fff}
+.map-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.map-zoom{min-height:40px;padding:0 16px;border-radius:var(--r-pill);border:1px solid rgba(212,179,114,.55);background:rgba(255,255,255,.06);color:#fdeac0;font-family:'Ekkamai New',sans-serif;font-size:14px;transition:background .25s,color .25s}
+.map-zoom:hover{background:rgba(255,255,255,.14)}.map-zoom[aria-pressed="true"]{background:linear-gradient(135deg,#d4b372,#fdeac0);color:#1a2632;border-color:#d4b372}
+.map-box{position:relative;width:100%;aspect-ratio:21/8;overflow:hidden;border-radius:var(--r-md);background:radial-gradient(ellipse at 50% 60%,rgba(253,234,192,.06),transparent 70%)}
+.map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.map-world{opacity:.42;transition:opacity .6s}.map-sea{opacity:0;transition:opacity .6s}
+[data-zoom="th"] .map-world{opacity:0}[data-zoom="th"] .map-sea{opacity:.55}
+.map-route{stroke:#fdeac0;stroke-width:1.6;stroke-opacity:.75;stroke-linecap:round}
+.map-pin{position:absolute;width:0;height:0;z-index:2}
+.map-pin a{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%}
+.pin-dot{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#d4b372 60%,#926633);box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 14px rgba(253,234,192,.7);animation:pin-pulse 2.6s ease-in-out infinite}
+@keyframes pin-pulse{0%,100%{box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 12px rgba(253,234,192,.6)}50%{box-shadow:0 0 0 8px rgba(253,234,192,0),0 0 20px rgba(253,234,192,.9)}}
+.pin-label{position:absolute;left:28px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-pill);background:rgba(4,30,32,.88);box-shadow:0 0 0 1px rgba(212,179,114,.55);font-family:'Ekkamai New',sans-serif;font-size:13px;color:#fff;white-space:nowrap;transition:opacity .25s;pointer-events:none}
+.pin-label b{font-weight:700;color:#fdeac0}
+[data-zoom="world"] .pin-label{opacity:0}
+.map-pin a:hover .pin-label,.map-pin a:focus-visible .pin-label{opacity:1}
+.map-pin a:hover .pin-dot,.map-pin a:focus-visible .pin-dot{transform:scale(1.35)}.pin-dot{transition:transform .25s}
+.map-pin:hover,.map-pin:focus-within{z-index:5}
+@media (prefers-reduced-motion: reduce){.pin-dot{animation:none}}
+@container elb (max-width: 720px){.map-box{aspect-ratio:4/3}.pin-label{font-size:12px;padding:3px 8px;left:24px}}
+.map-pin.label-off .pin-label{opacity:0}.map-pin.label-off a:hover .pin-label,.map-pin.label-off a:focus-visible .pin-label{opacity:1}
+/* Sunglasses → glasses off: tinted lenses + glare, cleared when the glasses scroll into view (.lit) */
+.specs::after{content:"";position:absolute;left:6%;right:6%;bottom:-11%;height:16%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 70%);filter:blur(8px);z-index:0;pointer-events:none}
+.specs-frame{z-index:6;pointer-events:none}
+.specs-tint{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;opacity:0}
+.specs.shade .specs-tint{opacity:1}
+.tint-dark{transition:opacity 1.6s cubic-bezier(.4,0,.2,1)}
+.specs.lit .tint-dark{opacity:0}
+.glare{transition:opacity .6s}
+.specs.lit .glare{animation:glare-sweep 1.5s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes glare-sweep{0%{transform:translateX(0) rotate(24deg);opacity:1}100%{transform:translateX(900px) rotate(24deg);opacity:0}}
+.specs.shade:not(.lit) .spec{filter:saturate(.75)}
+.spec{transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .35s,box-shadow .35s,filter 1.4s}

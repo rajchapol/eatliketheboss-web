@@ -19,6 +19,7 @@ export interface City {
   intro?: string;
   cover?: Img;
   featured?: boolean;
+  location?: { lat: number; lng: number }; // map pin set in Studio (else CITY_COORDS)
   pickIds?: string[]; // Boss's Picks chosen in Studio (article ids); empty = automatic
 }
 
