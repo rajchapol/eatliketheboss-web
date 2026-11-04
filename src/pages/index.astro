@@ -46,17 +46,6 @@ const quickCities = settings.homeCitySlugs?.length
 
   <HeroSlider slides={slides} />
 
-  {latest.length >= 6 && (
-    <nav class="ticker" aria-label="ร้านที่บอสไปชิมล่าสุด">
-      <div class="ticker-track">
-        {[0, 1].map((k) => (
-          <ul aria-hidden={k ? 'true' : undefined}>
-            {Array.from({ length: Math.max(14, latest.length) }, (_, i) => latest.slice(0, 14)[i % Math.min(14, latest.length)]).map((a) => <li><a href={articleUrl(a)} tabindex={k ? -1 : undefined}>{a.restaurant?.name ?? a.title}{a.city && <span>{a.city.nameEn}</span>}</a></li>)}
-          </ul>
-        ))}
-      </div>
-    </nav>
-  )}
 
   <section id="notes" aria-labelledby="index" class="wrap" style="padding-bottom:96px">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">

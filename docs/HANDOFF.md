@@ -11,6 +11,13 @@ The Boss said the effects look quite broken on a phone. WebKit can't be installe
 - The hexagon clip uses an explicit polygon (no `clip-path: inherit`).
 - `translateZ(0)` on rounded photo wrappers keeps zoomed photos inside their corners in Safari.
 - Still waiting on the Boss's screenshots / device to confirm on a real iPhone.
+- **Home ticker removed** (the Boss found the restaurant strip above The Index odd on phones: on touch it had to be swiped by hand).
+- **Lighthouse (mobile, local preview):** Accessibility 96–100, Best Practices 100, SEO 100, CLS ≈ 0 on every page tested.
+  - CSS is now inlined (`build.inlineStylesheets: 'always'`, ~8 KB gzipped), which removed the ~0.9 s render-blocking request.
+  - Slides are `div role=group`, not `article`.
+  - Map pin names match their visible label.
+  - Remaining warning: pins very close together at the Asia zoom (use the Thailand zoom).
+  - The local preview serves full-size photos, so its LCP/performance score is lower than the live site, where photos come resized from the Sanity CDN.
 
 ---
 

@@ -42,7 +42,7 @@ You never need to touch `src/` to post.
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
-| Motion: scroll reveal (skipped on Back / pages already seen this visit), compact glass bar, card tilt, spotlight, count-up, ticker — no page transitions (the Boss found them disorienting) | `src/components/Effects.astro` (script) + "Effects v2" at the end of `site.css`; all off under reduced motion (`fx-on` class on `<html>`) |
+| Motion: scroll reveal (skipped on Back / pages already seen this visit), compact glass bar, card tilt, spotlight, count-up — no page transitions (the Boss found them disorienting) | `src/components/Effects.astro` (script) + "Effects v2" at the end of `site.css`; all off under reduced motion (`fx-on` class on `<html>`) |
 | Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
 | Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
 | Language switcher | `SiteHeader.astro`: shows only languages the page really exists in (hidden when Thai only). No machine-translation fallback — Google's proxy broke links and images |

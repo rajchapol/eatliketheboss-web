@@ -314,19 +314,6 @@ img{max-width:100%;height:auto}
   @keyframes plx{from{transform:translateY(-3%) scale(1.07)}to{transform:translateY(3%) scale(1.07)}}
 }
 
-/* Home ticker of latest restaurants */
-.ticker{overflow:hidden;border-block:1px solid rgba(195,158,92,.45);background:linear-gradient(90deg,#fbf7ef,#f4ece0 50%,#fbf7ef);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.ticker-track{display:flex;width:max-content;animation:ticker 48s linear infinite}
-@media (hover: hover) and (pointer: fine){.ticker:hover .ticker-track{animation-play-state:paused}}
-.ticker:focus-within .ticker-track{animation-play-state:paused}
-.ticker ul{display:flex;margin:0;padding:0;list-style:none}
-.ticker li{display:flex;align-items:center}
-.ticker li::before{content:"";width:7px;height:7px;margin:0 26px;transform:rotate(45deg);background:linear-gradient(135deg,#d4b372,#fdeac0);box-shadow:0 0 8px rgba(212,179,114,.6)}
-.ticker a{display:inline-flex;align-items:baseline;gap:10px;padding:16px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#0b5357;white-space:nowrap}
-.ticker a span{font-family:'Ekkamai New',sans-serif;font-style:normal;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#926633}
-.ticker a:hover{color:#6e3f08}
-@keyframes ticker{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce),(hover: none){.ticker{overflow-x:auto;scrollbar-width:none;-webkit-mask-image:none;mask-image:none}.ticker::-webkit-scrollbar{display:none}.ticker-track{animation:none;padding:0 20px}.ticker ul[aria-hidden]{display:none}}
 
 /* Glasses Off lenses: honeycomb of hexagon photos, clipped to each lens */
 .lens{position:absolute;border-radius:50%;overflow:hidden;z-index:1;background:#062628;-webkit-mask-image:-webkit-radial-gradient(white,black)}
@@ -364,7 +351,7 @@ img{max-width:100%;height:auto}
 @media print{
   .fx-on .rv,.fx-on img.cover,.fx-on .slide-text>*{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
   .fx-on .dish-pad .dish-photo{clip-path:none!important}
-  .mini-bar,.to-top,.read-progress,.course-nav,.ticker,.slider-bar{display:none!important}
+  .mini-bar,.to-top,.read-progress,.course-nav,.slider-bar{display:none!important}
 }
 
 /* Light copy protection for photos: no drag-out, no iOS long-press "Save image" */
