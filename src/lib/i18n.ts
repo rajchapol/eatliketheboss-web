@@ -69,6 +69,14 @@ export const formatDate = (iso: string, lang: Locale) =>
   new Date(iso).toLocaleDateString(DATE_LOCALE[lang], { day: 'numeric', month: 'long', year: 'numeric' });
 
 /** Header menu labels per language (links still go to the Thai listing pages). */
+/** Main menu, in order: key, path, line icon. Labels come from NAV_LABELS. */
+export const NAV_ITEMS = [
+  ['finder', '/restaurants/', 'search'],
+  ['destinations', '/destinations/', 'pin'],
+  ['articles', '/#notes', 'book'],
+  ['awards', '/glasses-off-awards/', 'glasses'],
+  ['about', '/about/', 'user'],
+] as const;
 export const NAV_LABELS: Record<Locale, Record<'finder' | 'destinations' | 'articles' | 'awards' | 'about', string>> = {
   th: { finder: 'ค้นหาร้าน', destinations: 'จุดหมาย', articles: 'บทความ', awards: 'Glasses Off Awards', about: 'เกี่ยวกับบอส' },
   en: { finder: 'Restaurants', destinations: 'Destinations', articles: 'Articles', awards: 'Glasses Off Awards', about: 'About the Boss' },

@@ -1,4 +1,17 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
+// Tab icons: one import per icon (the root entry no longer exports them in @sanity/icons v5).
+import { HomeIcon } from '@sanity/icons/Home';
+import { DocumentTextIcon } from '@sanity/icons/DocumentText';
+import { SearchIcon } from '@sanity/icons/Search';
+import { PinIcon } from '@sanity/icons/Pin';
+import { EyeClosedIcon } from '@sanity/icons/EyeClosed';
+import { BookIcon } from '@sanity/icons/Book';
+import { UserIcon } from '@sanity/icons/User';
+import { EnvelopeIcon } from '@sanity/icons/Envelope';
+import { EarthGlobeIcon } from '@sanity/icons/EarthGlobe';
+import { ThListIcon } from '@sanity/icons/ThList';
+import { BillIcon } from '@sanity/icons/Bill';
+import { TranslateIcon } from '@sanity/icons/Translate';
 
 const altField = defineField({
   name: 'alt',
@@ -17,11 +30,13 @@ export const article = defineType({
   title: 'บทความ',
   type: 'document',
   groups: [
-    { name: 'main', title: 'เนื้อหา', default: true },
-    { name: 'dishes', title: 'รายการจาน' },
-    { name: 'meta', title: 'Bill / Visit / แท็ก' },
-    { name: 'seo', title: 'SEO' },
-    { name: 'lang', title: 'ภาษา' },
+    // Numbered in the order you fill an article; "ทุกช่อง" shows everything on one page.
+    { name: 'all-fields', title: 'ทุกช่อง' },
+    { name: 'main', title: '1 ร้าน & บทนำ', icon: DocumentTextIcon, default: true },
+    { name: 'dishes', title: '2 รายการจาน', icon: ThListIcon },
+    { name: 'meta', title: '3 ราคา & วันที่ไป', icon: BillIcon },
+    { name: 'seo', title: '4 SEO', icon: SearchIcon },
+    { name: 'lang', title: '5 ภาษา', icon: TranslateIcon },
   ],
   fields: [
     defineField({ name: 'language', title: 'ภาษา', type: 'string', group: 'lang', initialValue: 'th',
@@ -122,15 +137,17 @@ export const settings = defineType({
   title: 'ตั้งค่าเว็บ / ข้อความทุกหน้า',
   type: 'document',
   groups: [
-    { name: 'home', title: 'หน้าแรก', default: true },
-    { name: 'article', title: 'หน้าบทความ' },
-    { name: 'finder', title: 'ค้นหาร้าน' },
-    { name: 'destinations', title: 'จุดหมาย' },
-    { name: 'awards', title: 'Glasses Off Awards' },
-    { name: 'series', title: 'ซีรีส์' },
-    { name: 'about', title: 'เกี่ยวกับบอส' },
-    { name: 'contact', title: 'ติดต่อ & ฟอร์ม' },
-    { name: 'footer', title: 'ท้ายเว็บ & SEO' },
+    // Short names + icons, same words as the website menu, so each tab reads at a glance.
+    { name: 'all-fields', title: 'ทุกช่อง', hidden: true }, // 40+ fields on one page is hard to scan
+    { name: 'home', title: 'หน้าแรก', icon: HomeIcon, default: true },
+    { name: 'article', title: 'บทความ', icon: DocumentTextIcon },
+    { name: 'finder', title: 'ค้นหาร้าน', icon: SearchIcon },
+    { name: 'destinations', title: 'จุดหมาย', icon: PinIcon },
+    { name: 'awards', title: 'Awards', icon: EyeClosedIcon },
+    { name: 'series', title: 'ซีรีส์', icon: BookIcon },
+    { name: 'about', title: 'เกี่ยวกับบอส', icon: UserIcon },
+    { name: 'contact', title: 'ติดต่อ', icon: EnvelopeIcon },
+    { name: 'footer', title: 'ท้ายเว็บ & SEO', icon: EarthGlobeIcon },
   ],
   fields: [
     // หน้าแรก

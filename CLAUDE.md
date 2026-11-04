@@ -33,7 +33,7 @@ You never need to touch `src/` to post.
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
 | Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
-| Menu, logo, language switcher | `src/components/SiteHeader.astro` |
+| Menu (icon tabs; phone = 5 tabs that always fit), logo, language switcher | `src/components/SiteHeader.astro` + `MiniBar.astro`, items `NAV_ITEMS` in `src/lib/i18n.ts` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |

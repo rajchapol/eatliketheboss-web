@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night) · Easier-to-read menus (website + Studio)
+
+The Boss asked for the "tab menu" to be easier to read: both the website's top menu and the Studio tabs.
+- **Website menu** (`SiteHeader.astro`, `MiniBar.astro`, one list `NAV_ITEMS` in `src/lib/i18n.ts`): every item has a line icon (`search`, `pin`, new `book`, `glasses`, new `user` in `Icon.astro`). Desktop: pill tabs, the current page is a gold-edged pill. Phone (≤720px): five icon tabs in one glass box that always fit 320–430px — no more sideways scrolling or cut-off "Glasses Off Awar"; the awards tab reads "Awards" on phones (`.nav-long` hides "Glasses Off "). The compact bar on phones shows the same five tabs, full width, without the logo.
+- **Studio tabs** (`studio/schemas/index.ts`, icons from `@sanity/icons/<Name>` subpaths — now a direct Studio dependency): article tabs numbered in fill order "1 ร้าน & บทนำ · 2 รายการจาน · 3 ราคา & วันที่ไป · 4 SEO · 5 ภาษา" (+ "ทุกช่อง"); settings tabs short + icons, same words as the site menu; the 40-field "All fields" tab is hidden there. Group names (`main`, `meta`, …) are unchanged, so no content moves.
+- Studio redeploys itself when this reaches main (deploy-studio.yml).
+
+---
+
 ## Session 2026-11-04 (very late) · Bill as price band, Studio by page, gallery, share, contact, share images
 
 **New policy from the Boss:** the site never says whether a meal was invited or paid. The Boss's Bill shows an approximate **price band** (฿฿/฿฿฿/฿฿฿฿); special event meals carry an **Event** pill. AD is kept as an option for paid posts (advertising disclosure); the Boss may decide to drop it.

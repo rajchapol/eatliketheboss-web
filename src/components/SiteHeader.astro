@@ -1,17 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import { LOCALES, LOCALE_LABEL, HREFLANG, type Locale } from '../lib/config';
-import { NAV_LABELS } from '../lib/i18n';
+import { NAV_LABELS, NAV_ITEMS } from '../lib/i18n';
 interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[] }
 const { active = 'home', lang, alternates } = Astro.props;
 const N = NAV_LABELS[lang];
-const nav = [
-  ['finder', N.finder, '/restaurants/'],
-  ['destinations', N.destinations, '/destinations/'],
-  ['articles', N.articles, '/#notes'],
-  ['awards', N.awards, '/glasses-off-awards/'],
-  ['about', N.about, '/about/'],
-] as const;
 const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
 // Only languages this page really exists in are shown (Google Translate's proxy broke links and images,
 // so there is no machine-translation fallback). With no translation, the switcher is hidden.
@@ -20,11 +13,12 @@ const available = LOCALES.filter((l) => l === lang || altFor(l));
 <header class="site-header" style="color:#fff;font-family:'Ekkamai New',sans-serif;box-shadow:0 10px 28px rgba(195,158,92,.28)">
   <div class="wrap hdr" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px">
     <a href="/" class="logo" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="Eat Like The Boss" width="200" height="179" class="gold-glow" style="display:block;width:200px;height:auto" /></a>
-    <nav aria-label={lang === "th" ? "เมนูหลัก" : "Main menu"} class="main-nav" style="display:flex;flex-wrap:wrap;gap:8px 28px;font-size:16px">
-      {nav.map(([key, label, href]) =>
-        key === active
-          ? <a href={href} aria-current="page" style="padding-bottom:6px;border-bottom:2px solid #d4b372;color:#fdeac0">{label}</a>
-          : <a href={href} class="fx-under" style="padding-bottom:6px">{label}</a>)}
+    <nav aria-label={lang === "th" ? "เมนูหลัก" : "Main menu"} class="main-nav">
+      {NAV_ITEMS.map(([key, href, icon]) => (
+        <a href={href} aria-current={key === active ? 'page' : undefined}>
+          <Icon name={icon} size={18} class="nav-ico" />
+          {key === 'awards' ? <span><span class="nav-long">Glasses Off </span>Awards</span> : <span>{N[key]}</span>}
+        </a>))}
     </nav>
     {available.length > 1 && (
       <div role="group" aria-label="เลือกภาษา / Language" translate="no" class="lang" style="display:flex;align-items:center;font-size:13px">
