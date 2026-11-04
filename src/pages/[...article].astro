@@ -186,7 +186,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
   )}
   {more.length === 0 && <div style="height:96px"></div>}
 
-  <script is:inline>
+  <script>
     // Thin gold reading-progress line at the top of the screen.
     (() => { const bar = document.querySelector('[data-progress]'), art = document.querySelector('article'); if (!bar || !art) return;
       let raf = 0; const upd = () => { raf = 0; const r = art.getBoundingClientRect(); const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight))); bar.style.transform = `scaleX(${p})`; };

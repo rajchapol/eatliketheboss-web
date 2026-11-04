@@ -104,7 +104,7 @@ const lenses = pool.length ? LENSES.map((cx) => ({ cx, cells: cells.map((c) => {
     ))}
     {items.length === 0 && <p style="padding-top:56px;text-align:center">ยังไม่มีจานถอดแว่นชิมครับ</p>}
   </main>
-  <script is:inline>
+  <script>
     // Sunglasses: the lenses start dark and clear ("glasses off") once the glasses are well in view.
     (() => { const s = document.querySelector('.specs'); if (!s) return;
       if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;

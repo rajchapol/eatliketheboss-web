@@ -33,5 +33,5 @@ const paths = {
 };
 const { name, size = 20, class: cls = '', style = '', label } = Astro.props;
 ---
-<svg class={`ico ${cls}`} viewBox="0 0 24 24" width={size} height={size} style={`width:${size}px;height:${size}px;${style}`}
+<svg class={`ico ${cls}`} viewBox="0 0 24 24" width={size} height={size} style={style || undefined}
   aria-hidden={label ? undefined : 'true'} role={label ? 'img' : undefined} aria-label={label} set:html={paths[name]} />

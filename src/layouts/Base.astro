@@ -84,7 +84,7 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   {type === 'article' && <div class="read-progress" aria-hidden="true"><span data-progress></span></div>}
   <Effects lang={lang} />
   <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
-  <script is:inline>
+  <script>
     (() => { const b = document.querySelector('[data-to-top]'); if (!b) return;
       const upd = () => { b.hidden = scrollY < innerHeight * 1.5; };
       addEventListener('scroll', upd, { passive: true }); upd();

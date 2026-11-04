@@ -17,7 +17,7 @@ const fb = `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`;
   <button type="button" class="share-pill" data-copy-link data-done={t(lang, 'copied')}><Icon name="link" size={16} /><span data-label>{t(lang, 'copyLink')}</span></button>
   <button type="button" class="share-pill" data-native-share hidden><Icon name="share" size={16} />{t(lang, 'moreShare')}</button>
 </div>
-<script is:inline>
+<script>
   document.querySelectorAll('[data-share-bar]:not([data-ready])').forEach((bar) => {
     bar.dataset.ready = '1';
     const url = bar.dataset.url, title = bar.dataset.title;

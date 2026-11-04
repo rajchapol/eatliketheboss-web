@@ -1,10 +1,9 @@
 ---
 import Icon from './Icon.astro';
 import { LOCALES, LOCALE_LABEL, HREFLANG, type Locale } from '../lib/config';
-import { NAV_LABELS, NAV_ITEMS } from '../lib/i18n';
+import NavLinks from './NavLinks.astro';
 interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[] }
 const { active = 'home', lang, alternates } = Astro.props;
-const N = NAV_LABELS[lang];
 const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
 // Only languages this page really exists in are shown; with no translation the switcher is hidden.
 // No machine translation: Google Translate was tried twice (same tab, then new tab) and broke both times.
@@ -14,11 +13,7 @@ const available = LOCALES.filter((l) => l === lang || altFor(l));
   <div class="wrap hdr" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px">
     <a href="/" class="logo" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="Eat Like The Boss" width="200" height="179" class="gold-glow" style="display:block;width:200px;height:auto" /></a>
     <nav aria-label={lang === "th" ? "เมนูหลัก" : "Main menu"} class="main-nav">
-      {NAV_ITEMS.map(([key, href, icon]) => (
-        <a href={href} aria-current={key === active ? 'page' : undefined}>
-          <Icon name={icon} size={18} class="nav-ico" />
-          {key === 'awards' ? <span><span class="nav-long">Glasses Off </span>Awards</span> : <span>{N[key]}</span>}
-        </a>))}
+      <NavLinks active={active} lang={lang} />
     </nav>
     {available.length > 1 && (
       <div role="group" aria-label="เลือกภาษา / Language" translate="no" class="lang" style="display:flex;align-items:center;font-size:13px">

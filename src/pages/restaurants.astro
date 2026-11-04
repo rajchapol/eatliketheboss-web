@@ -73,7 +73,7 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
     <p id="empty" hidden style="margin-top:48px;text-align:center;font-size:18px;font-weight:400"><img src="/img/brand/empty-state-cloche.svg" alt="" width="220" height="138" style="display:block;margin:0 auto 16px;height:auto" />ยังไม่พบร้านที่ตรงกับตัวกรอง ลองล้างตัวกรองหรือค้นด้วยคำอื่นครับ</p>
   </section>
 
-  <script is:inline>
+  <script>
     (() => {
       const st = { q: new URLSearchParams(location.search).get('q') || '', city: new URLSearchParams(location.search).get('city') || '', price: '', cuisine: '', glasses: false };
       const q = document.getElementById('q'), sel = document.getElementById('cuisine'), g = document.getElementById('glasses');
