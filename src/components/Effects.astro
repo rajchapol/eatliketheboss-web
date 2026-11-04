@@ -1,0 +1,86 @@
+---
+// Site-wide motion, all optional polish (the page works and reads fine without it):
+// scroll reveal + stagger, photo fade-in, compact glass bar on scroll, card tilt + sheen,
+// cursor spotlight on dark bands, count-up numbers. Off when the reader prefers reduced motion
+// (the `fx-on` class on <html> is only added when motion is allowed; see Base.astro).
+---
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const on = root.classList.contains('fx-on');
+
+    // Photos fade in once loaded (only hidden while fx-on, so no-JS readers always see them).
+    document.querySelectorAll('img.cover').forEach((img) => {
+      const done = () => img.classList.add('loaded');
+      if (img.complete && img.naturalWidth) done(); else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+    });
+
+    // Compact glass bar: slides in after the big header has scrolled away; hides while scrolling down.
+    const bar = document.querySelector('[data-minibar]'), header = document.querySelector('.site-header');
+    if (bar && header) {
+      let lastY = scrollY, shown = false;
+      const set = (v) => {
+        if (v === shown) return; shown = v;
+        bar.classList.toggle('is-shown', v); bar.toggleAttribute('inert', !v); bar.setAttribute('aria-hidden', String(!v));
+        root.style.setProperty('--bar-offset', v ? bar.offsetHeight + 'px' : '0px');
+      };
+      let ticking = false;
+      const upd = () => {
+        ticking = false;
+        const y = scrollY, dy = y - lastY, past = y > header.offsetTop + header.offsetHeight + 40;
+        if (!past) { set(false); lastY = y; return; }
+        if (Math.abs(dy) < 4) return; // ignore jitter; keep the current state
+        set(dy < 0); lastY = y;       // up → show, down → hide
+      };
+      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+    }
+
+    if (!on) return;
+
+    // Reveal on scroll. Things already on screen at load are shown straight away (no flash, no LCP delay).
+    const SEL = '.card, .idx-row, .dish-pad, .go-band, .map-band, .specs, .rule, main h2, section > h2, .stats, aside.rc, .fx-lift, .fx-row, .slider-bar, [data-reveal]';
+    const items = [...document.querySelectorAll(SEL)].filter((el) => !el.closest('.site-header, .mini-bar, .site-footer, .slide, .specs .spec'));
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return; const el = e.target; io.unobserve(el); el.classList.add('in');
+      // once revealed, drop the stagger delay so hover effects respond instantly
+      setTimeout(() => el.classList.add('settled'), 950 + Number(el.style.getPropertyValue('--i') || 0) * 70);
+    }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < innerHeight && r.bottom > 0) { el.classList.add('in', 'no-anim'); return; }
+      // stagger siblings of the same kind (grid cards, index rows…)
+      const sibs = [...el.parentElement.children].filter((s) => s.matches(SEL));
+      el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 6)));
+      el.classList.add('rv'); io.observe(el);
+    });
+
+    // Count up numbers: <x data-count-to="12">12</x>
+    const cio = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (!e.isIntersecting) return; cio.unobserve(e.target);
+      const el = e.target, to = Number(el.dataset.countTo), t0 = performance.now(), D = 1100;
+      const step = (now) => { const t = Math.min(1, (now - t0) / D); el.textContent = String(Math.round(to * (1 - Math.pow(1 - t, 3)))); if (t < 1) requestAnimationFrame(step); };
+      el.textContent = '0'; requestAnimationFrame(step);
+    }), { threshold: 0.6 });
+    document.querySelectorAll('[data-count-to]').forEach((el) => cio.observe(el));
+
+    const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!fine) return;
+
+    // Card tilt + gold sheen following the pointer.
+    document.querySelectorAll('.card, .fx-tilt').forEach((c) => {
+      c.classList.add('tilt');
+      c.addEventListener('pointermove', (e) => {
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        c.style.setProperty('--rx', ((0.5 - y) * 5).toFixed(2) + 'deg'); c.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+        c.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      });
+      c.addEventListener('pointerleave', () => { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });
+    });
+
+    // Soft gold spotlight that follows the cursor on dark bands.
+    document.querySelectorAll('.spot').forEach((s) => s.addEventListener('pointermove', (e) => {
+      const r = s.getBoundingClientRect();
+      s.style.setProperty('--sx', (e.clientX - r.left) + 'px'); s.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+    }));
+  })();
+</script>

@@ -36,7 +36,7 @@ const pool = [
 const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.length], repeat: i >= pool.length })) : [];
 ---
 <Base title="Glasses Off Awards — จานที่อร่อยจนบอสต้องถอดแว่นชิม" description="รวมทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน" active="awards" dark jsonLd={[ld]}>
-  <section aria-labelledby="aw" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
+  <section aria-labelledby="aw" class="spot" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
     <div class="wrap" style="max-width:900px;padding-top:80px;padding-bottom:40px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
       <span role="img" aria-label={`ตรา Glasses Off Awards ${sealYear}`} class="gold-glow seal" set:html={seal} />
       <h1 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(48px,9cqi,80px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span></h1>

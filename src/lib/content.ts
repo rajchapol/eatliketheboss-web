@@ -155,6 +155,9 @@ export function srcset(i: Img | undefined, widths: number[], ratio?: number) {
 export const glassesOffDishes = (list: Article[]) =>
   list.flatMap((a) => a.dishes.flatMap((d, index) => (d.glassesOff ? [{ dish: d, article: a, index }] : [])));
 
+/** view-transition-name shared by an article's card photo and its cover, so the photo morphs between pages. */
+export const vtName = (a: Pick<Article, 'language' | 'slug'>) => `p-${a.language}-${a.slug}`.replace(/[^a-zA-Z0-9_-]/g, '-');
+
 /** Link straight to one dish inside its article, e.g. /review/tokyo/x/#dish-3 */
 export const dishUrl = (a: Article, index: number) => `${articleUrl(a)}#dish-${index + 1}`;
 

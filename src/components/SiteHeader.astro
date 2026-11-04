@@ -35,3 +35,11 @@ const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
   </div>
   <div class="goldrule"></div>
 </header>
+<div class="mini-bar" data-minibar inert aria-hidden="true">
+  <div class="wrap mini-in">
+    <a href="/" class="mini-logo" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="" width="200" height="179" /></a>
+    <nav aria-label={lang === "th" ? "เมนูหลัก (แถบย่อ)" : "Main menu (compact)"} class="mini-nav">
+      {nav.map(([key, label, href]) => <a href={href} aria-current={key === active ? 'page' : undefined}>{label}</a>)}
+    </nav>
+  </div>
+</div>

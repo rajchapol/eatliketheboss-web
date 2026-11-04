@@ -4,6 +4,33 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (later) · Motion & effects pass (branch `ccr-d06a6315-dh3n4a`, after PR #2)
+
+The Boss wanted the site to feel more modern, with more effects (another AI writes the reviews; this work is design only).
+- **Page transitions:** CSS `@view-transition{navigation:auto}`. Card photos and the article cover share `view-transition-name` (`vtName()` in `content.ts`), so the photo glides into the article. Chrome/Edge/Safari only; other browsers simply load the page.
+- **`src/components/Effects.astro`** (inline script, included in `Base.astro`):
+  - Photo fade-in (`img.cover.loaded`).
+  - Compact glass bar `.mini-bar` (markup in `SiteHeader.astro`). It slides in after the header scrolls away, hides on scroll down, shows on scroll up, and is `inert` while hidden. It sets `--bar-offset`, which the sticky course nav and the dish anchors use.
+  - Scroll reveal (`.rv` → `.in`, stagger via `--i`, then `.settled` drops the delay). Items already on screen at load skip the animation, so there is no flash and no LCP delay.
+  - Count-up (`data-count-to`).
+  - Card tilt + gold sheen (mouse only).
+  - Cursor spotlight on `.spot` dark bands.
+- **CSS "Effects v2"** (end of `site.css`):
+  - slider Ken Burns + staggered text (`.slide.is-active`);
+  - dish photos open like a curtain (clip-path);
+  - gold sweep on section `h2.ink-grad`;
+  - shine on gold/teal buttons;
+  - article cover parallax via scroll-driven animation (`animation-timeline: view()`, ignored where unsupported);
+  - home **ticker** of latest restaurants (pauses on hover).
+- **Accessibility:** a head script adds `fx-on` to `<html>` only when reduced motion is off; every hide/animate rule is scoped under `.fx-on`.
+- **Tested:** all earlier interaction tests, plus checks for the bar's show/hide logic (desktop and phone), every revealed element becoming visible, photos loading, card tilt, and reduced motion. A 30 s demo video was sent to the Boss.
+- **Data fix (not run yet):**
+  - `scripts/fix-city-regions.mjs` and `.github/workflows/fix-city-regions.yml` (manual, dry run by default) move cities still on region `jp`/`cn`/`other` to the continent values.
+  - It must be on `main` before GitHub shows the Run button. Run it dry first, then unticked.
+  - An auto-run-on-push version was blocked as an unreviewed production data change, so keep it manual.
+
+---
+
 ## Session 2026-11-03 → 04 · UI/UX overhaul (merged as PR #2, commit `59e8c34`)
 
 The Boss (site owner, writes in Thai) asked for a code review, then a full UI/UX pass ("impeccable", must look good on phones), then specific features. Everything below is live on `main`.
