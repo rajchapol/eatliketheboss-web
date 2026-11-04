@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
+import { TranslationsPanel, LANGS } from '../components/TranslationsPanel';
 // Tab icons: one import per icon (the root entry no longer exports them in @sanity/icons v5).
 import { HomeIcon } from '@sanity/icons/Home';
 import { DocumentTextIcon } from '@sanity/icons/DocumentText';
@@ -36,14 +37,25 @@ export const article = defineType({
     { name: 'dishes', title: '2 รายการจาน', icon: ThListIcon },
     { name: 'meta', title: '3 ราคา & วันที่ไป', icon: BillIcon },
     { name: 'seo', title: '4 SEO', icon: SearchIcon },
-    { name: 'lang', title: '5 ภาษา', icon: TranslateIcon },
+    { name: 'lang', title: '5 ภาษา / คำแปล', icon: TranslateIcon },
   ],
   fields: [
-    defineField({ name: 'language', title: 'ภาษา', type: 'string', group: 'lang', initialValue: 'th',
-      options: { list: [{ title: 'ไทย', value: 'th' }, { title: 'English', value: 'en' }, { title: '日本語', value: 'ja' }, { title: '中文', value: 'zh' }], layout: 'radio', direction: 'horizontal' },
+    defineField({ name: 'language', title: 'บทความนี้เป็นภาษา', description: 'บทความใหม่เริ่มที่ภาษาไทย · คำแปลสร้างจากปุ่ม "เพิ่มคำแปล" ในบทความไทย จะตั้งค่าให้เอง', type: 'string', group: 'lang', initialValue: 'th',
+      options: { list: LANGS.map((l) => ({ title: l.label, value: l.id })), layout: 'radio', direction: 'horizontal' },
       validation: (r) => r.required() }),
-    defineField({ name: 'translationOf', title: 'แปลจากบทความ (ภาษาไทย)', type: 'reference', to: [{ type: 'article' }], group: 'lang',
-      options: { filter: 'language == "th"' }, hidden: ({ document }) => document?.language === 'th' }),
+    defineField({ name: 'translationOf', title: 'แปลจากบทความ (ภาษาไทย)', description: 'คำแปลต้องผูกกับบทความไทย เว็บจึงรู้ว่าเป็นร้านเดียวกัน และขึ้นปุ่มเปลี่ยนภาษาให้', type: 'reference', to: [{ type: 'article' }], group: 'lang',
+      options: { filter: ({ document }: any) => ({ filter: 'language == "th" && series == $series', params: { series: document?.series || 'review' } }) },
+      hidden: ({ document }) => (document?.language || 'th') === 'th',
+      validation: (r) => r.custom(async (ref: any, ctx: any) => {
+        const doc = ctx.document;
+        if ((doc?.language || 'th') === 'th') return true;
+        if (!ref?._ref) return 'เลือกบทความภาษาไทยที่แปลมา';
+        const id = String(doc._id).replace(/^drafts\./, '');
+        const dup = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch(
+          'count(*[_type == "article" && language == $lang && translationOf._ref == $ref && !(_id in [$id, "drafts." + $id])])', { lang: doc.language, ref: ref._ref, id });
+        return dup ? 'บทความนี้มีคำแปลภาษานี้อยู่แล้ว เปิดอันเดิมแก้แทนได้ (ดูรายการด้านล่าง)' : true;
+      }) }),
+    defineField({ name: 'translations', title: 'ภาษาทั้งหมดของบทความนี้', type: 'string', group: 'lang', readOnly: true, components: { input: TranslationsPanel } }),
     defineField({ name: 'series', title: 'ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
       options: { list: [{ title: 'บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
       validation: (r) => r.required() }),
@@ -51,7 +63,12 @@ export const article = defineType({
     defineField({ name: 'episode', title: 'Ep.', type: 'number', group: 'main', hidden: ({ document }) => document?.series !== 'history' }),
     defineField({ name: 'title', title: 'ชื่อบทความเต็ม', description: 'เช่น บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรย (ไม่ต้องใส่อีโมจิ)', type: 'string', group: 'main', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug (ส่วนท้าย URL)', description: 'ภาษาอังกฤษตัวเล็ก คั่นด้วย - เช่น sezanne — ตั้งแล้วห้ามเปลี่ยน', type: 'slug', group: 'main',
-      options: { source: (doc: any) => doc.restaurant?.name || doc.title, maxLength: 80 }, validation: (r) => r.required() }),
+      options: { source: (doc: any) => doc.restaurant?.name || doc.title, maxLength: 80,
+        // a translation keeps the Thai slug (/en/review/<city>/<slug>/), so a slug only has to be unique within one language
+        isUnique: async (slug: string, ctx: any) => {
+          const id = String(ctx.document?._id || '').replace(/^drafts\./, '');
+          return !(await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('count(*[_type == "article" && slug.current == $slug && coalesce(language, "th") == $lang && !(_id in [$id, "drafts." + $id])])', { slug, lang: ctx.document?.language || 'th', id }));
+        } }, validation: (r) => r.required() }),
     defineField({ name: 'tagline', title: 'คำโปรยเชิงศิลปะ', type: 'string', group: 'main' }),
     defineField({ name: 'city', title: 'เมือง', type: 'reference', to: [{ type: 'city' }], group: 'main',
       hidden: ({ document }) => document?.series === 'history', validation: (r) => r.custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องเลือกเมือง' : true)) }),
@@ -98,8 +115,13 @@ export const article = defineType({
       validation: (r) => r.min(80).max(160).warning() }),
   ],
   orderings: [{ title: 'ใหม่สุด', name: 'newest', by: [{ field: 'publishedAt', direction: 'desc' }] }],
-  preview: { select: { title: 'title', visit: 'visit', lang: 'language', media: 'cover' },
-    prepare: ({ title, visit, lang, media }: any) => ({ title, subtitle: `Visit ${visit || '—'} · ${String(lang || 'th').toUpperCase()}`, media }) },
+  preview: { select: { title: 'title', name: 'restaurant.name', series: 'series', ep: 'episode', visit: 'visit', lang: 'language', city: 'city.nameEn', media: 'cover' },
+    // The restaurant name first, so lists and the "แปลจากบทความ" picker show which article it is at a glance.
+    prepare: ({ title, name, series, ep, visit, lang, city, media }: any) => ({
+      title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : (name || title || 'ไม่มีชื่อ'),
+      subtitle: [LANGS.find((l) => l.id === (lang || 'th'))?.short ?? 'TH', city, visit && `Visit ${visit}`].filter(Boolean).join(' · '),
+      media,
+    }) },
 });
 
 export const city = defineType({

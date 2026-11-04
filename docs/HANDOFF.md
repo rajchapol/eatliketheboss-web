@@ -4,6 +4,20 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late night) · Studio translations reworked
+
+The Boss: Studio's translation fields were hard to use — you couldn't tell which article a translation was linked to.
+- **Tab "5 ภาษา / คำแปล"** (`studio/schemas/index.ts`, panel `studio/components/TranslationsPanel.tsx`):
+  - A read-only panel lists every language of the article (Thai original + translations, drafts marked) as clickable cards, live-updating.
+  - On a Thai article, buttons **+ English / 日本語 / 中文** create a translation through the initial-value template `article-translation` (`studio/sanity.config.ts`). It copies everything except ids and SEO texts (restaurant, city, cover, gallery, dishes, Bill, Visit, slug, and the Thai text to translate over) and sets `language` + `translationOf`. The template is hidden from the normal "new document" menu.
+- **`translationOf`:** the picker only offers Thai articles of the same series. It is required on translations, and validation blocks a second translation in the same language.
+- **Slug** is unique per language (a translation keeps the Thai slug).
+- **Article preview** everywhere (lists, reference picker): the restaurant name first, then `TH/EN/JA/ZH · city · Visit`.
+- `@sanity/ui` is now a direct Studio dependency. Studio redeploys when this reaches main.
+- Not testable here: the Studio form needs a Sanity login and network. The schema validates (0 errors) and `sanity build` passes. Ask the Boss to try "+ English" on one article.
+
+---
+
 ## Session 2026-11-04 (night, final) · Machine translation off for good
 
 PR #8 (Google Translate in a new tab) went live and the Boss found it still did not work ("ไม่รอด"): turned off. The switcher is back to real translations only (hidden on Thai-only pages). Kept from PR #8: the desktop header layout (language row above the menu) and the tighter phone pills. Don't add Google Translate back; the way to other languages is real translations (`posts/<slug>.<lang>.md`, Boss approves first).
