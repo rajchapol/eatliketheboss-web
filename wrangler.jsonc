@@ -2,8 +2,6 @@
 {
   "name": "eatlikeboss",
   "compatibility_date": "2026-11-01",
-  // Preview links for branches (uploaded by .github/workflows/check.yml); production is unaffected.
-  "preview_urls": true,
   "assets": {
     "directory": "./dist",
     "html_handling": "force-trailing-slash",

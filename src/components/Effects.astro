@@ -37,20 +37,27 @@
 
     if (!on) return;
 
+    // Calm when moving around: no reveal animation after Back/Forward, or on a page already seen this visit.
+    const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    let seen = [];
+    try { seen = JSON.parse(sessionStorage.getItem('fx-seen') || '[]'); } catch {}
+    const calm = (nav && nav.type === 'back_forward') || seen.includes(location.pathname);
+    try { if (!seen.includes(location.pathname)) sessionStorage.setItem('fx-seen', JSON.stringify([...seen, location.pathname].slice(-60))); } catch {}
+
     // Reveal on scroll. Things already on screen at load are shown straight away (no flash, no LCP delay).
     const SEL = '.card, .idx-row, .dish-pad, .go-band, .map-band, .specs, .rule, main h2, section > h2, .stats, aside.rc, .fx-lift, .fx-row, .slider-bar, [data-reveal]';
     const items = [...document.querySelectorAll(SEL)].filter((el) => !el.closest('.site-header, .mini-bar, .site-footer, .slide, .specs .spec'));
     const io = new IntersectionObserver((entries) => entries.forEach((e) => {
       if (!e.isIntersecting) return; const el = e.target; io.unobserve(el); el.classList.add('in');
       // once revealed, drop the stagger delay so hover effects respond instantly
-      setTimeout(() => el.classList.add('settled'), 950 + Number(el.style.getPropertyValue('--i') || 0) * 70);
+      setTimeout(() => el.classList.add('settled'), 650 + Number(el.style.getPropertyValue('--i') || 0) * 50);
     }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
     items.forEach((el) => {
       const r = el.getBoundingClientRect();
-      if (r.top < innerHeight && r.bottom > 0) { el.classList.add('in', 'no-anim'); return; }
+      if (calm || (r.top < innerHeight && r.bottom > 0)) { el.classList.add('in', 'no-anim'); return; }
       // stagger siblings of the same kind (grid cards, index rows…)
       const sibs = [...el.parentElement.children].filter((s) => s.matches(SEL));
-      el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 6)));
+      el.style.setProperty('--i', String(Math.min(sibs.indexOf(el), 4)));
       el.classList.add('rv'); io.observe(el);
     });
 
@@ -61,7 +68,7 @@
       const step = (now) => { const t = Math.min(1, (now - t0) / D); el.textContent = String(Math.round(to * (1 - Math.pow(1 - t, 3)))); if (t < 1) requestAnimationFrame(step); };
       el.textContent = '0'; requestAnimationFrame(step);
     }), { threshold: 0.6 });
-    document.querySelectorAll('[data-count-to]').forEach((el) => cio.observe(el));
+    if (!calm) document.querySelectorAll('[data-count-to]').forEach((el) => cio.observe(el));
 
     const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
     if (!fine) return;
@@ -71,7 +78,7 @@
       c.classList.add('tilt');
       c.addEventListener('pointermove', (e) => {
         const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        c.style.setProperty('--rx', ((0.5 - y) * 5).toFixed(2) + 'deg'); c.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+        c.style.setProperty('--rx', ((0.5 - y) * 2.5).toFixed(2) + 'deg'); c.style.setProperty('--ry', ((x - 0.5) * 3).toFixed(2) + 'deg');
         c.style.setProperty('--mx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--my', (y * 100).toFixed(1) + '%');
       });
       c.addEventListener('pointerleave', () => { c.style.removeProperty('--rx'); c.style.removeProperty('--ry'); });

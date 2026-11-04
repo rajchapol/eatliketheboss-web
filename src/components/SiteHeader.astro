@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { LOCALES, LOCALE_LABEL, HREFLANG, type Locale } from '../lib/config';
+import { LOCALES, LOCALE_LABEL, HREFLANG, SITE, type Locale } from '../lib/config';
 import { NAV_LABELS } from '../lib/i18n';
 interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[] }
 const { active = 'home', lang, alternates } = Astro.props;
@@ -13,6 +13,13 @@ const nav = [
   ['about', N.about, '/about/'],
 ] as const;
 const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
+// No human translation yet → open the Thai page machine-translated by Google Translate (the switcher always works).
+// Real translations (posts/<slug>.<lang>.md) take over automatically once published.
+const thaiPath = altFor('th') ?? Astro.url.pathname;
+const gtHost = new URL(SITE.url).host.replace(/-/g, '--').replace(/\./g, '-') + '.translate.goog';
+const GT_LANG: Record<Locale, string> = { th: 'th', en: 'en', ja: 'ja', zh: 'zh-CN' };
+const autoHref = (l: Locale) => `https://${gtHost}${thaiPath}?_x_tr_sl=th&_x_tr_tl=${GT_LANG[l]}&_x_tr_hl=${GT_LANG[l]}`;
+const thaiHref = new URL(thaiPath, SITE.url).href; // absolute, so "TH" also leaves the Google Translate view
 ---
 <header class="site-header" style="color:#fff;font-family:'Ekkamai New',sans-serif;box-shadow:0 10px 28px rgba(195,158,92,.28)">
   <div class="wrap hdr" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px">
@@ -28,8 +35,9 @@ const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
       {LOCALES.map((l) => {
         const href = altFor(l);
         if (l === lang) return <a href={href ?? '#'} lang={HREFLANG[l]} aria-current="true"><span>{LOCALE_LABEL[l]}</span></a>;
+        if (l === 'th') return <a href={thaiHref} lang="th" hreflang="th"><span>{LOCALE_LABEL[l]}</span></a>;
         return href ? <a href={href} lang={HREFLANG[l]} hreflang={HREFLANG[l]}><span>{LOCALE_LABEL[l]}</span></a>
-                    : <a aria-disabled="true" title={lang === "th" ? "ยังไม่มีภาษานี้" : "Not available in this language yet"} style="opacity:.45;cursor:default"><span>{LOCALE_LABEL[l]}</span></a>;
+                    : <a href={autoHref(l)} class="auto" rel="nofollow" lang={HREFLANG[l]} title={lang === "th" ? "แปลอัตโนมัติด้วย Google Translate" : "Machine translation (Google Translate)"}><span>{LOCALE_LABEL[l]}</span></a>;
       })}
     </div>
   </div>

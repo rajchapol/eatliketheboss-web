@@ -6,7 +6,7 @@ import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { SERIES } from '../lib/config';
-import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, vtName } from '../lib/content';
+import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel } from '../lib/content';
 import { articleLd, breadcrumbs } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
 import { t, formatDate } from '../lib/i18n';
@@ -87,7 +87,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       </div>
     </div>
 
-    {a.cover && <div class="wrap" style="padding-top:40px"><div class="rl parallax" style={`view-transition-name:${vtName(a)};aspect-ratio:3/2;max-height:760px;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 30px 60px -20px rgba(11,83,87,.35)`}><Photo img={a.cover} label={t(L, 'coverLabel')} ratio={0.6667} eager sizes="(max-width: 1200px) 100vw, 1140px" widths={[640, 960, 1280, 1920]} /></div></div>}
+    {a.cover && <div class="wrap" style="padding-top:40px"><div class="rl parallax" style={`aspect-ratio:3/2;max-height:760px;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 30px 60px -20px rgba(11,83,87,.35)`}><Photo img={a.cover} label={t(L, 'coverLabel')} ratio={0.6667} eager sizes="(max-width: 1200px) 100vw, 1140px" widths={[640, 960, 1280, 1920]} /></div></div>}
 
     <div class="wrap" style="padding-top:64px;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
       <div class="prose" style="flex:999 1 560px;min-width:0" set:html={a.bodyHtml} />

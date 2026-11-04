@@ -2,7 +2,7 @@
 // Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances slowly.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { articleUrl, visitIso, visitLabel, vtName } from '../lib/content';
+import { articleUrl, visitIso, visitLabel } from '../lib/content';
 import type { Article } from '../lib/types';
 interface Props { slides: Article[] }
 const { slides } = Astro.props;
@@ -17,7 +17,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
     <div class="slides" data-track tabindex="-1">
       {slides.map((a, i) => (
         <article class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} จาก ${slides.length}: ${a.restaurant?.name ?? a.title}`}>
-          <a href={articleUrl(a)} class="slide-photo" tabindex="-1" aria-hidden="true" style={`view-transition-name:${vtName(a)}`}>
+          <a href={articleUrl(a)} class="slide-photo" tabindex="-1" aria-hidden="true">
             <Photo img={a.cover} label="ภาพปก 3:2" ratio={0.6667} eager={i === 0} widths={[640, 960, 1280, 1600]} sizes="(max-width: 720px) 100vw, 680px" />
           </a>
           <div class="slide-text">

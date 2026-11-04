@@ -20,20 +20,22 @@ const ld = {
   itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.dish.name, url: new URL(dishUrl(x.article, x.index), SITE.url).href })),
 };
 
-// The glasses: two lenses made of round dish photos (centre + ring of 6 + ring of 12 each).
-// Glasses-off dishes come first (gold ring); remaining spots are filled with the Boss's other dishes.
-const W = 1000, H = 385, D = 72; // viewBox units; D = photo diameter
-const lens = (cx: number) => [[cx, H / 2], ...[6, 12].flatMap((n, k) => Array.from({ length: n }, (_, i) => {
-  const r = k ? 156 : 82, ang = (i / n) * Math.PI * 2 - Math.PI / 2 + (k ? Math.PI / 12 : 0);
-  return [cx + r * Math.cos(ang), H / 2 + r * Math.sin(ang)];
-}))];
-const spots = [...lens(270), ...lens(730)];
+// The glasses: each lens is a honeycomb of hexagon dish photos, clipped to the lens and drifting slowly
+// (and following the mouse) like a view through real lenses. Glasses-off dishes come first (gold rim);
+// remaining cells are filled with the Boss's other dishes.
+const W = 1000, H = 385, R = 197, LENSES = [270, 730]; // frame geometry in viewBox units
+const TW = 21, TH = TW * 1.1547, ROW = TH * 0.75;   // hex cell size, % of the lens grid (grid = lens + 8% margin each side)
+const cells: { x: number; y: number }[] = [];
+for (let r = 0, y = -TH / 2; y < 100 + TH / 2; r++, y += ROW)
+  for (let x = (r % 2 ? TW / 2 : 0) - TW / 2; x < 100 + TW / 2; x += TW)
+    if (Math.hypot(x + TW / 2 - 50, y + TH / 2 - 50) < 50 / 1.16 + TW * 0.45) cells.push({ x, y }); // keep cells that show inside the lens
 const pool = [
   ...items.filter((x) => x.dish.image).map((x) => ({ ...x, gold: true })),
   ...articles.flatMap((a) => a.dishes.map((dish, index) => ({ dish, article: a, index, gold: false }))).filter((x) => x.dish.image && !x.dish.glassesOff),
 ];
-// With fewer photos than spots, photos repeat; the repeats are decoration only (hidden from keyboard and screen readers).
-const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.length], repeat: i >= pool.length })) : [];
+// With fewer photos than cells, photos repeat; the repeats are decoration only (hidden from keyboard and screen readers).
+let n = 0;
+const lenses = pool.length ? LENSES.map((cx) => ({ cx, cells: cells.map((c) => { const t = pool[n % pool.length]; const repeat = n >= pool.length; n++; return { ...c, ...t, repeat }; }) })) : [];
 ---
 <Base title="Glasses Off Awards — จานที่อร่อยจนบอสต้องถอดแว่นชิม" description="รวมทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน" active="awards" dark jsonLd={[ld]}>
   <section aria-labelledby="aw" class="spot" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
@@ -43,7 +45,7 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
       <p style="margin:8px 0 0;max-width:34em;font-size:18px;line-height:1.85;font-weight:400;color:#fff">{st.awardsIntro}</p>
       {years.length > 1 && <nav aria-label="เลือกปี" style="display:flex;gap:8px;margin-top:16px;font-family:'Ekkamai New',sans-serif;font-size:15px">{years.map((y) => <a href={`#y${y}`} class="chip" style="padding:8px 22px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{y}</a>)}</nav>}
     </div>
-    {tiles.length > 0 && (
+    {lenses.length > 0 && (
       <div class="wrap" style="padding-bottom:88px">
         <div class="specs" role="group" aria-label="จานถอดแว่นชิม เรียงเป็นแว่นของบอส">
           <svg class="specs-frame" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" preserveAspectRatio="xMidYMid meet">
@@ -54,13 +56,18 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
             <path d={`M82 ${H / 2 - 50} L8 ${H / 2 - 92}`} fill="none" stroke="url(#rim)" stroke-width="6" stroke-linecap="round" />
             <path d={`M918 ${H / 2 - 50} L992 ${H / 2 - 92}`} fill="none" stroke="url(#rim)" stroke-width="6" stroke-linecap="round" />
           </svg>
-          {tiles.map((t, i) => (
-            <a href={dishUrl(t.article, t.index)} class={t.gold ? 'spec gold' : 'spec'}
-              aria-hidden={t.repeat ? 'true' : undefined} tabindex={t.repeat ? -1 : undefined}
-              style={`left:${((t.x - D / 2) / W) * 100}%;top:${((t.y - D / 2) / H) * 100}%;width:${(D / W) * 100}%;--d:${(i % 19) * 40}ms`}>
-              <Photo img={t.dish.image} label={t.dish.name} ratio={1} widths={[160, 320]} sizes="(max-width: 720px) 80px, 160px" />
-              <span class="spec-cap">{t.gold && <Icon name="glasses" size={14} />}{t.dish.name}<small>{t.article.restaurant?.name ?? t.article.title}</small></span>
-            </a>
+          {lenses.map((l, li) => (
+            <div class="lens" style={`left:${((l.cx - R) / W) * 100}%;top:${((H / 2 - R) / H) * 100}%;width:${(2 * R / W) * 100}%;height:${(2 * R / H) * 100}%`}>
+              <div class="lens-grid" style={`animation-delay:${li * -7}s`}>
+                {l.cells.map((t) => (
+                  <a href={dishUrl(t.article, t.index)} class={t.gold ? 'cell gold' : 'cell'} data-name={t.dish.name} data-place={t.article.restaurant?.name ?? t.article.title}
+                    aria-hidden={t.repeat ? 'true' : undefined} tabindex={t.repeat ? -1 : undefined} aria-label={t.repeat ? undefined : `${t.dish.name} — ${t.article.restaurant?.name ?? t.article.title}`}
+                    style={`left:${t.x}%;top:${t.y}%;width:${TW}%;height:${TH}%`}>
+                    <span class="hx"><span class="hx-in"><Photo img={t.dish.image} label={t.dish.name} ratio={1} widths={[200, 360]} sizes="(max-width: 720px) 90px, 180px" /></span></span>
+                  </a>
+                ))}
+              </div>
+            </div>
           ))}
           <svg class="specs-tint" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" preserveAspectRatio="xMidYMid meet">
             <defs>
@@ -72,7 +79,7 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
             <g clip-path="url(#lenses)"><rect class="glare" x="40" y="-60" width="150" height={H + 120} fill="url(#glare)" transform="rotate(24 500 192)" /></g>
           </svg>
         </div>
-        <p style="margin:56px 0 0;text-align:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)"><span class="hint-hover">ชี้ที่รูปเพื่อขยาย · กดเพื่อไปที่จาน</span><span class="hint-touch">แตะรูปเพื่อไปที่จาน</span> · <span style="color:#fdeac0">วงทอง = จานถอดแว่นชิม</span></p>
+        <p class="specs-now" data-specs-now aria-live="polite"><span class="hint-hover">ชี้ที่รูปเพื่อดูชื่อจาน · กดเพื่อไปที่จาน</span><a class="hint-touch" href={`#y${years[0] ?? ""}`} style="color:#fdeac0;border-bottom:1px solid #d4b372;padding:10px 0">ดูทุกจานด้านล่าง</a> · <span style="color:#fdeac0">ขอบทอง = จานถอดแว่นชิม</span></p>
       </div>
     )}
   </section>
@@ -104,5 +111,15 @@ const tiles = pool.length ? spots.map(([x, y], i) => ({ x, y, ...pool[i % pool.l
       s.classList.add('shade');
       const io = new IntersectionObserver(([e]) => { if (e.intersectionRatio >= 0.6) { io.disconnect(); setTimeout(() => s.classList.add('lit'), 900); } }, { threshold: [0, 0.6, 1] });
       io.observe(s); })();
+    // Through the lens: photos shift against the mouse; the dish name shows under the glasses.
+    (() => { const s = document.querySelector('.specs'), now = document.querySelector('[data-specs-now]'); if (!s || !now) return;
+      const hint = now.innerHTML, fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (fine && !matchMedia('(prefers-reduced-motion: reduce)').matches) s.addEventListener('pointermove', (e) => {
+        const r = s.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        s.style.setProperty('--tx', (-x * 26).toFixed(1) + 'px'); s.style.setProperty('--ty', (-y * 26).toFixed(1) + 'px');
+      });
+      const show = (c) => { now.textContent = ''; const b = document.createElement('strong'); b.textContent = c.dataset.name; const sm = document.createElement('span'); sm.textContent = '  ·  ' + c.dataset.place; if (c.classList.contains('gold')) { const g = document.createElement('em'); g.textContent = 'GLASSES OFF  '; now.append(g); } now.append(b, sm); };
+      s.querySelectorAll('.cell').forEach((c) => { c.addEventListener('pointerenter', () => show(c)); c.addEventListener('focus', () => show(c)); });
+      s.addEventListener('pointerleave', () => (now.innerHTML = hint)); })();
   </script>
 </Base>

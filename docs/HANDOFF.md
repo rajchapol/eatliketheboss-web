@@ -4,6 +4,28 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (evening) · Calmer motion, working language switcher, new glasses
+
+Feedback from the Boss after seeing the effects demo: the language switcher "doesn't work", some effects are disorienting when moving between pages, the round photos in the glasses look odd, and no Cloudflare previews.
+- **Language switcher (`SiteHeader.astro`):** EN/JA/ZH were greyed out because Sanity has no translated articles yet. Now:
+  - a human translation is used when it exists;
+  - otherwise the button opens the same Thai page through Google Translate (`https://eatlikeboss-com.translate.goog/<path>?_x_tr_sl=th&_x_tr_tl=<lang>`), with `rel=nofollow` and a dotted underline;
+  - TH is an absolute link, so it also leaves the Google view.
+  - Not verified from the container (no network); ask the Boss to tap it on the live site.
+- **Calmer motion:**
+  - Page transitions and the shared photo morph are removed entirely (that was the dizziness).
+  - The reveal is shorter (12px, .55s, stagger cap 4).
+  - **No reveal or count-up after Back/Forward or on a page already seen this visit** (`sessionStorage` key `fx-seen`).
+  - Less tilt (≈3°), less parallax (3%), gentler Ken Burns (1.06).
+- **Glasses:**
+  - The circles are gone. Each lens is a honeycomb of hexagon photos clipped to the lens. It drifts slowly and shifts against the mouse (`--tx/--ty` on `.specs`, CSS `translate`), so it feels like looking through lenses.
+  - Hover lifts a cell and writes the dish + restaurant under the glasses (`[data-specs-now]`); gold rim = glasses-off dish.
+  - On touch screens the cells are decoration only (too small to tap) and the hint links to the list below.
+  - The sunglasses tint is kept.
+- **No Cloudflare previews:** the preview steps were removed from `check.yml` and `preview_urls` from `wrangler.jsonc`. The build check stays.
+
+---
+
 ## Session 2026-11-04 (later) · Motion & effects pass (branch `ccr-d06a6315-dh3n4a`, after PR #2)
 
 The Boss wanted the site to feel more modern, with more effects (another AI writes the reviews; this work is design only).
