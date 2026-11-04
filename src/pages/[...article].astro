@@ -32,6 +32,7 @@ const others = all.filter((x) => x.language === L && x.id !== a.id && restaurant
 const sameCity = (x: Article) => Boolean(a.city && x.city?.slug === a.city.slug);
 const more = [...others.filter(sameCity), ...others.filter((x) => !sameCity(x) && x.series === a.series)].slice(0, 3);
 const s = SERIES[a.series];
+const glassesDishes = a.dishes.map((d, i) => ({ d, i })).filter(({ d }) => d.glassesOff);
 const name = a.restaurant?.name ?? a.title;
 const glassesIdx = a.dishes.findIndex((d) => d.glassesOff);
 const crumbs = [
@@ -71,12 +72,21 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
         </p>
         {a.series === 'review' && (
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:8px">
-            <dl class="facts rc" style="flex:1 1 520px;min-width:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 10px 24px rgba(195,158,92,.18);font-family:'Ekkamai New',sans-serif">
-              <div class="fact"><dt><Icon name="bill" size={15} style="color:#c39e5c" />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
-              <div class="fact"><dt><Icon name="cuisine" size={15} style="color:#c39e5c" />{t(L, 'cuisine')}</dt><dd>{a.restaurant?.cuisine ?? '—'}</dd></div>
-              <div class="fact"><dt><Icon name="glasses" size={15} style="color:#c39e5c" />{t(L, 'glassesOff')}</dt><dd>{glassesIdx >= 0
-                ? <a href={`#dish-${glassesIdx + 1}`} style="display:inline-flex;align-items:center;gap:4px;color:#0b5357;border-bottom:1px solid #c39e5c">{t(L, 'goToDish', { n: roman(glassesIdx) })}<Icon name="down" size={14} /></a> : '—'}</dd></div>
-            </dl>
+            <section aria-label={t(L, 'atGlance')} class="glance rc">
+              <p class="glance-head">{t(L, 'atGlance')}</p>
+              <dl class="glance-grid">
+                <div><dt><Icon name="bill" size={15} />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
+                <div><dt><Icon name="cuisine" size={15} />{t(L, 'cuisine')}</dt><dd>{a.restaurant?.cuisine ?? '—'}</dd></div>
+                {a.restaurant?.awards?.length ? <div><dt><Icon name="award" size={15} />{t(L, 'awards')}</dt><dd>{a.restaurant.awards.join(' · ')}</dd></div> : null}
+                {a.city && <div><dt><Icon name="pin" size={15} />{t(L, 'cityArea')}</dt><dd>{a.city.nameEn}{a.restaurant?.area && ` — ${a.restaurant.area}`}</dd></div>}
+              </dl>
+              {a.dishes.length > 0 && (
+                <div class="glance-foot">
+                  {glassesDishes.map(({ d, i }) => <a href={`#dish-${i + 1}`} class="glance-gold"><Icon name="glasses" size={16} /><span><b>{t(L, 'glassesOff')}</b> {roman(i)}. {d.name}</span></a>)}
+                  <a href="#menu" class="glance-all">{t(L, 'seeCourses', { n: a.dishes.length })}<Icon name="down" size={14} /></a>
+                </div>
+              )}
+            </section>
             <ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} />
           </div>
         )}
@@ -109,6 +119,10 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
         </aside>
       )}
     </div>
+
+    {a.quote && !a.quote.startsWith('[') && (
+      <figure class="wrap pull-quote" data-reveal><blockquote>{a.quote}</blockquote><figcaption>— {t(L, 'boss')}</figcaption></figure>
+    )}
 
     {a.gallery && a.gallery.length > 0 && (
       <section aria-label={t(L, 'gallery')} class="wrap" style="padding-top:64px">

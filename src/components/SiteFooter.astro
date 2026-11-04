@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
   )}
   <footer class="site-footer" style="color:#fff">
     <div class="goldrule"></div>
-    <nav aria-label={t(lang, 'allLinks')} class="wrap" style="padding-top:48px;padding-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;font-size:14px">
+    <nav aria-label={t(lang, 'allLinks')} class="wrap foot-grid" style="padding-top:48px;padding-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;font-size:14px">
       <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">SERIES</span>
         <a href="/review/">{t(lang, 'footReview')}</a>
@@ -40,7 +40,7 @@ const year = new Date().getFullYear();
       </div>
     </nav>
     <div class="wrap" style="padding-top:32px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px">
-      <span>© {year} บอสพาชิม — Eat Like The Boss · {lang === 'th' ? st.footerRights : t(lang, 'rights')}</span>
+      <span>© {year} {lang === 'th' ? 'บอสพาชิม — ' : ''}Eat Like The Boss · {lang === 'th' ? st.footerRights : t(lang, 'rights')}</span>
       <span style="color:#fdeac0"><a href={SITE.facebook} rel="me">Facebook</a> | <a href={SITE.instagram} rel="me">Instagram</a> | <a href="/rss.xml">RSS</a></span>
     </div>
   </footer>

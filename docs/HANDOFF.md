@@ -4,6 +4,43 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late evening, 2) · Design pass: at-a-glance card, city list, price pills, footer, lede + quote
+
+The Boss picked all five design suggestions:
+1. **City page list on phones:** thumbnail left, text right (`.city-row` grid in `site.css`; `cr-photo` / `cr-main` / `cr-side` in `city/[slug].astro`).
+2. **"สรุปสั้น / At a glance" card** at the top of every review (`[...article].astro`, `.glance*` CSS). It replaces the old 3-cell facts row, shows the price band (+ Event/AD), cuisine, awards and city/area, has one button per glasses-off dish, and "ดูทั้ง N จาน ↓" to the menu. New i18n keys `atGlance` and `seeCourses`.
+3. **Price band as a pill** (`.band-pill`) on cards and city rows. Cards now read `a.billBand`, which `withPriceBand()` also copies to `restaurant.priceBand`, so the finder filter was already right.
+4. **Footer:** smaller line-art band on phones; footer links in two columns on phones (`.foot-grid`).
+5. **Article intro:** the first paragraph is a larger teal lede. The Boss's standout line (Studio "ประโยคเด่นของบอส", `a.quote`) is now shown as a pull quote after the intro. It was never rendered before (bug).
+
+Checked with real content (mkseed method above) at 390/1280, then crawl + smoke test on the sample build: no errors.
+
+---
+
+## Session 2026-11-04 (late evening) · Bug check with real content
+
+**How it was checked:**
+- The sample build, plus a temporary build from the real `posts/*.md` (6 Shanghai articles, Thai and English, local photos).
+  - Generator script: scratchpad `mkseed.mjs`, not committed.
+  - It rewrites `src/data/seed.ts` and `public/pv-live/`; restore both afterwards with `git checkout src/data/seed.ts && rm -rf public/pv-live`.
+- A Playwright crawler opened every internal page at 360 and 1280 px and checked:
+  - JS/console errors and HTTP errors;
+  - broken links and images, and images without alt;
+  - duplicate ids and the h1 count;
+  - horizontal overflow;
+  - reveal elements left hidden;
+  - Thai left on English pages.
+- Also checked: JSON-LD parses, canonical, og:image files exist, sitemap, hreflang targets, RSS (Thai only), search / price filters / course jumps / glasses-off jump / language switch.
+
+**Fixed:**
+- Footer on English pages said "บอสพาชิม — Eat Like The Boss"; now just "Eat Like The Boss" (`SiteFooter.astro`).
+- The home page highlighted the "Tasting Notes" menu tab; now nothing is highlighted on home (`index.astro`: `active="home"`).
+- Sample content now goes through the same clean-up as Sanity content: `stripCtrl` and `cleanDish` in `getAllArticles()`. This drops stray \v characters and the repeated "จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม" quote. The live site already did this.
+
+**Everything else passed.**
+
+---
+
 ## Session 2026-11-04 (evening) · English translations live, switcher in the article, English menu
 
 - **Translations live:** PR #14 published the 6 Shanghai English translations through post-article.yml (run succeeded).

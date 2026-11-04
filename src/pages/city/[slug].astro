@@ -75,9 +75,9 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
           <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{g.rows.length} ร้าน</span>
         </div>
         {g.rows.map(({ latest: a, visits }) => (
-          <div class="fx-row" style="position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(195,158,92,.35)">
-            <span class="rc" style="flex:0 0 132px;aspect-ratio:3/2;display:block;border-radius:var(--r-sm)"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[264, 396]} sizes="132px" /></span>
-            <span style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px">
+          <div class="fx-row city-row" style="position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(195,158,92,.35)">
+            <span class="rc cr-photo" style="flex:0 0 132px;aspect-ratio:3/2;display:block;border-radius:var(--r-sm)"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[264, 396]} sizes="132px" /></span>
+            <span class="cr-main" style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px">
               <a href={articleUrl(a)} class="card-link" style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name ?? a.title}</a>
               <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
               {visits.length > 1 && (
@@ -85,8 +85,11 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
                   {visits.map((v) => <a href={articleUrl(v)} class="pill-link" style="min-height:32px"><time datetime={visitIso(v)}>{visitLabel(v)}</time></a>)}</span>
               )}
             </span>
-            <span style="flex:0 0 auto;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357">{a.billBand}{a.tag && <span class="tag-pill" style="margin-left:8px"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={12} />{a.tag}</span>}</span>
-            <span style="flex:0 0 96px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
+            <span class="cr-side" style="flex:0 0 auto;display:flex;align-items:center;gap:12px 20px">
+              {a.billBand && <span class="band-pill"><Icon name="bill" size={13} />{a.billBand}</span>}
+              {a.tag && <span class="tag-pill"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={12} />{a.tag}</span>}
+              <span style="min-width:72px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
+            </span>
           </div>
         ))}
       </section>
