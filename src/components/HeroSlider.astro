@@ -1,0 +1,75 @@
+---
+// Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances slowly.
+import Icon from './Icon.astro';
+import Photo from './Photo.astro';
+import { articleUrl, visitIso, visitLabel } from '../lib/content';
+import type { Article } from '../lib/types';
+interface Props { slides: Article[] }
+const { slides } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+{slides.length > 0 && (
+  <section class="slider wrap" aria-roledescription="carousel" aria-label="ร้านล่าสุดที่บอสไปชิม" data-slider style="padding-top:72px;padding-bottom:88px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px">
+      <p class="overline">LATEST VISITS</p>
+      <a href="/review/" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้งหมด</a>
+    </div>
+    <div class="slides" data-track tabindex="-1">
+      {slides.map((a, i) => (
+        <article class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} จาก ${slides.length}: ${a.restaurant?.name ?? a.title}`}>
+          <a href={articleUrl(a)} class="slide-photo fx-zoom" tabindex="-1" aria-hidden="true">
+            <Photo img={a.cover} label="ภาพปก 3:2" ratio={0.6667} eager={i === 0} widths={[640, 960, 1280, 1600]} sizes="(max-width: 720px) 100vw, 680px" />
+          </a>
+          <div class="slide-text">
+            <p class="overline" style="letter-spacing:.2em">TASTING NOTES <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span></p>
+            <h2 class="ink-grad" style="margin:0;font-weight:600;font-size:clamp(30px,4.6cqi,44px);line-height:1.25"><a href={articleUrl(a)}>{a.restaurant?.name ?? a.title}</a>{a.restaurant?.originalName && <span style="display:block;font-size:.5em;font-weight:400;-webkit-text-fill-color:#3d4955">{a.restaurant.originalName}</span>}</h2>
+            {a.tagline && <p style="margin:0;font-size:21px;line-height:1.6"><span class="mark">{a.tagline}</span></p>}
+            <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
+              {a.city && <span class="badge badge-light"><Icon name="pin" size={14} style="color:#c39e5c" />{a.city.nameEn}</span>}
+              <span class="badge badge-light"><Icon name="calendar" size={14} style="color:#c39e5c" />Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
+              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name="cuisine" size={14} style="color:#c39e5c" />{a.restaurant.cuisine}</span>}
+              {a.dishes.some((d) => d.glassesOff) && <span class="badge badge-dark"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
+            </p>
+            <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>
+          </div>
+        </article>
+      ))}
+    </div>
+    {slides.length > 1 && (
+      <div class="slider-bar">
+        <div class="slider-dots" role="group" aria-label="เลือกสไลด์">
+          {slides.map((a, i) => <button type="button" data-dot={i} aria-label={`สไลด์ ${i + 1}: ${a.restaurant?.name ?? a.title}`} aria-current={i === 0 ? 'true' : 'false'}></button>)}
+        </div>
+        <span class="slider-count" aria-hidden="true"><span data-count>01</span> / {pad(slides.length)}</span>
+        <button type="button" class="icon-btn" data-prev aria-label="ร้านก่อนหน้า"><Icon name="prev" /></button>
+        <button type="button" class="icon-btn" data-next aria-label="ร้านถัดไป"><Icon name="next" /></button>
+      </div>
+    )}
+  </section>
+)}
+<script is:inline>
+  document.querySelectorAll('[data-slider]').forEach((root) => {
+    const track = root.querySelector('[data-track]'); const slides = [...track.children]; if (slides.length < 2) return;
+    const dots = [...root.querySelectorAll('[data-dot]')], count = root.querySelector('[data-count]');
+    let cur = 0, timer = null, paused = false;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mark = (i) => {
+      cur = i; dots.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+      count.textContent = String(i + 1).padStart(2, '0');
+      slides.forEach((s, j) => { if (j === i) s.removeAttribute('inert'); else s.setAttribute('inert', ''); });
+    };
+    const go = (i) => { const n = (i + slides.length) % slides.length; track.scrollTo({ left: slides[n].offsetLeft - track.offsetLeft, behavior: reduce ? 'auto' : 'smooth' }); mark(n); };
+    const nearest = () => { const x = track.scrollLeft + track.offsetLeft; let best = 0; slides.forEach((s, j) => { if (Math.abs(s.offsetLeft - x) < Math.abs(slides[best].offsetLeft - x)) best = j; }); return best; };
+    track.addEventListener('scroll', () => { const i = nearest(); if (i !== cur) mark(i); }, { passive: true });
+    root.querySelector('[data-prev]').addEventListener('click', () => { go(cur - 1); restart(); });
+    root.querySelector('[data-next]').addEventListener('click', () => { go(cur + 1); restart(); });
+    dots.forEach((d, i) => d.addEventListener('click', () => { go(i); restart(); }));
+    root.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') { go(cur - 1); restart(); } if (e.key === 'ArrowRight') { go(cur + 1); restart(); } });
+    // Slow auto-advance; stops while the reader hovers, focuses inside, or prefers less motion.
+    const restart = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!paused && !document.hidden) go(cur + 1); }, 7000); };
+    root.addEventListener('mouseenter', () => (paused = true)); root.addEventListener('mouseleave', () => (paused = false));
+    root.addEventListener('focusin', () => (paused = true)); root.addEventListener('focusout', () => (paused = false));
+    track.addEventListener('pointerdown', () => (paused = true), { passive: true });
+    mark(0); restart();
+  });
+</script>

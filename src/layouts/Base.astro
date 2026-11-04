@@ -5,6 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { SITE, HREFLANG, DEFAULT_LOCALE, type Locale } from '../lib/config';
 import { getSettings } from '../lib/content';
+import { t } from '../lib/i18n';
 
 interface Props {
   title: string; // page title without the site name
@@ -24,7 +25,7 @@ const { title, description = SITE.description, image = '/img/og-default.jpg', la
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;
 const alternates = Astro.props.alternates ?? [{ lang, href: path }];
-const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — บอสพาชิม`;
+const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — ${t(lang, 'titleSuffix')}`;
 const ogImage = new URL(image === '/img/og-default.jpg' && (await getSettings()).ogImageUrl ? (await getSettings()).ogImageUrl! : image, SITE.url).href;
 // Keep meta descriptions within ~155 characters (cut at a space when possible).
 const metaDescription = description.length <= 158 ? description : (() => { const cut = description.slice(0, 152); const sp = cut.lastIndexOf(' '); return (sp > 100 ? cut.slice(0, sp) : cut).trim() + '…'; })();

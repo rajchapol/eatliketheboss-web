@@ -14,11 +14,12 @@ export interface City {
   nameEn: string;
   nameTh: string;
   country: string; // Thai name, e.g. ญี่ปุ่น
-  region: 'th' | 'jp' | 'cn' | 'other';
+  region: string; // th | asia | europe | americas | oceania | mea (older entries: jp | cn | other) — see regionOf()
   motif: string; // key of MOTIFS
   intro?: string;
   cover?: Img;
   featured?: boolean;
+  pickIds?: string[]; // Boss's Picks chosen in Studio (article ids); empty = automatic
 }
 
 export interface Dish {

@@ -1,83 +1,89 @@
 ---
+// Destinations: Thailand first, then continents; inside each, countries, then city cards.
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
-import { MOTIFS } from '../lib/config';
-import { getCities, getArticles, articleUrl, getSettings } from '../lib/content';
+import { MOTIFS, REGIONS, regionOf } from '../lib/config';
+import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks } from '../lib/content';
+import { romanAt as roman } from '../lib/roman';
 const st = await getSettings();
 
 const cities = await getCities();
 const articles = (await getArticles('th')).filter((a) => a.series === 'review');
-const count = (slug: string) => articles.filter((a) => a.city?.slug === slug).length;
-const glasses = (slug: string) => articles.filter((a) => a.city?.slug === slug).reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
+const inCity = (slug: string) => articles.filter((a) => a.city?.slug === slug);
+const count = (slug: string) => groupByRestaurant(inCity(slug)).length; // restaurants, not visits
+const glasses = (slug: string) => inCity(slug).reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
 const featured = cities.find((c) => c.featured) ?? cities[0];
-const fm = MOTIFS[featured.motif] ?? MOTIFS.loop;
-const fPicks = articles.filter((a) => a.city?.slug === featured.slug).slice(0, 3);
-const regions = [
-  { id: 'th', num: 'I.', name: 'ประเทศไทย', latin: 'Thailand' },
-  { id: 'jp', num: 'II.', name: 'ญี่ปุ่น', latin: 'Japan' },
-  { id: 'cn', num: 'III.', name: 'จีน ฮ่องกง และสิงคโปร์', latin: 'Greater China & Singapore' },
-  { id: 'other', num: 'IV.', name: 'เมืองอื่นๆ', latin: 'Worldwide' },
-].map((r) => ({ ...r, cities: cities.filter((c) => c.region === r.id) })).filter((r) => r.cities.length);
+const fm = MOTIFS[featured?.motif] ?? MOTIFS.loop;
+const fPicks = featured ? cityPicks(featured, inCity(featured.slug)) : [];
+const regions = REGIONS.map((r, i) => {
+  const list = cities.filter((c) => regionOf(c) === r.id);
+  const countries = [...new Set(list.map((c) => c.country || r.name))].map((name) => ({ name, cities: list.filter((c) => (c.country || r.name) === name) }));
+  return { ...r, cities: list, countries };
+}).filter((r) => r.cities.length).map((r, i) => ({ ...r, num: `${roman(i)}.` }));
 const countries = new Set(cities.map((c) => c.country)).size;
+const totalRestaurants = groupByRestaurant(articles).length;
 ---
 <Base title="จุดหมาย — ร้าน Fine Dining แยกตามเมือง" description="เลือกเมือง แล้วดูทุกร้าน Fine Dining ที่บอสไปชิม ทั้งกรุงเทพฯ โตเกียว โอซาก้า ฮ่องกง และอีกหลายเมืองทั่วโลก" active="destinations">
-  <section aria-labelledby="dt" class="wrap" style="padding-top:88px;padding-bottom:88px;display:flex;flex-direction:column;gap:20px">
+  <section aria-labelledby="dt" class="wrap" style="padding-top:80px;padding-bottom:72px;display:flex;flex-direction:column;gap:20px">
     <p class="overline">DESTINATIONS</p>
-    <h1 id="dt" class="ink-grad gold-lift" style="margin:0;font-size:clamp(36px,6.4cqi,56px);font-weight:600;line-height:1.2">จุดหมายของบอส</h1>
-    <p style="margin:0;max-width:32em;font-size:18px;line-height:1.8;font-weight:300">{st.destinationsIntro}</p>
+    <h1 id="dt" class="ink-grad" style="margin:0;font-size:clamp(36px,6.4cqi,56px);font-weight:600;line-height:1.2">จุดหมายของบอส</h1>
+    <p style="margin:0;max-width:32em;font-size:18px;line-height:1.8">{st.destinationsIntro}</p>
     <nav aria-label="ไปที่ภูมิภาค" class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px">
-      {regions.map((g) => <a href={`#${g.id}`} class="chip" style="display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:44px;padding:0 16px;white-space:nowrap;border:1px solid rgba(11,83,87,.4);background:#fbf7ef"><span class="bronze-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px">{g.num}</span>{g.name}</a>)}
+      {regions.map((g) => <a href={`#${g.id}`} class="chip" style="display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:44px;padding:0 18px;white-space:nowrap;border:1px solid rgba(11,83,87,.35);background:#fff">{g.name}<span style="font-size:12px;color:#6e3f08">{g.cities.length}</span></a>)}
     </nav>
     <dl style="margin:8px 0 0;display:flex;gap:40px;font-family:'Ekkamai New',sans-serif">
-      {[[countries, 'ประเทศ'], [cities.length, 'เมือง'], [articles.length, 'ร้าน']].map(([n, l]) => <div style="display:flex;flex-direction:column-reverse;gap:4px"><dt style="font-size:13px;color:#4a5560">{l}</dt><dd class="bronze-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{n}</dd></div>)}
+      {[[countries, 'ประเทศ'], [cities.length, 'เมือง'], [totalRestaurants, 'ร้าน']].map(([n, l]) => <div style="display:flex;flex-direction:column-reverse;gap:4px"><dt style="font-size:14px;color:#3d4955">{l}</dt><dd class="bronze-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{n}</dd></div>)}
     </dl>
   </section>
 
-  <section aria-labelledby="fd" class="band-teal on-dark" style="color:#fff">
-    <div class="goldrule"></div>
-    <div class="wrap sm-tight" style="padding-top:88px;padding-bottom:88px;display:flex;flex-wrap:wrap;gap:40px 64px;align-items:center">
-      <div style="flex:7 1 460px;min-width:0">
-        <div class="fx-zoom" style="position:relative;aspect-ratio:16/10;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 16px 36px rgba(0,0,0,.25)">
-          <Photo img={featured.cover} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.625} />
-          <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:45%;opacity:.7"></span>
+  {featured && (
+    <section aria-labelledby="fd" class="wrap">
+      <div class="band-teal on-dark rl" style="color:#fff;padding:clamp(24px,5cqi,56px);display:flex;flex-wrap:wrap;gap:36px 56px;align-items:center;box-shadow:0 30px 60px -24px rgba(7,59,62,.55)">
+        <div class="fx-zoom rc" style="flex:7 1 440px;min-width:0;position:relative;aspect-ratio:3/2;box-shadow:0 0 0 1px rgba(212,179,114,.5)">
+          <Photo img={featured.cover} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.6667} />
+          <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.55"></span>
         </div>
-        <div style="display:flex;height:40px;box-shadow:0 0 0 1px rgba(212,179,114,.55)"><span style="display:flex;align-items:center;padding:0 16px;background:#073b3e;font-family:'Ekkamai New',sans-serif;font-size:12px;color:#fdeac0;white-space:nowrap">ลายประจำเมือง · {fm.label}</span><span aria-hidden="true" class={fm.cls} style="flex:1;background-color:rgba(7,59,62,.6)"></span></div>
+        <div style="flex:5 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;color:#fdeac0">FEATURED CITY</p>
+          <h2 id="fd" style="margin:0;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(52px,8cqi,72px);line-height:1">{featured.nameEn}</span><span style="font-size:24px;font-weight:400;color:#fff">{featured.nameTh}</span></h2>
+          {featured.intro && !featured.intro.startsWith('[') && <p style="margin:0;font-size:17px;line-height:1.85;color:#fff">{featured.intro}</p>}
+          <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px"><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="cuisine" size={16} style="color:#d4b372" />{count(featured.slug)} ร้าน</span><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="glasses" size={16} style="color:#d4b372" />{glasses(featured.slug)} จานถอดแว่นชิม</span></p>
+          {fPicks.length > 0 && <ol style="margin:0;padding:0;list-style:none;border-top:1px solid rgba(212,179,114,.4)">{fPicks.map((a, i) => <li><a href={articleUrl(a)} class="fx-row" style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid rgba(212,179,114,.25);color:#fff"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;flex:0 0 28px;color:#fdeac0">{roman(i)}.</span><span style="flex:1;font-size:17px">{a.restaurant?.name}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{a.restaurant?.cuisine}</span></a></li>)}</ol>}
+          <a href={`/city/${featured.slug}/`} class="btn-gold fx-btn" style="align-self:flex-start">ดูร้านใน{featured.nameTh} <Icon name="arrow" /></a>
+        </div>
       </div>
-      <div style="flex:5 1 320px;min-width:0;display:flex;flex-direction:column;gap:18px">
-        <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;color:#fdeac0">FEATURED CITY</p>
-        <h2 id="fd" style="margin:0;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(56px,9cqi,76px);line-height:1">{featured.nameEn}</span><span style="font-size:26px;font-weight:400">{featured.nameTh}</span></h2>
-        {featured.intro && <p style="margin:0;font-size:17px;line-height:1.85;font-weight:300">{featured.intro}</p>}
-        <p style="margin:0;display:flex;gap:28px;font-family:'Ekkamai New',sans-serif;font-size:15px"><span style="display:inline-flex;gap:8px;align-items:center"><Icon name="cuisine" style="color:#d4b372" />{count(featured.slug)} ร้าน</span><span style="display:inline-flex;gap:8px;align-items:center"><Icon name="glasses" style="color:#d4b372" />{glasses(featured.slug)} จานถอดแว่นชิม</span></p>
-        {fPicks.length > 0 && <ol style="margin:0;padding:0;list-style:none;border-top:1px solid rgba(212,179,114,.4)">{fPicks.map((a, i) => <li><a href={articleUrl(a)} class="fx-row" style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid rgba(212,179,114,.25)"><span class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;flex:0 0 28px">{['I.', 'II.', 'III.'][i]}</span><span style="flex:1">{a.restaurant?.name}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:13px;color:rgba(255,255,255,.8)">{a.restaurant?.cuisine}</span></a></li>)}</ol>}
-        <a href={`/city/${featured.slug}/`} class="btn-gold fx-btn" style="align-self:flex-start">ดูร้านใน{featured.nameTh} <Icon name="arrow" /></a>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <main class="wrap" style="padding-bottom:96px">
     {regions.map((g) => (
-      <section id={g.id} aria-label={g.name} style="padding-top:80px">
+      <section id={g.id} aria-labelledby={`h-${g.id}`} style="padding-top:80px;scroll-margin-top:24px">
         <div class="sm-stack" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:8px 24px;padding-bottom:16px">
-          <div style="display:flex;align-items:baseline;gap:16px"><span aria-hidden="true" class="bronze-grad gold-lift" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(48px,8cqi,64px);line-height:.9">{g.num}</span><h2 style="margin:0;font-size:clamp(24px,4cqi,32px);font-weight:600">{g.name}</h2></div>
-          <span style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#6e3f08">{g.latin}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:13px;color:#4a5560">{g.cities.length} เมือง</span></span>
+          <div style="display:flex;align-items:baseline;gap:16px"><span aria-hidden="true" class="bronze-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(44px,7cqi,60px);line-height:.9">{g.num}</span><h2 id={`h-${g.id}`} style="margin:0;font-size:clamp(26px,4cqi,34px);font-weight:600">{g.name}</h2></div>
+          <span style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#6e3f08">{g.latin}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{g.id === 'th' ? '' : `${g.countries.length} ประเทศ · `}{g.cities.length} เมือง</span></span>
         </div>
-        <div class="rule fx-draw"></div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:40px 32px;padding-top:36px">
-          {g.cities.map((c) => { const m = MOTIFS[c.motif] ?? MOTIFS.loop; return (
-            <a href={`/city/${c.slug}/`} class="fx-lift-light" style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
-              <span style="position:relative;display:block;aspect-ratio:3/2">
-                <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={c.cover} label={`ภาพ ${c.nameEn}`} ratio={0.667} widths={[400, 600]} sizes="300px" /></span>
-                <span aria-hidden="true" class={`${m.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:50%;opacity:.75"></span>
-                <span aria-hidden="true" class={m.cls} style="position:absolute;right:16px;bottom:-28px;width:56px;height:56px;border-radius:50%;background-color:#fbf7ef;box-shadow:0 0 0 1px #c39e5c,0 0 0 4px #fbf7ef,0 0 0 5px rgba(212,179,114,.5)"></span>
-              </span>
-              <span style="padding:20px 84px 18px 20px;display:flex;flex-direction:column;gap:10px">
-                <span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;line-height:1;color:#0b5357">{c.nameEn}</span><span style="font-size:18px;font-weight:600">{c.nameTh}</span></span>
-                <span style="display:flex;gap:16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#4a5560"><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="cuisine" size={16} style="color:#0b5357" />{count(c.slug)} ร้าน</span><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="glasses" size={16} style="color:#0b5357" />{glasses(c.slug)} ถอดแว่นชิม</span></span>
-              </span>
-              <span class="pat-linen fx-arrow" style="margin-top:auto;padding:12px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:12px;color:#6e3f08">ลายประจำเมือง · {m.label}<Icon name="arrow" style="color:#0b5357" /></span>
-            </a>); })}
-        </div>
+        <div class="rule"></div>
+        {g.countries.map((country) => (
+          <div style="padding-top:32px">
+            {g.id !== 'th' && <h3 style="margin:0 0 20px;display:flex;align-items:center;gap:12px;font-size:21px;font-weight:600"><Icon name="pin" size={18} style="color:#c39e5c" />{country.name}<span style="font-family:'Ekkamai New',sans-serif;font-size:13px;font-weight:400;color:#3d4955">{country.cities.length} เมือง</span></h3>}
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px">
+              {country.cities.map((c) => { const m = MOTIFS[c.motif] ?? MOTIFS.loop; return (
+                <a href={`/city/${c.slug}/`} class="fx-lift-light card" style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
+                  <span style="position:relative;display:block;aspect-ratio:3/2">
+                    <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={c.cover} label={`ภาพ ${c.nameEn}`} ratio={0.6667} widths={[400, 600]} sizes="300px" /></span>
+                    <span aria-hidden="true" class={`${m.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:45%;opacity:.6"></span>
+                    <span aria-hidden="true" class={m.cls} style="position:absolute;right:16px;bottom:-26px;width:52px;height:52px;border-radius:50%;background-color:#fbf7ef;box-shadow:0 0 0 1px #c39e5c,0 0 0 4px #fbf7ef,0 0 0 5px rgba(212,179,114,.5)"></span>
+                  </span>
+                  <span style="padding:18px 80px 16px 20px;display:flex;flex-direction:column;gap:8px">
+                    <span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;line-height:1;color:#0b5357">{c.nameEn}</span><span style="font-size:18px;font-weight:600">{c.nameTh}</span></span>
+                    <span style="display:flex;gap:16px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="cuisine" size={16} style="color:#0b5357" />{count(c.slug)} ร้าน</span><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="glasses" size={16} style="color:#0b5357" />{glasses(c.slug)} ถอดแว่นชิม</span></span>
+                  </span>
+                  <span class="pat-linen fx-arrow" style="margin-top:auto;padding:12px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">ดูร้านในเมืองนี้<Icon name="arrow" style="color:#c39e5c" /></span>
+                </a>); })}
+            </div>
+          </div>
+        ))}
       </section>
     ))}
   </main>

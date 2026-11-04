@@ -22,6 +22,8 @@ You never need to touch `src/` to post.
 - Boss's Pairing is retired (3 Nov 2026). Don't add it back.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.
+- Every food photo (covers, dishes, cards, awards) shows at 3:2 landscape. Rounded corners: pills for controls, `--r-md`/`--r-lg` for cards and photos (`site.css` tokens).
+- City motif patterns are decoration only: no "ลายประจำเมือง" text labels.
 - Brand source: the "Eat Like The Boss" design system README (Website — A3★ Lagoon Gold).
 
 ## Where things live
@@ -37,6 +39,11 @@ You never need to touch `src/` to post.
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
+| Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
+| Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
+| Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
+| Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |
+| Repeat visits | Same city + same restaurant name = one restaurant (`restaurantKey()` in `src/lib/content.ts`): one card with every visit, and a visit list on each article |
 
 ## URLs (never change once live; add a redirect in `public/_redirects` if you must)
 `/review/<city>/<slug>/` · `/history/<slug>/` · `/drinks/<slug>/` · `/city/<slug>/` · `/restaurants/` · `/destinations/` · `/glasses-off-awards/` · `/about/` · other languages prefixed `/en/ /ja/ /zh/`.

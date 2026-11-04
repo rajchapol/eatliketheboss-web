@@ -1,45 +1,51 @@
 ---
+// Article card used in every grid. Pass `visits` (all reviews of the same restaurant, newest first)
+// to show "รีวิว N ครั้ง" and a link to each visit.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 import { SERIES } from '../lib/config';
-import { articleUrl } from '../lib/content';
+import { articleUrl, visitIso, visitLabel } from '../lib/content';
 import type { Article } from '../lib/types';
-interface Props { a: Article }
-const { a } = Astro.props;
-const glasses = a.dishes.some((d) => d.glassesOff);
+interface Props { a: Article; visits?: Article[] }
+const { a, visits = [a] } = Astro.props;
+const all = visits.length ? visits : [a];
+const glasses = all.some((v) => v.dishes.some((d) => d.glassesOff));
 const s = SERIES[a.series];
+const repeat = all.length > 1;
+const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.city?.nameEn, v.city?.nameTh]).filter(Boolean).join(' ').toLowerCase();
 ---
-<a href={articleUrl(a)} class="fx-lift-light card" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
-  data-price={a.restaurant?.priceBand ?? ''} data-glasses={glasses ? '1' : ''}
-  data-text={`${a.title} ${a.restaurant?.name ?? ''} ${a.restaurant?.chef ?? ''} ${a.city?.nameEn ?? ''} ${a.city?.nameTh ?? ''}`.toLowerCase()}
+<article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
+  data-price={a.restaurant?.priceBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}
   style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
-  <span style="position:relative;display:block;aspect-ratio:4/5">
-    <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={a.cover} label="ภาพปก" ratio={1.25} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 300px" /></span>
-    <span style="position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(251,247,239,.94);font-family:'Ekkamai New',sans-serif;font-size:12px;color:#1a2632;box-shadow:0 0 0 1px rgba(212,179,114,.6)">
-      <span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${s.dot}`}></span>{s.th}</span>
-    {a.tag && (
-      <span style="position:absolute;left:12px;top:50px;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:#fbf7ef;color:#6e3f08;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:700;box-shadow:0 0 0 1px #c39e5c">
-        <Icon name={a.tag === 'AD' ? 'megaphone' : 'star'} size={14} />{a.tag}</span>
-    )}
-    {glasses && (
-      <span class="fx-pulse" style="position:absolute;right:12px;top:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:rgba(7,59,62,.9);color:#fdeac0;font-family:'Ekkamai New',sans-serif;font-size:12px">
-        <Icon name="glasses" size={14} />ถอดแว่นชิม</span>
-    )}
-    <span style="position:absolute;left:0;right:0;bottom:0;padding:40px 16px 12px;background:linear-gradient(180deg,rgba(7,59,62,0) 0%,rgba(7,59,62,.78) 100%);display:flex;justify-content:space-between;align-items:baseline">
-      <span style="font-family:'Ekkamai New',sans-serif;font-size:11px;letter-spacing:.24em;color:#fdeac0">TASTING NOTES</span>
-      <span class="gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;line-height:1;color:#fdeac0">No. {String(a.no).padStart(3, '0')}</span>
+  <span style="position:relative;display:block;aspect-ratio:3/2">
+    <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={a.cover} label="ภาพปก" ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 360px" /></span>
+    <span style="position:absolute;left:12px;top:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start">
+      <span class="badge badge-light"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${s.dot}`}></span>{s.th}</span>
+      {a.tag && <span class="badge badge-light" style="color:#6e3f08;font-weight:700"><Icon name={a.tag === 'AD' ? 'megaphone' : 'star'} size={13} />{a.tag}</span>}
+      {glasses && <span class="badge badge-dark" style="margin-left:auto"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
+    </span>
+    <span style="position:absolute;left:0;right:0;bottom:0;padding:36px 16px 10px;background:linear-gradient(180deg,rgba(7,59,62,0) 0%,rgba(7,59,62,.82) 100%);display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+      <span style="font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.18em;color:#fdeac0">{repeat ? `รีวิว ${all.length} ครั้ง` : 'TASTING NOTES'}</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;color:#fdeac0">No. {String(a.no).padStart(3, '0')}</span>
     </span>
   </span>
-  <span style="padding:20px 20px 18px;display:flex;flex-direction:column;gap:10px">
-    {a.city && <span style="display:flex;align-items:center;gap:6px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.16em;color:#0b5357"><Icon name="pin" size={15} style="color:#c39e5c" />{a.city.nameEn.toUpperCase()}</span>}
-    <span style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name ?? a.title}</span>
+  <span style="padding:18px 20px 16px;display:flex;flex-direction:column;gap:8px">
+    {a.city && <span style="display:flex;align-items:center;gap:6px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.14em;color:#0b5357"><Icon name="pin" size={15} style="color:#c39e5c" />{a.city.nameEn.toUpperCase()}<span style="letter-spacing:0;color:#3d4955">· Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span></span>}
+    <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.4"><a href={articleUrl(a)} class="card-link">{a.restaurant?.name ?? a.title}</a></h3>
     {a.restaurant && (
-      <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#4a5560">
+      <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">
         {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{a.restaurant.cuisine}</span>}
         {a.restaurant.awards?.length ? <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="award" size={16} style="color:#0b5357" />{a.restaurant.awards.join(', ')}</span> : null}
         {a.restaurant.priceBand && <span style="color:#6e3f08;font-weight:700">{a.restaurant.priceBand}</span>}
       </span>
     )}
   </span>
-  <span class="pat-linen fx-arrow" style="margin-top:auto;padding:14px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">อ่าน Tasting Notes<Icon name="arrow" style="color:#c39e5c" /></span>
-</a>
+  {repeat ? (
+    <nav aria-label={`ทุกครั้งที่บอสไป ${a.restaurant?.name ?? ''}`} class="over pat-linen" style="margin-top:auto;padding:12px 16px 14px;border-top:1px solid rgba(195,158,92,.35);display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+      <span style="font-family:'Ekkamai New',sans-serif;font-size:12px;color:#3d4955;margin-right:4px">ทุกครั้งที่ไป</span>
+      {all.map((v) => <a href={articleUrl(v)} class="pill-link" aria-current={v.id === a.id ? 'true' : undefined}><time datetime={visitIso(v)}>{visitLabel(v)}</time></a>)}
+    </nav>
+  ) : (
+    <span class="pat-linen fx-arrow" aria-hidden="true" style="margin-top:auto;padding:14px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">อ่าน Tasting Notes<Icon name="arrow" style="color:#c39e5c" /></span>
+  )}
+</article>
