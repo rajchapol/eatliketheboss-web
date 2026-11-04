@@ -22,12 +22,15 @@ You never need to touch `src/` to post.
 - Boss's Pairing is retired (3 Nov 2026). Don't add it back.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.
+- Every food photo (covers, dishes, cards, awards) shows at 3:2 landscape. Rounded corners: pills for controls, `--r-md`/`--r-lg` for cards and photos (`site.css` tokens).
+- City motif patterns are decoration only: no "ลายประจำเมือง" text labels.
 - Brand source: the "Eat Like The Boss" design system README (Website — A3★ Lagoon Gold).
 
 ## Where things live
 | Change | File |
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
+| Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
 | Menu, logo, language switcher | `src/components/SiteHeader.astro` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
@@ -37,6 +40,12 @@ You never need to touch `src/` to post.
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
+| Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
+| Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
+| Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
+| Destinations map (pins, route, zoom) | `src/components/DestinationsMap.astro`; pin positions `CITY_COORDS` in `src/lib/config.ts` or Studio → เมือง → ตำแหน่งบนแผนที่; dots `public/img/map/` (rebuild: `scripts/make-map-dots.mjs`) |
+| Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |
+| Repeat visits | Same city + same restaurant name = one restaurant (`restaurantKey()` in `src/lib/content.ts`): one card with every visit, and a visit list on each article |
 
 ## URLs (never change once live; add a redirect in `public/_redirects` if you must)
 `/review/<city>/<slug>/` · `/history/<slug>/` · `/drinks/<slug>/` · `/city/<slug>/` · `/restaurants/` · `/destinations/` · `/glasses-off-awards/` · `/about/` · other languages prefixed `/en/ /ja/ /zh/`.
@@ -46,6 +55,11 @@ Tasting Notes No. is automatic: order of `visit` (Mon-YYYY; oldest meal = No. 00
 
 ## SEO checklist per article
 Meta title ≤ 60 chars, description 120–155, slug in English, alt text on every photo, publish date, city set. Full rules: `docs/SEO.md`.
+
+## Checks and previews
+- `.github/workflows/check.yml` builds every branch / PR (sample + live content). With the GitHub secret `CLOUDFLARE_API_TOKEN` it also uploads a Cloudflare preview and comments the link on the PR. Never ask for or store the token itself.
+- Studio: `.github/workflows/deploy-studio.yml` deploys it when `studio/**` changes on main (secret `SANITY_DEPLOY_TOKEN`); by hand: `cd studio && npm ci && npx sanity login && npx sanity deploy`.
+- Cloudflare Web Analytics: paste the site token in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO (empty = off).
 
 ## Commands
 `npm run dev` (local preview) · `npm run build` · `npm run post -- <file>` · `node scripts/seed-sanity.mjs` (one-time cities).

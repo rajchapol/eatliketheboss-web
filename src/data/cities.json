@@ -28,7 +28,7 @@
   "nameEn": "Tokyo",
   "nameTh": "โตเกียว",
   "country": "ญี่ปุ่น",
-  "region": "jp",
+  "region": "asia",
   "motif": "seigaiha",
   "featured": true,
   "intro": "[ประโยคแนะนำเมืองในมุมของบอส 1–2 บรรทัด]"
@@ -38,7 +38,7 @@
   "nameEn": "Osaka",
   "nameTh": "โอซาก้า",
   "country": "ญี่ปุ่น",
-  "region": "jp",
+  "region": "asia",
   "motif": "kikko"
  },
  {
@@ -46,7 +46,7 @@
   "nameEn": "Kyoto",
   "nameTh": "เกียวโต",
   "country": "ญี่ปุ่น",
-  "region": "jp",
+  "region": "asia",
   "motif": "shippo"
  },
  {
@@ -54,7 +54,7 @@
   "nameEn": "Hong Kong",
   "nameTh": "ฮ่องกง",
   "country": "ฮ่องกง",
-  "region": "cn",
+  "region": "asia",
   "motif": "fret"
  },
  {
@@ -62,7 +62,7 @@
   "nameEn": "Shanghai",
   "nameTh": "เซี่ยงไฮ้",
   "country": "จีน",
-  "region": "cn",
+  "region": "asia",
   "motif": "loop"
  },
  {
@@ -70,7 +70,7 @@
   "nameEn": "Singapore",
   "nameTh": "สิงคโปร์",
   "country": "สิงคโปร์",
-  "region": "cn",
+  "region": "asia",
   "motif": "loop"
  }
 ]

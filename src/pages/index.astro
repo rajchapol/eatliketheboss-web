@@ -3,19 +3,28 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import { SITE, SERIES } from '../lib/config';
-import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings } from '../lib/content';
+import HeroSlider from '../components/HeroSlider.astro';
+import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings, groupByRestaurant, dishUrl, visitIso, visitLabel, visitYear, citiesByCount, restaurantKey } from '../lib/content';
 import { organization, website } from '../lib/seo';
+import { romanAt as roman } from '../lib/roman';
 
 const articles = await getArticles('th');
 const settings = await getSettings();
-const lead = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId) ?? articles.find((a) => a.series === 'review') ?? articles[0];
+// Slider: the 5 latest restaurants visited (one slide per restaurant). A featured article set in Sanity goes first.
+const featured = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId);
+const latest = groupByRestaurant(articles.filter((a) => a.series === 'review')).map((g) => g.latest);
+const slides = (featured ? [featured, ...latest.filter((a) => restaurantKey(a) !== restaurantKey(featured))] : latest).slice(0, 5);
 const index = articles.slice(0, 10);
-const year = new Date().getFullYear();
-const awards = glassesOffDishes(articles).slice(0, 4);
+// Glasses Off band: this year's dishes (by visit); before the first one of the year, the latest year that has any.
+const allAwards = glassesOffDishes(articles);
+const thisYear = String(new Date().getFullYear());
+const year = allAwards.some((x) => visitYear(x.article) === thisYear) ? thisYear : (allAwards.map((x) => visitYear(x.article)).sort().pop() ?? thisYear);
+const awards = allAwards.filter((x) => visitYear(x.article) === year).slice(0, 4);
 const allCities = await getCities();
-const quickCities = (settings.homeCitySlugs?.length ? settings.homeCitySlugs : ['bangkok', 'tokyo', 'osaka']).map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities;
-const roman = ['I.', 'II.', 'III.', 'IV.', 'V.', 'VI.'];
-const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }).replace(' ', '-');
+// Quick city buttons: chosen in Sanity, else the 3 cities with the most restaurants.
+const quickCities = settings.homeCitySlugs?.length
+  ? (settings.homeCitySlugs.map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities)
+  : (await citiesByCount()).slice(0, 3).map((x) => x.city);
 ---
 <Base title="หน้าแรก" active="articles" jsonLd={[organization(), website()]}>
   <h1 class="sr-only">บอสพาชิม Eat Like The Boss — รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก</h1>
@@ -24,40 +33,18 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
     <form action="/restaurants/" method="get" class="wrap" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;font-family:'Ekkamai New',sans-serif">
       <label for="q" style="font-size:15px;color:#4a5560">{settings.homeFinderLabel}</label>
       <span style="flex:1 1 320px;position:relative;display:block">
-        <Icon name="search" style="position:absolute;left:16px;top:14px;color:#0b5357" />
-        <input id="q" name="q" type="search" placeholder="ชื่อร้าน เชฟ หรือเมือง…" style="width:100%;height:48px;padding:0 18px 0 48px;border:1px solid rgba(11,83,87,.4);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
+        <Icon name="search" style="position:absolute;left:18px;top:14px;color:#0b5357" />
+        <input id="q" name="q" type="search" class="field" placeholder="ชื่อร้าน เชฟ เมือง หรือชื่อจาน…" style="width:100%;height:48px;padding:0 56px 0 48px;border:1px solid rgba(11,83,87,.4);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
+        <button type="submit" class="search-go" aria-label="ค้นหา"><Icon name="arrow" size={18} /></button>
       </span>
       <span style="display:flex;flex-wrap:wrap;gap:8px;font-size:14px">
-        {quickCities.map((c) => <a href={`/city/${c.slug}/`} class="fx-btn" style="display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border:1px solid rgba(11,83,87,.4)"><Icon name="pin" size={16} style="color:#0b5357" />{c.nameEn}</a>)}
+        {quickCities.map((c) => <a href={`/city/${c.slug}/`} class="fx-btn chip" style="display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border:1px solid rgba(11,83,87,.35);background:#fff"><Icon name="pin" size={16} style="color:#0b5357" />{c.nameEn}</a>)}
         <a href="/destinations/" style="display:inline-flex;align-items:center;min-height:40px;padding:0 14px;color:#0b5357">ทุกเมือง</a>
       </span>
     </form>
   </section>
 
-  {lead && (
-    <section aria-labelledby="lead" class="wrap" style="display:flex;flex-wrap:wrap;gap:48px 64px;padding-top:104px;padding-bottom:96px;align-items:center">
-      <div style="flex:7 1 460px;min-width:0;padding:0 20px 20px 0">
-        <a href={articleUrl(lead)} class="fx-zoom" style="display:block;aspect-ratio:4/5;box-shadow:20px 20px 0 0 #d4b372,20px 20px 48px 0 rgba(195,158,92,.35)">
-          <Photo img={lead.cover} label="ภาพเปิดบทความ — 4:5" ratio={1.25} eager sizes="(max-width: 720px) 100vw, 640px" />
-        </a>
-      </div>
-      <div class="fx-rise" style="flex:5 1 340px;min-width:0;display:flex;flex-direction:column;gap:24px">
-        <p class="overline">TASTING NOTES <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">No. {String(lead.no).padStart(3, '0')}</span></p>
-        <h2 id="lead" class="ink-grad gold-lift" style="margin:0;font-weight:600;font-size:clamp(32px,5cqi,44px);line-height:1.25"><a href={articleUrl(lead)}>{lead.restaurant?.name ?? lead.title}</a></h2>
-        {lead.tagline && <p style="margin:0;font-size:22px;line-height:1.6"><span class="mark">{lead.tagline}</span></p>}
-        {lead.seoDescription && <p style="margin:0;font-size:17px;line-height:1.85;font-weight:300;max-width:34em">{lead.seoDescription}</p>}
-        <div class="pat-linen" style="background-color:#fbf7ef;padding:4px 20px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22)">
-          <dl style="margin:0;display:grid;grid-template-columns:max-content 1fr;column-gap:24px;font-family:'Ekkamai New',sans-serif;font-size:15px">
-            <dt style="padding:12px 0;color:#4a5560;border-bottom:1px solid rgba(195,158,92,.35);display:flex;align-items:center;gap:10px"><Icon name="bill" style="color:#c39e5c" />The Boss's Bill</dt>
-            <dd style="margin:0;padding:12px 0;font-weight:700;border-bottom:1px solid rgba(195,158,92,.35)">{lead.tag ?? lead.bill ?? '—'}</dd>
-            <dt style="padding:12px 0;color:#4a5560;display:flex;align-items:center;gap:10px"><Icon name="calendar" style="color:#c39e5c" />Visit</dt>
-            <dd style="margin:0;padding:12px 0;font-weight:700">{[lead.city?.nameEn, lead.visit].filter(Boolean).join(' — ')}</dd>
-          </dl>
-        </div>
-        <a href={articleUrl(lead)} class="btn-teal fx-btn" style="align-self:flex-start">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>
-      </div>
-    </section>
-  )}
+  <HeroSlider slides={slides} />
 
   <section id="notes" aria-labelledby="index" class="wrap" style="padding-bottom:96px">
     <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">
@@ -68,16 +55,17 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
     {index.length === 0 && (
       <div style="padding:48px 0;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
         <img src="/img/brand/empty-state-cloche.svg" alt="" width="220" height="138" style="height:auto" />
-        <p style="margin:0;font-size:18px;font-weight:300">บันทึกการชิมฉบับแรกกำลังจะเสิร์ฟเร็วๆ นี้ครับ</p>
+        <p style="margin:0;font-size:18px;font-weight:400">บันทึกการชิมฉบับแรกกำลังจะเสิร์ฟเร็วๆ นี้ครับ</p>
         <a href={SITE.facebook} rel="me" class="fx-under" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ติดตามบอสพาชิมบน Facebook ระหว่างรอ</a>
       </div>
     )}
     {index.map((a) => (
-      <a href={articleUrl(a)} class="fx-row" style="display:flex;flex-wrap:wrap;gap:4px 24px;align-items:baseline;padding:24px 0;border-bottom:1px solid rgba(195,158,92,.3)">
-        <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08;flex:0 0 96px">No. {String(a.no).padStart(3, '0')}</span>
-        <span style="flex:1 1 320px;min-width:0;font-size:20px;font-weight:600;line-height:1.4">{a.title}</span>
-        <span style="flex:0 0 200px;display:inline-flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${SERIES[a.series].dot}`}></span>{SERIES[a.series].th}</span>
-        <time datetime={a.publishedAt} style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560;flex:0 0 80px;text-align:right">{monthYear(a.publishedAt)}</time>
+      <a href={articleUrl(a)} class="idx-row fx-row">
+        <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span>
+        <span class="idx-thumb"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[192, 288]} sizes="96px" /></span>
+        <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
+        <span class="idx-series" style="display:inline-flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${SERIES[a.series].dot}`}></span>{SERIES[a.series].th}</span>
+        <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
   </section>
@@ -85,7 +73,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
   <section aria-label="สโลแกน" class="wrap" style="padding-bottom:104px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
     <div class="divider" aria-hidden="true" style="margin-bottom:24px;width:100%"><span></span><svg viewBox="0 0 40 16" width="40" height="16"><path d="M20 1l7 7-7 7-7-7z" fill="none" stroke="#c39e5c" stroke-width="1.2"/><circle cx="20" cy="8" r="2" fill="#c39e5c"/><path d="M2 8h8M30 8h8" stroke="#c39e5c" stroke-width="1.2"/></svg><span></span></div>
     <span aria-hidden="true" class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-size:128px;line-height:.8">“</span>
-    <p style="margin:0;max-width:28em;font-size:clamp(22px,3.4cqi,28px);line-height:1.6;font-weight:300">{SITE.tagline}</p>
+    <p style="margin:0;max-width:28em;font-size:clamp(22px,3.4cqi,28px);line-height:1.6;font-weight:400">{SITE.tagline}</p>
   </section>
 
   <section aria-labelledby="aw" class="band-fan on-dark" style="color:#fff">
@@ -94,15 +82,18 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
       <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
         <div style="display:flex;align-items:center;gap:20px"><Icon name="glasses" size={56} class="gold-glow" style="color:#d4b372;stroke-width:1.2" />
           <h2 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5cqi,44px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span> {year}</h2></div>
-        <p style="margin:0;max-width:26em;font-size:17px;line-height:1.8;font-weight:300">{settings.homeAwardsText}</p>
+        <p style="margin:0;max-width:26em;font-size:17px;line-height:1.8;font-weight:400">{settings.homeAwardsText}</p>
       </div>
-      <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
-        {awards.map(({ dish, article }, i) => (
-          <li class="fx-lift" style="background:rgba(7,59,62,.6);box-shadow:0 0 0 1px rgba(212,179,114,.55),0 16px 36px rgba(0,0,0,.25)">
-            <a href={articleUrl(article)} style="display:flex;flex-direction:column;gap:8px;padding:24px">
-              <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1">{roman[i]}</span>
-              <strong style="font-size:18px;font-weight:600">{dish.name}</strong>
-              <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.82)">{article.restaurant?.name} — {article.city?.nameEn}</span>
+      <ol class="aw-row" style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+        {awards.map(({ dish, article, index: di }, i) => (
+          <li class="fx-lift rc" style="background:rgba(7,59,62,.7);box-shadow:0 0 0 1px rgba(212,179,114,.5),0 16px 36px rgba(0,0,0,.25)">
+            <a href={dishUrl(article, di)} style="display:flex;flex-direction:column;height:100%">
+              <span class="fx-zoom" style="position:relative;display:block;aspect-ratio:3/2"><Photo img={dish.image ?? article.cover} label="ภาพจาน" dark ratio={0.6667} widths={[400, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+                <span class="gold-glow" style="position:absolute;left:16px;bottom:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;line-height:1;color:#fdeac0;text-shadow:0 2px 12px rgba(0,0,0,.5)">{roman(i)}.</span></span>
+              <span style="display:flex;flex-direction:column;gap:6px;padding:18px 20px 22px">
+                <strong style="font-size:19px;font-weight:600;line-height:1.45">{dish.name}</strong>
+                <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{[article.restaurant?.name ?? article.title, article.city?.nameEn].filter(Boolean).join(' · ')}</span>
+              </span>
             </a>
           </li>
         ))}
@@ -117,7 +108,7 @@ const monthYear = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { m
     </div>
     <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">
       <h2 id="ab" style="margin:0;font-size:32px;font-weight:600;line-height:1.3"><a href="/about/">เกี่ยวกับบอส</a></h2>
-      <p style="margin:0;max-width:36em;font-size:17px;line-height:1.85;font-weight:300">{settings.aboutShortBio}</p>
+      <p style="margin:0;max-width:36em;font-size:17px;line-height:1.85;font-weight:400">{settings.aboutShortBio}</p>
       <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{settings.invitedNote}</p>
     </div>
   </section>

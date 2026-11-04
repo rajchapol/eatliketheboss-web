@@ -1,10 +1,12 @@
 ---
+// City page: Boss's Picks (chosen in Studio → เมือง → Boss's Picks, or automatic), then every restaurant
+// grouped by cuisine with a cuisine filter. Repeat visits to one restaurant share one row.
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Photo from '../../components/Photo.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { MOTIFS } from '../../lib/config';
-import { getCities, getArticles, articleUrl } from '../../lib/content';
+import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
 
@@ -13,62 +15,93 @@ export async function getStaticPaths() {
 }
 const { c } = Astro.props as { c: City };
 const list = (await getArticles('th')).filter((a) => a.city?.slug === c.slug && a.series === 'review');
+const restaurants = groupByRestaurant(list);
 const motif = MOTIFS[c.motif] ?? MOTIFS.loop;
 const glassesCount = list.reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
-const picks = list.filter((a) => a.dishes.some((d) => d.glassesOff)).slice(0, 3);
-const groups = [...new Set(list.map((a) => a.restaurant?.cuisine ?? 'อื่นๆ'))].map((cu) => ({ name: cu, rows: list.filter((a) => (a.restaurant?.cuisine ?? 'อื่นๆ') === cu) }));
-const desc = c.intro && !c.intro.startsWith('[') ? c.intro : `รวมร้าน Fine Dining ใน${c.nameTh} (${c.nameEn}) ที่บอสไปชิมมาแล้ว ${list.length} ร้าน พร้อม The Boss's Bill`;
+const picks = cityPicks(c, list);
+const cuisineOf = (a: (typeof list)[number]) => a.restaurant?.cuisine ?? 'อื่นๆ';
+const groups = [...new Set(restaurants.map((r) => cuisineOf(r.latest)))].map((cu) => ({ name: cu, rows: restaurants.filter((r) => cuisineOf(r.latest) === cu) }));
+const hasIntro = Boolean(c.intro && !c.intro.startsWith('['));
+const desc = hasIntro ? c.intro! : `รวมร้าน Fine Dining ใน${c.nameTh} (${c.nameEn}) ที่บอสไปชิมมาแล้ว ${restaurants.length} ร้าน พร้อม The Boss's Bill`;
+const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:44px;padding:0 18px;white-space:nowrap;border:1px solid rgba(11,83,87,.35);background:#fff;color:#1a2632;font-family:'Ekkamai New',sans-serif;font-size:15px";
 ---
 <Base title={`ร้าน Fine Dining ใน${c.nameTh} ${c.nameEn}`} description={desc} active="destinations"
   jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: 'จุดหมาย', href: '/destinations/' }, { name: c.nameEn, href: `/city/${c.slug}/` }])]}>
-  <section aria-labelledby="city" class="on-dark" style="position:relative;min-height:520px;display:flex;align-items:flex-end;background:#0b5357">
+  <section aria-labelledby="city" class="on-dark" style="position:relative;min-height:500px;display:flex;align-items:flex-end;background:#0b5357">
     <div style="position:absolute;inset:0"><Photo img={c.cover} label={`ภาพเต็มความกว้าง: ${c.nameEn}`} dark eager sizes="100vw" widths={[800, 1280, 1920]} /></div>
-    <div aria-hidden="true" class={`${motif.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:55%;opacity:.55"></div>
-    <div style="position:absolute;left:0;right:0;bottom:0;height:75%;background:linear-gradient(0deg,rgba(7,59,62,.92) 0%,rgba(7,59,62,.45) 55%,rgba(7,59,62,0) 100%)"></div>
-    <div class="wrap" style="position:relative;width:100%;padding-bottom:56px;color:#fff;display:flex;flex-direction:column;gap:12px">
-      <p class="crumbs" style="color:#fff"><a href="/destinations/">จุดหมาย</a> / {c.country}</p>
-      <h1 id="city" style="margin:0;display:flex;align-items:center;flex-wrap:wrap;gap:20px">
-        <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(64px,10cqi,96px);line-height:1">{c.nameEn}</span>
-        <span style="font-size:36px;font-weight:400">{c.nameTh}</span>
-        <span aria-hidden="true" class={motif.cls} style="width:56px;height:56px;border-radius:50%;background-color:#073b3e;box-shadow:0 0 0 1px #d4b372,0 0 18px rgba(253,234,192,.35)"></span>
+    <div aria-hidden="true" class={`${motif.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:50%;opacity:.45"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:80%;background:linear-gradient(0deg,rgba(7,59,62,.95) 0%,rgba(7,59,62,.55) 55%,rgba(7,59,62,0) 100%)"></div>
+    <div class="wrap" style="position:relative;width:100%;padding-bottom:56px;color:#fff;display:flex;flex-direction:column;gap:14px">
+      <p class="crumbs" style="color:#fff"><a href="/destinations/" style="color:#fff">จุดหมาย</a> / {c.country}</p>
+      <h1 id="city" style="margin:0;display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px">
+        <span class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(60px,10cqi,96px);line-height:1">{c.nameEn}</span>
+        <span style="font-size:clamp(26px,4cqi,36px);font-weight:400">{c.nameTh}</span>
+        <span aria-hidden="true" class={motif.cls} style="width:52px;height:52px;border-radius:50%;background-color:#073b3e;box-shadow:0 0 0 1px #d4b372,0 0 18px rgba(253,234,192,.35)"></span>
       </h1>
-      <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px 24px;font-family:'Ekkamai New',sans-serif;font-size:16px;color:rgba(255,255,255,.88)"><span>{list.length} ร้าน</span><span>|</span><span>{glassesCount} จานถอดแว่นชิม</span></p>
+      <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff;font-size:14px"><Icon name="cuisine" size={16} style="color:#d4b372" />{restaurants.length} ร้าน</span>
+        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff;font-size:14px"><Icon name="glasses" size={16} style="color:#d4b372" />{glassesCount} จานถอดแว่นชิม</span>
+      </p>
     </div>
   </section>
-  <div aria-hidden="true" class={motif.cls} style="height:40px;background-color:#073b3e;box-shadow:inset 0 1px 0 #c39e5c,inset 0 -1px 0 #c39e5c"></div>
-  <p style="margin:0;background:#073b3e;color:#fdeac0;text-align:center;padding:0 32px 14px;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.16em">ลายประจำเมือง · {motif.label}</p>
+  <div aria-hidden="true" class={motif.cls} style="height:28px;background-color:#073b3e;box-shadow:inset 0 -1px 0 #c39e5c"></div>
 
-  {c.intro && !c.intro.startsWith('[') && <p class="wrap" style="padding-top:56px;margin:0 auto;font-size:19px;line-height:1.85;font-weight:300;max-width:880px">{c.intro}</p>}
+  {hasIntro && <p class="wrap" style="padding-top:56px;margin:0 auto;font-size:19px;line-height:1.85;max-width:880px">{c.intro}</p>}
 
   {picks.length > 0 && (
-    <section aria-labelledby="pk" class="wrap" style="padding-top:80px">
-      <h2 id="pk" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">Boss's Picks in {c.nameEn}</h2>
+    <section aria-labelledby="pk" class="wrap" style="padding-top:72px">
+      <h2 id="pk" class="ink-grad" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:clamp(36px,6cqi,48px);line-height:1.1">Boss's Picks in {c.nameEn}</h2>
       <div class="rule"></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:40px 32px;padding-top:32px">{picks.map((a) => <ArticleCard a={a} />)}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:32px">{picks.map((a) => <ArticleCard a={a} visits={visitsOf(a, list)} />)}</div>
     </section>
   )}
 
-  <div class="wrap" style="padding-bottom:96px">
+  <section aria-labelledby="all" class="wrap" style="padding-top:80px;padding-bottom:96px" data-cuisine-filter>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 24px;padding-bottom:16px">
+      <h2 id="all" style="margin:0;font-size:clamp(26px,4cqi,32px);font-weight:600">ทุกร้านใน{c.nameTh}</h2>
+      <span aria-live="polite" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955"><span data-count>{restaurants.length}</span> ร้าน</span>
+    </div>
+    {groups.length > 1 && (
+      <div role="group" aria-label="กรองตามประเภทอาหาร" class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:20px">
+        <button type="button" class="chip" data-cu="" aria-pressed="true" style={chip}>ทั้งหมด<span style="font-size:12px;opacity:.75">{restaurants.length}</span></button>
+        {groups.map((g) => <button type="button" class="chip" data-cu={g.name} aria-pressed="false" style={chip}><Icon name="cuisine" size={16} />{g.name}<span style="font-size:12px;opacity:.75">{g.rows.length}</span></button>)}
+      </div>
+    )}
+    <div class="rule"></div>
     {groups.map((g) => (
-      <section style="padding-top:80px">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">
-          <h2 style="margin:0;font-size:30px;font-weight:600">{g.name}</h2>
-          <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">{g.rows.length} ร้าน</span>
+      <section data-group={g.name} aria-label={g.name} style="padding-top:40px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:8px">
+          <h3 style="margin:0;font-size:24px;font-weight:600">{g.name}</h3>
+          <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{g.rows.length} ร้าน</span>
         </div>
-        <div class="rule"></div>
-        {g.rows.map((a) => (
-          <a href={articleUrl(a)} class="fx-row" style="display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;padding:20px 0;border-bottom:1px solid rgba(195,158,92,.35)">
-            <span style="flex:0 0 120px;aspect-ratio:4/3;display:block;overflow:hidden"><Photo img={a.cover} label="ภาพ" ratio={0.75} widths={[240, 360]} sizes="120px" /></span>
-            <span style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:4px">
-              <span style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name}</span>
-              <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
+        {g.rows.map(({ latest: a, visits }) => (
+          <div class="fx-row" style="position:relative;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(195,158,92,.35)">
+            <span class="rc" style="flex:0 0 132px;aspect-ratio:3/2;display:block;border-radius:var(--r-sm)"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[264, 396]} sizes="132px" /></span>
+            <span style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <a href={articleUrl(a)} class="card-link" style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name ?? a.title}</a>
+              <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
+              {visits.length > 1 && (
+                <span class="over" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">รีวิว {visits.length} ครั้ง:
+                  {visits.map((v) => <a href={articleUrl(v)} class="pill-link" style="min-height:32px"><time datetime={visitIso(v)}>{visitLabel(v)}</time></a>)}</span>
+              )}
             </span>
-            <span style="flex:0 0 80px;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#0b5357">{a.tag ? <span style="display:inline-flex;gap:4px;align-items:center"><Icon name={a.tag === 'AD' ? 'megaphone' : 'star'} size={14} />{a.tag}</span> : a.restaurant?.priceBand}</span>
-            <span style="flex:0 0 120px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
-          </a>
+            <span style="flex:0 0 auto;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357">{a.tag ? <span style="display:inline-flex;gap:4px;align-items:center"><Icon name={a.tag === 'AD' ? 'megaphone' : 'star'} size={14} />{a.tag}</span> : a.restaurant?.priceBand}</span>
+            <span style="flex:0 0 96px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
+          </div>
         ))}
       </section>
     ))}
-    {list.length === 0 && <p style="padding-top:64px;font-size:18px;font-weight:300">ยังไม่มีร้านในเมืองนี้ครับ</p>}
-  </div>
+    {list.length === 0 && <p style="padding-top:48px;font-size:18px">ยังไม่มีร้านในเมืองนี้ครับ</p>}
+  </section>
+  <script is:inline>
+    document.querySelectorAll('[data-cuisine-filter]').forEach((root) => {
+      const chips = root.querySelectorAll('[data-cu]'), groups = root.querySelectorAll('[data-group]'), count = root.querySelector('[data-count]');
+      chips.forEach((b) => b.addEventListener('click', () => {
+        const v = b.dataset.cu; let n = 0;
+        chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        groups.forEach((g) => { const show = !v || g.dataset.group === v; g.toggleAttribute('data-filter-hidden', !show); if (show) n += g.querySelectorAll('.fx-row').length; });
+        count.textContent = n;
+      }));
+    });
+  </script>
 </Base>

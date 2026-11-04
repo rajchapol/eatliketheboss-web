@@ -3,7 +3,9 @@ import { SITE } from '../lib/config';
 import { getArticles, articleUrl } from '../lib/content';
 
 export async function GET(context) {
-  const items = (await getArticles('th')).slice(0, 50).map((a) => ({
+  // Feed readers expect newest published first (lists elsewhere are sorted by visit).
+  const byPublished = [...(await getArticles('th'))].sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
+  const items = byPublished.slice(0, 50).map((a) => ({
     title: a.title,
     link: articleUrl(a),
     pubDate: new Date(a.publishedAt),

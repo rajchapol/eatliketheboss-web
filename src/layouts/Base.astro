@@ -5,6 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { SITE, HREFLANG, DEFAULT_LOCALE, type Locale } from '../lib/config';
 import { getSettings } from '../lib/content';
+import { t } from '../lib/i18n';
 
 interface Props {
   title: string; // page title without the site name
@@ -16,16 +17,21 @@ interface Props {
   active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home';
   type?: 'website' | 'article';
   noindex?: boolean;
+  published?: string; // ISO date → article:published_time
+  modified?: string; // ISO date → article:modified_time
   lineart?: boolean;
   dark?: boolean;
 }
 const { title, description = SITE.description, image = '/img/og-default.jpg', lang = DEFAULT_LOCALE,
-  jsonLd = [], active, type = 'website', noindex = false, lineart = true, dark = false } = Astro.props;
+  jsonLd = [], active, type = 'website', noindex = false, lineart = true, dark = false, published, modified } = Astro.props;
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;
 const alternates = Astro.props.alternates ?? [{ lang, href: path }];
-const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — บอสพาชิม`;
-const ogImage = new URL(image === '/img/og-default.jpg' && (await getSettings()).ogImageUrl ? (await getSettings()).ogImageUrl! : image, SITE.url).href;
+const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — ${t(lang, 'titleSuffix')}`;
+// Share image is always 1200×630: article covers are cropped in imgUrl(); the Sanity share image is cropped here.
+const settingsOg = (await getSettings()).ogImageUrl;
+const cfToken = ((await getSettings()).cfAnalyticsToken || '').trim();
+const ogImage = new URL(image === '/img/og-default.jpg' && settingsOg ? `${settingsOg}?w=1200&h=630&fit=crop&auto=format` : image, SITE.url).href;
 // Keep meta descriptions within ~155 characters (cut at a space when possible).
 const metaDescription = description.length <= 158 ? description : (() => { const cut = description.slice(0, 152); const sp = cut.lastIndexOf(' '); return (sp > 100 ? cut.slice(0, sp) : cut).trim() + '…'; })();
 ---
@@ -46,6 +52,12 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   <meta property="og:description" content={metaDescription} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={title} />
+  {published && <meta property="article:published_time" content={published} />}
+  {(modified || published) && <meta property="article:modified_time" content={modified || published} />}
+  {type === 'article' && <meta property="article:author" content={new URL('/about/', SITE.url).href} />}
   <meta property="og:locale" content={lang === 'th' ? 'th_TH' : lang === 'ja' ? 'ja_JP' : lang === 'zh' ? 'zh_CN' : 'en_US'} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#0b5357" />
@@ -54,16 +66,22 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="preload" href="/fonts/ekkamai-regular.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Noto+Serif+Thai:wght@300;400;600&display=swap" />
+  <link rel="preload" href="/fonts/noto-serif-thai-thai-400.woff2" as="font" type="font/woff2" crossorigin />
   {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+  {/^[a-f0-9]{32}$/i.test(cfToken) && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfToken })}></script>}
 </head>
 <body>
   <div class={`elb-page ${dark ? 'on-dark' : ''}`} style={dark ? 'background:#073b3e;color:#fff' : undefined}>
     <SiteHeader active={active} lang={lang} alternates={alternates} />
     <slot />
-    <SiteFooter lineart={lineart} />
+    <SiteFooter lineart={lineart} lang={lang} />
   </div>
+  <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
+  <script is:inline>
+    (() => { const b = document.querySelector('[data-to-top]'); if (!b) return;
+      const upd = () => { b.hidden = scrollY < innerHeight * 1.5; };
+      addEventListener('scroll', upd, { passive: true }); upd();
+      b.addEventListener('click', (e) => { e.preventDefault(); scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); document.querySelector('.site-header a')?.focus({ preventScroll: true }); }); })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,100 @@
+---
+// Dotted world map for /destinations/: a gold pin per city with reviews, the Boss's route between them
+// (in the order of the first visit), and zoom buttons. Dots: public/img/map/*.svg (scripts/make-map-dots.mjs).
+// Map units are degrees: x = lng + 180, y = 78 - lat (same as the dot files).
+import { CITY_COORDS } from '../lib/config';
+import type { City } from '../lib/types';
+interface Props { cities: { city: City; count: number; firstVisit: string }[] }
+const { cities } = Astro.props;
+const pins = cities
+  .map(({ city, count, firstVisit }) => {
+    const ll = city.location?.lat != null ? [city.location.lat, city.location.lng] : CITY_COORDS[city.slug];
+    return ll ? { slug: city.slug, en: city.nameEn, th: city.nameTh, count, firstVisit, x: ll[1] + 180, y: 78 - ll[0] } : null;
+  })
+  .filter(Boolean) as { slug: string; en: string; th: string; count: number; firstVisit: string; x: number; y: number }[];
+// Views as [x, y, width, height]; the script widens them to the box's shape.
+const VIEWS = { world: [0, 4, 360, 128], asia: [212, 20, 156, 62], th: [266, 50, 52, 22] } as const;
+const inside = (v: readonly number[]) => pins.every((p) => p.x >= v[0] && p.x <= v[0] + v[2] && p.y >= v[1] && p.y <= v[1] + v[3]);
+const start = inside(VIEWS.asia) ? 'asia' : 'world';
+const hasThai = pins.some((p) => p.x >= VIEWS.th[0] && p.x <= VIEWS.th[0] + VIEWS.th[2] && p.y >= VIEWS.th[1] && p.y <= VIEWS.th[1] + VIEWS.th[3]);
+// Route: cities in the order the Boss first ate there, joined by gentle arcs.
+const route = [...pins].sort((a, b) => a.firstVisit.localeCompare(b.firstVisit));
+const arc = (a: (typeof pins)[number], b: (typeof pins)[number]) => {
+  const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, dx = b.x - a.x, dy = b.y - a.y, k = 0.18;
+  return `Q${(mx - dy * k).toFixed(2)} ${(my + dx * k).toFixed(2)} ${b.x.toFixed(2)} ${b.y.toFixed(2)}`;
+};
+const routeD = route.length > 1 ? `M${route[0].x.toFixed(2)} ${route[0].y.toFixed(2)}` + route.slice(1).map((p, i) => arc(route[i], p)).join('') : '';
+const v0 = VIEWS[start];
+---
+{pins.length > 0 && (
+  <section class="wrap" aria-labelledby="map-h" style="padding-bottom:72px">
+    <div class="map-band rl on-dark" data-map data-views={JSON.stringify(VIEWS)} data-start={start}>
+      <div class="map-head">
+        <h2 id="map-h" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,5cqi,40px);line-height:1.1;color:#fdeac0">The Boss's Map</h2>
+        <div role="group" aria-label="ซูมแผนที่" style="display:flex;gap:6px;flex-wrap:wrap">
+          <button type="button" class="map-zoom" data-view="world" aria-pressed={start === 'world' ? 'true' : 'false'}>ทั้งโลก</button>
+          <button type="button" class="map-zoom" data-view="asia" aria-pressed={start === 'asia' ? 'true' : 'false'}>เอเชีย</button>
+          {hasThai && <button type="button" class="map-zoom" data-view="th" aria-pressed="false">ประเทศไทย</button>}
+        </div>
+      </div>
+      <div class="map-box" data-box>
+        <svg class="map-svg" data-svg viewBox={v0.join(' ')} preserveAspectRatio="none" aria-hidden="true">
+          {[-360, 0, 360].map((dx) => <image href="/img/map/world-dots.svg" x={dx} y="0" width="360" height="136" class="map-world" />) /* repeated so zoomed views wrap past the date line */}
+          <image href="/img/map/sea-dots.svg" x="0" y="0" width="360" height="136" class="map-sea" />
+          {routeD && <path d={routeD} class="map-route fx-route" fill="none" vector-effect="non-scaling-stroke" />}
+        </svg>
+        <ol class="map-pins" style="list-style:none;margin:0;padding:0">
+          {pins.map((p) => (
+            <li class="map-pin" data-x={p.x} data-y={p.y} data-count={p.count} style={`left:${((p.x - v0[0]) / v0[2]) * 100}%;top:${((p.y - v0[1]) / v0[3]) * 100}%`}>
+              <a href={`/city/${p.slug}/`} aria-label={`${p.en} ${p.th} — ${p.count} ร้าน`}>
+                <span class="pin-dot" aria-hidden="true"></span>
+                <span class="pin-label" aria-hidden="true">{p.en}<b>{p.count}</b></span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{pins.length} เมืองที่บอสไปชิมแล้ว{route.length > 1 ? ' · เส้นทองคือลำดับเมืองที่บอสไปครั้งแรก' : ''} · กดหมุดเพื่อดูร้าน</p>
+    </div>
+  </section>
+)}
+<script is:inline>
+  document.querySelectorAll('[data-map]').forEach((root) => {
+    const VIEWS = JSON.parse(root.dataset.views), svg = root.querySelector('[data-svg]'), box = root.querySelector('[data-box]');
+    const pins = [...root.querySelectorAll('.map-pin')], btns = [...root.querySelectorAll('[data-view]')];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let name = root.dataset.start, cur = null, anim = 0;
+    // Widen a view around its centre to the box's shape, so dots and pins never stretch.
+    const fit = ([x, y, w, h]) => {
+      const A = box.clientWidth / Math.max(1, box.clientHeight);
+      if (w / h < A) { const nw = h * A; x -= (nw - w) / 2; w = nw; } else { const nh = w / A; y -= (nh - h) / 2; h = nh; }
+      return [x, y, w, h];
+    };
+    const draw = (v) => {
+      cur = v; svg.setAttribute('viewBox', v.join(' '));
+      pins.forEach((p) => { p.style.left = ((p.dataset.x - v[0]) / v[2]) * 100 + '%'; p.style.top = ((p.dataset.y - v[1]) / v[3]) * 100 + '%'; });
+    };
+    // Labels that would overlap: the city with more restaurants keeps its label; the other shows it on hover/tap.
+    const declutter = () => {
+      const kept = [];
+      [...pins].sort((a, b) => b.dataset.count - a.dataset.count).forEach((p) => {
+        p.classList.remove('label-off');
+        const l = p.querySelector('.pin-label').getBoundingClientRect();
+        const r = { l: l.left - 4, r: l.right + 4, t: l.top - 2, b: l.bottom + 2 };
+        if (kept.some((k) => r.l < k.r && r.r > k.l && r.t < k.b && r.b > k.t)) p.classList.add('label-off'); else kept.push(r);
+      });
+    };
+    const show = (n, animate) => {
+      name = n; root.dataset.zoom = n; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === n)));
+      const to = fit(VIEWS[n]); cancelAnimationFrame(anim);
+      if (!animate || reduce || !cur) { draw(to); return declutter(); }
+      const from = cur, t0 = performance.now(), D = 900, ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const step = (now) => { const t = Math.min(1, (now - t0) / D), e = ease(t); draw(from.map((a, i) => a + (to[i] - a) * e)); if (t < 1) anim = requestAnimationFrame(step); else declutter(); };
+      anim = requestAnimationFrame(step);
+    };
+    btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.view, true)));
+    addEventListener('resize', () => show(name, false));
+    show(name, false);
+    root.classList.add('map-ready');
+  });
+</script>

@@ -1,0 +1,39 @@
+# Deploys Sanity Studio (https://eatliketheboss.sanity.studio) when studio/ changes on main,
+# so new fields appear in the Studio together with the website change. Run by hand: Actions → Deploy Sanity Studio.
+# Needs the secret SANITY_DEPLOY_TOKEN (Settings → Secrets and variables → Actions):
+#   sanity.io/manage → project → API → Tokens → Add API token → permission "Deploy Studio (Token only)".
+name: Deploy Sanity Studio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'studio/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-studio
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: studio
+    env:
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_DEPLOY_TOKEN }}
+      SANITY_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: studio/package-lock.json
+      - name: Check token
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then echo "::error::Missing secret SANITY_DEPLOY_TOKEN"; exit 1; fi
+      - run: npm ci --no-audit --no-fund
+      - run: npx sanity schema validate
+      - run: npx sanity deploy

@@ -1,6 +1,7 @@
 // One place that loads content. Uses the live Sanity project (ID is public, not a secret).
 // Set SANITY_PROJECT_ID=sample to build from the sample content in src/data/seed.ts.
 import { createClient } from '@sanity/client';
+import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
@@ -17,16 +18,24 @@ const client = usingSanity
 
 const img = (i: any, fallbackAlt = ''): Img | undefined =>
   i?.asset?.url
-    ? { url: i.asset.url, alt: i.alt || fallbackAlt, width: i.asset.metadata?.dimensions?.width, height: i.asset.metadata?.dimensions?.height }
+    ? { url: i.asset.url, alt: i.alt || fallbackAlt, width: i.asset.metadata?.dimensions?.width, height: i.asset.metadata?.dimensions?.height,
+        crop: i.crop || undefined, hotspot: i.hotspot || undefined }
     : undefined;
 
-const readMinutes = (html: string, dishes: { description: string }[]) => {
+// Characters read per minute: Thai ~500, English ~1,000 (≈200 words), Japanese ~500, Chinese ~400.
+const READ_RATE: Record<string, number> = { th: 500, en: 1000, ja: 500, zh: 400 };
+const readMinutes = (html: string, dishes: { description: string }[], lang = 'th') => {
   const chars = html.replace(/<[^>]+>/g, '').length + dishes.reduce((n, d) => n + d.description.length, 0);
-  return Math.max(2, Math.round(chars / 500)); // Thai reads ~500 characters a minute
+  return Math.max(2, Math.round(chars / (READ_RATE[lang] ?? 500)));
 };
 
+// The Facebook post opens a glasses-off dish with 🕶️ "จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม"; the page already shows that line.
+// Control characters pasted from Google Docs (vertical tab, zero-width space…) show as boxes; turn them into spaces.
+const stripCtrl = (s: string) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B\uFEFF]+/g, ' ');
+const cleanDish = (s: string) => stripCtrl(s).replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
+
 const IMG = `{..., asset->{url, metadata{dimensions}}}`;
-const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, cover${IMG}}`;
+const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, "pickIds": picks[]._ref, location, cover${IMG}}`;
 
 let articlesCache: Promise<Article[]> | null = null;
 let citiesCache: Promise<City[]> | null = null;
@@ -57,7 +66,7 @@ function numberByVisit(all: Article[]): Article[] {
 
 /** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
-  if (!client) return Promise.resolve(numberByVisit([...seed.articles]));
+  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles])));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
@@ -71,19 +80,20 @@ export function getAllArticles(): Promise<Article[]> {
     )
     .then((rows: any[]) =>
       rows.map((r): Article => {
-        const bodyHtml = r.body ? toHTML(r.body) : '';
-        const dishes = (r.dishes || []).map((d: any) => ({ name: d.name, description: d.description || '', glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
+        const bodyHtml = r.body ? stripCtrl(toHTML(r.body)) : '';
+        const dishes = (r.dishes || []).map((d: any) => ({ name: stripCtrl(d.name || ''), description: cleanDish(d.description || ''), glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
         return {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
           no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, city: r.city || undefined,
-          restaurant: r.restaurant, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
+          restaurant: r.restaurant ? { ...r.restaurant, sameAs: r.restaurant.sameAs?._ref } : undefined, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
           dishes, bill: r.bill, tag: r.tag, visit: r.visit, hashtags: r.hashtags || [],
           publishedAt: r.publishedAt, updatedAt: r._updatedAt, seoTitle: r.seoTitle, seoDescription: r.seoDescription,
-          readingMinutes: readMinutes(bodyHtml, dishes),
+          readingMinutes: readMinutes(bodyHtml, dishes, r.language || DEFAULT_LOCALE),
         };
       }),
     )
-    .then(numberByVisit));
+    .then(numberByVisit)
+    .then(linkRestaurants));
 }
 
 export async function getArticles(lang: Locale = DEFAULT_LOCALE) {
@@ -118,16 +128,108 @@ export async function translationsOf(a: Article) {
   return (await getAllArticles()).filter((x) => x.baseId === a.baseId);
 }
 
-/** Image URL at a given width (Sanity CDN), or the url as-is for other hosts. */
+/**
+ * Image URL at a given width (Sanity CDN), or the url as-is for other hosts.
+ * With a height, the crop follows the crop + hotspot set in Studio instead of the centre.
+ */
 export function imgUrl(i: Img | undefined, w: number, h?: number) {
   if (!i?.url) return undefined;
-  if (!i.url.includes('cdn.sanity.io')) return i.url;
-  return `${i.url}?w=${w}${h ? `&h=${h}&fit=crop` : ''}&auto=format&q=80`;
+  const m = /^https:\/\/cdn\.sanity\.io\/images\/([^/]+)\/([^/]+)\//.exec(i.url);
+  if (!m) return i.url;
+  try {
+    let b = createImageUrlBuilder({ projectId: m[1], dataset: m[2] })
+      .image({ asset: { url: i.url }, crop: i.crop, hotspot: i.hotspot } as any)
+      .width(w).auto('format').quality(80);
+    if (h) b = b.height(h);
+    return b.url();
+  } catch {
+    return `${i.url}?w=${w}${h ? `&h=${h}&fit=crop` : ''}&auto=format&q=80`; // URL without dimensions: centre crop
+  }
 }
 export function srcset(i: Img | undefined, widths: number[], ratio?: number) {
   if (!i?.url || !i.url.includes('cdn.sanity.io')) return undefined;
   return widths.map((w) => `${imgUrl(i, w, ratio ? Math.round(w * ratio) : undefined)} ${w}w`).join(', ');
 }
 
+/** Every glasses-off dish with its article and position (index) in that meal. */
 export const glassesOffDishes = (list: Article[]) =>
-  list.flatMap((a) => a.dishes.filter((d) => d.glassesOff).map((d) => ({ dish: d, article: a })));
+  list.flatMap((a) => a.dishes.flatMap((d, index) => (d.glassesOff ? [{ dish: d, article: a, index }] : [])));
+
+/** Link straight to one dish inside its article, e.g. /review/tokyo/x/#dish-3 */
+export const dishUrl = (a: Article, index: number) => `${articleUrl(a)}#dish-${index + 1}`;
+
+/** "Oct-2026" → "2026-10" (for <time datetime>); falls back to the publish month. */
+export function visitIso(a: Pick<Article, 'visit' | 'publishedAt'>) {
+  const m = /^([A-Za-z]{3})-(\d{4})$/.exec(a.visit || '');
+  const i = m ? MONTHS.indexOf(m[1].toLowerCase()) : -1;
+  return i >= 0 ? `${m![2]}-${String(i + 1).padStart(2, '0')}` : (a.publishedAt || '').slice(0, 7);
+}
+/** Year of the meal (visit), e.g. "2026" — awards are grouped by when the Boss ate the dish. */
+export const visitYear = (a: Pick<Article, 'visit' | 'publishedAt'>) => visitIso(a).slice(0, 4);
+
+/** Cities that have at least one review, most restaurants first (ties by name). */
+export async function citiesByCount() {
+  const reviews = (await getArticles(DEFAULT_LOCALE)).filter((a) => a.series === 'review');
+  const n = (slug: string) => groupByRestaurant(reviews.filter((a) => a.city?.slug === slug)).length;
+  return (await getCities()).map((c) => ({ city: c, count: n(c.slug) })).filter((x) => x.count > 0)
+    .sort((a, b) => b.count - a.count || a.city.nameEn.localeCompare(b.city.nameEn));
+}
+
+/** Visit month as written ("Oct-2026"), or the publish month in the same style. */
+export function visitLabel(a: Pick<Article, 'visit' | 'publishedAt'>) {
+  if (a.visit) return a.visit;
+  const [y, m] = (a.publishedAt || '').split('-');
+  if (!y || !m) return '';
+  const mon = MONTHS[Number(m) - 1] ?? '';
+  return `${mon.charAt(0).toUpperCase()}${mon.slice(1)}-${y}`; // same "Sep-2026" style as Visit (no locale "Sept")
+}
+
+/**
+ * Same restaurant = same city + same restaurant name (case, spaces and punctuation ignored).
+ * Keep the restaurant name identical across visits so repeat reviews group together.
+ */
+export function restaurantKey(a: Article) {
+  if (a.restaurantGroup) return a.restaurantGroup;
+  return nameKey(a);
+}
+function nameKey(a: Article) {
+  if (a.series !== 'review' || !a.restaurant?.name) return `article:${a.baseId}`;
+  return `${a.city?.slug ?? ''}|${a.restaurant.name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '')}`;
+}
+/**
+ * Groups visits to one restaurant: same city + name, or linked in Studio with
+ * ร้าน → "รีวิวครั้งก่อนของร้านนี้" (for a renamed restaurant). Translations follow their original.
+ */
+function linkRestaurants(all: Article[]): Article[] {
+  const parent = new Map<string, string>();
+  const find = (x: string): string => { while (parent.has(x) && parent.get(x) !== x) x = parent.get(x)!; return x; };
+  const union = (a: string, b: string) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(rb, ra); };
+  const byName = new Map<string, string>();
+  const originals = all.filter((a) => a.id === a.baseId);
+  for (const a of originals) {
+    parent.set(a.baseId, find(a.baseId));
+    const k = nameKey(a);
+    if (byName.has(k)) union(byName.get(k)!, a.baseId); else byName.set(k, a.baseId);
+  }
+  const ids = new Set(originals.map((a) => a.baseId));
+  for (const a of originals) if (a.restaurant?.sameAs && ids.has(a.restaurant.sameAs)) union(a.restaurant.sameAs, a.baseId);
+  return all.map((a) => ({ ...a, restaurantGroup: a.series === 'review' ? `r:${find(a.baseId)}` : `article:${a.baseId}` }));
+}
+/** All visits to the same restaurant in the given list (newest visit first, as the list is sorted). */
+export function visitsOf(a: Article, list: Article[]) {
+  const k = restaurantKey(a);
+  return list.filter((x) => x.language === a.language && restaurantKey(x) === k);
+}
+/** One entry per restaurant: the latest visit plus every visit (newest first). Keeps list order. */
+export function groupByRestaurant(list: Article[]) {
+  const map = new Map<string, Article[]>();
+  for (const a of list) { const k = restaurantKey(a); map.set(k, [...(map.get(k) ?? []), a]); }
+  return [...map.values()].map((visits) => ({ latest: visits[0], visits }));
+}
+
+/** Boss's Picks for a city: the ones chosen in Studio, else reviews with a glasses-off dish (newest first). */
+export function cityPicks(city: City, list: Article[], max = 3) {
+  const chosen = (city.pickIds ?? []).map((id) => list.find((a) => a.id === id || a.baseId === id)).filter(Boolean) as Article[];
+  if (chosen.length) return chosen.slice(0, max);
+  return groupByRestaurant(list).filter((g) => g.visits.some((a) => a.dishes.some((d) => d.glassesOff))).map((g) => g.latest).slice(0, max);
+}

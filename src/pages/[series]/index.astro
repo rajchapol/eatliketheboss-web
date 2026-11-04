@@ -3,7 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { SERIES, type SeriesKey } from '../../lib/config';
-import { getArticles, getSettings } from '../../lib/content';
+import { getArticles, getSettings, groupByRestaurant } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 
 export function getStaticPaths() {
@@ -12,6 +12,7 @@ export function getStaticPaths() {
 const { key } = Astro.props as { key: SeriesKey };
 const s = SERIES[key];
 const list = (await getArticles('th')).filter((a) => a.series === key);
+const groups = groupByRestaurant(list); // repeat visits share one card
 const settings = await getSettings();
 const intro = settings.seriesText;
 const metaDesc = `${intro[key]} อ่านทุกบทความในซีรีส์${s.th}จากบอสพาชิม · Eat Like The Boss รีวิวแบบจริงใจ ไม่ให้ดาว ไม่ให้คะแนน`;
@@ -20,11 +21,11 @@ const metaDesc = `${intro[key]} อ่านทุกบทความในซ
   <section class="wrap" style="padding-top:88px;padding-bottom:40px;display:flex;flex-direction:column;gap:16px">
     <p class="overline">SERIES</p>
     <h1 class="ink-grad gold-lift" style="margin:0;font-size:clamp(34px,6cqi,52px);font-weight:600;line-height:1.25">{s.th}</h1>
-    <p style="margin:0;max-width:34em;font-size:18px;line-height:1.8;font-weight:300">{intro[key]}</p>
+    <p style="margin:0;max-width:34em;font-size:18px;line-height:1.8;font-weight:400">{intro[key]}</p>
   </section>
   <section class="wrap" style="padding-bottom:96px">
     <div class="rule"></div>
-    {list.length ? <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:40px 32px;padding-top:40px">{list.map((a) => <ArticleCard a={a} />)}</div>
-      : <p style="padding-top:40px;font-size:18px;font-weight:300">ยังไม่มีบทความในซีรีส์นี้ครับ</p>}
+    {list.length ? <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:40px">{groups.map((g) => <ArticleCard a={g.latest} visits={g.visits} />)}</div>
+      : <p style="padding-top:40px;font-size:18px;font-weight:400">ยังไม่มีบทความในซีรีส์นี้ครับ</p>}
   </section>
 </Base>

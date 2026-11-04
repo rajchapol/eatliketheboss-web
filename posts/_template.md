@@ -14,6 +14,7 @@ restaurant:
   cuisine: "ญี่ปุ่น"     # ญี่ปุ่น | ไทย | ฝรั่งเศส | จีน | อิตาเลียน | สเปน | Modern | อื่นๆ
   priceBand: "฿฿฿฿"      # ฿฿ | ฿฿฿ | ฿฿฿฿
   awards: ["MICHELIN 2★"]
+  # sameAs: old-slug     # ไม่บังคับ: slug ของรีวิวครั้งก่อน ถ้าร้านเปลี่ยนชื่อ (ชื่อเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว)
 cover: "./images/restaurant-name/cover.jpg | ห้องอาหารของร้าน X ที่โตเกียว"
 tag: ""                 # "" = จ่ายเอง, หรือ AD / Event
 bill: "6,999 THB++"     # เว้นว่างถ้าเป็น AD / Event

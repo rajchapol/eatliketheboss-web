@@ -1,5 +1,5 @@
 // JSON-LD builders. No reviewRating anywhere: the brand gives no stars or scores.
-import { SITE } from './config';
+import { SITE, HREFLANG } from './config';
 import { articleUrl, imgUrl } from './content';
 import type { Article } from './types';
 
@@ -50,7 +50,7 @@ export function articleLd(a: Article) {
     image,
     datePublished: a.publishedAt,
     dateModified: a.updatedAt || a.publishedAt,
-    inLanguage: a.language,
+    inLanguage: HREFLANG[a.language],
     author: person(),
     publisher: { '@id': abs('/#org') },
     mainEntityOfPage: url,

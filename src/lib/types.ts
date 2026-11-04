@@ -5,6 +5,8 @@ export interface Img {
   alt: string;
   width?: number;
   height?: number;
+  crop?: { top: number; bottom: number; left: number; right: number }; // set in Sanity Studio
+  hotspot?: { x: number; y: number; width: number; height: number }; // focal point for crops
 }
 
 export interface City {
@@ -12,11 +14,13 @@ export interface City {
   nameEn: string;
   nameTh: string;
   country: string; // Thai name, e.g. ญี่ปุ่น
-  region: 'th' | 'jp' | 'cn' | 'other';
+  region: string; // th | asia | europe | americas | oceania | mea (older entries: jp | cn | other) — see regionOf()
   motif: string; // key of MOTIFS
   intro?: string;
   cover?: Img;
   featured?: boolean;
+  location?: { lat: number; lng: number }; // map pin set in Studio (else CITY_COORDS)
+  pickIds?: string[]; // Boss's Picks chosen in Studio (article ids); empty = automatic
 }
 
 export interface Dish {
@@ -34,6 +38,7 @@ export interface Restaurant {
   cuisine?: string;
   priceBand?: '฿฿' | '฿฿฿' | '฿฿฿฿';
   awards?: string[];
+  sameAs?: string; // id of an earlier review of the same restaurant (when the name changed)
 }
 
 export interface Article {
@@ -61,6 +66,7 @@ export interface Article {
   seoTitle?: string;
   seoDescription?: string;
   readingMinutes: number;
+  restaurantGroup?: string; // set by linkRestaurants(): same value = same restaurant
 }
 
 export interface Settings {
@@ -86,5 +92,6 @@ export interface Settings {
   instagram: string;
   contactEmail: string;
   ogImageUrl?: string;
+  cfAnalyticsToken?: string; // Cloudflare Web Analytics site token (public); empty = no analytics
   homeCitySlugs?: string[];
 }
