@@ -50,6 +50,7 @@ jobs:
             if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then BEFORE="HEAD~1"; fi
             LIST=$(git diff --name-only --diff-filter=AM "$BEFORE" "${{ github.sha }}" -- 'posts/*.md' | grep -v '_template.md' | tr '\n' ' ')
             echo "list=$LIST" >> "$GITHUB_OUTPUT"
+            echo "since=$BEFORE" >> "$GITHUB_OUTPUT"
           fi
       - name: Check token
         if: steps.files.outputs.list != ''
@@ -62,5 +63,6 @@ jobs:
         run: |
           for f in ${{ steps.files.outputs.list }}; do
             echo "== $f"
-            if [ "${{ inputs.dry }}" = "true" ]; then npm run post -- "$f" --dry; else npm run post -- "$f"; fi
+            # --since: send only what changed in the file since the previous commit (Studio edits stay)
+            if [ "${{ inputs.dry }}" = "true" ]; then npm run post -- "$f" --dry; elif [ -n "${{ steps.files.outputs.since }}" ]; then npm run post -- "$f" --since "${{ steps.files.outputs.since }}"; else npm run post -- "$f"; fi
           done

@@ -2,6 +2,7 @@
 
 Read this first. Keep edits small: read only the files you need, prefer find-and-replace over rewrites.
 What earlier sessions changed, why, and what is still open: `docs/HANDOFF.md` (add your own entry at the top when you finish).
+Role hand-offs (posting & translation · brand & graphics · web design, incl. how to use the Studio): `docs/handoff/`.
 
 ## Stack
 - **Astro** static site (`src/`), built on **Cloudflare Workers (static assets, `wrangler.jsonc`)** from `main`, domain eatlikeboss.com.
@@ -13,7 +14,7 @@ What earlier sessions changed, why, and what is still open: `docs/HANDOFF.md` (a
 1. Write the article in the Boss's voice with the `eatliketheboss-writing-style` skill (Google Doc draft is the source of truth).
 2. Copy `posts/_template.md` to `posts/<slug>.md` and fill it. Put photos in `posts/images/<slug>/` (or use https URLs). Every image needs real alt text after `|`.
 3. `npm run post -- posts/<slug>.md --dry` to check, then `npm run post -- posts/<slug>.md` to publish. Needs `.env` with `SANITY_PROJECT_ID` and `SANITY_WRITE_TOKEN`.
-   **From a Claude session (no token needed):** run the `--dry` check locally, then — only after the Boss approves that post — commit `posts/<slug>.md` + its images and push to `main`. `.github/workflows/post-article.yml` publishes every changed `posts/*.md` with the GitHub secret `SANITY_WRITE_TOKEN`. Re-run or dry-run any file from Actions → Post article to Sanity → Run workflow. Never ask for or store the token itself.
+   **From a Claude session (no token needed):** run the `--dry` check locally, then — only after the Boss approves that post — commit `posts/<slug>.md` + its images and push to `main`. `.github/workflows/post-article.yml` publishes every changed `posts/*.md` with the GitHub secret `SANITY_WRITE_TOKEN`. Re-run or dry-run any file from Actions → Post article to Sanity → Run workflow. Never ask for or store the token itself. Editing a file that is already published is fine: the re-post sends only the fields changed in the file since its previous commit (`--since`), so Studio edits elsewhere stay.
 4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. In Studio: open the Thai article → tab "5 ภาษา / คำแปล" → "+ English / 日本語 / 中文" makes a linked copy (same slug, photos, dishes) to translate over; the tab lists every language of that article. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
 You never need to touch `src/` to post.
 
