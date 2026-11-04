@@ -26,7 +26,9 @@ export default defineConfig({
           S.documentList().id(id).apiVersion(API).schemaType('article').title(title).filter(filter).params(params)
             .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }]);
         const item = (id: string, title: string, filter: string, icon?: any) => S.listItem().id(id).title(title).icon(icon).schemaType('article').child(list(id, title, filter));
-        const TH = '_type == "article" && language == "th"';
+        // Originals = articles that are not linked to another article. Filtering on language == "th" hid
+        // Thai articles whose draft had its language switched by hand (before the field was locked).
+        const TH = '_type == "article" && !defined(translationOf)';
         return S.list().id('content').title('เนื้อหา').items([
           // Articles, grouped the way the Boss looks for them
           S.listItem().id('articles-th').title('บทความ (ภาษาไทย)').icon(DocumentsIcon).child(
@@ -44,14 +46,15 @@ export default defineConfig({
           // no "+" here: a translation is made from its Thai article (tab 5), which links it
           S.listItem().id('articles-translations').title('คำแปล (EN / 日本語 / 中文)').icon(TranslateIcon).child(
             S.list().id('translations-menu').title('คำแปล').items([
-              S.listItem().id('tr-en').title('English').schemaType('article').child(list('tr-en', 'English', '_type == "article" && language == "en"').initialValueTemplates([])),
-              S.listItem().id('tr-ja').title('日本語').schemaType('article').child(list('tr-ja', '日本語', '_type == "article" && language == "ja"').initialValueTemplates([])),
-              S.listItem().id('tr-zh').title('中文').schemaType('article').child(list('tr-zh', '中文', '_type == "article" && language == "zh"').initialValueTemplates([])),
+              S.listItem().id('tr-en').title('English').schemaType('article').child(list('tr-en', 'English', '_type == "article" && defined(translationOf) && language == "en"').initialValueTemplates([])),
+              S.listItem().id('tr-ja').title('日本語').schemaType('article').child(list('tr-ja', '日本語', '_type == "article" && defined(translationOf) && language == "ja"').initialValueTemplates([])),
+              S.listItem().id('tr-zh').title('中文').schemaType('article').child(list('tr-zh', '中文', '_type == "article" && defined(translationOf) && language == "zh"').initialValueTemplates([])),
             ])),
           S.divider(),
           // Work to do: each list empties itself as things get fixed
           S.listItem().id('todo').title('งานที่ต้องทำ').icon(ClipboardIcon).child(
             S.list().id('todo-menu').title('งานที่ต้องทำ').items([
+              item('todo-lang', 'ภาษาเพี้ยน: บทความไทยที่ถูกเปลี่ยนภาษา (กดเปลี่ยนกลับในแท็บ 5)', '_type == "article" && !defined(translationOf) && coalesce(language, "th") != "th"', WarningOutlineIcon),
               item('todo-drafts-new', 'ร่างใหม่ ยังไม่เคยเผยแพร่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) == 0', EditIcon),
               item('todo-drafts-edit', 'แก้ไขค้างไว้ ยังไม่กดเผยแพร่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) > 0', EditIcon),
               S.divider(),

@@ -59,9 +59,9 @@ At the base, crisp fried taro strands add richness. Then comes cold-dressed Heti
 image: ./images/meet-the-bund/05.jpg | Sea cucumber on a porcelain spoon lifted from a white tureen of Buddha Jumps Over the Wall in a dark brown broth, Meet The Bund at Skyline, Shanghai
 The ultimate Hokkien signature. The broth is rich and round, wonderfully sweet and generously loaded. Chinese wine leads the way with real depth, followed by the gentle sweetness of the fish. It is packed with collagen, yet never feels heavy to sip. The abalone was only middling, but the very generous portion of fish maw makes this a dish that is outrageously good value!
 
-### Razor Clam and Bamboo Pith Soup
-image: ./images/meet-the-bund/06.jpg | Clear pale-yellow soup with white razor clam meat in a white porcelain cup, Meet The Bund at Skyline, Shanghai
-A crystal-clear broth with nothing to distract, yet a deep, rounded flavour beneath: all clarity and umami. The fresh razor clams are bouncy and sweet, leaving a beautiful aftertaste that lingers in the throat.
+### Torigai and Bamboo Pith Soup
+image: ./images/meet-the-bund/06.jpg | Clear pale-yellow soup with torigai (Japanese cockle) meat in a white porcelain cup, Meet The Bund at Skyline, Shanghai
+A crystal-clear broth with nothing to distract, yet a deep, rounded flavour beneath: all clarity and umami. The fresh torigai (Japanese cockle) is bouncy and sweet, leaving a beautiful aftertaste that lingers in the throat.
 
 ### 大红袍花椒重壳蟹 (Double-Shelled Crab Baked with Da Hong Pao Peppercorn)
 image: ./images/meet-the-bund/07.jpg | A whole orange crab on tea leaves and dark red roasted peppercorns in a white glazed clay pot, Meet The Bund at Skyline, Shanghai

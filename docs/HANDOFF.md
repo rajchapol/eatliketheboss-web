@@ -11,8 +11,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 - **First English translation draft:** `drafts/translations/meet-the-bund.en.md`.
   - It passes the `--dry` check: 15 dishes, glasses-off kept, id `article-meet-the-bund-en`, linked to `article-meet-the-bund`.
   - It waits for the Boss's approval, then moves to `posts/`.
-  - Open point: "ซุปหอยปีกนก" was translated as razor clam; the Boss should confirm the shellfish.
-- **Missing articles in Studio:** the Boss saw 3 of 6 Shanghai articles. All 6 are published (the live CI build at 06:18 built all 6 pages). Most likely a filtered list: e.g. "ยังไม่มีคำแปล English" hides articles that already got an EN draft from earlier "+ English" tests. Waiting for a screenshot of which list.
+- **Missing articles in Studio:** "บทความ (ภาษาไทย) → ทั้งหมด" showed only Fu He Hui, Taian Table and Wu You Xian; all 6 are published and live.
+  - Cause: Meet The Bund, Sui Tang Li and Yong Fu have drafts whose `language` was switched to en by hand, before the field was locked. Studio lists use the draft, and the Thai lists filtered on `language == "th"`.
+  - Fix (`studio/sanity.config.ts`): Thai lists = `!defined(translationOf)` (every original). Translation lists need `defined(translationOf)`. New to-do "ภาษาเพี้ยน" lists originals whose language isn't th.
+  - The Boss fixes each with "เปลี่ยนกลับเป็นบทความภาษาไทย" in tab 5, or by discarding the draft. Never publish those drafts as they are.
+- "หอยปีกนก" = torigai (Japanese cockle), per the Boss; the translation draft is updated.
 - **Share counts:** Cloudflare Web Analytics has no click/custom events, so counting LINE/Facebook shares needs something extra (a small Worker endpoint or a cookieless analytics service). Asked the Boss.
 
 ---
