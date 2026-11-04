@@ -1,0 +1,36 @@
+---
+// Share buttons: LINE, Facebook, copy link, plus the phone's own share sheet when available.
+import Icon from './Icon.astro';
+import { SITE, type Locale } from '../lib/config';
+import { t } from '../lib/i18n';
+interface Props { path: string; title: string; lang: Locale; heading?: boolean | string }
+const { path, title, lang, heading = false } = Astro.props;
+const url = new URL(path, SITE.url).href;
+const enc = encodeURIComponent;
+const line = `https://social-plugins.line.me/lineit/share?url=${enc(url)}`;
+const fb = `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`;
+---
+<div class="share-bar" role="group" aria-label={t(lang, 'share')} data-share-bar data-url={url} data-title={title}>
+  {heading && <span class="share-head">{typeof heading === 'string' ? heading : t(lang, 'shareThis')}</span>}
+  <a href={line} target="_blank" rel="noopener" class="share-pill"><span class="share-dot" style="background:#06C755" aria-hidden="true"></span>LINE</a>
+  <a href={fb} target="_blank" rel="noopener" class="share-pill"><span class="share-dot" style="background:#1877F2" aria-hidden="true"></span>Facebook</a>
+  <button type="button" class="share-pill" data-copy-link data-done={t(lang, 'copied')}><Icon name="link" size={16} /><span data-label>{t(lang, 'copyLink')}</span></button>
+  <button type="button" class="share-pill" data-native-share hidden><Icon name="share" size={16} />{t(lang, 'moreShare')}</button>
+</div>
+<script is:inline>
+  document.querySelectorAll('[data-share-bar]:not([data-ready])').forEach((bar) => {
+    bar.dataset.ready = '1';
+    const url = bar.dataset.url, title = bar.dataset.title;
+    const copy = bar.querySelector('[data-copy-link]'), label = copy.querySelector('[data-label]'), orig = label.textContent;
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(url); }
+      catch { const i = document.createElement('input'); i.value = url; document.body.append(i); i.select(); document.execCommand('copy'); i.remove(); }
+      label.textContent = copy.dataset.done; copy.classList.add('done'); setTimeout(() => { label.textContent = orig; copy.classList.remove('done'); }, 2200);
+    });
+    const native = bar.querySelector('[data-native-share]');
+    if (navigator.share && matchMedia('(hover: none)').matches) {
+      native.hidden = false;
+      native.addEventListener('click', async () => { try { await navigator.share({ title, url }); } catch {} });
+    }
+  });
+</script>

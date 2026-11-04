@@ -1,0 +1,33 @@
+# Fills empty text fields in Sanity → ตั้งค่าเว็บ with the text the website shows today, and updates the old
+# "invited meal" wording if it was never edited. Manual only: Actions → Fill settings texts → Run workflow
+# (leave "Dry run" ticked first to see the list, then run again unticked). Uses the secret SANITY_WRITE_TOKEN.
+name: Fill settings texts
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true # the runner's cached Node can be older than Astro requires
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/fill-settings.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/fill-settings.mjs

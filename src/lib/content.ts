@@ -64,18 +64,42 @@ function numberByVisit(all: Article[]): Article[] {
   return all.map((a) => ({ ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 })).sort((a, b) => b.no - a.no || a.language.localeCompare(b.language));
 }
 
+/**
+ * Price band from a written price (Studio "ราคาจริง", not shown on the site): the first amount converted to THB
+ * (rough rates; it's only a band) → under 3,000 = ฿฿, under 8,000 = ฿฿฿, else ฿฿฿฿.
+ */
+const THB_RATE: [RegExp, number][] = [
+  [/HK\$|HKD/i, 4.4], [/S\$|SGD/i, 26], [/NT\$|TWD/i, 1.05], [/US\$|USD/i, 34], [/A\$|AUD/i, 22], [/MOP/i, 4.2],
+  [/€|EUR/i, 37], [/£|GBP/i, 43], [/₩|KRW|วอน/i, 0.025], [/RM|MYR|ริงกิต/i, 7.5], [/CHF/i, 39], [/AED|ดิรฮัม/i, 9.3],
+  [/JPY|เยน|円/i, 0.22], [/CNY|RMB|หยวน|元/i, 4.7], [/THB|บาท|฿/i, 1], [/\$/, 34],
+];
+export function priceBandFromBill(bill?: string): '฿฿' | '฿฿฿' | '฿฿฿฿' | undefined {
+  if (!bill) return undefined;
+  const m = bill.replace(/,/g, '').match(/(\d+(?:\.\d+)?)/); if (!m) return undefined;
+  const amount = Number(m[1]);
+  let rate = THB_RATE.find(([re]) => re.test(bill))?.[1];
+  if (/¥/.test(bill) && rate === undefined) rate = amount >= 5000 ? 0.22 : 4.7; // ¥: yen if large, else yuan
+  const thb = amount * (rate ?? 1);
+  return thb < 3000 ? '฿฿' : thb < 8000 ? '฿฿฿' : '฿฿฿฿';
+}
+/** The Boss's Bill band: chosen in Studio (Bill tab), else the older restaurant field, else worked out from the price. */
+const withPriceBand = (a: Article): Article => {
+  const band = a.billBand || a.restaurant?.priceBand || priceBandFromBill(a.bill);
+  return { ...a, billBand: band, restaurant: a.restaurant && band ? { ...a.restaurant, priceBand: band } : a.restaurant };
+};
+
 /** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
-  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles])));
+  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles].map(withPriceBand))));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
         _id, language, series, no, episode, title, tagline, "slug": slug.current,
         "baseId": coalesce(translationOf._ref, _id),
         "city": city->${CITY},
-        restaurant, cover${IMG}, body, quote,
+        restaurant, cover${IMG}, gallery[]${IMG}, body, quote,
         dishes[]{name, description, glassesOff, image${IMG}},
-        bill, tag, visit, hashtags, publishedAt, _updatedAt, seoTitle, seoDescription
+        bill, billBand, tag, visit, hashtags, publishedAt, _updatedAt, seoTitle, seoDescription
       }`,
     )
     .then((rows: any[]) =>
@@ -86,12 +110,14 @@ export function getAllArticles(): Promise<Article[]> {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
           no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, city: r.city || undefined,
           restaurant: r.restaurant ? { ...r.restaurant, sameAs: r.restaurant.sameAs?._ref } : undefined, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
-          dishes, bill: r.bill, tag: r.tag, visit: r.visit, hashtags: r.hashtags || [],
+          gallery: (r.gallery || []).map((g: any) => ({ ...img(g, r.restaurant?.name || r.title), caption: g.caption || undefined })).filter((g: any) => g.url),
+          dishes, bill: r.bill, billBand: r.billBand || undefined, tag: r.tag || undefined, visit: r.visit, hashtags: r.hashtags || [],
           publishedAt: r.publishedAt, updatedAt: r._updatedAt, seoTitle: r.seoTitle, seoDescription: r.seoDescription,
           readingMinutes: readMinutes(bodyHtml, dishes, r.language || DEFAULT_LOCALE),
         };
       }),
     )
+    .then((list: Article[]) => list.map(withPriceBand))
     .then(numberByVisit)
     .then(linkRestaurants));
 }

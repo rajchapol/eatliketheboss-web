@@ -54,10 +54,12 @@ export interface Article {
   restaurant?: Restaurant;
   episode?: number; // มื้ออาหารเปลี่ยนโลก Ep.
   cover?: Img;
+  gallery?: (Img & { caption?: string })[]; // ambience / chef photos shown before the dishes
   bodyHtml: string; // intro paragraphs
   quote?: string;
   dishes: Dish[];
-  bill?: string; // "6,999 THB++" or empty when tag is AD/Event
+  bill?: string; // real price as written (not shown; used to work out billBand)
+  billBand?: '฿฿' | '฿฿฿' | '฿฿฿฿'; // The Boss's Bill shown on the site
   tag?: 'AD' | 'Event';
   visit?: string; // "Oct-2026"
   hashtags: string[];
@@ -93,5 +95,19 @@ export interface Settings {
   contactEmail: string;
   ogImageUrl?: string;
   cfAnalyticsToken?: string; // Cloudflare Web Analytics site token (public); empty = no analytics
+  web3formsKey?: string; // contact form → Boss's email (web3forms.com access key, public by design)
+  // Texts that used to be fixed in the code (defaults in src/data/settings.json)
+  homeSearchPlaceholder: string;
+  homeLatestTitle: string;
+  homeIndexTitle: string;
+  homeIndexLink: string;
+  articleMenuTitle: string;
+  articleGlassesQuote: string;
+  articleShareTitle: string;
+  destinationsTitle: string;
+  mapTitle: string;
+  contactTitle: string;
+  contactIntro: string;
+  footerRights: string;
   homeCitySlugs?: string[];
 }

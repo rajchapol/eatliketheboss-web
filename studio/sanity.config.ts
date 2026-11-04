@@ -21,7 +21,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('city').title('เมือง'),
             S.divider(),
-            S.listItem().id('settings').title('ตั้งค่าเว็บ / เกี่ยวกับบอส').child(S.document().schemaType('settings').documentId('settings')),
+            S.listItem().id('settings').title('ตั้งค่าเว็บ / ข้อความทุกหน้า').child(S.document().schemaType('settings').documentId('settings')),
           ]),
     }),
   ],

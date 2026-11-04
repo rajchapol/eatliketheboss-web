@@ -12,12 +12,15 @@ restaurant:
   chef: "ชื่อเชฟ"
   area: "Ginza"
   cuisine: "ญี่ปุ่น"     # ญี่ปุ่น | ไทย | ฝรั่งเศส | จีน | อิตาเลียน | สเปน | Modern | อื่นๆ
-  priceBand: "฿฿฿฿"      # ฿฿ | ฿฿฿ | ฿฿฿฿
   awards: ["MICHELIN 2★"]
   # sameAs: old-slug     # ไม่บังคับ: slug ของรีวิวครั้งก่อน ถ้าร้านเปลี่ยนชื่อ (ชื่อเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว)
 cover: "./images/restaurant-name/cover.jpg | ห้องอาหารของร้าน X ที่โตเกียว"
-tag: ""                 # "" = จ่ายเอง, หรือ AD / Event
-bill: "6,999 THB++"     # เว้นว่างถ้าเป็น AD / Event
+# gallery:               # ไม่บังคับ: รูปบรรยากาศ / เชฟ แสดงก่อนรายการจาน (รูป | alt | คำบรรยาย)
+#   - "./images/restaurant-name/room.jpg | ห้องอาหารวิวแม่น้ำ ร้าน X | ห้องอาหารชั้น 56"
+#   - "./images/restaurant-name/chef.jpg | เชฟ Y ในครัวเปิด ร้าน X | เชฟ Y"
+billBand: "฿฿฿"        # The Boss's Bill บนเว็บ: ฿฿ (<3,000 บาท) | ฿฿฿ (3,000–7,999) | ฿฿฿฿ (8,000+) · เว้นว่าง = คำนวณจาก bill
+bill: "6,999 THB++"     # ราคาจริง (ไม่แสดงบนเว็บ) · ไม่บังคับ
+tag: ""                 # "" ปกติ | Event = มื้ออีเวนต์/มื้อพิเศษ | AD = โพสต์ที่ได้รับค่าจ้าง
 visit: Oct-2026           # เดือนที่ไปกินจริง — เว็บเรียงเลข No. ตามนี้ (เก่าสุด = 001)
 hashtags: [บอสพาชิม, eatliketheboss, RestaurantName, Tokyo]
 publishedAt: 2026-11-03

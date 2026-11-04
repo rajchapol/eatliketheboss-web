@@ -44,7 +44,7 @@ export const CITY_COORDS: Record<string, [number, number]> = {
   'hong-kong': [22.32, 114.17], macau: [22.2, 113.55], shanghai: [31.23, 121.47], beijing: [39.9, 116.4], guangzhou: [23.13, 113.26], shenzhen: [22.54, 114.06], chengdu: [30.57, 104.07], hangzhou: [30.27, 120.16],
   taipei: [25.03, 121.57], seoul: [37.57, 126.98], singapore: [1.35, 103.82], 'kuala-lumpur': [3.14, 101.69], bali: [-8.65, 115.22], jakarta: [-6.2, 106.85], manila: [14.6, 120.98], 'ho-chi-minh-city': [10.82, 106.63], hanoi: [21.03, 105.85],
   paris: [48.86, 2.35], london: [51.51, -0.13], lyon: [45.76, 4.84], 'san-sebastian': [43.32, -1.98], barcelona: [41.39, 2.17], madrid: [40.42, -3.7], rome: [41.9, 12.5], milan: [45.46, 9.19], copenhagen: [55.68, 12.57],
-  istanbul: [41.01, 28.98], istalbul: [41.01, 28.98], 'new-york': [40.71, -74.01], 'san-francisco': [37.77, -122.42], 'los-angeles': [34.05, -118.24], sydney: [-33.87, 151.21], melbourne: [-37.81, 144.96], dubai: [25.2, 55.27],
+  istanbul: [41.01, 28.98], istalbul: [41.01, 28.98], 'turkey-istalbul': [41.01, 28.98], 'new-york': [40.71, -74.01], 'san-francisco': [37.77, -122.42], 'los-angeles': [34.05, -118.24], sydney: [-33.87, 151.21], melbourne: [-37.81, 144.96], dubai: [25.2, 55.27],
 };
 
 /** Destinations page groups: Thailand first, then continents. Each group lists its countries, then cities. */

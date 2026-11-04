@@ -4,8 +4,10 @@
 // Map units are degrees: x = lng + 180, y = 78 - lat (same as the dot files).
 import { CITY_COORDS } from '../lib/config';
 import type { City } from '../lib/types';
+import { getSettings } from '../lib/content';
 interface Props { cities: { city: City; count: number; firstVisit: string }[] }
 const { cities } = Astro.props;
+const st = await getSettings();
 const pins = cities
   .map(({ city, count, firstVisit }) => {
     const ll = city.location?.lat != null ? [city.location.lat, city.location.lng] : CITY_COORDS[city.slug];
@@ -30,7 +32,7 @@ const v0 = VIEWS[start];
   <section class="wrap" aria-labelledby="map-h" style="padding-bottom:72px">
     <div class="map-band rl on-dark spot" data-map data-views={JSON.stringify(VIEWS)} data-start={start}>
       <div class="map-head">
-        <h2 id="map-h" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,5cqi,40px);line-height:1.1;color:#fdeac0">The Boss's Map</h2>
+        <h2 id="map-h" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,5cqi,40px);line-height:1.1;color:#fdeac0">{st.mapTitle}</h2>
         <div role="group" aria-label="ซูมแผนที่" style="display:flex;gap:6px;flex-wrap:wrap">
           <button type="button" class="map-zoom" data-view="world" aria-pressed={start === 'world' ? 'true' : 'false'}>ทั้งโลก</button>
           <button type="button" class="map-zoom" data-view="asia" aria-pressed={start === 'asia' ? 'true' : 'false'}>เอเชีย</button>

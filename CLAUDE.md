@@ -19,7 +19,7 @@ You never need to touch `src/` to post.
 
 ## Brand rules that the code enforces or relies on
 - No stars, no scores, no `reviewRating` in JSON-LD. Impressions come through writing and the 🕶️ glasses-off dish (max 2 per meal).
-- The Boss's Bill = price as the Boss wrote it, or tag `AD` / `Event` for invited meals. Never claim every meal was paid for.
+- The Boss's Bill = an approximate **price band** (฿฿ / ฿฿฿ / ฿฿฿฿), never the real amount, and never whether a meal was invited or paid. Special event meals carry an `Event` pill; paid posts `AD`. Band = Studio "The Boss's Bill" (Bill tab), else worked out from the hidden real price (`priceBandFromBill()` in `content.ts`: <3,000 / <8,000 / 8,000+ THB).
 - Boss's Pairing is retired (3 Nov 2026). Don't add it back.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.
@@ -33,11 +33,13 @@ You never need to touch `src/` to post.
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
 | Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
-| Menu, logo, language switcher | `src/components/SiteHeader.astro` |
+| Menu (icon tabs; phone = 5 tabs that always fit), logo, language switcher | `src/components/SiteHeader.astro` + `MiniBar.astro`, items `NAV_ITEMS` in `src/lib/i18n.ts` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |
-| Site copy (tagline, page intros, series text, about, socials, email, OG image) | Sanity → ตั้งค่าเว็บ (defaults: `src/data/settings.json`) |
+| All site copy (one Studio tab per page: home, article, finder, destinations, awards, series, about, contact, footer/SEO) | Sanity → ตั้งค่าเว็บ / ข้อความทุกหน้า (defaults: `src/data/settings.json`; Actions → Fill settings texts fills empty fields) |
+| Share image per article (cover + logo + name) | `src/lib/og.ts` → `/og/<article path>.jpg` (fonts `src/og/fonts`) |
+| Contact / recommend-a-restaurant form | `src/pages/contact.astro` → Web3Forms key in Sanity settings |
 | Site URL, series keys, motifs | `src/lib/config.ts` |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
