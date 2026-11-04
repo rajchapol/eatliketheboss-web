@@ -47,7 +47,7 @@ You never need to touch `src/` to post.
 | Motion: scroll reveal (skipped on Back / pages already seen this visit), compact glass bar, card tilt, spotlight, count-up — no page transitions (the Boss found them disorienting) | `src/components/Effects.astro` (script) + "Effects v2" at the end of `site.css`; all off under reduced motion (`fx-on` class on `<html>`) |
 | Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |
 | Interface text on translated article pages (th/en/ja/zh) | `src/lib/i18n.ts` (listing pages stay Thai) |
-| Language switcher | `SiteHeader.astro`: always TH · EN · 日本語 · 中文. A real translation opens in place; a language with none opens Google Translate in a **new tab** (never in the same tab: Google's proxy broke going back, links and images) |
+| Language switcher | `SiteHeader.astro`: shows only languages the page really exists in (hidden when Thai only). **No machine translation** — Google Translate broke the site in the same tab and failed in a new tab too; the Boss turned it off for good |
 | Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
 | Destinations map (pins, route, zoom) | `src/components/DestinationsMap.astro`; pin positions `CITY_COORDS` in `src/lib/config.ts` or Studio → เมือง → ตำแหน่งบนแผนที่; dots `public/img/map/` (rebuild: `scripts/make-map-dots.mjs`) |
 | Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |
