@@ -41,8 +41,8 @@ image: ./images/fu-he-hui/02.jpg | Mushroom glazed in a glossy brown sauce on a 
 The mushroom is marinated and baked, served on zucchini and topped with pine nuts. Its texture is superb, rather like sea cucumber. The flavour leads with the sweet-salty notes of soy and a faint hint of Chinese celery, set against the earthiness of the pine nuts. The zucchini salad adds another dimension, lightly salty with a gentle heat from a touch of Sichuan peppercorn oil; the green mala lifts the sweetness of the mushroom perfectly.
 
 ### WALNUT tofu skin jicama
-image: ./images/fu-he-hui/03.jpg | Crisp fried tofu-skin rolls standing in a row, dusted with green seaweed powder, on wild betel leaves on a dark brown plate, Fu He Hui, Shanghai
-Jicama, beans and walnut wrapped in tofu skin, sprinkled with seaweed powder and served on wild betel leaves. The flavour is more unexpected than you might think: sweetness first, with the distinctive aroma of jicama, then the scent of white beans and the earthiness of walnut, all led by the aroma of seaweed. It looks like a simple dish, yet the flavours come together beautifully.
+image: ./images/fu-he-hui/03.jpg | Crisp fried tofu-skin rolls standing in a row, dusted with green seaweed powder, on betel leaves on a dark brown plate, Fu He Hui, Shanghai
+Jicama, beans and walnut wrapped in tofu skin, sprinkled with seaweed powder and served on betel leaves. The flavour is more unexpected than you might think: sweetness first, with the distinctive aroma of jicama, then the scent of white beans and the earthiness of walnut, all led by the aroma of seaweed. It looks like a simple dish, yet the flavours come together beautifully.
 
 ### CHESTNUT napa cabbage bamboo pith
 image: ./images/fu-he-hui/04.jpg | Yellow napa cabbage heart in a golden-orange sauce with chestnut powder sprinkled behind, on a dark ceramic plate, Fu He Hui, Shanghai
@@ -54,7 +54,7 @@ Taro from Guangxi, cauliflower from Ningbo and fox nuts (gorgon fruit). The fox 
 
 ### BEAN CURD PUFF daylily bud dried opo squash pea sprout
 image: ./images/fu-he-hui/06.jpg | Brown tofu-skin rolls beside tender green shoots on a wide-rimmed dark ceramic plate, Fu He Hui, Shanghai
-Tofu skin soaked in Ningbo squash broth, wrapped around daylily buds and squash, and served with the greens of the day. The sauce is sweet with a soft note of Chinese spices, led by the soy aroma of the bean curd. The tender shoots are beautifully chosen, each carrying a light breath of wok hei, truly showing off the fresh crunch of the vegetables.
+Tofu skin soaked in Ningbo squash broth, wrapped around lily buds and squash, and served with the greens of the day. The sauce is sweet with a soft note of Chinese spices, led by the soy aroma of the bean curd. The tender shoots are beautifully chosen, each carrying a light breath of wok hei, truly showing off the fresh crunch of the vegetables.
 
 ### ROOT lily bulb, truffle, ficus hirta, burdock
 image: ./images/fu-he-hui/07.jpg | Baked lily bulb lightly charred on the outside, beside fine strands of crisp fried burdock root, on a layered black plate, Fu He Hui, Shanghai
