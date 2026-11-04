@@ -179,7 +179,10 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
 
   {more.length > 0 && (
     <section aria-labelledby="more" class="wrap" style="padding-top:96px;padding-bottom:96px">
-      <h2 id="more" class="ink-grad" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:44px;line-height:1.1">{t(L, 'more')}</h2>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin:0 0 16px">
+        <h2 id="more" class="ink-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:44px;line-height:1.1">{t(L, 'more')}</h2>
+        {a.city && L === 'th' && more.some(sameCity) && <a href={`/city/${a.city.slug}/`} class="fx-under" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;display:inline-flex;align-items:center;gap:8px">ดูทุกร้านใน{a.city.nameTh}<Icon name="arrow" size={16} style="color:#c39e5c" /></a>}
+      </div>
       <div class="rule"></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:40px">{more.map((m) => <ArticleCard a={m} visits={visitsOf(m, all)} />)}</div>
     </section>

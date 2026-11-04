@@ -4,6 +4,19 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, later) · 404 with search, "all in this city" link, first English translation draft
+
+- **404** (`src/pages/404.astro`, served by `not_found_handling: "404-page"`): a search box (goes to `/restaurants/?q=`), buttons to the destinations and home pages, and the 3 latest reviews.
+- **Article "More Tasting Notes":** a "ดูทุกร้านใน<เมือง>" link to the city page when the suggestions are from the same city. The related section itself already existed: same city first, then same series.
+- **First English translation draft:** `drafts/translations/meet-the-bund.en.md`.
+  - It passes the `--dry` check: 15 dishes, glasses-off kept, id `article-meet-the-bund-en`, linked to `article-meet-the-bund`.
+  - It waits for the Boss's approval, then moves to `posts/`.
+  - Open point: "ซุปหอยปีกนก" was translated as razor clam; the Boss should confirm the shellfish.
+- **Missing articles in Studio:** the Boss saw 3 of 6 Shanghai articles. All 6 are published (the live CI build at 06:18 built all 6 pages). Most likely a filtered list: e.g. "ยังไม่มีคำแปล English" hides articles that already got an EN draft from earlier "+ English" tests. Waiting for a screenshot of which list.
+- **Share counts:** Cloudflare Web Analytics has no click/custom events, so counting LINE/Facebook shares needs something extra (a small Worker endpoint or a cookieless analytics service). Asked the Boss.
+
+---
+
 ## Session 2026-11-04 (night) · Lighter pages, less duplicated code
 
 Measured first. A built page is 17–20 KB gzipped. About half of it is the inlined `site.css` (≈38 KB raw), which stays inlined on purpose: most readers land on one article from LINE/Facebook, and inline CSS paints fastest on that first visit.
