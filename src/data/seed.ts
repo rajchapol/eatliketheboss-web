@@ -55,6 +55,18 @@ export const articles: Article[] = [
     bodyHtml: '<p>[เรื่องเล่าของมื้ออาหารที่มีผลต่อประวัติศาสตร์]</p>', dishes: [],
     hashtags: ['มื้ออาหารเปลี่ยนโลก', 'eatliketheboss'], publishedAt: '2026-10-18', readingMinutes: 7,
   },
+  // An English translation of the Tokyo sample, so the sample build also covers translated pages and the language switch.
+  {
+    id: 'sample-tokyo-en', baseId: 'sample-tokyo', language: 'en', series: 'review', no: 42,
+    slug: 'sample-tokyo', title: 'Eat Like The Boss in Tokyo: [Sample restaurant] - [Artful tagline]',
+    tagline: '[Artful tagline]', city: city('tokyo'),
+    restaurant: { name: '[ร้านตัวอย่าง]', originalName: '[ชื่อภาษาเดิม]', chef: '[Chef name]', area: 'Ginza', cuisine: 'Japanese' },
+    bodyHtml: '<p>[English introduction in the Boss\'s voice.]</p>', quote: '[The Boss\'s standout line]',
+    dishes: [dish('[จานที่ 1 (ชื่อเดิม)]'), dish('[จานที่ 2 (ชื่อเดิม)]'), dish('[จานที่ 3 (ชื่อเดิม)]', true)],
+    bill: '[ราคา] JPY', visit: 'Oct-2026', hashtags: ['EatLikeTheBoss', 'Tokyo'],
+    publishedAt: '2026-11-02', readingMinutes: 4,
+    seoDescription: '[Short description, 120–155 characters, in the Boss\'s voice]',
+  },
 ];
 
 export const settings: Settings = settingsJson as Settings;

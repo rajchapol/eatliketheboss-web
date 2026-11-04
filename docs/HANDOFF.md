@@ -4,6 +4,21 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (evening) · English translations live, switcher in the article, English menu
+
+- **Translations live:** PR #14 published the 6 Shanghai English translations through post-article.yml (run succeeded).
+- **Language switcher moved** from the header into the article (`LangSwitch.astro`, under the breadcrumb).
+  - The Boss's point: only articles are translated, so a switcher in the site header promised more than there is.
+  - It reads "อ่านภาษา: ไทย · English", or "Read in" on English pages.
+  - The header is now logo + menu on one row on desktop.
+- **Menu in English** (the Boss's choice, "English + small Thai").
+  - Desktop: English names (Restaurants / Destinations / Tasting Notes / Glasses Off Awards / About the Boss) with the Thai name small underneath. There is no small name on English pages.
+  - Phones and the compact bar: short English names only (Search / Cities / Notes / Awards / About), so all five fit at 320px.
+- **Sample data:** `src/data/seed.ts` now has an English translation of the Tokyo sample, so the sample build (and CI) covers translated pages and the switcher.
+- Checked with Playwright at 320/390/1280 on Thai article, English article and home: no overflow, no JS errors. Smoke test of all pages passes.
+
+---
+
 ## Session 2026-11-04 (night, later) · 404 with search, "all in this city" link, first English translation draft
 
 - **404** (`src/pages/404.astro`, served by `not_found_handling: "404-page"`): a search box (goes to `/restaurants/?q=`), buttons to the destinations and home pages, and the 3 latest reviews.

@@ -79,7 +79,12 @@ export const NAV_ITEMS = [
 ] as const;
 export const NAV_LABELS: Record<Locale, Record<'finder' | 'destinations' | 'articles' | 'awards' | 'about', string>> = {
   th: { finder: 'ค้นหาร้าน', destinations: 'จุดหมาย', articles: 'บทความ', awards: 'Glasses Off Awards', about: 'เกี่ยวกับบอส' },
-  en: { finder: 'Restaurants', destinations: 'Destinations', articles: 'Articles', awards: 'Glasses Off Awards', about: 'About the Boss' },
+  en: { finder: 'Restaurants', destinations: 'Destinations', articles: 'Tasting Notes', awards: 'Glasses Off Awards', about: 'About the Boss' },
   ja: { finder: 'レストラン', destinations: '目的地', articles: '記事', awards: 'Glasses Off Awards', about: 'ボスについて' },
   zh: { finder: '餐厅', destinations: '目的地', articles: '文章', awards: 'Glasses Off Awards', about: '关于 Boss' },
+};
+/** Menu (Boss's choice, 4 Nov 2026): English name on every page, the page language's name small underneath
+ *  (none on English pages). Phones show only the short English name so all five tabs fit. */
+export const NAV_SHORT: Record<'finder' | 'destinations' | 'articles' | 'awards' | 'about', string> = {
+  finder: 'Search', destinations: 'Cities', articles: 'Notes', awards: 'Awards', about: 'About',
 };

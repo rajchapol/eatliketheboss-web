@@ -1,13 +1,9 @@
 ---
-import Icon from './Icon.astro';
-import { LOCALES, LOCALE_LABEL, HREFLANG, type Locale } from '../lib/config';
+import type { Locale } from '../lib/config';
 import NavLinks from './NavLinks.astro';
 interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[] }
-const { active = 'home', lang, alternates } = Astro.props;
-const altFor = (l: Locale) => alternates.find((a) => a.lang === l)?.href;
-// Only languages this page really exists in are shown; with no translation the switcher is hidden.
-// No machine translation: Google Translate was tried twice (same tab, then new tab) and broke both times.
-const available = LOCALES.filter((l) => l === lang || altFor(l));
+const { active = 'home', lang } = Astro.props;
+// The language switcher is not here: only articles are translated, so it sits in the article (LangSwitch.astro).
 ---
 <header class="site-header" style="color:#fff;font-family:'Ekkamai New',sans-serif;box-shadow:0 10px 28px rgba(195,158,92,.28)">
   <div class="wrap hdr" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px">
@@ -15,14 +11,6 @@ const available = LOCALES.filter((l) => l === lang || altFor(l));
     <nav aria-label={lang === "th" ? "เมนูหลัก" : "Main menu"} class="main-nav">
       <NavLinks active={active} lang={lang} />
     </nav>
-    {available.length > 1 && (
-      <div role="group" aria-label="เลือกภาษา / Language" translate="no" class="lang" style="display:flex;align-items:center;font-size:13px">
-        <Icon name="globe" size={18} style="margin-right:4px;color:#d4b372" />
-        {available.map((l) => l === lang
-          ? <a href={altFor(l) ?? '#'} lang={HREFLANG[l]} aria-current="true"><span>{LOCALE_LABEL[l]}</span></a>
-          : <a href={altFor(l)} lang={HREFLANG[l]} hreflang={HREFLANG[l]}><span>{LOCALE_LABEL[l]}</span></a>)}
-      </div>
-    )}
   </div>
   <div class="goldrule"></div>
 </header>
