@@ -45,36 +45,61 @@ async function coverData(a: Article) {
   } catch { return undefined; }
 }
 
-/** JPEG (≈150 KB instead of ≈1 MB PNG) — share previews load fast in LINE / Facebook. */
+/**
+ * Crop-safe layout: LINE (and some chat apps) show the preview as a square cut from the middle,
+ * so the logo and every line of text sit centred inside the middle 560px. The photo keeps its real colours;
+ * only the top (behind the logo) and the bottom (behind the text) are darkened.
+ * JPEG (≈100 KB instead of ≈1 MB PNG) — share previews load fast in LINE / Facebook.
+ */
+// The share-image fonts have no Chinese/Japanese/Korean glyphs (a CJK font would add ~10 MB), so those
+// characters are left out of the image ("Taian Table 泰安门" → "Taian Table"); the page title keeps them.
+const noCjk = (s: string) => s.replace(/[\u2E80-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFF00-\uFFEF]+/g, ' ').replace(/[(（]\s*[)）]/g, '').replace(/\s+/g, ' ').trim();
+
+/** Two lines of similar length read better than a long line and a short one ("Meet The Bund / at Skyline"). */
+function balance(lines: string[], size: number, maxW: number) {
+  if (lines.length !== 2 || lines[1].endsWith('…')) return lines;
+  const words = lines.join(' ').split(' ');
+  let best = lines, diff = Infinity;
+  for (let i = 1; i < words.length; i++) {
+    const l = [words.slice(0, i).join(' '), words.slice(i).join(' ')];
+    const w = l.map((x) => width(x, size));
+    if (Math.max(...w) <= maxW && Math.abs(w[0] - w[1]) < diff) { best = l; diff = Math.abs(w[0] - w[1]); }
+  }
+  return best;
+}
+
 export async function renderOg(a: Article): Promise<Buffer> {
-  const name = a.restaurant?.name ?? a.title;
-  const nameSize = name.length > 24 ? 54 : name.length > 15 ? 64 : 76;
-  const nameLines = wrap(name, nameSize, 660, 2);
-  const tagLines = a.tagline ? wrap(a.tagline, 30, 660, 2) : [];
-  const meta = [a.city?.nameEn, a.restaurant?.cuisine, a.visit ? `Visit ${visitLabel(a)}` : undefined].filter(Boolean).join('  ·  ');
+  const name = noCjk(a.restaurant?.name ?? a.title) || noCjk(a.title);
+  const nameSize = name.length > 26 ? 44 : name.length > 16 ? 52 : 62;
+  const nameLines = balance(wrap(name, nameSize, 560, 2), nameSize, 560);
+  const meta = noCjk([a.city?.nameEn, a.restaurant?.cuisine].filter(Boolean).join('  ·  ')).replace(/ · /g, '  ·  ');
   const cover = await coverData(a);
-  let y = 270 + nameSize * 0.95; // first name line sits clear of the "Tasting Notes" line
-  const nameSvg = nameLines.map((l, i) => `<text x="64" y="${(y += i ? nameSize * 1.15 : 0)}" font-family="Noto Serif Thai" font-weight="600" font-size="${nameSize}" fill="#ffffff">${esc(l)}</text>`).join('');
-  y += 30;
-  const tagSvg = tagLines.map((l) => `<text x="64" y="${(y += 44)}" font-family="Noto Serif Thai" font-size="30" fill="#fdeac0">${esc(l)}</text>`).join('');
+  // Bottom-up: meta, name lines, then the "Tasting Notes" line with a short gold rule.
+  const metaY = 586;
+  let y = metaY - 44;
+  const nameSvg = nameLines.map((l, i, all) => `<text x="600" y="${y - (all.length - 1 - i) * nameSize * 1.12}" text-anchor="middle" font-family="Noto Serif Thai" font-weight="600" font-size="${nameSize}" fill="#ffffff">${esc(l)}</text>`).join('');
+  y -= (nameLines.length - 1) * nameSize * 1.12 + nameSize + 26;
+  const noLabel = a.series === 'review' || !a.series ? `Tasting Notes  No. ${String(a.no).padStart(3, '0')}` : '';
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#052a2d" stop-opacity=".96"/><stop offset=".5" stop-color="#073b3e" stop-opacity=".72"/><stop offset="1" stop-color="#073b3e" stop-opacity=".12"/>
+    <linearGradient id="bottom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#03211f" stop-opacity="0"/><stop offset=".38" stop-color="#03211f" stop-opacity="0"/>
+      <stop offset=".68" stop-color="#03211f" stop-opacity=".62"/><stop offset="1" stop-color="#03211f" stop-opacity=".9"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c39e5c"/><stop offset=".5" stop-color="#fdeac0"/><stop offset="1" stop-color="#c39e5c"/></linearGradient>
+    <radialGradient id="top" cx="600" cy="70" r="300" gradientUnits="userSpaceOnUse" gradientTransform="translate(0 70) scale(1 .62) translate(0 -70)">
+      <stop offset="0" stop-color="#03211f" stop-opacity=".72"/><stop offset="1" stop-color="#03211f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c39e5c" stop-opacity="0"/><stop offset=".5" stop-color="#fdeac0"/><stop offset="1" stop-color="#c39e5c" stop-opacity="0"/></linearGradient>
   </defs>
   <rect width="1200" height="630" fill="#0b5357"/>
   ${cover ? `<image href="${cover}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>` : ''}
-  <rect width="1200" height="630" fill="url(#fade)"/>
-  <rect x="24" y="24" width="1152" height="582" rx="22" fill="none" stroke="#d4b372" stroke-opacity=".75" stroke-width="2"/>
-  <image href="${LOGO}" x="58" y="52" width="168" height="150"/>
-  <text x="64" y="244" font-family="Cormorant Garamond Medium" font-style="italic" font-size="34" fill="#fdeac0" letter-spacing="1">Tasting Notes  No. ${String(a.no).padStart(3, '0')}</text>
-  <rect x="64" y="258" width="72" height="2" fill="url(#gold)"/>
+  <rect width="1200" height="630" fill="url(#bottom)"/>
+  <rect width="1200" height="630" fill="url(#top)"/>
+  <image href="${LOGO}" x="${600 - 78}" y="22" width="156" height="139"/>
+  ${noLabel ? `<text x="600" y="${y}" text-anchor="middle" font-family="Cormorant Garamond Medium" font-style="italic" font-size="30" fill="#fdeac0" letter-spacing="1">${noLabel}</text>
+  <rect x="540" y="${y + 14}" width="120" height="1.5" fill="url(#gold)"/>` : ''}
   ${nameSvg}
-  ${tagSvg}
-  ${meta ? `<text x="64" y="566" font-family="Noto Serif Thai" font-size="24" fill="#ffffff" fill-opacity=".92">${esc(meta)}</text>` : ''}
-  <text x="1136" y="566" text-anchor="end" font-family="Cormorant Garamond Medium" font-style="italic" font-size="28" fill="#fdeac0">eatlikeboss.com</text>
+  ${meta ? `<text x="600" y="${metaY}" text-anchor="middle" font-family="Noto Serif Thai" font-size="23" fill="#ffffff" fill-opacity=".9" letter-spacing=".5">${esc(meta)}</text>` : ''}
 </svg>`;
   const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 }, font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: 'Noto Serif Thai' } }).render().asPng();
   return sharp(Buffer.from(png)).jpeg({ quality: 84, mozjpeg: true }).toBuffer();

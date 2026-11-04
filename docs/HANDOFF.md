@@ -4,6 +4,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (night, later) · Share image redesigned for LINE previews
+
+The Boss: the LINE link preview looked bad. Cause: LINE shows the share image as a square cut from the middle, and the old design put the logo and name on the left (cut off), under a teal wash that dulled the food.
+- `src/lib/og.ts` now: photo in its real colours, darkened only behind the logo (top) and text (bottom); logo, "Tasting Notes No.", restaurant name (two balanced lines max) and city · cuisine all centred inside the middle 560px, so a square crop keeps everything. Chinese/Japanese/Korean characters are dropped from the image only (the fonts have none; a CJK font would add ~10 MB).
+- `og:image` carries `?v=2` (`src/pages/[...article].astro`): LINE and Facebook cache previews by URL, so bump it when the design changes. Links already shared in a chat keep their old preview there; new shares pick up the new one.
+
+---
+
 ## Session 2026-11-04 (night) · Easier-to-read menus (website + Studio)
 
 The Boss asked for the "tab menu" to be easier to read: both the website's top menu and the Studio tabs.
