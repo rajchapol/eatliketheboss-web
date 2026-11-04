@@ -14,7 +14,7 @@ What earlier sessions changed, why, and what is still open: `docs/HANDOFF.md` (a
 2. Copy `posts/_template.md` to `posts/<slug>.md` and fill it. Put photos in `posts/images/<slug>/` (or use https URLs). Every image needs real alt text after `|`.
 3. `npm run post -- posts/<slug>.md --dry` to check, then `npm run post -- posts/<slug>.md` to publish. Needs `.env` with `SANITY_PROJECT_ID` and `SANITY_WRITE_TOKEN`.
    **From a Claude session (no token needed):** run the `--dry` check locally, then — only after the Boss approves that post — commit `posts/<slug>.md` + its images and push to `main`. `.github/workflows/post-article.yml` publishes every changed `posts/*.md` with the GitHub secret `SANITY_WRITE_TOKEN`. Re-run or dry-run any file from Actions → Post article to Sanity → Run workflow. Never ask for or store the token itself.
-4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
+4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. In Studio: open the Thai article → tab "5 ภาษา / คำแปล" → "+ English / 日本語 / 中文" makes a linked copy (same slug, photos, dishes) to translate over; the tab lists every language of that article. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
 You never need to touch `src/` to post.
 
 ## Brand rules that the code enforces or relies on
