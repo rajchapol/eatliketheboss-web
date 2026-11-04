@@ -41,22 +41,23 @@ export const article = defineType({
     { name: 'lang', title: '5 ภาษา / คำแปล', icon: TranslateIcon },
   ],
   fields: [
-    defineField({ name: 'language', title: 'บทความนี้เป็นภาษา', description: 'บทความใหม่เริ่มที่ภาษาไทย · คำแปลให้สร้างจากปุ่ม "+ English / 日本語 / 中文" ในบทความไทย (แท็บนี้) ระบบผูกให้เอง ไม่ต้องเลือก', type: 'string', group: 'lang', initialValue: 'th',
+    defineField({ name: 'translations', title: 'ภาษาของบทความนี้ / เพิ่มคำแปล', type: 'string', group: 'lang', readOnly: true, components: { input: TranslationsPanel } }),
+    defineField({ name: 'language', title: 'บทความนี้เป็นภาษา', description: 'ตั้งให้อัตโนมัติ แก้เองไม่ได้: บทความใหม่ = ภาษาไทย · คำแปลสร้างจากปุ่ม "+ English / 日本語 / 中文" ด้านบน', type: 'string', group: 'lang', initialValue: 'th', readOnly: true,
       options: { list: LANGS.map((l) => ({ title: l.label, value: l.id })), layout: 'radio', direction: 'horizontal' },
       validation: (r) => r.required() }),
     defineField({ name: 'translationOf', title: 'แปลจากบทความ (ภาษาไทย)', description: 'คำแปลต้องผูกกับบทความไทย เว็บจึงรู้ว่าเป็นร้านเดียวกัน และขึ้นปุ่มเปลี่ยนภาษาให้', type: 'reference', to: [{ type: 'article' }], group: 'lang',
       options: { filter: 'coalesce(language, "th") == "th"' }, // every Thai article (no series filter: it hid the right one when series differed)
-      hidden: ({ document }) => (document?.language || 'th') === 'th',
+      // set by the "+ English" button; read-only so a translation can't be pointed at the wrong article
+      readOnly: true, hidden: ({ document, value }: any) => (document?.language || 'th') === 'th' || !value?._ref,
       validation: (r) => r.custom(async (ref: any, ctx: any) => {
         const doc = ctx.document;
         if ((doc?.language || 'th') === 'th') return true;
-        if (!ref?._ref) return 'เลือกบทความภาษาไทยที่แปลมา';
+        if (!ref?._ref) return 'ยังไม่ได้ผูกกับบทความไทย: กด "เปลี่ยนกลับเป็นบทความภาษาไทย" ในแท็บ 5 ภาษา / คำแปล';
         const id = String(doc._id).replace(/^drafts\./, '');
         const dup = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch(
           'count(*[_type == "article" && language == $lang && translationOf._ref == $ref && !(_id in [$id, "drafts." + $id])])', { lang: doc.language, ref: ref._ref, id });
         return dup ? 'บทความนี้มีคำแปลภาษานี้อยู่แล้ว เปิดอันเดิมแก้แทนได้ (ดูรายการด้านล่าง)' : true;
       }) }),
-    defineField({ name: 'translations', title: 'ภาษาทั้งหมดของบทความนี้', type: 'string', group: 'lang', readOnly: true, components: { input: TranslationsPanel } }),
     defineField({ name: 'series', title: 'ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
       options: { list: [{ title: 'บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
       validation: (r) => r.required() }),

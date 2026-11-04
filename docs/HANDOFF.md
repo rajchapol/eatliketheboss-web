@@ -4,6 +4,18 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-04 (late night, fix 2) · Language locked; translations only from the button
+
+The Boss's screenshot showed the real problem. On the Thai article (Sui Tang Li), the Boss had switched the "บทความนี้เป็นภาษา" radio to English. That turned the Thai article itself into a "translation", and the `translationOf` picker cannot offer the document itself, so it showed only other restaurants. The "+ English" buttons only appear while the article is Thai.
+- `language` is now **read-only**: new articles are Thai; translations get their language from the button.
+- `translationOf` is read-only and hidden until set (the button sets it).
+- The panel is the first field in the tab. Its "+ language" buttons are now primary-coloured.
+- A Thai article that was switched by hand shows **"เปลี่ยนกลับเป็นบทความภาษาไทย"**, which patches the draft back to Thai.
+- The translation lists have no "+" (it would make a Thai article). Translations are made from the Thai article.
+- Sui Tang Li had an unpublished draft with language = en. It must not be published as is: fix it with the button, or discard the draft.
+
+---
+
 ## Session 2026-11-04 (late night, fix) · "+ English" now creates the translation itself
 
 The Boss tried "+ English" after PR #10. The new translation could not be linked to the article it came from; the picker showed other restaurants only.
