@@ -191,6 +191,9 @@ img{max-width:100%;height:auto}
 .pill-link:hover{background:#0b5357;color:#fdeac0}
 .pill-link[aria-current]{background:#0b5357;color:#fdeac0;border-color:#0b5357}
 .chip[aria-pressed="true"]{background:linear-gradient(120deg,#073b3e 0%,#0b5357 100%)!important;color:#fdeac0!important;border-color:#0b5357!important}
+.chip[aria-selected="true"]{background:linear-gradient(120deg,#073b3e 0%,#0b5357 100%)!important;color:#fdeac0!important;border-color:#0b5357!important}
+[data-featured] [role="tabpanel"][hidden]{display:none!important} /* the band sets display:flex inline */
+.feat-tab{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(11,83,87,.35);background:#fff;cursor:pointer}
 [data-filter-hidden]{display:none!important}
 
 /* ---------- home: latest visits slider ---------- */

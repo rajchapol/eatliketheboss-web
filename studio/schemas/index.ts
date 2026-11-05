@@ -158,7 +158,7 @@ export const city = defineType({
     defineField({ name: 'intro', title: 'City fact · เรื่องน่ารู้ของเมือง', description: 'เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง สั้นๆ 1–2 ประโยค ภาษาอังกฤษ (แสดงในหน้าเมือง)', type: 'text', rows: 3 }),
     defineField({ name: 'location', title: 'Map position (optional) · ตำแหน่งบนแผนที่', description: 'เมืองหลักๆ เว็บรู้ตำแหน่งอยู่แล้ว ใส่เฉพาะเมืองที่ไม่ขึ้นบนแผนที่หน้าจุดหมาย', type: 'geopoint' }),
     photo('cover', 'ภาพเมือง'),
-    defineField({ name: 'featured', title: 'Featured on Destinations · เมืองแนะนำ', type: 'boolean', initialValue: false }),
+    defineField({ name: 'featured', title: 'Featured on Destinations · เมืองแนะนำ', description: 'ติ๊กได้สูงสุด 3 เมือง หน้าจุดหมายแสดงเป็นแท็บให้กดสลับ (เรียงตามจำนวนร้าน) · กด Publish ด้วยทุกเมือง', type: 'boolean', initialValue: false }),
     defineField({ name: 'picks', title: "Boss's Picks · ร้านแนะนำของเมืองนี้", description: 'เลือกได้สูงสุด 3 ร้าน เรียงตามลำดับที่ใส่ · เว้นว่าง = เว็บเลือกให้เอง (ร้านล่าสุดที่มีจานถอดแว่นชิม)', type: 'array',
       of: [defineArrayMember({ type: 'reference', weak: true, to: [{ type: 'article' }], // weak: deleting an article is never blocked
         options: { filter: ({ document }: any) => ({ filter: 'language == "th" && series == "review" && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
