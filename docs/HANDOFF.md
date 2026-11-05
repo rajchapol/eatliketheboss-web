@@ -4,6 +4,9 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 (evening, later) · several featured cities
+- Destinations showed only the first city ticked "Featured on Destinations". Now up to 3 ticked cities (most restaurants first) as tabs (`[data-featured]`, role tablist; ← → keys). Hidden panels: CSS `[hidden]{display:none!important}` beats the band's inline flex; on switch, rows get `.in` (they missed their scroll reveal while hidden). Studio field description says max 3 and to Publish each city.
+
 ## Session 2026-11-05 (evening, late) · city facts live, new cities must bring one
 - Ran Actions → Set city facts (dry, then real): 19 cities got their "Did you know?" fact.
 - Cuisine styles for the last 13 posts pushed to main on the Boss's request; all 43 articles in Sanity now have category + style.
