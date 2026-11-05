@@ -12,7 +12,7 @@ restaurant:
   style: "Contemporary"
   awards: []
 cover: "./images/machri/cover.jpg | ไข่ตุ๋นในเปลือกไข่ทรงกลมสีครีม ประดับดอกไม้เล็กๆ วางบนถ้วยเบญจรงค์ ร้าน MACHRI กรุงเทพฯ"
-billBand: ""
+billBand: "฿฿฿"
 bill: "AD"
 tag: "AD"
 visit: Sep-2026

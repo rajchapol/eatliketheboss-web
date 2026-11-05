@@ -12,7 +12,7 @@ restaurant:
   style: "Kappo"
   awards: []
 cover: "./images/fillets/cover.jpg | เป๋าฮื้อซอสตับและกระเทียมดำ โรยเส้นแครอททอดสีส้มบนจานขาว ร้าน FILLETS กรุงเทพฯ"
-billBand: ""
+billBand: "฿฿฿฿"
 bill: "AD"
 tag: "AD"
 visit: Jul-2026

@@ -12,7 +12,7 @@ restaurant:
   style: "Contemporary"
   awards: []
 cover: "./images/jakawaan/cover.jpg | ไข่พะโล้ครึ่งซีกไข่แดงเยิ้มในชามสีชมพู ร้าน JAKAWAAN กรุงเทพฯ"
-billBand: ""
+billBand: "฿฿฿"
 bill: "AD"
 tag: "AD"
 visit: Jun-2026
