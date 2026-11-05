@@ -5,7 +5,7 @@ title: "บอสพาชิม in Nonthaburi: AKKEE (อัคคี) - สำ
 slug: akkee
 tagline: ""
 city: nonthaburi
-cityNew: {"nameEn": "Nonthaburi", "nameTh": "นนทบุรี", "country": "ไทย", "region": "th"}
+cityNew: {"nameEn": "Nonthaburi", "nameTh": "นนทบุรี", "country": "ไทย", "region": "th", "fact": "Ko Kret, the island just off Pak Kret, was not always an island: a shortcut canal dug in 1722 to speed boats to Ayutthaya widened over time until the river cut it off."}
 restaurant:
   name: "AKKEE"
   chef: "Sittikorn \"Au\" Chantop"
