@@ -4,6 +4,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 (later) · news between roles + first real sync
+- New rule (the Boss): news for another role goes in section **0. ข่าวล่าสุด** of its `docs/handoff/` file, shipped in a PR (PR #31). Not copy-paste messages.
+- After PR #30, ran Actions → Pull articles from Sanity → PR #32 `[sanity-sync]`: 29 files. Checked the diff: Studio price bands, AD tags (Sui Tang Li, Yong Fu), atmosphere dishes (Meet The Bund, Sui Tang Li), EN cuisine "จีน". Image paths kept; les-amis-2020 now holds only 03.jpg for the bread dish (matches live).
+
 ## Session 2026-11-05 · pull-articles: keep local photo paths reliably
 
 The first real run (PR #29) swapped a few local photo paths (Harutaka cover `cover.jpg` ↔ dish `18.jpg`). Sanity keeps one asset per identical file, so `originalFilename` can name another copy of the same photo.
