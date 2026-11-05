@@ -9,9 +9,10 @@ restaurant:
   name: "Neolokal"
   chef: ""
   cuisine: "Other"
+  style: "Turkish"
   awards: []
 cover: "./images/neolokal/cover.jpg | ปลากระพงนึ่งในชามทองแดงลายตอก ร้าน Neolokal อิสตันบูล"
-billBand: ""
+billBand: "฿฿฿"
 bill: "~3,900 TL + 3,500TL"
 tag: ""
 visit: Aug-2023

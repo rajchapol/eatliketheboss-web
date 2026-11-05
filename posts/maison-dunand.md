@@ -9,6 +9,7 @@ restaurant:
   name: "Maison Dunand"
   chef: "Arnaud Dunand Sauthier"
   cuisine: "French"
+  style: "Contemporary"
   awards: []
 cover: "./images/maison-dunand/cover.jpg | เนื้อนกพิราบย่างกับซอสเข้มและผักบัตเตอร์นัท ร้าน Maison Dunand กรุงเทพ"
 billBand: "฿฿฿"

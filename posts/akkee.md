@@ -10,9 +10,10 @@ restaurant:
   name: "AKKEE"
   chef: "Sittikorn \"Au\" Chantop"
   cuisine: "Thai"
+  style: "Isan"
   awards: ["MICHELIN Young Chef Award 2025 (Chef Au)"]
 cover: "./images/akkee/cover.jpg | อู๋ต่ออ่อนแกงสีเขียวโรยตัวต่อและผักชีลาว ร้านอัคคี นนทบุรี"
-billBand: ""
+billBand: "฿฿฿"
 bill: "AD"
 tag: "AD"
 visit: Oct-2026
