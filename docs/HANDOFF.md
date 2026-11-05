@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · pull-articles: keep local photo paths reliably
+
+The first real run (PR #29) swapped a few local photo paths (Harutaka cover `cover.jpg` ↔ dish `18.jpg`). Sanity keeps one asset per identical file, so `originalFilename` can name another copy of the same photo.
+- Fix: match local photos by **SHA-1** against `asset->sha1hash`. The order is: the path that slot (cover / that dish name) already used, then any local copy with the same content, then the same file name, else the CDN URL.
+- Award lists stay quoted (`["MICHELIN 3★"]`).
+- After the fix the diff holds only real Studio edits: 3 new ambience photos (CDN URLs), removed or renamed courses, price bands, and empty fields dropped. Round trip: 26/26 files match Sanity in `post-article --dry`.
+
+---
+
 ## Session 2026-11-05 · Index expands in place, Lighthouse in CI, pull articles from Sanity
 
 - **The Index** (`index.astro`): every article is in the HTML. The first 10 show; the button "ดูทั้งหมด N เรื่อง ▾" (or "ดูเพิ่มอีก 20 เรื่อง") opens the rest in place, and "ย่อรายการ" folds them back and scrolls to the heading. Without JS, the row links to `/review/`. CSS `.idx-row[hidden]`, `.idx-toggle`.
