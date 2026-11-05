@@ -63,6 +63,22 @@ export const CITY_COORDS: Record<string, [number, number]> = {
   istanbul: [41.01, 28.98], istalbul: [41.01, 28.98], 'new-york': [40.71, -74.01], 'san-francisco': [37.77, -122.42], 'los-angeles': [34.05, -118.24], sydney: [-33.87, 151.21], melbourne: [-37.81, 144.96], dubai: [25.2, 55.27],
 };
 
+/** Cuisine: a few broad categories, in English only (the Boss, 5 Nov 2026). Finer styles (sushi, kaiseki…) go in the article,
+ *  not here. Keep in step with the Studio list (studio/schemas/index.ts) and the check in scripts/post-article.mjs. */
+export const CUISINES = ['Japanese', 'Chinese', 'Thai', 'French', 'Italian', 'Spanish', 'Nordic', 'Modern', 'Other'] as const;
+// Older values (Thai, or finer styles) → category, so the site and the Restaurants filter stay tidy even before the data is fixed.
+const CUISINE_OLD: Record<string, (typeof CUISINES)[number]> = {
+  'ญี่ปุ่น': 'Japanese', 'ซูชิ': 'Japanese', 'ไคเซกิ': 'Japanese', 'kappo kaiseki': 'Japanese', 'kaiseki': 'Japanese', 'sushi': 'Japanese',
+  'จีน': 'Chinese', 'ไทย': 'Thai', 'ฝรั่งเศส': 'French', 'ฝรั่งเศสร่วมสมัย': 'French', 'อิตาเลียน': 'Italian',
+  'สเปน': 'Spanish', 'หมู่เกาะคานารี่': 'Spanish', 'modern spanish': 'Spanish', 'นอร์ดิก': 'Nordic', 'อื่นๆ': 'Other',
+};
+export function cuisineOf(raw?: string): string | undefined {
+  const v = raw?.trim();
+  if (!v) return undefined;
+  const hit = CUISINES.find((c) => c.toLowerCase() === v.toLowerCase());
+  return hit ?? CUISINE_OLD[v] ?? CUISINE_OLD[v.toLowerCase()] ?? 'Other';
+}
+
 /** Map position of a city: Studio pin, else CITY_COORDS by slug, by English name, or by the slug without a country prefix
  *  (cities are often saved as "norway-oslo"). */
 export function cityCoords(c: { slug: string; nameEn?: string; location?: { lat?: number; lng?: number } }): [number, number] | undefined {

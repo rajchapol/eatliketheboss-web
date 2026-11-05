@@ -9,7 +9,7 @@ cityNew: {"nameEn": "Madrid", "nameTh": "มาดริด", "country": "สเ
 restaurant:
   name: "Gofio"
   chef: "Safe Cruz & Aída González"
-  cuisine: "หมู่เกาะคานารี่"
+  cuisine: "Spanish"
   awards: ["MICHELIN 1★"]
 cover: "./images/gofio/cover.jpg | แซนด์วิชทูน่า Bocadillo de Vendimia ร้าน Gofio มาดริด"
 billBand: "฿฿฿"

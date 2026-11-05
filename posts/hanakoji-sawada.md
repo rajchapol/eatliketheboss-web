@@ -8,7 +8,7 @@ city: sapporo
 restaurant:
   name: "Hanakoji Sawada"
   chef: "Tomoya Kago"
-  cuisine: "Kappo Kaiseki"
+  cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
 cover: "./images/hanakoji-sawada/cover.jpg | มะเขือม่วงย่างสอดไส้มิโซะท็อปอูนิในชามเซรามิกสีเขียว ร้าน Hanakoji Sawada เมืองซัปโปโร"
 billBand: "฿฿฿"

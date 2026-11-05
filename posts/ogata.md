@@ -8,7 +8,7 @@ city: kyoto
 restaurant:
   name: "Ogata Honten"
   chef: "Toshiro Ogata"
-  cuisine: "ไคเซกิ"
+  cuisine: "Japanese"
   awards: ["MICHELIN 2★"]
 cover: "./images/ogata/cover.jpg | อุนิวางบนสาหร่ายในจานลายสีสันสดใส ร้าน Ogata Honten เมืองเกียวโต"
 billBand: "฿฿฿฿"

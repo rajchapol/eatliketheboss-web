@@ -98,9 +98,9 @@ export const NAV_SHORT: Record<'finder' | 'destinations' | 'articles' | 'awards'
 
 /** Cuisine names are stored in Thai (Studio list); show them in the reader's language. */
 const CUISINE: Record<string, Partial<Record<Locale, string>>> = {
-  'ญี่ปุ่น': { en: 'Japanese', ja: '日本料理', zh: '日本料理' }, 'ไทย': { en: 'Thai', ja: 'タイ料理', zh: '泰国菜' },
-  'ฝรั่งเศส': { en: 'French', ja: 'フランス料理', zh: '法国菜' }, 'จีน': { en: 'Chinese', ja: '中国料理', zh: '中餐' },
-  'อิตาเลียน': { en: 'Italian', ja: 'イタリア料理', zh: '意大利菜' }, 'สเปน': { en: 'Spanish', ja: 'スペイン料理', zh: '西班牙菜' },
-  'Modern': { ja: 'モダン', zh: '创意菜' }, 'อื่นๆ': { en: 'Other', ja: 'その他', zh: '其他' },
+  Japanese: { ja: '日本料理', zh: '日本料理' }, Chinese: { ja: '中国料理', zh: '中餐' }, Thai: { ja: 'タイ料理', zh: '泰国菜' },
+  French: { ja: 'フランス料理', zh: '法国菜' }, Italian: { ja: 'イタリア料理', zh: '意大利菜' }, Spanish: { ja: 'スペイン料理', zh: '西班牙菜' },
+  Nordic: { ja: '北欧料理', zh: '北欧菜' }, Modern: { ja: 'モダン', zh: '创意菜' }, Other: { ja: 'その他', zh: '其他' },
 };
-export const cuisineLabel = (c: string | undefined, lang: Locale) => (c ? (lang === 'th' ? c : CUISINE[c]?.[lang] ?? c) : '');
+// Categories are English (Thai and English pages show them as is); Japanese / Chinese pages translate them.
+export const cuisineLabel = (c: string | undefined, lang: Locale) => (c ? CUISINE[c]?.[lang] ?? c : '');

@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 (night) · Studio fit: cuisine categories, city slugs, English-first Studio, city facts
+- Review of Sanity vs current work (34 reviews in 3 days, mostly posted from files): system fits; four gaps fixed here.
+- **Cuisine**: the Boss wants broad categories, English only. `CUISINES` in `config.ts` (Japanese, Chinese, Thai, French, Italian, Spanish, Nordic, Modern, Other); `cuisineOf()` maps old Thai / finer values on load, so the Restaurants filter is tidy even for missed data. Studio list = same 9 (radio). `post-article.mjs` errors on any other value. All `posts/*.md` fixed (30 files): merging this PR re-posts only `restaurant.cuisine` of each (the `--since` patch). `cuisineLabel()` keys are English now (ja/zh translated).
+- **City slugs**: the posting chat made `norway-oslo` etc. `post-article.mjs` now requires a new city's `city:` = slug of its English name; the 4 old prefixed slugs stay (live URLs).
+- **Studio English-first** (the Boss): menus, tabs, field titles `English · ไทย`; descriptions stay Thai; action buttons "Open on site", "Delete article…". No Thai locale.
+- **City fact**: `intro` is now one short odd fact in English, shown under "Did you know?" on the city page (and the featured city on Destinations). The city page meta description no longer uses it. `scripts/set-city-intros.mjs` + Actions → **Set city facts** fills empty ones (19 cities written; facts checked: wienerbrød 1850 strike, Taipei garbage-truck tunes, Shanghai maglev). Run dry first after merge.
+
 ## Session 2026-11-05 (evening) · map: zoom without blobs, Oslo, continent buttons
 - Zooming used the 1.5° world dots everywhere except the Thailand preset, so dots swelled into blobs. Now three dot files (`world` 1.5°, `mid` 0.5° whole world, `fine` 0.15° East/SE Asia + Europe), picked by on-screen dot spacing (≈15 px); mid/fine load on first use. Rows are drawn as dashed lines, so the world file went 98 KB → 10 KB. `sea-dots.svg` removed. Fine boxes live in two places: `FINE_BOXES` in `DestinationsMap.astro` and the last line of `scripts/make-map-dots.mjs`.
 - Oslo (and Helsinki, Copenhagen, Istanbul, Taichung) had no pin: their slugs carry a country prefix (`norway-oslo`). `cityCoords()` in `config.ts` now tries slug → English name → slug without prefix; more cities added to `CITY_COORDS`. The build logs `[map] no map position for city …` when a city still has none.

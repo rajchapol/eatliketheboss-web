@@ -42,7 +42,7 @@ export const OpenOnSiteAction: DocumentActionComponent = (props: DocumentActionP
   const citySlug = useCitySlug(doc?.city?._ref);
   const url = urlOf(doc, citySlug);
   return {
-    label: 'เปิดดูบนเว็บ',
+    label: 'Open on site',
     icon: LaunchIcon,
     disabled: !url,
     title: !doc ? 'ยังไม่ได้เผยแพร่ กด Publish ก่อน แล้วรอเว็บอัปเดตสักครู่' : !url ? 'ใส่ Slug และเมืองให้ครบก่อน' : `เปิด ${url} (ถ้าเพิ่งเผยแพร่ รอเว็บอัปเดต 2–3 นาที)`,
@@ -72,7 +72,7 @@ export const SafeDeleteAction: DocumentActionComponent = (props: DocumentActionP
   const name = doc?.restaurant?.name || doc?.title || 'บทความนี้';
   const blocked = (refs?.length ?? 0) > 0;
   return {
-    label: 'ลบบทความ…',
+    label: 'Delete article…',
     icon: TrashIcon,
     tone: 'critical',
     disabled: !draft && !published,

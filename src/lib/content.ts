@@ -5,7 +5,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { DEFAULT_LOCALE, SERIES, SITE, localePrefix, type Locale } from './config';
+import { DEFAULT_LOCALE, SERIES, SITE, cuisineOf, localePrefix, type Locale } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -82,10 +82,12 @@ export function priceBandFromBill(bill?: string): '฿฿' | '฿฿฿' | '฿�
   const thb = amount * (rate ?? 1);
   return thb < 3000 ? '฿฿' : thb < 8000 ? '฿฿฿' : '฿฿฿฿';
 }
-/** The Boss's Bill band: chosen in Studio (Bill tab), else the older restaurant field, else worked out from the price. */
+/** The Boss's Bill band (and the cuisine category): chosen in Studio (Bill tab), else the older restaurant field, else worked out from the price. */
 const withPriceBand = (a: Article): Article => {
   const band = a.billBand || a.restaurant?.priceBand || priceBandFromBill(a.bill);
-  return { ...a, billBand: band, restaurant: a.restaurant && band ? { ...a.restaurant, priceBand: band } : a.restaurant };
+  // cuisine is shown as one of the broad English categories (cuisineOf in config.ts)
+  const restaurant = a.restaurant ? { ...a.restaurant, cuisine: cuisineOf(a.restaurant.cuisine), ...(band ? { priceBand: band } : {}) } : a.restaurant;
+  return { ...a, billBand: band, restaurant };
 };
 
 /** All published articles in every language, newest visit first, numbered by visit order. */

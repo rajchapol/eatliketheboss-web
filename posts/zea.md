@@ -14,7 +14,7 @@ restaurant:
   name: "ZEA"
   chef: "Joaquín Elizondo Hourbeigt"
   area: "ต้าอาน"
-  cuisine: "อื่นๆ"
+  cuisine: "Other"
   awards: ["MICHELIN 1★"]
 cover: "./images/zea/cover.jpg | ทาโก้ปลาทอดกรอบวางบนแป้งตอร์ติญ่าข้าวโพดและซอสสีเขียว ในจานเซรามิกขอบหยัก ร้าน ZEA ไทเป"
 gallery:

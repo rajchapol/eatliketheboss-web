@@ -8,7 +8,7 @@ restaurant:
   name: "Forum"
   originalName: "富臨飯店"
   area: "Causeway Bay"
-  cuisine: "จีน"
+  cuisine: "Chinese"
   awards: ["MICHELIN 3★"]
 cover: "./images/forum/cover.jpg | ฮะเก๋ากุ้งแป้งใสสี่ลูกในเข่งไม้ไผ่ ร้าน Forum ฮ่องกง"
 bill: "~2,200 HKD included wine"

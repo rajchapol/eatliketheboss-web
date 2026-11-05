@@ -8,7 +8,7 @@ city: osaka
 restaurant:
   name: "Kashiwaya Senriyama"
   chef: "Hideaki Matsuo"
-  cuisine: "ไคเซกิ"
+  cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
 cover: "./images/kashiwaya/cover.jpg | ข้าวอบในหม้อดินที่ร้านไคเซกิ Kashiwaya Senriyama เมืองโอซาก้า หน้าข้าวโรยผักสีเขียวและส้ม"
 billBand: "฿฿฿฿"

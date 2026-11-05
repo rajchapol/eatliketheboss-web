@@ -9,7 +9,7 @@ restaurant:
   originalName: "神楽坂 石かわ"
   chef: "Hideo Ishikawa"
   area: "Kagurazaka"
-  cuisine: "ญี่ปุ่น"
+  cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
 cover: "./images/ishikawa/cover.jpg | ปลาหมึกยาริอิกะย่างหั่นชิ้นในจานเซรามิกเนื้อหยาบสีเทา ร้าน Kagurazaka Ishikawa โตเกียว"
 bill: "~57000 Yen"
