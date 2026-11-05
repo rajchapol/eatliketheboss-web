@@ -15,11 +15,18 @@ permissions:
   contents: write
   pull-requests: write
 
+# Same queue as post-article.yml: never read Sanity while a post is still being published.
+concurrency:
+  group: post-article
+  cancel-in-progress: false
+
 jobs:
   pull:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # file commit times decide which files are newer than Sanity (those are skipped)
       - uses: actions/setup-node@v5
         with:
           node-version: 22

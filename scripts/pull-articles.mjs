@@ -13,17 +13,19 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { basename, dirname, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { createClient } from '@sanity/client';
 import { parse as parseYaml, Document, isScalar, isSeq, visit } from 'yaml';
 
 const args = process.argv.slice(2);
 const check = args.includes('--check');
+const force = args.includes('--force'); // also overwrite files that are newer than Sanity (normally skipped)
 const only = args.find((a) => !a.startsWith('--'));
 const client = createClient({ projectId: process.env.SANITY_PROJECT_ID || 'ohviqc5c', dataset: process.env.SANITY_DATASET || 'production', apiVersion: '2025-01-01', useCdn: false });
 
 const IMG = '{alt, caption, "url": asset->url, "file": asset->originalFilename, "sha1": asset->sha1hash}';
 const articles = await client.fetch(`*[_type == "article" && defined(slug.current) && !(_id in path("drafts.**"))]{
-  _id, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
+  _id, _updatedAt, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
   restaurant{..., "sameAs": sameAs->slug.current}, cover${IMG}, gallery[]${IMG}, body, quote,
   dishes[]{name, description, glassesOff, image${IMG}}, tag, bill, billBand, visit, hashtags, publishedAt, seoTitle, seoDescription
 } | order(slug.current asc)`);
@@ -55,7 +57,13 @@ function readExisting(path) {
   note(first(fm.cover));
   [].concat(fm.gallery || []).forEach((g) => note(first(g)));
   const dishPaths = new Map(); // dish name → the photo path that dish used
-  for (const d of m[2].matchAll(/^###\s+(.+)\n(?:image:\s*(.+?)\s*\|)?/gm)) { note(d[2]); if (d[2]) dishPaths.set(d[1].replace(/🕶️/g, '').trim(), d[2]); }
+  for (const im of m[2].matchAll(/^image:\s*(.+?)\s*\|/gm)) note(im[1]);
+  // image: can sit anywhere under its ### heading (not only on the next line)
+  for (const chunk of m[2].split(/^###\s+/m).slice(1)) {
+    const name = chunk.split('\n')[0].replace(/🕶️|\[glasses-off\]/g, '').trim(), im = chunk.match(/^image:\s*(.+?)\s*\|/m);
+    if (im) dishPaths.set(name, im[1]);
+    if ((chunk.match(/^image:/gm) || []).length > 1) warn.push(`${path}: dish "${name}" has more than one image: line; only the last one is posted (one photo per dish)`);
+  }
   return { src, fm, heading, intro: introMd.trim(), paths, hashes, dishPaths, cover: first(fm.cover) };
 }
 
@@ -78,10 +86,19 @@ function toYaml(obj) {
 
 const write = [];
 const warn = [];
+const skipped = [];
 for (const a of articles) {
   if (only && a.slug !== only) continue;
   const lang = a.language || 'th';
   const path = `posts/${a.slug}${lang === 'th' ? '' : `.${lang}`}.md`;
+  // A file committed after Sanity last changed holds work that hasn't reached Sanity yet (a post still being
+  // published by the post workflow, or a draft edit): never overwrite it with the older Sanity copy.
+  if (existsSync(path) && !force) {
+    let committed = '';
+    try { committed = execFileSync('git', ['log', '-1', '--format=%cI', '--', path], { encoding: 'utf8' }).trim(); } catch {}
+    const dirty = (() => { try { return execFileSync('git', ['status', '--porcelain', '--', path], { encoding: 'utf8' }).trim() !== ''; } catch { return false; } })();
+    if (dirty || (committed && new Date(committed) > new Date(a._updatedAt))) { skipped.push(`${path} (${dirty ? 'uncommitted edits' : 'file is newer than Sanity'})`); continue; }
+  }
   const old = readExisting(path);
   // Keep the local file when it is the same photo. First the path this slot (cover / that dish) already used,
   // then any local copy with the same content, then the same file name, else the Sanity CDN URL.
@@ -125,6 +142,7 @@ for (const a of articles) {
 }
 
 for (const w of warn) console.log(`! ${w}`);
+for (const k of skipped) console.log(`= skipped ${k}`);
 if (!write.length) { console.log('All post files already match Sanity.'); process.exit(0); }
 for (const w of write) console.log(`${w.isNew ? '+ new ' : '~ changed'} ${w.path}`);
 if (check) { console.log(`Check only: ${write.length} file(s) differ from Sanity.`); process.exit(0); }

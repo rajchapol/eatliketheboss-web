@@ -11,6 +11,12 @@ The first real run (PR #29) swapped a few local photo paths (Harutaka cover `cov
 - Award lists stay quoted (`["MICHELIN 3★"]`).
 - After the fix the diff holds only real Studio edits: 3 new ambience photos (CDN URLs), removed or renamed courses, price bands, and empty fields dropped. Round trip: 26/26 files match Sanity in `post-article --dry`.
 
+- **Safe alongside the posting chat:**
+  - Files whose last commit is newer than the Sanity document's `_updatedAt`, or that have uncommitted edits, are skipped (a post the workflow hasn't published yet). `--force` overrides this.
+  - The workflow shares the `post-article` concurrency queue and checks out with full history, because commit times are needed.
+- Image lines are found anywhere under a dish heading. It warns when a dish has more than one `image:` line, since only the last is posted. Found: Les Amis 2020 "ขนมปังและเนย" has 02.jpg and 03.jpg; only 03 is live.
+- Double-checked on 5 Nov against the posting chat's work: the Michelin batch, Maaemo 2018 and Les Amis files differ from Sanity only in formatting (empty fields, key order). The real differences are Studio edits: price bands on all Shanghai/Taipei/Hangzhou reviews, the Meet The Bund / Sui Tang Li courses, Sui Tang Li / Yong Fu tags, and the restaurant fields on 2 English pages.
+
 ---
 
 ## Session 2026-11-05 · Index expands in place, Lighthouse in CI, pull articles from Sanity
