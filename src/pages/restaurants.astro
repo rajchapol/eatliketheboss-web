@@ -74,15 +74,16 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
   </section>
 
   <script>
+    import { matches } from '../lib/search';
     (() => {
       const st = { q: new URLSearchParams(location.search).get('q') || '', city: new URLSearchParams(location.search).get('city') || '', price: '', cuisine: '', glasses: false };
       const q = document.getElementById('q'), sel = document.getElementById('cuisine'), g = document.getElementById('glasses');
       const cards = [...document.querySelectorAll('#results .card')];
       const press = (group, v) => document.querySelectorAll(`[data-group="${group}"] .chip`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
       const run = () => {
-        const term = st.q.trim().toLowerCase(); let n = 0;
+        const term = st.q.trim(); let n = 0;
         cards.forEach((c) => {
-          const ok = (!st.city || c.dataset.city === st.city) && (!st.price || c.dataset.price === st.price) && (!st.cuisine || c.dataset.cuisine === st.cuisine) && (!st.glasses || c.dataset.glasses) && (!term || c.dataset.text.includes(term));
+          const ok = (!st.city || c.dataset.city === st.city) && (!st.price || c.dataset.price === st.price) && (!st.cuisine || c.dataset.cuisine === st.cuisine) && (!st.glasses || c.dataset.glasses) && (!term || matches(c.dataset.text, term));
           c.hidden = !ok; if (ok) n++;
         });
         document.getElementById('count').textContent = n; document.getElementById('empty').hidden = n > 0;

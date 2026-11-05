@@ -84,6 +84,7 @@ export const article = defineType({
         defineField({ name: 'priceBand', title: 'ระดับราคา (เดิม)', type: 'string', hidden: true }), // older entries; now set in the Bill tab
         defineField({ name: 'sameAs', title: 'รีวิวครั้งก่อนของร้านนี้ (ไม่บังคับ)', description: 'ใช้เฉพาะเมื่อร้านเปลี่ยนชื่อหรือพิมพ์ชื่อไม่ตรงกับครั้งก่อน · ชื่อร้านเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว', type: 'reference', weak: true, to: [{ type: 'article' }],
           options: { filter: 'language == "th" && series == "review"' } }),
+        defineField({ name: 'aliases', title: 'ชื่อเรียกอื่นสำหรับค้นหา (ไม่บังคับ)', description: 'ชื่อที่คนอาจพิมพ์ค้นหา เช่น ชื่อร้านสะกดไทย "หย่งฟู" หรือชื่อเล่นของร้าน · ไม่แสดงบนเว็บ ใช้ค้นหาเท่านั้น · ชื่อเมือง/ประเภทอาหารภาษาไทย-อังกฤษ เว็บรู้เองอยู่แล้ว', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
         defineField({ name: 'awards', title: 'รางวัล (ตรวจจากแหล่งจริงแล้ว)', description: 'หนึ่งบรรทัดต่อหนึ่งรางวัล เช่น MICHELIN 1★ · กด Add item เพื่อเพิ่ม กดที่ข้อความเพื่อแก้ ลากเพื่อเรียงลำดับ', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
       ] }),
     photo('cover', 'ภาพปก (แนวนอน 3:2 — ทุกรูปอาหารในเว็บแสดง 3:2)', 'main'),
@@ -135,6 +136,7 @@ export const city = defineType({
     defineField({ name: 'nameTh', title: 'ชื่อไทย', type: 'string', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'nameEn' }, validation: (r) => r.required() }),
     defineField({ name: 'country', title: 'ประเทศ (ไทย)', type: 'string' }),
+    defineField({ name: 'aliases', title: 'ชื่อเรียกอื่นสำหรับค้นหา (ไม่บังคับ)', description: 'เช่น ชื่อย่าน ชื่อภาษาจีน/ญี่ปุ่น หรือสะกดไทยแบบอื่น · ชื่อเมืองหลักๆ ไทย-อังกฤษ เว็บรู้เองอยู่แล้ว', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
     defineField({ name: 'region', title: 'ภูมิภาค (กลุ่มในหน้าจุดหมาย)', description: 'ถ้าพิมพ์ชื่อประเทศที่เว็บรู้จัก (เช่น ญี่ปุ่น ฝรั่งเศส) เว็บจัดกลุ่มให้เองตามประเทศ · ในหน้าจุดหมาย แต่ละภูมิภาคแบ่งย่อยตามช่อง "ประเทศ" อีกชั้น', type: 'string',
       options: { list: [{ title: 'ประเทศไทย', value: 'th' }, { title: 'เอเชีย', value: 'asia' }, { title: 'ยุโรป', value: 'europe' }, { title: 'อเมริกา', value: 'americas' }, { title: 'โอเชียเนีย', value: 'oceania' }, { title: 'ตะวันออกกลางและแอฟริกา', value: 'mea' }] } }),
     defineField({ name: 'motif', title: 'ลายประจำเมือง', type: 'string', initialValue: 'loop',
