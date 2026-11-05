@@ -6,6 +6,7 @@ title: "บอสพาชิม in Tokyo: ชื่อร้าน (ชื่�
 slug: restaurant-name   # อังกฤษตัวเล็ก คั่นด้วย - ตั้งแล้วห้ามเปลี่ยน
 tagline: "คำโปรยเชิงศิลปะ"
 city: tokyo             # slug ของเมืองใน Sanity
+# cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }   # เฉพาะเมืองที่ยังไม่มีใน Sanity
 restaurant:
   name: "ชื่อร้าน"
   originalName: "ชื่อภาษาเดิม"
