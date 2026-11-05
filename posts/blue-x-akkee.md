@@ -14,6 +14,7 @@ restaurant:
 cover: "./images/blue-x-akkee/cover.jpg | ล็อบสเตอร์ย่างข้างแกงเผ็ดฟักทองบนจานลายแดงน้ำเงิน ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
 gallery:
   - "./images/blue-x-akkee/g1.jpg | เมนูอีเวนต์สีน้ำเงินเข้มโลโก้ Blue และ AKKEE วางบนโต๊ะผ้าขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
+  - "./images/blue-x-akkee/g2.jpg | ของหวานเกล็ดสีชมพูโรยบนครีมขาวในถ้วยกลมสีขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
 billBand: "฿฿฿"
 bill: ""
 tag: "Event"
