@@ -9,10 +9,10 @@ restaurant:
   name: "Taian Table"
   chef: "Stefan Stiller"
   cuisine: "Modern"
-  awards: ["MICHELIN 3★"]
+  awards: [MICHELIN 3★]
 cover: "./images/taian-table/cover.jpg | เอแคลร์เครื่องเทศสอดไส้มูสฟัวกราส์ ท็อปถั่วพิสตาชิโอ ใบชิโสะม่วง และแผ่นช็อกโกแลต บนฐานเซรามิกสีขาว ร้าน Taian Table เซี่ยงไฮ้"
-tag: ""
 bill: "2888 CNY / Pax"
+billBand: "฿฿฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, TaianTable, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-03

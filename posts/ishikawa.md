@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Kagurazaka Ishikawa (Tokyo,Japan)"
 slug: ishikawa
-tagline: ""
 city: tokyo
 restaurant:
   name: "Kagurazaka Ishikawa"
@@ -11,11 +10,10 @@ restaurant:
   chef: "Hideo Ishikawa"
   area: "Kagurazaka"
   cuisine: "ญี่ปุ่น"
-  awards: ["MICHELIN 3★"]
-cover: "./images/ishikawa/cover.jpg | ปลาหมึกยาริอิกะย่างหั่นชิ้นในจานเซรามิกเนื้อหยาบสีเทา ร้าน Kagurazaka Ishikawa โตเกียว"
-billBand: "฿฿฿฿"
+  awards: [MICHELIN 3★]
+cover: "./images/ishikawa/05.jpg | ปลาหมึกยาริอิกะย่างหั่นชิ้นในจานเซรามิกเนื้อหยาบสีเทา ร้าน Kagurazaka Ishikawa โตเกียว"
 bill: "~57000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, KagurazakaIshikawa, Tokyo]
 publishedAt: 2026-11-05

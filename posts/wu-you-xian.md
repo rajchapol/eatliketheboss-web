@@ -10,10 +10,9 @@ restaurant:
   originalName: "屋有鲜"
   chef: "Chen Lina"
   cuisine: "จีน"
-  awards: ["MICHELIN 1★"]
-cover: "./images/wu-you-xian/cover.jpg | เสี่ยวหลงเปาปูขนในเข่งไม้ไผ่ ยอดจีบแต่ละลูกมีมันปูสีส้ม ร้าน Wu You Xian เซี่ยงไฮ้"
-tag: ""
-bill: ""
+  awards: [MICHELIN 1★]
+cover: "./images/wu-you-xian/02.jpg | เสี่ยวหลงเปาปูขนในเข่งไม้ไผ่ ยอดจีบแต่ละลูกมีมันปูสีส้ม ร้าน Wu You Xian เซี่ยงไฮ้"
+billBand: "฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, WuYouXian, Shanghai, Xiaolongbao, 屋有鲜]
 publishedAt: 2026-11-03

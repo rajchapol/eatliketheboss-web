@@ -3,18 +3,16 @@ language: th
 series: review
 title: "บอสพาชิม : Zen (Singapore)"
 slug: zen-singapore
-tagline: ""
 city: singapore
 restaurant:
   name: "Zén"
   chef: "Björn Frantzén"
   area: "Bukit Pasoh"
   cuisine: "Modern"
-  awards: ["MICHELIN 3★"]
-cover: "./images/zen-singapore/cover.jpg | ไอศกรีมแครอทบนครีมสีขาว ตกแต่งแวเฟิลฉลุสีทองและผงมัทฉะ ในชามเซรามิกสีครีม ร้าน Zén สิงคโปร์"
-billBand: "฿฿฿฿"
+  awards: [MICHELIN 3★]
+cover: "./images/zen-singapore/14.jpg | ไอศกรีมแครอทบนครีมสีขาว ตกแต่งแวเฟิลฉลุสีทองและผงมัทฉะ ในชามเซรามิกสีครีม ร้าน Zén สิงคโปร์"
 bill: "~700 SGD / pax"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Nov-2024
 hashtags: [บอสพาชิม, eatliketheboss, Zen, Singapore]
 publishedAt: 2026-11-05

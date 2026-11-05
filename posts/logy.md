@@ -5,17 +5,19 @@ title: "บอสพาชิม in Taipei: logy - The science of Asian Flavors"
 slug: logy
 tagline: "The science of Asian Flavors"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
+cityNew:
+  nameEn: "Taipei"
+  nameTh: "ไทเป"
+  country: "ไต้หวัน"
+  region: asia
 restaurant:
   name: "logy"
   chef: "Ryogo Tahara (田原諒悟)"
   area: "เน่ยหู (內湖)"
   cuisine: "Modern"
-  awards: ["MICHELIN 2★", "Asia's 50 Best"]
-cover: "./images/logy/cover.jpg | ถั่วลันเตาเขียวสด ครีมสีเขียว ดอกโบราจสีม่วง กรานิต้าสีขาวและสีเขียวอ่อน บนจานสีครีม ร้าน logy ไทเป"
-tag: ""
-bill: ""
-billBand: ""
+  awards: [MICHELIN 2★, Asia's 50 Best]
+cover: "./images/logy/04.jpg | ถั่วลันเตาเขียวสด ครีมสีเขียว ดอกโบราจสีม่วง กรานิต้าสีขาวและสีเขียวอ่อน บนจานสีครีม ร้าน logy ไทเป"
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, logy, Taipei, Asias50Best, MichelinGuideTaiwan, Florilege, Taiwan, FineDining, 台北]
 publishedAt: 2026-11-05

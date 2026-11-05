@@ -3,18 +3,20 @@ language: th
 series: review
 title: "บอสพาชิม in Taiwan EP.3: JL STUDIO ร้านอาหารสามดาวแห่งไถ่จง (Taichung,Taiwan)"
 slug: jl-studio
-tagline: ""
 city: taichung
-cityNew: { nameEn: "Taichung", nameTh: "ไถจง", country: "ไต้หวัน", region: "asia" }
+cityNew:
+  nameEn: "Taichung"
+  nameTh: "ไถจง"
+  country: "ไต้หวัน"
+  region: asia
 restaurant:
   name: "JL Studio"
   chef: "Jimmy Lim"
   cuisine: "อื่นๆ"
-  awards: ["MICHELIN 3★"]
+  awards: [MICHELIN 3★]
 cover: "./images/jl-studio/cover.jpg | ปลาเก๋าแดงสุกแบบโรเซ่ท็อปหน่อไม้ฝานบาง บนซอสข้าวหอมมะลิสีขาว ข้างพิวเรพริกเขียว ร้าน JL Studio ไถจง"
-billBand: "฿฿฿"
 bill: "~5880 TWD"
-tag: ""
+billBand: "฿฿฿"
 visit: Feb-2024
 hashtags: [บอสพาชิม, eatliketheboss, JLStudio, Taichung]
 publishedAt: 2026-11-05

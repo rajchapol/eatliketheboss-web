@@ -11,10 +11,10 @@ restaurant:
   chef: "Xu Kun Lei (徐昆磊)"
   area: "North Bund"
   cuisine: "จีน"
-  awards: ["MICHELIN 1★", "Black Pearl 3 เพชร"]
+  awards: [MICHELIN 1★, Black Pearl 3 เพชร]
 cover: "./images/yong-fu/cover.jpg | ปูดองหนิงโปหั่นชิ้นในซอสสีเข้ม โรยพริกและต้นหอม ในชามลายครามขอบน้ำเงิน ร้าน Yong Fu เซี่ยงไฮ้"
-tag: ""
-bill: ""
+tag: "AD"
+billBand: "฿฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, YongFu, Shanghai, NingboCuisine, ChineseCuisine, MichelinGuide, NorthBund, FineDining, 甬府]
 publishedAt: 2026-11-03

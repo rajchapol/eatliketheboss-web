@@ -5,17 +5,19 @@ title: "บอสพาชิม in Taipei: Restaurant A - More Than a Restauran
 slug: restaurant-a
 tagline: "More Than a Restaurant"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
+cityNew:
+  nameEn: "Taipei"
+  nameTh: "ไทเป"
+  country: "ไต้หวัน"
+  region: asia
 restaurant:
   name: "Restaurant A"
   chef: "Alain Huang (黃以倫)"
   area: "ต้าอาน"
   cuisine: "ฝรั่งเศส"
-  awards: ["MICHELIN 2★"]
+  awards: [MICHELIN 2★]
 cover: "./images/restaurant-a/cover.jpg | หนวดหมึกยักษ์ย่าง หอย มะเขือเทศสีเหลือง เนยแซฟฟรอน และยอดผักสีเขียว ในชามกระเบื้องสีขาวทรงกลีบดอก ร้าน Restaurant A ไทเป"
-tag: ""
-bill: ""
-billBand: ""
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, RestaurantA, Taipei, AlainHuang, MichelinGuideTaiwan, FrenchCuisine, Taiwan, FineDining, 台北]
 publishedAt: 2026-11-05

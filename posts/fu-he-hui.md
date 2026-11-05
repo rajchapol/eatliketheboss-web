@@ -10,10 +10,10 @@ restaurant:
   originalName: "福和慧"
   area: "Yuyuan Road"
   cuisine: "จีน"
-  awards: ["MICHELIN 2★", "Black Pearl 2 Diamond", "Asia's 50 Best"]
+  awards: [MICHELIN 2★, Black Pearl 2 Diamond, Asia's 50 Best]
 cover: "./images/fu-he-hui/cover.jpg | ซุปเห็ดสีน้ำตาลใสมีไอร้อนลอยขึ้น เห็ดไมตาเกะกองกลางชาม โรยต้นหอมซอย ในจานเซรามิกสีเทาเข้ม ร้าน Fu He Hui เซี่ยงไฮ้"
-tag: ""
 bill: "988CNY+298CNY(Tea pairing)"
+billBand: "฿฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, FuHeHui, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-03

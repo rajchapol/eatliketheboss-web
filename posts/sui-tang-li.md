@@ -11,10 +11,10 @@ restaurant:
   chef: "Tony Ye"
   area: "จิ้งอัน"
   cuisine: "จีน"
-  awards: ["Black Pearl 1 Diamond", "MICHELIN Selected"]
-cover: "./images/sui-tang-li/cover.jpg | ปลาบู่ทรายนึ่งราดซอสพริกเขียวบนจานยาวสีขาว ร้าน Sui Tang Li เซี่ยงไฮ้"
-tag: ""
-bill: ""
+  awards: [Black Pearl 1 Diamond, MICHELIN Selected]
+cover: "./images/sui-tang-li/10.jpg | ปลาบู่ทรายนึ่งราดซอสพริกเขียวบนจานยาวสีขาว ร้าน Sui Tang Li เซี่ยงไฮ้"
+tag: "AD"
+billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, SuiTangLi, Shanghai, TheUpperHouse, ModernChinese, DimSum, Jingan, FineDining, 随堂里]
 publishedAt: 2026-11-03
@@ -40,6 +40,9 @@ Sui Tang Li (随堂里) คือร้านอาหารจีนร่ว�
 อาหารจะมีอะไรบ้างไปชมกันครับ
 
 ## ศิลปะแห่งรสชาติในมื้อนี้
+
+### บรรยากาศร้าน
+image: https://cdn.sanity.io/images/ohviqc5c/production/6e0b22764b070fcb166dd701599ac2696baacadd-1225x815.jpg | private room atmosphere
 
 ### แพนเค้กต้นหอมแฮมไอบีเรีย กับฟัวกราส์เฮเซลนัท (脆糖榛果鹅肝酱，伊比利亚火腿葱油饼)
 image: ./images/sui-tang-li/01.jpg | แพนเค้กต้นหอมม้วนทอดสีทองเรียงบนจานยาวสีขาว กับถ้วยดิปฟัวกราส์โรยเฮเซลนัท ร้าน Sui Tang Li เซี่ยงไฮ้
@@ -94,3 +97,6 @@ image: ./images/sui-tang-li/13.jpg | ของหวานรูปไข่ส�
 
 ### ไอศกรีมเกลือบ่อจื้อกง กับเย่เอ๋อปา และถั่วลิสง (自贡井盐冰淇淋 叶儿粑)
 image: ./images/sui-tang-li/14.jpg | ไอศกรีมเกลือก้อนรีคู่กับเย่เอ๋อปาสีเขียว โรยครัมบ์สีน้ำตาล บนจานสีขาว ร้าน Sui Tang Li เซี่ยงไฮ้
+
+### บรรยากาศร้านครับ
+image: https://cdn.sanity.io/images/ohviqc5c/production/0ab32aa309fa9b8decdea7e241a268197f5809db-1225x815.jpg | บรรยากาศร้าน

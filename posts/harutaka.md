@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Ginza Harutaka (Tokyo,Japan)"
 slug: harutaka
-tagline: ""
 city: tokyo
 restaurant:
   name: "Ginza Harutaka"
@@ -11,11 +10,10 @@ restaurant:
   chef: "Takaaki Harutaka"
   area: "Ginza"
   cuisine: "ญี่ปุ่น"
-  awards: ["MICHELIN 3★"]
-cover: "./images/harutaka/cover.jpg | ซูชิปลาซาบะดองหนังสีเงินบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
-billBand: "฿฿฿฿"
+  awards: [MICHELIN 3★]
+cover: "./images/harutaka/18.jpg | ซูชิปลาซาบะดองหนังสีเงินบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
 bill: "~65,000 Yen +"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, Harutaka, Tokyo]
 publishedAt: 2026-11-05
