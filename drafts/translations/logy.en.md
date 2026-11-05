@@ -36,7 +36,7 @@ Let's take a look at what was served.
 ## The art of taste in this meal
 
 ### Soymilk / Lactic acid / Pine nut
-image: ./images/logy/01.jpg | Cream-coloured soy milk custard scattered with pine nuts in a white petal-shaped porcelain cup on a rust-coloured stone slab, logy, Taipei
+image: ./images/logy/01w.jpg | Cream-coloured soy milk custard scattered with pine nuts in a white petal-shaped porcelain cup on a rust-coloured stone slab, logy, Taipei
 The first bite is a soy milk tofu custard, similar to annin tofu yet still very much a tofu, a key ingredient in both Chinese and Japanese cooking. On the palate, sourness from clarified tomato leads, before it closes with the rich, nutty notes of pine nut and the distinctive aroma of soybean. An unusual flavour. Personally I felt it was not quite rounded yet: the taste is bright and sour and nutty, with no sweetness. But is it delicious? Yes, it is. An intriguing palate opener.
 
 ### Bottarga / Scallop / Butternut
@@ -44,7 +44,7 @@ image: ./images/logy/02.jpg | Crisp golden cup topped with a fluffy mound of gra
 This bite comes as a crispy golden cup. Inside is scallop with a Japanese-leaning yuzu mayo, probably seasoned with a touch of shoyu, topped with Taiwanese mullet roe, or karasumi. In the centre is a wonderfully silky foam that goes beautifully with the softness of the scallop.
 
 ### Caviar / Hijiki / Cannelé
-image: ./images/logy/03.jpg | Dark brown cannelé topped with large caviar pearls and fine green strands, on a clear acrylic stand, logy, Taipei
+image: ./images/logy/03w.jpg | Dark brown cannelé topped with large caviar pearls and fine green strands, on a clear acrylic stand, logy, Taipei
 A cannelé, the pastry from Bordeaux, made in a savoury version with hijiki seaweed and topped with lightly salty French caviar, cut by a gentle, cool sharpness of wasabi. Delicious.
 
 ### Oyster / Mint / Hazelnut 🕶️

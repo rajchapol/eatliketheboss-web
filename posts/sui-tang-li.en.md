@@ -54,7 +54,7 @@ image: ./images/sui-tang-li/03.jpg | Red-and-white patterned xiaolongbao, uni si
 Sweetness leads, with the fragrance of pork broth and umami so rich it needs no sauce at all, plus pieces of pork inside.
 
 ### Uni Siu Mai (海胆烧麦)
-image: ./images/sui-tang-li/04.jpg | Siu mai topped with orange uni in a bamboo steamer, alongside red-patterned xiaolongbao and jade dumplings, Sui Tang Li, Shanghai
+image: ./images/sui-tang-li/04w.jpg | Siu mai topped with orange uni in a bamboo steamer, alongside red-patterned xiaolongbao and jade dumplings, Sui Tang Li, Shanghai
 Pork and prawn siu mai crowned with uni (sea urchin), with a little broth at the bottom. A delicious bite with a clear taste of the sea.
 
 ### Black Truffle Vegetable Dumplings (黑松露翡翠饺)
