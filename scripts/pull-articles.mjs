@@ -11,18 +11,21 @@
 // them with their file name), cityNew, the dishes heading. Anything the file format can't hold (links or headings
 // inside the body) is reported and that article's body is left as it is in the file.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { basename } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { createClient } from '@sanity/client';
 import { parse as parseYaml, Document, isScalar, isSeq, visit } from 'yaml';
 
 const args = process.argv.slice(2);
 const check = args.includes('--check');
+const force = args.includes('--force'); // also overwrite files that are newer than Sanity (normally skipped)
 const only = args.find((a) => !a.startsWith('--'));
 const client = createClient({ projectId: process.env.SANITY_PROJECT_ID || 'ohviqc5c', dataset: process.env.SANITY_DATASET || 'production', apiVersion: '2025-01-01', useCdn: false });
 
-const IMG = '{alt, caption, "url": asset->url, "file": asset->originalFilename}';
+const IMG = '{alt, caption, "url": asset->url, "file": asset->originalFilename, "sha1": asset->sha1hash}';
 const articles = await client.fetch(`*[_type == "article" && defined(slug.current) && !(_id in path("drafts.**"))]{
-  _id, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
+  _id, _updatedAt, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
   restaurant{..., "sameAs": sameAs->slug.current}, cover${IMG}, gallery[]${IMG}, body, quote,
   dishes[]{name, description, glassesOff, image${IMG}}, tag, bill, billBand, visit, hashtags, publishedAt, seoTitle, seoDescription
 } | order(slug.current asc)`);
@@ -31,6 +34,8 @@ const DISH_HEADING = { th: '## ศิลปะแห่งรสชาติใ�
 const clean = (o) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && !v.length)));
 
 // What the existing file already says (same rules as post-article.mjs).
+const sha1Cache = new Map();
+const sha1 = (f) => sha1Cache.get(f) ?? (sha1Cache.set(f, createHash('sha1').update(readFileSync(f)).digest('hex')), sha1Cache.get(f));
 function readExisting(path) {
   if (!existsSync(path)) return null;
   const src = readFileSync(path, 'utf8');
@@ -39,13 +44,27 @@ function readExisting(path) {
   const fm = parseYaml(m[1]) || {};
   const heading = (m[2].match(/^##\s+.*$/m) || [])[0];
   const [introMd] = m[2].split(/^##\s+.*$/m);
-  const paths = new Map();
-  const note = (p) => { if (p && !/^https?:/.test(p)) paths.set(basename(p), p); };
+  // Local photos by content (Sanity keeps one asset per identical file, so its original file name can belong to
+  // another copy, e.g. cover.jpg = 18.jpg): match by SHA-1 first, then by file name.
+  const paths = new Map(), hashes = new Map();
+  const note = (p) => {
+    if (!p || /^https?:/.test(p)) return;
+    if (!paths.has(basename(p))) paths.set(basename(p), p);
+    const abs = resolve(dirname(path), p);
+    if (existsSync(abs) && !hashes.has(sha1(abs))) hashes.set(sha1(abs), p);
+  };
   const first = (s) => String(s || '').split('|')[0].trim();
   note(first(fm.cover));
   [].concat(fm.gallery || []).forEach((g) => note(first(g)));
+  const dishPaths = new Map(); // dish name → the photo path that dish used
   for (const im of m[2].matchAll(/^image:\s*(.+?)\s*\|/gm)) note(im[1]);
-  return { src, fm, heading, intro: introMd.trim(), paths };
+  // image: can sit anywhere under its ### heading (not only on the next line)
+  for (const chunk of m[2].split(/^###\s+/m).slice(1)) {
+    const name = chunk.split('\n')[0].replace(/🕶️|\[glasses-off\]/g, '').trim(), im = chunk.match(/^image:\s*(.+?)\s*\|/m);
+    if (im) dishPaths.set(name, im[1]);
+    if ((chunk.match(/^image:/gm) || []).length > 1) warn.push(`${path}: dish "${name}" has more than one image: line; only the last one is posted (one photo per dish)`);
+  }
+  return { src, fm, heading, intro: introMd.trim(), paths, hashes, dishPaths, cover: first(fm.cover) };
 }
 
 // Same look as the hand-written files: text in "quotes", short codes plain, lists on one line.
@@ -56,7 +75,10 @@ function toYaml(obj) {
     Pair(_, pair) {
       const k = pair.key?.value;
       if (isScalar(pair.value) && typeof pair.value.value === 'string') pair.value.type = PLAIN.has(k) ? 'PLAIN' : 'QUOTE_DOUBLE';
-      if (isSeq(pair.value) && ['hashtags', 'awards', 'aliases'].includes(k)) pair.value.flow = true;
+      if (isSeq(pair.value) && ['hashtags', 'awards', 'aliases'].includes(k)) {
+        pair.value.flow = true;
+        if (k !== 'hashtags') pair.value.items.forEach((it) => { if (isScalar(it)) it.type = 'QUOTE_DOUBLE'; }); // awards: ["MICHELIN 3★"]
+      }
     },
   });
   return doc.toString({ lineWidth: 0, flowCollectionPadding: false }).trimEnd();
@@ -64,13 +86,29 @@ function toYaml(obj) {
 
 const write = [];
 const warn = [];
+const skipped = [];
 for (const a of articles) {
   if (only && a.slug !== only) continue;
   const lang = a.language || 'th';
   const path = `posts/${a.slug}${lang === 'th' ? '' : `.${lang}`}.md`;
+  // A file committed after Sanity last changed holds work that hasn't reached Sanity yet (a post still being
+  // published by the post workflow, or a draft edit): never overwrite it with the older Sanity copy.
+  if (existsSync(path) && !force) {
+    let committed = '';
+    try { committed = execFileSync('git', ['log', '-1', '--format=%cI', '--', path], { encoding: 'utf8' }).trim(); } catch {}
+    const dirty = (() => { try { return execFileSync('git', ['status', '--porcelain', '--', path], { encoding: 'utf8' }).trim() !== ''; } catch { return false; } })();
+    if (dirty || (committed && new Date(committed) > new Date(a._updatedAt))) { skipped.push(`${path} (${dirty ? 'uncommitted edits' : 'file is newer than Sanity'})`); continue; }
+  }
   const old = readExisting(path);
-  const where = (im) => (im?.file && old?.paths.get(im.file)) || im?.url; // keep the local file when it is the same photo
-  const line = (im, extra = []) => (im?.url ? [where(im), im.alt || '', ...extra].join(' | ').replace(/\s\|\s$/, '') : undefined);
+  // Keep the local file when it is the same photo. First the path this slot (cover / that dish) already used,
+  // then any local copy with the same content, then the same file name, else the Sanity CDN URL.
+  const same = (p, im) => { if (!p || /^https?:/.test(p)) return false; const abs = resolve(dirname(path), p); return existsSync(abs) && sha1(abs) === im.sha1; };
+  const where = (im, slotPath) => {
+    if (!im) return undefined;
+    if (same(slotPath, im)) return slotPath;
+    return (im.sha1 && old?.hashes.get(im.sha1)) || (im.file && old?.paths.get(im.file)) || im.url;
+  };
+  const line = (im, extra = [], slot) => (im?.url ? [where(im, slot), im.alt || '', ...extra].join(' | ').replace(/\s\|\s$/, '') : undefined);
 
   // Body: plain paragraphs and "> " quotes are all the file format holds.
   const blocks = a.body || [];
@@ -88,13 +126,13 @@ for (const a of articles) {
   const fm = clean({
     language: lang, series: a.series, episode: a.episode, title: a.title, slug: a.slug, tagline: a.tagline, city: a.city,
     cityNew: old?.fm.cityNew, restaurant: r && Object.keys(r).length ? r : undefined,
-    cover: line(a.cover), gallery: (a.gallery || []).map((g) => line(g, g.caption ? [g.caption] : [])).filter(Boolean),
+    cover: line(a.cover, [], old?.cover), gallery: (a.gallery || []).map((g) => line(g, g.caption ? [g.caption] : [])).filter(Boolean),
     quote: a.quote, tag: a.tag, bill: a.bill, billBand: a.billBand, visit: a.visit, hashtags: a.hashtags,
     publishedAt: a.publishedAt, seoTitle: a.seoTitle, seoDescription: a.seoDescription,
   });
   const dishes = (a.dishes || []).map((d) => [
     `### ${d.name || ''}${d.glassesOff ? ' 🕶️' : ''}`,
-    ...(d.image?.url ? [`image: ${line(d.image)}`] : []),
+    ...(d.image?.url ? [`image: ${line(d.image, [], old?.dishPaths.get((d.name || '').trim()))}`] : []),
     (d.description || '').trim(),
   ].filter((x, i) => i < 2 || x).join('\n')).join('\n\n');
   const heading = old?.heading || DISH_HEADING[lang] || DISH_HEADING.th;
@@ -104,6 +142,7 @@ for (const a of articles) {
 }
 
 for (const w of warn) console.log(`! ${w}`);
+for (const k of skipped) console.log(`= skipped ${k}`);
 if (!write.length) { console.log('All post files already match Sanity.'); process.exit(0); }
 for (const w of write) console.log(`${w.isNew ? '+ new ' : '~ changed'} ${w.path}`);
 if (check) { console.log(`Check only: ${write.length} file(s) differ from Sanity.`); process.exit(0); }
