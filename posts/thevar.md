@@ -13,7 +13,7 @@ restaurant:
 billBand: "฿฿฿฿"
 bill: "~298++ SGD ต่อคน"
 tag: ""
-visit: Nov-2024
+visit: Jun-2024
 hashtags: [บอสพาชิม, eatliketheboss, Thevar, Singapore]
 publishedAt: 2026-11-05
 seoTitle: "Thevar สิงคโปร์ รีวิวอาหารอินเดียร่วมสมัย 1 ดาวมิชลิน"

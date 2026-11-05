@@ -13,7 +13,7 @@ restaurant:
 billBand: "฿฿฿"
 bill: "~238 SGD ต่อคน"
 tag: ""
-visit: Nov-2024
+visit: Jun-2024
 hashtags: [บอสพาชิม, eatliketheboss, Jaan, Singapore]
 publishedAt: 2026-11-05
 seoTitle: "Jaan by Kirk Westaway สิงคโปร์ รีวิว 2 ดาวมิชลิน"

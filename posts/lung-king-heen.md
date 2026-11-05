@@ -10,7 +10,7 @@ restaurant:
   chef: ""
   cuisine: "Chinese"
   awards: ["MICHELIN 3★"]
-billBand: ""
+billBand: "฿฿฿"
 bill: ""
 tag: ""
 visit: Jul-2018
