@@ -5,6 +5,7 @@ import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 import { SERIES } from '../lib/config';
 import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings } from '../lib/content';
+import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
 interface Props { a: Article; visits?: Article[] }
 const { a, visits = [a] } = Astro.props;
@@ -15,7 +16,9 @@ const repeat = all.length > 1;
 const st = await getSettings();
 const y0 = visitIso(all[all.length - 1]).slice(0, 4), y1 = visitIso(all[0]).slice(0, 4);
 // Finder search text: names, chef, city and every dish name from every visit.
-const text = all.flatMap((v) => [v.title, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.city?.nameEn, v.city?.nameTh, ...v.dishes.map((d) => d.name)]).filter(Boolean).join(' ').toLowerCase();
+// Prepared by src/lib/search.ts: Thai/English synonyms added, tone marks and spaces removed.
+const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.restaurant?.cuisine,
+  ...(v.restaurant?.awards ?? []), ...(v.restaurant?.aliases ?? []), v.city?.nameEn, v.city?.nameTh, v.city?.country, ...(v.city?.aliases ?? []), ...v.dishes.map((d) => d.name), ...v.hashtags]));
 ---
 <article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
   data-price={a.billBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}

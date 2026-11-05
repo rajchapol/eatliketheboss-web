@@ -21,6 +21,15 @@ The Boss picked option B: one page per restaurant he reviewed 2+ times, so repea
 - The sample content has a second Tokyo visit (`sample-tokyo-2025`, Mar-2025) so the capsule is exercised in sample builds/CI.
 - CSS: `.capsule-*` at the end of `site.css`.
 - Tested: Playwright crawl of the sample build (no errors), screenshots at 390/1280, Studio schema validate + build.
+## Session 2026-11-05 · Flexible Thai search in the finder
+
+`src/lib/search.ts` (new) is used by `ArticleCard.astro` (build time: `searchText()` prepares `data-text`) and the `/restaurants/` script (browser: `matches()`).
+- Ignores case, spaces, punctuation, Latin accents and Thai tone marks (`เซียงไฮ` = `เซี่ยงไฮ้`).
+- Synonym groups Thai ↔ English ↔ Chinese/Japanese for cities, countries, cuisines, dishes and brand words (`GROUPS`): `เซี่ยงไฮ้` finds Shanghai, `ญี่ปุ่น` finds Japanese.
+- All words must match; Thai typed without spaces is split (`ปูขนเซี่ยงไฮ้`); filler words ร้าน/รีวิว dropped; one typo forgiven in words of 5+ letters (`shangai`).
+- Card text now also includes tagline, cuisine, awards, country, hashtags.
+- New Studio fields "ชื่อเรียกอื่นสำหรับค้นหา": `restaurant.aliases` (article) and `aliases` (city). Not shown on the site; GROQ updated (`CITY` projection). The post script passes `restaurant.aliases` through as-is.
+- Tested: unit cases incl. false positives, plus Playwright on the real-data build (Home/404 forms post to `/restaurants/?q=`).
 
 ---
 

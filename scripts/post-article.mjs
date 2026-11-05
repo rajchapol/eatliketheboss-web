@@ -64,7 +64,13 @@ async function upload(spec) {
 }
 
 const cityRef = fm.city ? (dry ? { _ref: `(city ${fm.city})` } : await client.fetch('*[_type=="city" && slug.current==$s][0]{_id}', { s: fm.city }).then((c) => {
-  if (!c) throw new Error(`ไม่พบเมือง "${fm.city}" ใน Sanity — สร้างเมืองก่อนใน Studio`); return { _type: 'reference', _ref: c._id };
+  if (c) return { _type: 'reference', _ref: c._id };
+  // เมืองใหม่: ใส่ cityNew: { nameEn, nameTh, country, region } ใน frontmatter แล้วระบบสร้างเมืองให้ (ไม่ทับเมืองที่มีอยู่)
+  const n = fm.cityNew;
+  if (!n || !n.nameEn || !n.nameTh) throw new Error(`ไม่พบเมือง "${fm.city}" ใน Sanity — สร้างเมืองก่อนใน Studio หรือใส่ cityNew: { nameEn, nameTh, country, region } ในไฟล์`);
+  const id = `city-${fm.city}`;
+  return client.createIfNotExists({ _id: id, _type: 'city', nameEn: n.nameEn, nameTh: n.nameTh, slug: { _type: 'slug', current: fm.city }, country: n.country, region: n.region || 'asia', motif: n.motif || 'loop' })
+    .then(() => { console.log(`+ สร้างเมืองใหม่ ${id}`); return { _type: 'reference', _ref: id }; });
 })) : undefined;
 
 const slug = fm.slug;
