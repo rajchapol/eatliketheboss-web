@@ -49,28 +49,27 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
   <DestinationsMap cities={mapCities} />
 
   {featuredList.length > 0 && (
-    <section aria-label="Featured cities" class="wrap" data-featured>
-      {featuredList.length > 1 && (
-        <div role="tablist" aria-label="เลือกเมืองแนะนำ" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;font-family:'Ekkamai New',sans-serif;font-size:15px">
-          {featuredList.map(({ city }, i) => <button type="button" role="tab" id={`ft-${city.slug}`} aria-controls={`fp-${city.slug}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} class="chip feat-tab" style="min-height:44px;padding:0 18px">{city.nameEn}<span style="font-size:13px;opacity:.75">{city.nameTh}</span></button>)}
-        </div>
-      )}
-      {featuredList.map(({ city: featured, fm, picks: fPicks }, i) => (
-      <div class="band-teal on-dark rl" role={featuredList.length > 1 ? 'tabpanel' : undefined} id={`fp-${featured.slug}`} aria-labelledby={featuredList.length > 1 ? `ft-${featured.slug}` : `fd-${featured.slug}`} hidden={i > 0} style="color:#fff;padding:clamp(24px,5cqi,56px);display:flex;flex-wrap:wrap;gap:36px 56px;align-items:center;box-shadow:0 30px 60px -24px rgba(7,59,62,.55)">
-        <div class="fx-zoom rc" style="flex:7 1 440px;min-width:0;position:relative;aspect-ratio:3/2;box-shadow:0 0 0 1px rgba(212,179,114,.5)">
-          <CityCover city={featured} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.6667} />
-          {featured.cover?.url && <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.55"></span>}
-        </div>
-        <div style="flex:5 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
-          <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;color:#fdeac0">FEATURED CITY</p>
-          <h2 id={`fd-${featured.slug}`} style="margin:0;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(52px,8cqi,72px);line-height:1">{featured.nameEn}</span><span style="font-size:24px;font-weight:400;color:#fff">{featured.nameTh}</span></h2>
-          {featured.intro && !featured.intro.startsWith('[') && <p lang="en" style="margin:0;font-size:17px;line-height:1.85;color:#fff"><span style="display:block;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#d4b372">Did you know?</span>{featured.intro}</p>}
-          <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px"><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="cuisine" size={16} style="color:#d4b372" />{count(featured.slug)} ร้าน</span><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="glasses" size={16} style="color:#d4b372" />{glasses(featured.slug)} จานถอดแว่นชิม</span></p>
-          {fPicks.length > 0 && <ol style="margin:0;padding:0;list-style:none;border-top:1px solid rgba(212,179,114,.4)">{fPicks.map((a, i) => <li><a href={articleUrl(a)} class="fx-row" style="display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid rgba(212,179,114,.25);color:#fff"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;flex:0 0 28px;color:#fdeac0">{roman(i)}.</span><span style="flex:1;font-size:17px">{a.restaurant?.name}</span><span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{a.restaurant?.style || a.restaurant?.cuisine}</span></a></li>)}</ol>}
-          <a href={`/city/${featured.slug}/`} class="btn-gold fx-btn" style="align-self:flex-start">ดูร้านใน{featured.nameTh} <Icon name="arrow" /></a>
-        </div>
+    <section aria-labelledby="fd" class="wrap" data-featured>
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-bottom:20px">
+        <h2 id="fd" style="margin:0;display:flex;flex-direction:column;gap:6px"><span class="overline">FEATURED {featuredList.length > 1 ? 'CITIES' : 'CITY'}</span><span class="ink-grad" style="font-size:clamp(28px,4.4cqi,38px);font-weight:600;line-height:1.25">เมืองแนะนำของบอส</span></h2>
       </div>
-      ))}
+      <ul class={`feat-grid n${featuredList.length}`} role="list">
+        {featuredList.map(({ city: featured, fm, picks: fPicks }) => (
+          <li class="feat-card band-teal on-dark rl">
+            <a href={`/city/${featured.slug}/`} class="feat-photo fx-zoom" aria-label={`ดูร้านใน${featured.nameTh}`}>
+              <CityCover city={featured} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.6667} />
+              {featured.cover?.url && <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:35%;opacity:.5"></span>}
+            </a>
+            <div class="feat-body">
+              <h3 style="margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(38px,4.4cqi,52px);line-height:1">{featured.nameEn}</span><span style="font-size:19px;font-weight:400;color:#fff">{featured.nameTh}</span></h3>
+              <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px"><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="cuisine" size={16} style="color:#d4b372" />{count(featured.slug)} ร้าน</span><span class="badge" style="background:rgba(255,255,255,.1);color:#fff;font-size:14px"><Icon name="glasses" size={16} style="color:#d4b372" />{glasses(featured.slug)} ถอดแว่นชิม</span></p>
+              {featured.intro && !featured.intro.startsWith('[') && <p lang="en" class="feat-fact"><span>Did you know?</span>{featured.intro}</p>}
+              {fPicks.length > 0 && <ol class="feat-picks">{fPicks.map((a, i) => <li><a href={articleUrl(a)}><span class="n">{roman(i)}.</span><span class="r">{a.restaurant?.name}</span><span class="s">{a.restaurant?.style || a.restaurant?.cuisine}</span></a></li>)}</ol>}
+              <a href={`/city/${featured.slug}/`} class="btn-gold fx-btn feat-btn">ดูร้านใน{featured.nameTh} <Icon name="arrow" /></a>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   )}
 
@@ -106,17 +105,3 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
     ))}
   </main>
 </Base>
-<script>
-  // Featured city tabs (only when the Boss ticked more than one city): click, or ← → keys.
-  document.querySelectorAll('[data-featured]').forEach((root) => {
-    const tabs = [...root.querySelectorAll('[role="tab"]')];
-    const pick = (t, focus) => {
-      tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; const panel = document.getElementById(x.getAttribute('aria-controls')); panel.hidden = !on; if (on) panel.querySelectorAll('.rv').forEach((el) => el.classList.add('in')); }); // rows hidden at load never got their scroll reveal
-      if (focus) t.focus();
-    };
-    tabs.forEach((t, i) => {
-      t.addEventListener('click', () => pick(t));
-      t.addEventListener('keydown', (e) => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } });
-    });
-  });
-</script>
