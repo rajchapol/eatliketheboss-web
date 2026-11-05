@@ -65,6 +65,12 @@ export default defineConfig({
               item('todo-seo', 'SEO ยังไม่ครบ / ยาวไม่พอดี', '_type == "article" && (!defined(seoTitle) || !defined(seoDescription) || length(seoTitle) > 60 || length(seoDescription) < 120 || length(seoDescription) > 155)', SearchIcon),
               S.divider(),
               item('todo-no-en', 'ยังไม่มีคำแปล English', `${TH} && count(*[_type == "article" && language == "en" && translationOf._ref == ^._id]) == 0`, TranslateIcon),
+              S.divider(),
+              // Photos and cities: things that show as gaps on the site
+              item('todo-dish-photo', 'จานที่ยังไม่มีรูป (เว็บแสดงเป็นข้อความอย่างเดียว)', `${TH} && count(dishes[!defined(image.asset)]) > 0`, WarningOutlineIcon),
+              S.listItem().id('todo-city').title('เมืองที่มีรีวิวแล้ว แต่ยังไม่มีรูปเมือง / คำแนะนำเมือง').icon(PinIcon).child(
+                S.documentList().id('todo-city').apiVersion(API).schemaType('city').title('เมืองที่ยังขาดรูปหรือคำแนะนำ')
+                  .filter('_type == "city" && (!defined(cover.asset) || !defined(intro)) && count(*[_type == "article" && city._ref == ^._id]) > 0')),
             ])),
           S.divider(),
           S.documentTypeListItem('city').title('เมือง').icon(PinIcon),
