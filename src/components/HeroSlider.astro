@@ -1,5 +1,5 @@
 ---
-// Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances slowly.
+// Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances every 5 s (pauses on touch/hover).
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 import { articleUrl, visitIso, visitLabel, getSettings } from '../lib/content';
@@ -41,6 +41,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
         <div class="slider-dots" role="group" aria-label="เลือกสไลด์">
           {slides.map((a, i) => <button type="button" data-dot={i} aria-label={`สไลด์ ${i + 1}: ${a.restaurant?.name ?? a.title}`} aria-current={i === 0 ? 'true' : 'false'}></button>)}
         </div>
+        <span class="swipe-hint" aria-hidden="true">ปัดดูร้านถัดไป <Icon name="next" size={14} /></span>
         <span class="slider-count" aria-hidden="true"><span data-count>01</span> / {pad(slides.length)}</span>
         <button type="button" class="icon-btn" data-prev aria-label="ร้านก่อนหน้า"><Icon name="prev" /></button>
         <button type="button" class="icon-btn" data-next aria-label="ร้านถัดไป"><Icon name="next" /></button>
@@ -52,9 +53,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
   document.querySelectorAll('[data-slider]').forEach((root) => {
     const track = root.querySelector('[data-track]'); const slides = [...track.children]; if (slides.length < 2) return;
     const dots = [...root.querySelectorAll('[data-dot]')], count = root.querySelector('[data-count]');
-    let cur = 0, timer = null, paused = false, onScreen = true;
+    let cur = 0, onScreen = true;
     // Don't advance while the slider is scrolled out of view.
-    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => (onScreen = e.isIntersecting), { threshold: 0.3 }).observe(root);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mark = (i) => {
       cur = i; dots.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
@@ -80,11 +80,20 @@ const pad = (n: number) => String(n).padStart(2, '0');
     root.querySelector('[data-next]').addEventListener('click', () => { go(cur + 1); restart(); });
     dots.forEach((d, i) => d.addEventListener('click', () => { go(i); restart(); }));
     root.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') { go(cur - 1); restart(); } if (e.key === 'ArrowRight') { go(cur + 1); restart(); } });
-    // Slow auto-advance; stops while the reader hovers, focuses inside, or prefers less motion.
-    const restart = () => { clearInterval(timer); if (!reduce) timer = setInterval(() => { if (!paused && onScreen && !document.hidden) go(cur + 1); }, 7000); };
-    root.addEventListener('mouseenter', () => (paused = true)); root.addEventListener('mouseleave', () => (paused = false));
-    root.addEventListener('focusin', () => (paused = true)); root.addEventListener('focusout', () => (paused = false));
-    track.addEventListener('pointerdown', () => (paused = true), { passive: true });
+    // Auto-advance every 5 s. The active dot fills up like a timer and its animation end moves to the next slide,
+    // so the bar and the slide stay in step. Touch/hover/focus pauses it; it carries on 8 s after the last touch.
+    // Off for readers who prefer less motion.
+    let hold = false, hover = false, focus = false, idle = 0;
+    const sync = () => root.classList.toggle('paused', hold || hover || focus || !onScreen || document.hidden);
+    const restart = () => { if (reduce) return; root.classList.add('auto'); dots.forEach((d) => d.classList.remove('run')); const d = dots[cur]; void d.offsetWidth; d.classList.add('run'); sync(); };
+    dots.forEach((d) => d.addEventListener('animationend', () => { if (d.classList.contains('run')) { go(cur + 1); restart(); } }));
+    const touch = () => { hold = true; sync(); clearTimeout(idle); idle = setTimeout(() => { hold = false; sync(); }, 8000); root.classList.add('swiped'); };
+    track.addEventListener('pointerdown', touch, { passive: true }); track.addEventListener('touchstart', touch, { passive: true });
+    track.addEventListener('scrollend', () => { if (!gliding) restart(); });
+    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hover = true; sync(); } }); root.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hover = false; sync(); } }); // a tap on a phone isn't a hover
+    root.addEventListener('focusin', (e) => { focus = e.target.matches(':focus-visible'); sync(); }); // keyboard focus pauses; a tap that focuses the track doesn't root.addEventListener('focusout', () => { focus = false; sync(); });
+    document.addEventListener('visibilitychange', sync);
+    if ('IntersectionObserver' in window) new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; sync(); }, { threshold: 0.3 }).observe(root);
     mark(0); restart();
   });
 </script>
