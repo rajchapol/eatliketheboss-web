@@ -251,8 +251,8 @@ img{max-width:100%;height:auto}
 .map-zoom:hover{background:rgba(255,255,255,.14)}.map-zoom[aria-pressed="true"]{background:linear-gradient(135deg,#d4b372,#fdeac0);color:#1a2632;border-color:#d4b372}
 .map-box{position:relative;width:100%;aspect-ratio:21/8;overflow:hidden;border-radius:var(--r-md);background:radial-gradient(ellipse at 50% 60%,rgba(253,234,192,.06),transparent 70%)}
 .map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.map-world{opacity:.42;transition:opacity .6s}.map-sea{opacity:0;transition:opacity .6s}
-[data-zoom="th"] .map-world{opacity:0}[data-zoom="th"] .map-sea{opacity:.55}
+.map-world,.map-mid,.map-fine{opacity:0;transition:opacity .5s}
+[data-layer="world"] .map-world{opacity:.42}[data-layer="mid"] .map-mid{opacity:.5}[data-layer="fine"] .map-fine{opacity:.6}
 .map-route{stroke:#fdeac0;stroke-width:1.6;stroke-opacity:.75;stroke-linecap:round}
 .map-pin{position:absolute;width:0;height:0;z-index:2}
 .map-pin a{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%}
@@ -486,7 +486,7 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
 .map-btn:hover{background:rgba(11,83,87,.95)}
 .map-hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;margin:0;padding:8px 16px;border-radius:var(--r-pill);background:rgba(4,30,32,.88);color:#fff;font-family:'Ekkamai New',sans-serif;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
 .hint-on .map-hint{opacity:1}
-[data-deep="1"] .map-world,[data-deep="1"] .map-sea{opacity:0!important}
+
 /* ---------- restaurant time capsule (/restaurant/<city>/<name>/) ---------- */
 .capsule-stats dt{font-size:12px;letter-spacing:.12em;color:#d4b372}.capsule-stats dd{margin:2px 0 0;font-size:16px;color:#fff}
 .capsule-line{position:relative}
