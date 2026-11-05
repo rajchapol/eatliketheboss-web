@@ -21,6 +21,17 @@ const intro = [
 
 export const articles: Article[] = [
   {
+    id: 'sample-tokyo-2025', baseId: 'sample-tokyo-2025', language: 'th', series: 'review', no: 0,
+    slug: 'sample-tokyo-2025', title: 'บอสพาชิม in Tokyo: [ร้านตัวอย่าง] - [ครั้งแรกที่ไป]',
+    tagline: '[คำโปรยครั้งแรก]', city: city('tokyo'),
+    restaurant: { name: '[ร้านตัวอย่าง]', originalName: '[ชื่อภาษาเดิม]', chef: '[ชื่อเชฟ]', area: 'Ginza', cuisine: 'ญี่ปุ่น', priceBand: '฿฿฿', awards: ['MICHELIN'] },
+    bodyHtml: intro, quote: '[ประโยคเด่นจากครั้งแรก]',
+    dishes: [dish('[จานที่ 1 (ชื่อเดิม)]', true), dish('[จานเก่า A]'), dish('[จานเก่า B]')],
+    bill: '[ราคา] JPY', visit: 'Mar-2025', hashtags: ['บอสพาชิม', 'eatliketheboss', 'Tokyo'],
+    publishedAt: '2025-04-01', readingMinutes: 5,
+    seoDescription: '[คำอธิบายสั้น 120–155 ตัวอักษร ในน้ำเสียงของบอส]',
+  },
+  {
     id: 'sample-tokyo', baseId: 'sample-tokyo', language: 'th', series: 'review', no: 42,
     slug: 'sample-tokyo', title: 'บอสพาชิม in Tokyo: [ร้านตัวอย่าง] - [คำโปรยเชิงศิลปะ]',
     tagline: '[คำโปรยเชิงศิลปะ]', city: city('tokyo'),
