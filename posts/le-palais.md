@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Taiwan EP1 : Le Palais (Taipei, Taiwan)"
 slug: le-palais
-tagline: ""
 city: taipei
 restaurant:
   name: "Le Palais"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "จีน"
   awards: ["MICHELIN 3★"]
 cover: "./images/le-palais/cover.jpg | ซุปเป๋าฮื้อและหัวไชเท้ายัดไส้กังป๋วยในน้ำซุปสีอำพัน ในชามกระเบื้องขาวลายดอกไม้ ร้าน Le Palais ไทเป"
-billBand: "฿฿฿"
 bill: "~4980 TWD ++"
-tag: ""
+billBand: "฿฿฿"
 visit: Feb-2024
 hashtags: [บอสพาชิม, eatliketheboss, LePalais, Taipei]
 publishedAt: 2026-11-05

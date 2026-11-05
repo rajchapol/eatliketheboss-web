@@ -10,8 +10,7 @@ restaurant:
   chef: "Chen Zhiping (陈志平)"
   cuisine: "จีน"
 cover: "./images/meet-the-bund/cover.jpg | เป๋าฮื้อตุ๋นบนช้อนกระเบื้องสีขาว ยกขึ้นจากโถซุปพระกระโดดกำแพงสีขาว ร้าน Meet The Bund at Skyline เซี่ยงไฮ้"
-tag: ""
-bill: ""
+billBand: "฿฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, MeetTheBund, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-03
@@ -36,8 +35,8 @@ Meet The Bund Skyline เป็นเครื่องยืนยันชั�
 
 ## ศิลปะแห่งรสชาติในมื้อนี้
 
-### 马东蜜兰香单丛 (Wudong Honey Orchid Dan Cong)
-เริ่มต้นมื้อด้วยการปลุกประสาทสัมผัสด้วยชาจากยอดเขาอู่ตง ชาตัวนี้มีรสเบา ช่วยชูสไตล์อาหารฝูเจี้ยนได้อย่างสมบูรณ์แบบ
+### บรรยากาศร้านครับ
+image: https://cdn.sanity.io/images/ohviqc5c/production/2b5e4c3ce30a9ac287e4d4c33e6348039ed93ba0-1225x815.jpg | tea preparing
 
 ### 五香乾坤包 (Fujian Five-Spice Rolls)
 image: ./images/meet-the-bund/01.jpg | ฟองเต้าหู้ห่อไส้ทอดสีน้ำตาลสองชิ้น ท็อปแผ่นกรอบและซอสสีแดง ในจานสีขาว ร้าน Meet The Bund at Skyline เซี่ยงไฮ้
@@ -86,9 +85,6 @@ image: ./images/meet-the-bund/11.jpg | ผักใบเขียวและ�
 ### 招牌闽南卤面 (Signature southern fujian lor mee)
 image: ./images/meet-the-bund/12.jpg | บะหมี่ในน้ำซุปข้นสีส้ม ท็อปกุ้งแห้งและหอมเจียว ในชามสีขาว ร้าน Meet The Bund at Skyline เซี่ยงไฮ้
 บะหมี่ฮกเกี้ยนใต้ หรือ หลู่เมี่ยน (Lor Mee) แม้ส่วนตัวผมจะรู้สึกว่าเส้นเหนียวนุ่มนั้นอาจจะเละไปนิด แต่ซุปมีความครีมมี่และหอมกลิ่นกุ้งบางๆ ไม่เข้มจนเกินไป อัดแน่นด้วยกุ้งแห้ง ผักกาด กุ้งสด และหอยนางรม เป็นการปิดท้ายมื้ออาหารคาวอย่างอบอุ่น
-
-### 漳平水仙 (Zhangping Shuixian)
-ชาสุ่ยเซียนจากจางผิง เสิร์ฟมาเพื่อเคลียร์รสชาติในปาก
 
 ### 百合建宁莲子冻 (Lotus seed with fresh lily)
 image: ./images/meet-the-bund/13.jpg | เยลลี่เม็ดบัวสีขาวนวลท็อปกลีบลิลลี่สดเรียงเป็นรูปดอกไม้ ในถ้วยกระเบื้องสีขาว ร้าน Meet The Bund at Skyline เซี่ยงไฮ้

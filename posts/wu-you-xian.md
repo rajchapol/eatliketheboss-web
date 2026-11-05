@@ -12,8 +12,7 @@ restaurant:
   cuisine: "จีน"
   awards: ["MICHELIN 1★"]
 cover: "./images/wu-you-xian/cover.jpg | เสี่ยวหลงเปาปูขนในเข่งไม้ไผ่ ยอดจีบแต่ละลูกมีมันปูสีส้ม ร้าน Wu You Xian เซี่ยงไฮ้"
-tag: ""
-bill: ""
+billBand: "฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, WuYouXian, Shanghai, Xiaolongbao, 屋有鲜]
 publishedAt: 2026-11-03

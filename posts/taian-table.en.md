@@ -11,7 +11,6 @@ restaurant:
   cuisine: "Modern"
   awards: ["MICHELIN 3★"]
 cover: "./images/taian-table/cover.jpg | Spiced éclair filled with foie gras mousse, topped with pistachios, purple shiso leaves and a chocolate disc, on a white ceramic base, Taian Table, Shanghai"
-tag: ""
 bill: "2888 CNY / Pax"
 visit: Jan-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, Gastronomy, FineDining, TaianTable, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]

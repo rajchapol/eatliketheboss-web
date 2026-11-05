@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Singapore: Les Amis - ป้อมปราการแห่งอาหารฝรั่งเศสคลาสสิกที่กาลเวลาไม่อาจลบเลือน"
 slug: les-amis
-tagline: ""
 city: singapore
 restaurant:
   name: "Les Amis"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "ฝรั่งเศส"
   awards: ["MICHELIN 3★"]
 cover: "./images/les-amis/cover.jpg | ไข่ดาวน้ำคลุมซอสวอเตอร์เครสสีเขียวสด ข้างคาเวียร์ Oscietra บนจานขอบเงิน ร้าน Les Amis สิงคโปร์"
-billBand: "฿฿฿฿"
 bill: "550 SGD++"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Feb-2026
 hashtags: [บอสพาชิม, eatliketheboss, LesAmis, Singapore]
 publishedAt: 2026-11-05

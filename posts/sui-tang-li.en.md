@@ -13,8 +13,6 @@ restaurant:
   cuisine: "Chinese"
   awards: ["Black Pearl 1 Diamond", "MICHELIN Selected"]
 cover: "./images/sui-tang-li/cover.jpg | Steamed marble goby with green chilli sauce on a long white plate, Sui Tang Li, Shanghai"
-tag: ""
-bill: ""
 visit: Oct-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, SuiTangLi, Shanghai, TheUpperHouse, ModernChinese, DimSum, Jingan, FineDining, 随堂里]
 publishedAt: 2026-11-04

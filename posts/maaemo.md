@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Norway : Maaemo กับความหลังกว่า7ปี (Oslo, Norway)"
 slug: maaemo
-tagline: ""
 city: norway-oslo
 restaurant:
   name: "Maaemo"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "Modern"
   awards: ["MICHELIN 3★"]
 cover: "./images/maaemo/cover.jpg | คาเวียร์คู่พิวเร่ดอกกะหล่ำสีน้ำตาลอ่อนในน้ำซุปเนื้อ ก้นชามเซรามิกสีครีมขอบหนา ร้าน Maaemo ออสโล"
-billBand: "฿฿฿฿"
 bill: "~5200 Nok /pax"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Dec-2024
 hashtags: [บอสพาชิม, eatliketheboss, Maaemo, Oslo]
 publishedAt: 2026-11-05

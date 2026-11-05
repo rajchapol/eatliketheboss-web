@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม : Odette Benchmark of French cuisine (Singapore)"
 slug: odette
-tagline: ""
 city: singapore
 restaurant:
   name: "Odette"
@@ -12,9 +11,8 @@ restaurant:
   cuisine: "ฝรั่งเศส"
   awards: ["MICHELIN 3★"]
 cover: "./images/odette/cover.jpg | ทาร์ตสตรอว์เบอร์รีแต่งครีมทรงกลมสีขาวและผิวส้มญี่ปุ่น บนจานสีขาวใบใหญ่ ร้าน Odette สิงคโปร์"
-billBand: "฿฿฿฿"
 bill: "~348++ SGD /pax"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jun-2024
 hashtags: [บอสพาชิม, eatliketheboss, OdetteRestaurant, ร้านอาหารหรู, ฟู้ดรีวิว, SingaporeFineDining, MichelinStar, อาหารฝรั่งเศส, FoodReview, GourmetDining, RestaurantReview]
 publishedAt: 2026-11-05
@@ -49,6 +47,7 @@ image: ./images/odette/02.jpg | ซุปเห็ดสีเหลืองน
 ซุปเห็ด chives sabayon และถั่ววอลนัทรับประทานกับbriocheเห็ดกับbrioche ผงsep บริออชเห็ดและsep powder brioche คำนี้ตัวขนมปัฃดีมากๆ มีกลิ่นเอริธ์ตี้อ่อนๆ เนื้อฟูเบาทำได้ดีมากครับ กินเปล่าๆแช้วไใ่อร่อบ แต่พอรับประทานร่วมกับซุปแล้ว เข้สกับตัวครีมซาบายอนและวอลนัท ซึ่งช่วยเพิ่มคงามสใดุลเเละเชื่อมให้เข้ากับซุปเห็ดได้อย่างน่าสนใจ
 
 ### บริออชมะกอกกับน้ำมันมะกอกจากสเปน ซาวโดวและเนยกะเทียมกับสมุนไพร
+
 
 ### NORMANDY BROWN CRAB (Avocado | Nashi pear | Coriander)
 image: ./images/odette/04.jpg | เยลลี่แอปเปิ้ลเขียวคลุมเนื้อปูเป็นทรงโดม ตกแต่งใบสมุนไพร ในจานแก้วใส ร้าน Odette สิงคโปร์
