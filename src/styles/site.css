@@ -277,7 +277,11 @@ img{max-width:100%;height:auto}
 .glare{transition:opacity .6s}
 .specs.lit .glare{animation:glare-sweep 1.5s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes glare-sweep{0%{transform:translateX(0) rotate(24deg);opacity:1}100%{transform:translateX(900px) rotate(24deg);opacity:0}}
-.seal{display:block;width:180px;height:180px}.seal svg{display:block;width:100%;height:100%}
+.seal{display:block;width:200px;height:200px}
+.seal-year{margin:-6px 0 0;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#fdeac0}
+@container elb (max-width: 720px){.seal{width:160px;height:160px}}
+.go-mark{display:block;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.35);pointer-events:none}
+.go-badge{padding-left:4px!important}.go-badge img{display:block;width:20px;height:20px;border-radius:50%}
 
 /* ======================================================================
    Effects v2 — modern motion. Everything here is polish: with reduced motion
