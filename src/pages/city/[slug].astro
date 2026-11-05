@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Photo from '../../components/Photo.astro';
+import CityCover from '../../components/CityCover.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { MOTIFS } from '../../lib/config';
 import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl } from '../../lib/content';
@@ -28,8 +29,8 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
 <Base title={`ร้าน Fine Dining ใน${c.nameTh} ${c.nameEn}`} description={desc} active="destinations"
   jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: 'จุดหมาย', href: '/destinations/' }, { name: c.nameEn, href: `/city/${c.slug}/` }])]}>
   <section aria-labelledby="city" class="on-dark" style="position:relative;min-height:500px;display:flex;align-items:flex-end;background:#0b5357">
-    <div style="position:absolute;inset:0"><Photo img={c.cover} label={`ภาพเต็มความกว้าง: ${c.nameEn}`} dark eager sizes="100vw" widths={[800, 1280, 1920]} /></div>
-    <div aria-hidden="true" class={`${motif.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:50%;opacity:.45"></div>
+    <div style="position:absolute;inset:0"><CityCover city={c} label={`ภาพเต็มความกว้าง: ${c.nameEn}`} dark eager sizes="100vw" widths={[800, 1280, 1920]} /></div>
+    {c.cover?.url && <div aria-hidden="true" class={`${motif.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:50%;opacity:.45"></div>}
     <div style="position:absolute;left:0;right:0;bottom:0;height:80%;background:linear-gradient(0deg,rgba(7,59,62,.95) 0%,rgba(7,59,62,.55) 55%,rgba(7,59,62,0) 100%)"></div>
     <div class="wrap" style="position:relative;width:100%;padding-bottom:56px;color:#fff;display:flex;flex-direction:column;gap:14px">
       <p class="crumbs" style="color:#fff"><a href="/destinations/" style="color:#fff">จุดหมาย</a> / {c.country}</p>

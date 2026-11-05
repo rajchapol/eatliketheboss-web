@@ -3,6 +3,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
+import CityCover from '../components/CityCover.astro';
 import DestinationsMap from '../components/DestinationsMap.astro';
 import { MOTIFS, REGIONS, regionOf } from '../lib/config';
 import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks, citiesByCount, visitIso } from '../lib/content';
@@ -48,8 +49,8 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
     <section aria-labelledby="fd" class="wrap">
       <div class="band-teal on-dark rl" style="color:#fff;padding:clamp(24px,5cqi,56px);display:flex;flex-wrap:wrap;gap:36px 56px;align-items:center;box-shadow:0 30px 60px -24px rgba(7,59,62,.55)">
         <div class="fx-zoom rc" style="flex:7 1 440px;min-width:0;position:relative;aspect-ratio:3/2;box-shadow:0 0 0 1px rgba(212,179,114,.5)">
-          <Photo img={featured.cover} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.6667} />
-          <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.55"></span>
+          <CityCover city={featured} label={`ภาพเมือง: ${featured.nameEn}`} dark ratio={0.6667} />
+          {featured.cover?.url && <span aria-hidden="true" class={`${fm.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.55"></span>}
         </div>
         <div style="flex:5 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
           <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;color:#fdeac0">FEATURED CITY</p>
@@ -78,13 +79,13 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
               {country.cities.map((c) => { const m = MOTIFS[c.motif] ?? MOTIFS.loop; return (
                 <a href={`/city/${c.slug}/`} class="fx-lift-light card" style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
                   <span style="position:relative;display:block;aspect-ratio:3/2">
-                    <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={c.cover} label={`ภาพ ${c.nameEn}`} ratio={0.6667} widths={[400, 600]} sizes="300px" /></span>
-                    <span aria-hidden="true" class={`${m.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:45%;opacity:.6"></span>
+                    <span class="fx-zoom" style="position:absolute;inset:0;display:block"><CityCover city={c} label={`ภาพ ${c.nameEn}`} ratio={0.6667} widths={[400, 600]} sizes="300px" /></span>
+                    {c.cover?.url && <span aria-hidden="true" class={`${m.cls} fade-r`} style="position:absolute;top:0;right:0;bottom:0;width:45%;opacity:.6"></span>}
                     <span aria-hidden="true" class={m.cls} style="position:absolute;right:16px;bottom:-26px;width:52px;height:52px;border-radius:50%;background-color:#fbf7ef;box-shadow:0 0 0 1px #c39e5c,0 0 0 4px #fbf7ef,0 0 0 5px rgba(212,179,114,.5)"></span>
                   </span>
                   <span style="padding:18px 80px 16px 20px;display:flex;flex-direction:column;gap:8px">
                     <span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap"><span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;line-height:1;color:#0b5357">{c.nameEn}</span><span style="font-size:18px;font-weight:600">{c.nameTh}</span></span>
-                    <span style="display:flex;gap:16px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="cuisine" size={16} style="color:#0b5357" />{count(c.slug)} ร้าน</span><span style="display:inline-flex;gap:6px;align-items:center"><Icon name="glasses" size={16} style="color:#0b5357" />{glasses(c.slug)} ถอดแว่นชิม</span></span>
+                    <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span style="display:inline-flex;gap:6px;align-items:center;white-space:nowrap"><Icon name="cuisine" size={16} style="color:#0b5357" />{count(c.slug)} ร้าน</span><span style="display:inline-flex;gap:6px;align-items:center;white-space:nowrap"><Icon name="glasses" size={16} style="color:#0b5357" />{glasses(c.slug)} ถอดแว่นชิม</span></span>
                   </span>
                   <span class="pat-linen fx-arrow" style="margin-top:auto;padding:12px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">ดูร้านในเมืองนี้<Icon name="arrow" style="color:#c39e5c" /></span>
                 </a>); })}
