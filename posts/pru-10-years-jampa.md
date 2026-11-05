@@ -6,7 +6,7 @@ slug: pru-10-years-jampa
 tagline: ""
 city: phuket
 restaurant:
-  name: "PRU"
+  name: "Jampa"
   chef: "Jimmy Ophorst"
   cuisine: "Modern"
   style: "Farm-to-Table"
