@@ -524,3 +524,5 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
 .swipe-hint{display:inline-flex}.slider-bar .icon-btn{display:none}
 .slider-count{min-width:0}
 }
+.idx-more{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:14px 4px;border-bottom:1px solid rgba(195,158,92,.35);font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357}
+.idx-more span{border-bottom:1px solid #c39e5c}

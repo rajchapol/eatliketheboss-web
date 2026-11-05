@@ -14,7 +14,7 @@ const settings = await getSettings();
 const featured = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId);
 const latest = groupByRestaurant(articles.filter((a) => a.series === 'review')).map((g) => g.latest);
 const slides = (featured ? [featured, ...latest.filter((a) => restaurantKey(a) !== restaurantKey(featured))] : latest).slice(0, 5);
-const index = articles.slice(0, 10);
+const index = articles.slice(0, 10); // latest 10; older ones get a "see more" row (No. 001 is the oldest visit)
 // Repeat visit marker in The Index: 2 = second time at this restaurant (counted by visit order).
 const returnNo = (a: (typeof articles)[number]) => { const vs = articles.filter((x) => restaurantKey(x) === restaurantKey(a)); return vs.length - vs.indexOf(a); };
 // Glasses Off band: this year's dishes (by visit); before the first one of the year, the latest year that has any.
@@ -71,6 +71,12 @@ const quickCities = settings.homeCitySlugs?.length
         <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
+    {articles.length > index.length && (
+      <a href="/review/" class="idx-more fx-arrow">
+        <span>ดูบันทึกก่อนหน้าอีก {articles.length - index.length} เรื่อง · No. {[...new Set([articles[articles.length - 1].no, articles[index.length].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
+        <Icon name="arrow" size={16} />
+      </a>
+    )}
   </section>
 
   <section aria-label="สโลแกน" class="wrap" style="padding-bottom:104px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
