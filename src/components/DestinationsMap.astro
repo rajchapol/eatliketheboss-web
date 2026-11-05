@@ -2,7 +2,7 @@
 // Dotted world map for /destinations/: a gold pin per city with reviews, the Boss's route between them
 // (in the order of the first visit), and zoom buttons. Dots: public/img/map/*.svg (scripts/make-map-dots.mjs).
 // Map units are degrees: x = lng + 180, y = 78 - lat (same as the dot files).
-import { CITY_COORDS } from '../lib/config';
+import { cityCoords, regionOf, REGIONS } from '../lib/config';
 import type { City } from '../lib/types';
 import { getSettings } from '../lib/content';
 interface Props { cities: { city: City; count: number; firstVisit: string }[] }
@@ -10,15 +10,32 @@ const { cities } = Astro.props;
 const st = await getSettings();
 const pins = cities
   .map(({ city, count, firstVisit }) => {
-    const ll = city.location?.lat != null ? [city.location.lat, city.location.lng] : CITY_COORDS[city.slug];
-    return ll ? { slug: city.slug, en: city.nameEn, th: city.nameTh, count, firstVisit, x: ll[1] + 180, y: 78 - ll[0] } : null;
+    const ll = cityCoords(city);
+    if (!ll) console.warn(`[map] no map position for city "${city.slug}": set it in Studio → เมือง → ตำแหน่งบนแผนที่, or add it to CITY_COORDS`);
+    return ll ? { slug: city.slug, en: city.nameEn, th: city.nameTh, count, firstVisit, region: regionOf(city), x: ll[1] + 180, y: 78 - ll[0] } : null;
   })
-  .filter(Boolean) as { slug: string; en: string; th: string; count: number; firstVisit: string; x: number; y: number }[];
+  .filter(Boolean) as { slug: string; en: string; th: string; count: number; firstVisit: string; region: string; x: number; y: number }[];
 // Views as [x, y, width, height]; the script widens them to the box's shape.
-const VIEWS = { world: [0, 4, 360, 128], asia: [212, 20, 156, 62], th: [266, 50, 52, 22] } as const;
-const inside = (v: readonly number[]) => pins.every((p) => p.x >= v[0] && p.x <= v[0] + v[2] && p.y >= v[1] && p.y <= v[1] + v[3]);
-const start = inside(VIEWS.asia) ? 'asia' : 'world';
-const hasThai = pins.some((p) => p.x >= VIEWS.th[0] && p.x <= VIEWS.th[0] + VIEWS.th[2] && p.y >= VIEWS.th[1] && p.y <= VIEWS.th[1] + VIEWS.th[3]);
+// World and Thailand are fixed; each continent with pins gets a button whose view fits its cities (Asia includes Thailand).
+const fitPins = (ps: typeof pins, minW = 26): number[] => {
+  const xs = ps.map((p) => p.x), ys = ps.map((p) => p.y);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const w = Math.max(minW, (x1 - x0) * 1.3 + 8), h = Math.max(minW * 0.4, (y1 - y0) * 1.3 + 6);
+  return [(x0 + x1) / 2 - w / 2, (y0 + y1) / 2 - h / 2, w, h].map((n) => +n.toFixed(2));
+};
+const VIEWS: Record<string, number[]> = { world: [0, 4, 360, 128], th: [266, 50, 52, 22] };
+const hasThai = pins.some((p) => p.region === 'th');
+const zoomBtns: { id: string; label: string }[] = [{ id: 'world', label: 'ทั้งโลก' }];
+if (hasThai) zoomBtns.push({ id: 'th', label: 'ประเทศไทย' });
+for (const r of REGIONS) {
+  if (r.id === 'th' || r.id === 'other') continue;
+  const ps = pins.filter((p) => p.region === r.id || (r.id === 'asia' && p.region === 'th'));
+  if (!ps.length || (r.id === 'asia' && !pins.some((p) => p.region === 'asia'))) continue;
+  VIEWS[r.id] = fitPins(ps);
+  zoomBtns.push({ id: r.id, label: r.name });
+}
+const inside = (v: number[]) => pins.every((p) => p.x >= v[0] && p.x <= v[0] + v[2] && p.y >= v[1] && p.y <= v[1] + v[3]);
+const start = VIEWS.asia && inside(VIEWS.asia) ? 'asia' : 'world';
 // Route: cities in the order the Boss first ate there, joined by gentle arcs.
 const route = [...pins].sort((a, b) => a.firstVisit.localeCompare(b.firstVisit));
 const arc = (a: (typeof pins)[number], b: (typeof pins)[number]) => {
@@ -30,19 +47,18 @@ const v0 = VIEWS[start];
 ---
 {pins.length > 0 && (
   <section class="wrap" aria-labelledby="map-h" style="padding-bottom:72px">
-    <div class="map-band rl on-dark spot" data-map data-views={JSON.stringify(VIEWS)} data-start={start}>
+    <div class="map-band rl on-dark spot" data-map data-views={JSON.stringify(VIEWS)} data-start={start} data-layer="world">
       <div class="map-head">
         <h2 id="map-h" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,5cqi,40px);line-height:1.1;color:#fdeac0">{st.mapTitle}</h2>
         <div role="group" aria-label="ซูมแผนที่" style="display:flex;gap:6px;flex-wrap:wrap">
-          <button type="button" class="map-zoom" data-view="world" aria-pressed={start === 'world' ? 'true' : 'false'}>ทั้งโลก</button>
-          <button type="button" class="map-zoom" data-view="asia" aria-pressed={start === 'asia' ? 'true' : 'false'}>เอเชีย</button>
-          {hasThai && <button type="button" class="map-zoom" data-view="th" aria-pressed="false">ประเทศไทย</button>}
+          {zoomBtns.map((b) => <button type="button" class="map-zoom" data-view={b.id} aria-pressed={start === b.id ? 'true' : 'false'}>{b.label}</button>)}
         </div>
       </div>
       <div class="map-box" data-box>
         <svg class="map-svg" data-svg viewBox={v0.join(' ')} preserveAspectRatio="none" aria-hidden="true">
           {[-360, 0, 360].map((dx) => <image href="/img/map/world-dots.svg" x={dx} y="0" width="360" height="136" class="map-world" />) /* repeated so zoomed views wrap past the date line */}
-          <image href="/img/map/sea-dots.svg" x="0" y="0" width="360" height="136" class="map-sea" />
+          {[-360, 0, 360].map((dx) => <image data-href="/img/map/mid-dots.svg" x={dx} y="0" width="360" height="136" class="map-mid" />) /* finer dots, loaded on first zoom */}
+          <image data-href="/img/map/fine-dots.svg" x="0" y="0" width="360" height="136" class="map-fine" />
           {routeD && <path d={routeD} class="map-route fx-route" fill="none" vector-effect="non-scaling-stroke" />}
         </svg>
         <div class="map-clusters" data-clusters></div>
@@ -90,7 +106,17 @@ const v0 = VIEWS[start];
     const draw = (v) => {
       cur = v; svg.setAttribute('viewBox', v.join(' '));
       pins.forEach((p) => { p.style.left = ((p.dataset.x - v[0]) / v[2]) * 100 + '%'; p.style.top = ((p.dataset.y - v[1]) / v[3]) * 100 + '%'; });
-      root.dataset.wide = v[2] > 200 ? '1' : ''; root.dataset.deep = v[2] < 40 ? '1' : ''; // close up, the dot map turns into big blobs: fade it
+      root.dataset.wide = v[2] > 200 ? '1' : '';
+      // Dot layer by zoom, so dots never swell into blobs: world (1.5°) → mid (0.5°) → fine (0.15°; only East & Southeast Asia
+      // and Europe, boxes [x0, y0, x1, y1] as in scripts/make-map-dots.mjs). Elsewhere, very close up, the dots are hidden.
+      const FINE_BOXES = [[268, 32, 326, 89], [168, 7, 212, 43]];
+      const inFine = FINE_BOXES.some((b) => v[0] >= b[0] && v[0] + v[2] <= b[2] && v[1] >= b[1] && v[1] + v[3] <= b[3]); // whole view inside: no hard edge
+      const px = box.clientWidth / v[2]; // screen pixels per degree: keep dots about 15 px apart or less
+      const layer = 1.5 * px <= 15 ? 'world' : 0.5 * px <= 15 ? 'mid' : inFine ? 'fine' : 0.5 * px <= 30 ? 'mid' : 'none';
+      if (layer !== root.dataset.layer) {
+        root.dataset.layer = layer;
+        root.querySelectorAll(`.map-${layer}[data-href]`).forEach((im) => { im.setAttribute('href', im.dataset.href); im.removeAttribute('data-href'); });
+      }
       cancelAnimationFrame(raf); raf = requestAnimationFrame(group);
     };
     // Merge pins closer than R px into a cluster; then hide labels that would still overlap.
