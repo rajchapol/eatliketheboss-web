@@ -35,7 +35,7 @@ const stripCtrl = (s: string) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u0
 const cleanDish = (s: string) => stripCtrl(s).replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
 
 const IMG = `{..., asset->{url, metadata{dimensions}}}`;
-const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, "pickIds": picks[]._ref, location, cover${IMG}}`;
+const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, "pickIds": picks[]._ref, location, aliases, cover${IMG}}`;
 
 let articlesCache: Promise<Article[]> | null = null;
 let citiesCache: Promise<City[]> | null = null;

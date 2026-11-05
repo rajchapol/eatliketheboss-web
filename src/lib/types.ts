@@ -20,6 +20,7 @@ export interface City {
   cover?: Img;
   featured?: boolean;
   location?: { lat: number; lng: number }; // map pin set in Studio (else CITY_COORDS)
+  aliases?: string[]; // other names people search by (Studio)
   pickIds?: string[]; // Boss's Picks chosen in Studio (article ids); empty = automatic
 }
 
@@ -38,6 +39,7 @@ export interface Restaurant {
   cuisine?: string;
   priceBand?: '฿฿' | '฿฿฿' | '฿฿฿฿';
   awards?: string[];
+  aliases?: string[]; // other names people search by, e.g. Thai spelling (Studio)
   sameAs?: string; // id of an earlier review of the same restaurant (when the name changed)
 }
 
