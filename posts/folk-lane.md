@@ -15,7 +15,7 @@ cover: "./images/folk-lane/cover.jpg | มัทฉะเฟรนช์โท�
 gallery:
   - "./images/folk-lane/g1.jpg | เมนูอาหารปกสีฟ้าโลโก้ Folk Lane วางบนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ"
   - "./images/folk-lane/g2.jpg | กาแฟดำและลาเต้ลายใบไม้ในถ้วยสีแดง บนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ"
-billBand: ""
+billBand: "฿฿"
 bill: ""
 tag: ""
 visit: Sep-2026

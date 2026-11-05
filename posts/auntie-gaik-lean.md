@@ -21,7 +21,7 @@ gallery:
   - "./images/auntie-gaik-lean/g6.jpg | มะเขือยาวย่างราดซัมบัลสีแดงข้างผักสลัดบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
   - "./images/auntie-gaik-lean/g7.jpg | กุ้งย่างสีเข้มกองสูงท็อปแครอทแกะสลักบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
   - "./images/auntie-gaik-lean/g8.jpg | ขนมกะทิในชามดำสีเข้ม มีมันม่วงและกล้วย งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-billBand: ""
+billBand: "฿฿฿"
 bill: ""
 tag: "Event"
 visit: Mar-2026
