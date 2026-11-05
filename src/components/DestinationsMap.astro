@@ -45,6 +45,12 @@ const v0 = VIEWS[start];
           <image href="/img/map/sea-dots.svg" x="0" y="0" width="360" height="136" class="map-sea" />
           {routeD && <path d={routeD} class="map-route fx-route" fill="none" vector-effect="non-scaling-stroke" />}
         </svg>
+        <div class="map-clusters" data-clusters></div>
+        <div class="map-ctrl" role="group" aria-label="ซูมเข้าออก">
+          <button type="button" class="map-btn" data-zoom-in aria-label="ซูมเข้า">+</button>
+          <button type="button" class="map-btn" data-zoom-out aria-label="ซูมออก">−</button>
+        </div>
+        <p class="map-hint" data-hint aria-hidden="true"></p>
         <ol class="map-pins" style="list-style:none;margin:0;padding:0">
           {pins.map((p) => (
             <li class="map-pin" data-x={p.x} data-y={p.y} data-count={p.count} style={`left:${((p.x - v0[0]) / v0[2]) * 100}%;top:${((p.y - v0[1]) / v0[3]) * 100}%`}>
@@ -61,41 +67,119 @@ const v0 = VIEWS[start];
   </section>
 )}
 <script>
+  // Zoom: preset buttons, + / −, drag to move, pinch (phones), Ctrl/⌘ + wheel or trackpad pinch (computers).
+  // Cities too close to read at the current zoom merge into one numbered gold circle; tap it to zoom in on them.
   document.querySelectorAll('[data-map]').forEach((root) => {
     const VIEWS = JSON.parse(root.dataset.views), svg = root.querySelector('[data-svg]'), box = root.querySelector('[data-box]');
     const pins = [...root.querySelectorAll('.map-pin')], btns = [...root.querySelectorAll('[data-view]')];
+    const layer = root.querySelector('[data-clusters]'), hint = root.querySelector('[data-hint]');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let name = root.dataset.start, cur = null, anim = 0;
-    // Widen a view around its centre to the box's shape, so dots and pins never stretch.
+    const MIN_W = 8, MAX_W = 380; // degrees across: about one city … the whole world
+    let name = root.dataset.start, cur = null, anim = 0, raf = 0;
     const fit = ([x, y, w, h]) => {
       const A = box.clientWidth / Math.max(1, box.clientHeight);
       if (w / h < A) { const nw = h * A; x -= (nw - w) / 2; w = nw; } else { const nh = w / A; y -= (nh - h) / 2; h = nh; }
       return [x, y, w, h];
     };
+    const clamp = ([x, y, w, h]) => {
+      const k = Math.min(1, MAX_W / w, Math.max(1, MIN_W / w)); // keep the width within limits, around the centre
+      const cx = x + w / 2, cy = y + h / 2; w *= k; h *= k;
+      const ccx = Math.min(390, Math.max(-30, cx)), ccy = Math.min(132, Math.max(4, cy));
+      return [ccx - w / 2, ccy - h / 2, w, h];
+    };
     const draw = (v) => {
       cur = v; svg.setAttribute('viewBox', v.join(' '));
       pins.forEach((p) => { p.style.left = ((p.dataset.x - v[0]) / v[2]) * 100 + '%'; p.style.top = ((p.dataset.y - v[1]) / v[3]) * 100 + '%'; });
+      root.dataset.wide = v[2] > 200 ? '1' : ''; root.dataset.deep = v[2] < 40 ? '1' : ''; // close up, the dot map turns into big blobs: fade it
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(group);
     };
-    // Labels that would overlap: the city with more restaurants keeps its label; the other shows it on hover/tap.
-    const declutter = () => {
+    // Merge pins closer than R px into a cluster; then hide labels that would still overlap.
+    const group = () => {
+      const W = box.clientWidth, H = box.clientHeight, R = W < 500 ? 30 : 34;
+      const pos = pins.map((p) => ({ p, x: ((p.dataset.x - cur[0]) / cur[2]) * W, y: ((p.dataset.y - cur[1]) / cur[3]) * H, n: +p.dataset.count }));
+      const left = [...pos].sort((a, b) => b.n - a.n), groups = [];
+      while (left.length) {
+        const a = left.shift(), g = [a];
+        for (let i = left.length - 1; i >= 0; i--) if (g.some((m) => Math.hypot(m.x - left[i].x, m.y - left[i].y) < R)) g.push(...left.splice(i, 1));
+        groups.push(g);
+      }
+      layer.textContent = '';
+      groups.forEach((g) => {
+        g.forEach((m) => m.p.classList.toggle('clustered', g.length > 1));
+        if (g.length < 2) return;
+        const total = g.reduce((s, m) => s + m.n, 0), cx = g.reduce((s, m) => s + m.x, 0) / g.length, cy = g.reduce((s, m) => s + m.y, 0) / g.length;
+        const names = g.map((m) => m.p.querySelector('a').getAttribute('aria-label').split(' ')[0]);
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'map-cluster';
+        b.style.left = (cx / W) * 100 + '%'; b.style.top = (cy / H) * 100 + '%';
+        b.setAttribute('aria-label', `${g.length} เมือง ${total} ร้าน: ${names.join(', ')} — กดเพื่อซูมเข้า`);
+        b.innerHTML = `<span class="cl-dot">${g.length}</span><span class="pin-label">${names[0]} +${g.length - 1} <b>${total}</b></span>`;
+        b.addEventListener('click', () => {
+          const xs = g.map((m) => +m.p.dataset.x), ys = g.map((m) => +m.p.dataset.y);
+          // Zoom far enough that every city in the group gets its own pin (but keep them all in view).
+          let near = Infinity;
+          g.forEach((m, i) => g.slice(i + 1).forEach((o) => { near = Math.min(near, Math.hypot(m.p.dataset.x - o.p.dataset.x, m.p.dataset.y - o.p.dataset.y)); }));
+          const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) * (W / H));
+          const w = Math.max(MIN_W, span * 1.4, Math.min(span * 2.2, (near * W) / (R * 1.8))), h = w * (H / W);
+          go(clamp(fit([(Math.max(...xs) + Math.min(...xs)) / 2 - w / 2, (Math.max(...ys) + Math.min(...ys)) / 2 - h / 2, w, h])), 'custom');
+        });
+        layer.appendChild(b);
+      });
       const kept = [];
-      [...pins].sort((a, b) => b.dataset.count - a.dataset.count).forEach((p) => {
+      [...pins.filter((p) => !p.classList.contains('clustered')), ...layer.children].sort((a, b) => (b.dataset.count || 99) - (a.dataset.count || 99)).forEach((p) => {
         p.classList.remove('label-off');
         const l = p.querySelector('.pin-label').getBoundingClientRect();
         const r = { l: l.left - 4, r: l.right + 4, t: l.top - 2, b: l.bottom + 2 };
         if (kept.some((k) => r.l < k.r && r.r > k.l && r.t < k.b && r.b > k.t)) p.classList.add('label-off'); else kept.push(r);
       });
     };
-    const show = (n, animate) => {
-      name = n; root.dataset.zoom = n; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === n)));
-      const to = fit(VIEWS[n]); cancelAnimationFrame(anim);
-      if (!animate || reduce || !cur) { draw(to); return declutter(); }
-      const from = cur, t0 = performance.now(), D = 900, ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-      const step = (now) => { const t = Math.min(1, (now - t0) / D), e = ease(t); draw(from.map((a, i) => a + (to[i] - a) * e)); if (t < 1) anim = requestAnimationFrame(step); else declutter(); };
+    const press = (n) => { name = n; root.dataset.zoom = n; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === n))); };
+    const go = (to, n, animate = true) => {
+      press(n); cancelAnimationFrame(anim);
+      if (!animate || reduce || !cur) return draw(to);
+      const from = cur, t0 = performance.now(), D = 800, ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const step = (now) => { const t = Math.min(1, (now - t0) / D), e = ease(t); draw(from.map((a, i) => a + (to[i] - a) * e)); if (t < 1) anim = requestAnimationFrame(step); };
       anim = requestAnimationFrame(step);
     };
+    const show = (n, animate) => go(fit(VIEWS[n]), n, animate);
+    // Zoom by factor k around a point of the box (fractions 0–1).
+    const zoomAt = (k, fx = .5, fy = .5) => {
+      const [x, y, w, h] = cur, nw = w / k, nh = h / k;
+      go(clamp([x + fx * w - fx * nw, y + fy * h - fy * nh, nw, nh]), 'custom', false);
+    };
     btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.view, true)));
-    addEventListener('resize', () => show(name, false));
+    root.querySelector('[data-zoom-in]').addEventListener('click', () => { const [x, y, w, h] = cur; go(clamp([x + w / 4, y + h / 4, w / 2, h / 2]), 'custom'); });
+    root.querySelector('[data-zoom-out]').addEventListener('click', () => { const [x, y, w, h] = cur; go(clamp([x - w / 2, y - h / 2, w * 2, h * 2]), 'custom'); });
+    // Drag and pinch (pointer events). Vertical swipes still scroll the page on phones (touch-action: pan-y).
+    const pts = new Map(); let moved = 0, last = null;
+    box.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.map-ctrl')) return;
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = 0; last = null; cancelAnimationFrame(anim);
+    });
+    box.addEventListener('pointermove', (e) => {
+      if (!pts.has(e.pointerId)) return;
+      const prev = pts.get(e.pointerId), now = { x: e.clientX, y: e.clientY };
+      const W = box.clientWidth, H = box.clientHeight, rect = box.getBoundingClientRect();
+      if (pts.size === 1) {
+        const dx = now.x - prev.x, dy = now.y - prev.y; moved += Math.abs(dx) + Math.abs(dy);
+        if (moved > 4) { box.setPointerCapture?.(e.pointerId); press('custom'); draw(clamp([cur[0] - (dx / W) * cur[2], cur[1] - (dy / H) * cur[3], cur[2], cur[3]])); }
+      } else if (pts.size === 2) {
+        const [a, b] = [...pts.values()], other = a === prev ? b : a;
+        const d0 = Math.hypot(prev.x - other.x, prev.y - other.y), d1 = Math.hypot(now.x - other.x, now.y - other.y);
+        if (d0 > 0) { moved = 99; zoomAt(d1 / d0, ((now.x + other.x) / 2 - rect.left) / W, ((now.y + other.y) / 2 - rect.top) / H); }
+      }
+      pts.set(e.pointerId, now);
+    });
+    const up = (e) => pts.delete(e.pointerId);
+    box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up); box.addEventListener('pointerleave', up);
+    box.addEventListener('click', (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true); // a drag is not a tap on a pin
+    let hintT = 0;
+    box.addEventListener('wheel', (e) => {
+      if (!(e.ctrlKey || e.metaKey)) { hint.textContent = 'กด Ctrl (Mac: ⌘) ค้างแล้วเลื่อน เพื่อซูมแผนที่'; root.classList.add('hint-on'); clearTimeout(hintT); hintT = setTimeout(() => root.classList.remove('hint-on'), 1400); return; }
+      e.preventDefault(); const rect = box.getBoundingClientRect();
+      zoomAt(Math.exp(-e.deltaY * 0.0025), (e.clientX - rect.left) / rect.width, (e.clientY - rect.top) / rect.height);
+    }, { passive: false });
+    addEventListener('resize', () => (name === 'custom' ? draw(clamp(fit(cur))) : show(name, false)));
     show(name, false);
     root.classList.add('map-ready');
   });
