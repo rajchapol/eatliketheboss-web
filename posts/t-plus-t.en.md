@@ -5,15 +5,15 @@ title: "Eat Like The Boss in Taipei: T+T - Michelin-Starred Asian Tapas"
 slug: t-plus-t
 tagline: "Michelin-starred Asian tapas"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
 restaurant:
   name: "T+T"
   chef: "Johnny Tsai (蔡元善)"
   area: "Songshan"
   cuisine: "Modern"
+  style: "Fusion"
   awards: ["MICHELIN 1★", "Tatler Best 20 Taiwan 2026"]
 cover: "./images/t-plus-t/cover.jpg | Creamy pale soup with abalone, golden tofu skin and fine strands of herbs, in a white porcelain bowl, T+T, Taipei"
-billBand: ""
+billBand: "฿฿"
 bill: ""
 tag: ""
 visit: Apr-2026

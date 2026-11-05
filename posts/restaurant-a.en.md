@@ -10,11 +10,12 @@ restaurant:
   chef: "Alain Huang (黃以倫)"
   area: "Da'an"
   cuisine: "French"
+  style: "Contemporary"
   awards: ["MICHELIN 2★"]
 cover: "./images/restaurant-a/cover.jpg | Grilled octopus, shellfish, yellow tomato, saffron butter and green shoots in a white petal-shaped porcelain bowl, Restaurant A, Taipei"
 tag: ""
 bill: ""
-billBand: ""
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, RestaurantA, Taipei, AlainHuang, MichelinGuideTaiwan, FrenchCuisine, Taiwan, FineDining, 台北]
 publishedAt: 2026-11-05

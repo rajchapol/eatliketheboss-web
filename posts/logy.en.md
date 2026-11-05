@@ -10,11 +10,12 @@ restaurant:
   chef: "Ryogo Tahara (田原諒悟)"
   area: "Neihu (內湖)"
   cuisine: "Modern"
+  style: "Innovative"
   awards: ["MICHELIN 2★", "Asia's 50 Best"]
 cover: "./images/logy/cover.jpg | Fresh green peas, green cream, a purple borage flower and white and pale green granita on a cream plate, logy, Taipei"
 tag: ""
 bill: ""
-billBand: ""
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, logy, Taipei, Asias50Best, MichelinGuideTaiwan, Florilege, Taiwan, FineDining, 台北]
 publishedAt: 2026-11-05

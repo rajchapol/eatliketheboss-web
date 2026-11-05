@@ -5,17 +5,17 @@ title: "Eat Like The Boss in Taipei: ZEA - Latin Flavours in Taipei"
 slug: zea
 tagline: "Latin flavours in Taipei"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
 restaurant:
   name: "ZEA"
   chef: "Joaquín Elizondo Hourbeigt"
   area: "Da'an"
-  cuisine: "Latin American"
+  cuisine: "Other"
+  style: "Latin American"
   awards: ["MICHELIN 1★"]
 cover: "./images/zea/cover.jpg | Crisp fried fish on a corn tortilla with green sauce, on a scalloped ceramic plate, ZEA, Taipei"
 gallery:
   - "./images/zea/tray.jpg | A wooden tray of Taiwanese produce: cactus paddles, leafy greens, an orange and small bowls of ingredients, ZEA, Taipei | The tray of Taiwanese produce used tonight"
-billBand: ""
+billBand: "฿฿฿"
 bill: ""
 tag: ""
 visit: Apr-2026

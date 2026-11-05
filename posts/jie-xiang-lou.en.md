@@ -5,18 +5,18 @@ title: "Eat Like The Boss in Hangzhou: Jie Xiang Lou (解香楼) - Rain Over Wes
 slug: jie-xiang-lou
 tagline: "Rain over West Lake and modern Jiangnan cooking"
 city: hangzhou
-cityNew: { nameEn: "Hangzhou", nameTh: "หางโจว", country: "จีน", region: "asia" }
 restaurant:
   name: "Jie Xiang Lou"
   originalName: "解香楼"
   chef: "Yu Bin (俞斌)"
   area: "West Lake"
   cuisine: "Chinese"
+  style: "Zhejiang"
   awards: ["MICHELIN 2★"]
 cover: "./images/jie-xiang-lou/cover.jpg | Triangular slices of foie gras terrine in an amber rice-wine sauce, garnished with small white flowers, on a white porcelain plate, Jie Xiang Lou, Hangzhou"
 tag: ""
 bill: ""
-billBand: ""
+billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, JieXiangLou, 解香楼, Hangzhou, 杭州, MichelinGuide, JiangnanCuisine, ChineseCuisine, FineDining]
 publishedAt: 2026-11-05
