@@ -12,7 +12,7 @@ restaurant:
   style: "Unagi"
   awards: []
 cover: "./images/ginza-koara/cover.jpg | ซูชิกดปลาไหลทาซอสเงาวางคู่เมียวกะดองสีชมพูบนจานเซรามิกขอบหยัก ร้าน Ginza Koara โตเกียว"
-billBand: ""
+billBand: "฿฿"
 bill: ""
 tag: ""
 visit: May-2026
