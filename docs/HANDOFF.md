@@ -4,6 +4,21 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · Destinations map: free zoom, drag, clusters
+
+The Boss: the map couldn't zoom, and nearby cities (Shanghai · Hangzhou · Taipei) were hard to tell apart.
+- `DestinationsMap.astro` script:
+  - **Zoom:** + / − buttons (bottom right), pinch on phones, Ctrl/⌘ + wheel or trackpad pinch on computers. A plain wheel shows a hint instead of hijacking page scroll.
+  - **Drag to pan:** the box has `touch-action: pan-y`, so vertical swipes still scroll the page on phones. A drag never counts as a tap on a pin.
+  - **Limits:** the view width stays between 8° and 380° (`MIN_W` / `MAX_W`), and the centre is clamped.
+  - **Preset buttons** (ทั้งโลก / เอเชีย / ประเทศไทย) still work; any manual move un-presses them (`name = 'custom'`).
+- **Clusters:** pins closer than ~30 px at the current zoom merge into one numbered gold circle (`.map-cluster`, label "Shanghai +2 11"). Tapping it zooms just far enough for every city in it to get its own pin. Label overlap logic runs after clustering.
+- Below 40° wide the dot map is hidden (`data-deep`), because its 1° dots turn into big blobs. Labels on single pins and clusters hide when the view is wider than 200° (was: only on the world preset).
+- CSS at the end of `site.css` ("destinations map: free zoom, drag, clusters").
+- Tested with Playwright on the live-data build at 1280 and 390 px: cluster tap separates Shanghai / Hangzhou / Taipei, drag + Ctrl-wheel change the view, no JS errors.
+
+---
+
 ## Session 2026-11-05 · Restaurant time capsule (repeat visits, option B)
 
 The Boss picked option B: one page per restaurant he reviewed 2+ times, so repeat visits are easy to look back on and never crowd the lists.
