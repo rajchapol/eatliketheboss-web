@@ -7,7 +7,7 @@ city: singapore
 restaurant:
   name: "Les Amis"
   chef: "Sébastien Lepinoy"
-  cuisine: "ฝรั่งเศส"
+  cuisine: "French"
   awards: ["MICHELIN 3★"]
 cover: "./images/les-amis/cover.jpg | ไข่ดาวน้ำคลุมซอสวอเตอร์เครสสีเขียวสด ข้างคาเวียร์ Oscietra บนจานขอบเงิน ร้าน Les Amis สิงคโปร์"
 bill: "550 SGD++"

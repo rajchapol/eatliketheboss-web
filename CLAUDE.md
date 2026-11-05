@@ -16,7 +16,7 @@ To tell another role (posting · brand & design) something, write it in section 
 2. Copy `posts/_template.md` to `posts/<slug>.md` and fill it. Put photos in `posts/images/<slug>/` (or use https URLs). Every image needs real alt text after `|`.
 3. `npm run post -- posts/<slug>.md --dry` to check, then `npm run post -- posts/<slug>.md` to publish. Needs `.env` with `SANITY_PROJECT_ID` and `SANITY_WRITE_TOKEN`.
    **From a Claude session (no token needed):** run the `--dry` check locally, then — only after the Boss approves that post — commit `posts/<slug>.md` + its images and push to `main`. `.github/workflows/post-article.yml` publishes every changed `posts/*.md` with the GitHub secret `SANITY_WRITE_TOKEN`. Re-run or dry-run any file from Actions → Post article to Sanity → Run workflow. Never ask for or store the token itself. Editing a file that is already published is fine: the re-post sends only the fields changed in the file since its previous commit (`--since`), so Studio edits elsewhere stay.
-4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. In Studio: open the Thai article → tab "5 ภาษา / คำแปล" → "+ English / 日本語 / 中文" makes a linked copy (same slug, photos, dishes) to translate over; the tab lists every language of that article. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
+4. Translation: same file with `language: en|ja|zh` and the same `slug`, saved as `posts/<slug>.<lang>.md`. In Studio: open the Thai article → tab "5 Languages" → "+ English / 日本語 / 中文" makes a linked copy (same slug, photos, dishes) to translate over; the tab lists every language of that article. Keep restaurant, dish, chef names untranslated; keep the Boss's critic voice.
 You never need to touch `src/` to post.
 
 ## Brand rules that the code enforces or relies on
@@ -42,9 +42,10 @@ You never need to touch `src/` to post.
 | All site copy (one Studio tab per page: home, article, finder, destinations, awards, series, about, contact, footer/SEO) | Sanity → ตั้งค่าเว็บ / ข้อความทุกหน้า (defaults: `src/data/settings.json`; Actions → Fill settings texts fills empty fields) |
 | Share image per article (cover + logo + name) | `src/lib/og.ts` → `/og/<article path>.jpg` (fonts `src/og/fonts`) |
 | Contact / recommend-a-restaurant form | `src/pages/contact.astro` → Web3Forms key in Sanity settings |
-| Site URL, series keys, motifs | `src/lib/config.ts` |
+| Site URL, series keys, motifs, cuisine categories + styles (one list: `src/data/cuisines.json`, read by `config.ts`, the Studio and `scripts/post-article.mjs`; broad English category for the filter, optional style shown as "Japanese · Sushi" — the Boss, 5 Nov 2026) | `src/lib/config.ts` |
+| Studio wording | English first, Thai after (`English · ไทย`) for menus, tabs and field titles; descriptions in Thai. No Thai Studio locale (the Boss prefers English buttons) |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
-| Content fields in Studio | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
+| Content fields in Studio (city `intro` = "City fact": one odd true fact, English, shown under "Did you know?"; new city slugs = English name only) | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |
 | Pages | `src/pages/` — `[...article].astro` renders every article URL |
 | Motion: scroll reveal (skipped on Back / pages already seen this visit), compact glass bar, card tilt, spotlight, count-up — no page transitions (the Boss found them disorienting) | `src/components/Effects.astro` (script) + "Effects v2" at the end of `site.css`; all off under reduced motion (`fx-on` class on `<html>`) |
 | Home slider (5 latest visits, featured article first) | `src/components/HeroSlider.astro` |

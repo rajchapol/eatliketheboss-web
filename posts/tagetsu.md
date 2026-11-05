@@ -8,7 +8,8 @@ city: tokyo
 restaurant:
   name: "Tagetsu"
   chef: "Hideo Mochizuki"
-  cuisine: "ญี่ปุ่น"
+  cuisine: "Japanese"
+  style: "Kaiseki"
   awards: ["MICHELIN 1★"]
 cover: "./images/tagetsu/cover.jpg | จานรวมหลายชนิดบนถาดสีแดงของร้าน Tagetsu ร้านไคเซกิที่โตเกียว มีมะนาวเขียวและใบไม้ประดับ"
 billBand: "฿฿฿"

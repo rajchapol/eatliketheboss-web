@@ -7,7 +7,8 @@ city: norway-oslo
 restaurant:
   name: "Maaemo"
   chef: "Esben Holmboe Bang"
-  cuisine: "Modern"
+  cuisine: "Nordic"
+  style: "New Nordic"
   awards: ["MICHELIN 3★"]
 cover: "./images/maaemo/cover.jpg | คาเวียร์คู่พิวเร่ดอกกะหล่ำสีน้ำตาลอ่อนในน้ำซุปเนื้อ ก้นชามเซรามิกสีครีมขอบหนา ร้าน Maaemo ออสโล"
 bill: "~5200 Nok /pax"

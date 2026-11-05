@@ -121,7 +121,7 @@ for (const a of articles) {
 
   const r = a.restaurant ? clean({
     name: a.restaurant.name, originalName: a.restaurant.originalName, chef: a.restaurant.chef, area: a.restaurant.area,
-    cuisine: a.restaurant.cuisine, awards: a.restaurant.awards, aliases: a.restaurant.aliases, sameAs: a.restaurant.sameAs,
+    cuisine: a.restaurant.cuisine, style: a.restaurant.style, awards: a.restaurant.awards, aliases: a.restaurant.aliases, sameAs: a.restaurant.sameAs,
   }) : undefined;
   const fm = clean({
     language: lang, series: a.series, episode: a.episode, title: a.title, slug: a.slug, tagline: a.tagline, city: a.city,

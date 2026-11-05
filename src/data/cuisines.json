@@ -1,0 +1,12 @@
+{
+  "_about": "Cuisine categories (keys, used for the Restaurants filter) and their styles (optional detail, shown as \"Category · Style\", so a style does not repeat the category word: Thai · Isan, French · Contemporary). English only. One source for the website (src/lib/config.ts), the Studio list (studio/schemas/index.ts) and the post check (scripts/post-article.mjs). Add a style only when no existing one fits, in a PR.",
+  "Japanese": ["Sushi", "Kaiseki", "Kappo", "Tempura", "Yakitori", "Teppanyaki", "Yakiniku", "Wagyu", "Soba", "Unagi", "Kushiage", "Fugu", "Innovative"],
+  "Chinese": ["Cantonese", "Shanghainese", "Huaiyang", "Zhejiang", "Sichuan", "Hunan", "Fujian", "Teochew", "Beijing", "Taiwanese", "Hakka", "Vegetarian", "Contemporary"],
+  "Thai": ["Royal", "Contemporary", "Central", "Northern", "Southern", "Isan", "Thai-Chinese"],
+  "French": ["Classic", "Contemporary", "Bistronomy", "Japanese-influenced"],
+  "Italian": ["Classic", "Contemporary", "Northern", "Southern"],
+  "Spanish": ["Contemporary", "Basque", "Catalan", "Canarian", "Andalusian", "Tapas"],
+  "Nordic": ["New Nordic", "Danish", "Norwegian", "Swedish", "Finnish"],
+  "Modern": ["Contemporary", "Innovative", "Progressive", "Fusion", "Farm-to-Table", "Plant-Based"],
+  "Other": ["Korean", "Indian", "Peranakan", "Singaporean", "Vietnamese", "Indonesian", "Middle Eastern", "Turkish", "Peruvian", "Mexican", "Latin American", "American", "British", "Steakhouse", "Seafood", "Vegetarian"]
+}

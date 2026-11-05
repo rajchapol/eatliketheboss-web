@@ -7,7 +7,7 @@ city: singapore
 restaurant:
   name: "Les Amis"
   chef: "Sébastien Lepinoy"
-  cuisine: "ฝรั่งเศส"
+  cuisine: "French"
   awards: ["MICHELIN 3★"]
 cover: "./images/les-amis-2020/cover.jpg | พนักงานรินซอสลงบนแลงกูสทีนห่อซูกินีท็อปคาเวียร์ ร้าน Les Amis สิงคโปร์"
 bill: "670 SGD"

@@ -9,7 +9,8 @@ restaurant:
   originalName: "銀座 はるたか"
   chef: "Takaaki Harutaka"
   area: "Ginza"
-  cuisine: "ญี่ปุ่น"
+  cuisine: "Japanese"
+  style: "Sushi"
   awards: ["MICHELIN 3★"]
 cover: "./images/harutaka/cover.jpg | ซูชิปลาซาบะดองหนังสีเงินบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
 bill: "~65,000 Yen +"

@@ -9,7 +9,8 @@ cityNew: {"nameEn": "Barcelona", "nameTh": "บาร์เซโลนา", "co
 restaurant:
   name: "Lasarte"
   chef: "Martín Berasategui · Paolo Casagrande"
-  cuisine: "Modern Spanish"
+  cuisine: "Spanish"
+  style: "Contemporary"
   awards: ["MICHELIN 3★"]
 cover: "./images/lasarte/cover.jpg | มิลเฟยปลาไหลรมควัน ฟัวกราส์ และแอปเปิ้ลเขียว ร้าน Lasarte บาร์เซโลนา"
 billBand: "฿฿฿฿"

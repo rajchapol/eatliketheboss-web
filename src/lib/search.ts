@@ -57,7 +57,7 @@ const GROUPS: string[][] = [
   ['france', 'ฝรั่งเศส'],
   ['italy', 'อิตาลี'],
   ['spain', 'สเปน'],
-  // cuisines (the Studio list is in Thai)
+  // cuisines (categories are English; Thai words still find them)
   ['japanese', 'ญี่ปุ่น', 'อาหารญี่ปุ่น'],
   ['thai', 'ไทย', 'อาหารไทย'],
   ['french', 'ฝรั่งเศส', 'อาหารฝรั่งเศส'],
@@ -65,6 +65,7 @@ const GROUPS: string[][] = [
   ['italian', 'อิตาเลียน', 'อิตาเลี่ยน', 'อิตาลี', 'อาหารอิตาเลียน'],
   ['spanish', 'สเปน', 'อาหารสเปน'],
   ['modern', 'โมเดิร์น', 'contemporary'],
+  ['nordic', 'นอร์ดิก', 'scandinavian', 'สแกนดิเนเวีย'],
   ['cantonese', 'กวางตุ้ง', '粤菜'],
   ['shanghainese', 'อาหารเซี่ยงไฮ้', 'benbang', '本帮菜'],
   ['sichuan', 'เสฉวน', 'szechuan', '川菜'],

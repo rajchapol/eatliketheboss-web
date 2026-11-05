@@ -63,6 +63,36 @@ export const CITY_COORDS: Record<string, [number, number]> = {
   istanbul: [41.01, 28.98], istalbul: [41.01, 28.98], 'new-york': [40.71, -74.01], 'san-francisco': [37.77, -122.42], 'los-angeles': [34.05, -118.24], sydney: [-33.87, 151.21], melbourne: [-37.81, 144.96], dubai: [25.2, 55.27],
 };
 
+/** Cuisine: a few broad categories, in English only (the Boss, 5 Nov 2026), each with optional styles (Sushi, Cantonese…).
+ *  Category = the Restaurants filter; style = detail shown next to it. One list for site, Studio and post check:
+ *  src/data/cuisines.json (add a style there, in a PR, only when none fits). */
+import CUISINE_LIST from '../data/cuisines.json';
+export const CUISINE_STYLES = Object.fromEntries(Object.entries(CUISINE_LIST).filter(([k]) => !k.startsWith('_'))) as Record<string, string[]>;
+export const CUISINES = Object.keys(CUISINE_STYLES);
+// Older values (Thai, or styles typed as the category) → [category, style], so the site stays tidy even before the data is fixed.
+const CUISINE_OLD: Record<string, [string, string?]> = {
+  'ญี่ปุ่น': ['Japanese'], 'ซูชิ': ['Japanese', 'Sushi'], 'ไคเซกิ': ['Japanese', 'Kaiseki'], 'kappo kaiseki': ['Japanese', 'Kappo'],
+  'จีน': ['Chinese'], 'ไทย': ['Thai'], 'ฝรั่งเศส': ['French'], 'ฝรั่งเศสร่วมสมัย': ['French', 'Contemporary'], 'อิตาเลียน': ['Italian'],
+  'สเปน': ['Spanish'], 'หมู่เกาะคานารี่': ['Spanish', 'Canarian'], 'modern spanish': ['Spanish', 'Contemporary'], 'นอร์ดิก': ['Nordic'], 'อื่นๆ': ['Other'],
+};
+const findStyle = (v: string) => Object.entries(CUISINE_STYLES).find(([, list]) => list.some((x) => x.toLowerCase() === v.toLowerCase()));
+/** Category of a cuisine value (old values and bare styles included); 'Other' when unknown. */
+export function cuisineOf(raw?: string): string | undefined {
+  const v = raw?.trim();
+  if (!v) return undefined;
+  return CUISINES.find((c) => c.toLowerCase() === v.toLowerCase()) ?? CUISINE_OLD[v]?.[0] ?? CUISINE_OLD[v.toLowerCase()]?.[0] ?? findStyle(v)?.[0] ?? 'Other';
+}
+/** Style of a restaurant: its own `style`, else one implied by an old cuisine value (e.g. "ซูชิ" → Sushi). */
+export function styleOf(r?: { cuisine?: string; style?: string }): string | undefined {
+  if (r?.style?.trim()) return r.style.trim();
+  const v = r?.cuisine?.trim();
+  if (!v) return undefined;
+  const old = CUISINE_OLD[v] ?? CUISINE_OLD[v.toLowerCase()];
+  if (old?.[1]) return old[1];
+  const hit = findStyle(v);
+  return hit ? hit[1].find((x) => x.toLowerCase() === v.toLowerCase()) : undefined;
+}
+
 /** Map position of a city: Studio pin, else CITY_COORDS by slug, by English name, or by the slug without a country prefix
  *  (cities are often saved as "norway-oslo"). */
 export function cityCoords(c: { slug: string; nameEn?: string; location?: { lat?: number; lng?: number } }): [number, number] | undefined {

@@ -5,7 +5,8 @@
   "nameTh": "กรุงเทพฯ",
   "country": "ประเทศไทย",
   "region": "th",
-  "motif": "prajam"
+  "motif": "prajam",
+  "intro": "Bangkok's full ceremonial name is 168 letters long, the longest place name in the world according to Guinness World Records."
  },
  {
   "slug": "phuket",
@@ -13,7 +14,8 @@
   "nameTh": "ภูเก็ต",
   "country": "ประเทศไทย",
   "region": "th",
-  "motif": "loop"
+  "motif": "loop",
+  "intro": "Every ninth lunar month, Phuket's Peranakan Chinese community gives up meat for nine days for the Vegetarian Festival, with street processions that go on for days."
  },
  {
   "slug": "chiang-mai",
@@ -21,7 +23,8 @@
   "nameTh": "เชียงใหม่",
   "country": "ประเทศไทย",
   "region": "th",
-  "motif": "loop"
+  "motif": "loop",
+  "intro": "Chiang Mai's old city is an almost perfect square, its moat dug when King Mangrai founded the city in 1296."
  },
  {
   "slug": "tokyo",
@@ -31,7 +34,7 @@
   "region": "asia",
   "motif": "seigaiha",
   "featured": true,
-  "intro": "[ประโยคแนะนำเมืองในมุมของบอส 1–2 บรรทัด]"
+  "intro": "At the 2019 New Year auction in Tokyo, a single bluefin tuna sold for ¥333.6 million, about US$3 million."
  },
  {
   "slug": "osaka",
@@ -39,7 +42,8 @@
   "nameTh": "โอซาก้า",
   "country": "ญี่ปุ่น",
   "region": "asia",
-  "motif": "kikko"
+  "motif": "kikko",
+  "intro": "Osaka was once called \"the nation's kitchen\", and its motto is kuidaore: eat until you drop, or until you go broke."
  },
  {
   "slug": "kyoto",
@@ -47,7 +51,8 @@
   "nameTh": "เกียวโต",
   "country": "ญี่ปุ่น",
   "region": "asia",
-  "motif": "shippo"
+  "motif": "shippo",
+  "intro": "Kyoto was on the shortlist of atomic-bomb targets in 1945. US Secretary of War Henry Stimson, who had visited the city and admired its temples, had it taken off."
  },
  {
   "slug": "hong-kong",
@@ -55,7 +60,8 @@
   "nameTh": "ฮ่องกง",
   "country": "ฮ่องกง",
   "region": "asia",
-  "motif": "fret"
+  "motif": "fret",
+  "intro": "Hong Kong's Central–Mid-Levels escalator is the longest outdoor covered escalator system in the world: about 800 m, running downhill in the morning and uphill the rest of the day."
  },
  {
   "slug": "shanghai",
@@ -63,7 +69,8 @@
   "nameTh": "เซี่ยงไฮ้",
   "country": "จีน",
   "region": "asia",
-  "motif": "loop"
+  "motif": "loop",
+  "intro": "Shanghai runs the world's first commercial high-speed maglev: it floats the 30 km to Pudong Airport in about eight minutes."
  },
  {
   "slug": "singapore",
@@ -71,6 +78,7 @@
   "nameTh": "สิงคโปร์",
   "country": "สิงคโปร์",
   "region": "asia",
-  "motif": "loop"
+  "motif": "loop",
+  "intro": "In 2016 a Singapore hawker stall selling soya sauce chicken rice for about S$2 won a MICHELIN star. Its hawker culture is on UNESCO's heritage list."
  }
 ]

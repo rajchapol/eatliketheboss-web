@@ -12,7 +12,8 @@ cityNew:
 restaurant:
   name: "JL Studio"
   chef: "Jimmy Lim"
-  cuisine: "อื่นๆ"
+  cuisine: "Other"
+  style: "Singaporean"
   awards: ["MICHELIN 3★"]
 cover: "./images/jl-studio/cover.jpg | ปลาเก๋าแดงสุกแบบโรเซ่ท็อปหน่อไม้ฝานบาง บนซอสข้าวหอมมะลิสีขาว ข้างพิวเรพริกเขียว ร้าน JL Studio ไถจง"
 bill: "~5880 TWD"

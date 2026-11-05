@@ -8,7 +8,8 @@ city: sapporo
 restaurant:
   name: "Sushisai Wakichi"
   chef: "Tamura"
-  cuisine: "ซูชิ"
+  cuisine: "Japanese"
+  style: "Sushi"
   awards: ["MICHELIN 2★"]
 cover: "./images/sushisai-wakichi/cover.jpg | คินเมไดย่างถ่านเสิร์ฟกับไดกอนโอโรชิและซอสพอนซึในจานเซรามิก ร้าน Sushisai Wakichi เมืองซัปโปโร"
 billBand: "฿฿฿฿"

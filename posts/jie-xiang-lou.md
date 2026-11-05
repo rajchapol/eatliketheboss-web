@@ -15,7 +15,8 @@ restaurant:
   originalName: "解香楼"
   chef: "Yu Bin (俞斌)"
   area: "West Lake"
-  cuisine: "จีน"
+  cuisine: "Chinese"
+  style: "Zhejiang"
   awards: ["MICHELIN 2★"]
 cover: "./images/jie-xiang-lou/cover.jpg | ฟัวกราส์เทรีนหั่นชิ้นสามเหลี่ยมวางเรียงในซอสเหล้าข้าวสีอำพัน ประดับดอกไม้สีขาว ในจานกระเบื้องขาว ร้าน Jie Xiang Lou หางโจว"
 billBand: "฿฿฿"

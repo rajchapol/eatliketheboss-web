@@ -11,6 +11,7 @@ restaurant:
   chef: "Xu Kun Lei (徐昆磊)"
   area: "North Bund"
   cuisine: "Chinese"
+  style: "Zhejiang"
   awards: ["MICHELIN 1★", "Black Pearl 3 Diamond"]
 cover: "./images/yong-fu/cover.jpg | Ningbo marinated crab cut into pieces in a dark sauce, scattered with chilli and spring onion, in a blue-rimmed blue-and-white porcelain bowl, Yong Fu, Shanghai"
 visit: Oct-2026

@@ -1,0 +1,33 @@
+# One-off data fix: fills the empty "City fact" (intro) of each city with one short, odd, true fact in English (scripts/set-city-intros.mjs).
+# Manual only: Actions → Set city facts → Run workflow. Leave "Dry run" ticked first to see the list, then run again unticked.
+# Changes only an empty `intro` of city documents; never overwrites text already there. Uses the existing secret SANITY_WRITE_TOKEN.
+name: Set city facts
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true # the runner's cached Node can be older than Astro requires
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/set-city-intros.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/set-city-intros.mjs

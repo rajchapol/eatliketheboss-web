@@ -8,6 +8,7 @@ restaurant:
   name: "Maaemo"
   chef: "Esben Holmboe Bang"
   cuisine: "Nordic"
+  style: "New Nordic"
   awards: ["MICHELIN 3★"]
 cover: "./images/maaemo-2018/cover.jpg | หางแลงกูสทีนย่างวางบนกิ่งสนสีเขียว ร้าน Maaemo ออสโล"
 bill: "~ อย่างต่ำ 2800Kr"

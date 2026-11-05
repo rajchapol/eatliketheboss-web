@@ -8,7 +8,8 @@ city: tokyo
 restaurant:
   name: "Florilège"
   chef: "Hiroyasu Kawate"
-  cuisine: "ฝรั่งเศสร่วมสมัย"
+  cuisine: "French"
+  style: "Contemporary"
   awards: ["MICHELIN 2★"]
 cover: "./images/florilege/cover.jpg | หมูย่างเสิร์ฟบนจานขาวกับซอสไวน์แดงเข้มและของเคียงชิ้นเล็ก ร้าน Florilège เมืองโตเกียว"
 billBand: "฿฿"

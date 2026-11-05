@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - 'studio/**'
+      - 'src/data/cuisines.json' # the Studio cuisine/style list reads this file
   workflow_dispatch:
 
 concurrency:

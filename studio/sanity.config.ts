@@ -29,53 +29,53 @@ export default defineConfig({
         // Originals = articles that are not linked to another article. Filtering on language == "th" hid
         // Thai articles whose draft had its language switched by hand (before the field was locked).
         const TH = '_type == "article" && !defined(translationOf)';
-        return S.list().id('content').title('เนื้อหา').items([
+        return S.list().id('content').title('Content').items([
           // Articles, grouped the way the Boss looks for them
-          S.listItem().id('articles-th').title('บทความ (ภาษาไทย)').icon(DocumentsIcon).child(
-            S.list().id('articles-th-menu').title('บทความภาษาไทย').items([
-              item('th-all', 'ทั้งหมด (ใหม่สุดก่อน)', TH),
+          S.listItem().id('articles-th').title('Articles (Thai) · บทความ').icon(DocumentsIcon).child(
+            S.list().id('articles-th-menu').title('Articles (Thai) · บทความภาษาไทย').items([
+              item('th-all', 'All, newest first · ทั้งหมด', TH),
               S.divider(),
-              item('th-review', 'บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
-              item('th-history', 'มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`),
-              item('th-drinks', 'บอสพาดื่ม', `${TH} && series == "drinks"`),
+              item('th-review', 'Eat Like The Boss · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
+              item('th-history', 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`),
+              item('th-drinks', 'Drink Like The Boss · บอสพาดื่ม', `${TH} && series == "drinks"`),
               S.divider(),
-              S.listItem().id('th-by-city').title('แยกตามเมือง').icon(PinIcon).child(
-                S.documentTypeList('city').title('เลือกเมือง').apiVersion(API)
+              S.listItem().id('th-by-city').title('By city · แยกตามเมือง').icon(PinIcon).child(
+                S.documentTypeList('city').title('Choose a city · เลือกเมือง').apiVersion(API)
                   .child((cityId: string) => list(`city-${cityId}`, 'บทความในเมืองนี้', `${TH} && city._ref == $cityId`, { cityId }))),
             ])),
           // no "+" here: a translation is made from its Thai article (tab 5), which links it
-          S.listItem().id('articles-translations').title('คำแปล (EN / 日本語 / 中文)').icon(TranslateIcon).child(
-            S.list().id('translations-menu').title('คำแปล').items([
+          S.listItem().id('articles-translations').title('Translations (EN / 日本語 / 中文) · คำแปล').icon(TranslateIcon).child(
+            S.list().id('translations-menu').title('Translations · คำแปล').items([
               S.listItem().id('tr-en').title('English').schemaType('article').child(list('tr-en', 'English', '_type == "article" && defined(translationOf) && language == "en"').initialValueTemplates([])),
               S.listItem().id('tr-ja').title('日本語').schemaType('article').child(list('tr-ja', '日本語', '_type == "article" && defined(translationOf) && language == "ja"').initialValueTemplates([])),
               S.listItem().id('tr-zh').title('中文').schemaType('article').child(list('tr-zh', '中文', '_type == "article" && defined(translationOf) && language == "zh"').initialValueTemplates([])),
             ])),
           S.divider(),
           // Work to do: each list empties itself as things get fixed
-          S.listItem().id('todo').title('งานที่ต้องทำ').icon(ClipboardIcon).child(
-            S.list().id('todo-menu').title('งานที่ต้องทำ').items([
-              item('todo-lang', 'ภาษาเพี้ยน: บทความไทยที่ถูกเปลี่ยนภาษา (กดเปลี่ยนกลับในแท็บ 5)', '_type == "article" && !defined(translationOf) && coalesce(language, "th") != "th"', WarningOutlineIcon),
-              item('todo-drafts-new', 'ร่างใหม่ ยังไม่เคยเผยแพร่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) == 0', EditIcon),
-              item('todo-drafts-edit', 'แก้ไขค้างไว้ ยังไม่กดเผยแพร่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) > 0', EditIcon),
+          S.listItem().id('todo').title('To do · งานที่ต้องทำ').icon(ClipboardIcon).child(
+            S.list().id('todo-menu').title('To do · งานที่ต้องทำ').items([
+              item('todo-lang', 'Wrong language: Thai article switched (fix in tab 5) · ภาษาเพี้ยน', '_type == "article" && !defined(translationOf) && coalesce(language, "th") != "th"', WarningOutlineIcon),
+              item('todo-drafts-new', 'New drafts, never published · ร่างใหม่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) == 0', EditIcon),
+              item('todo-drafts-edit', 'Unpublished edits · แก้ไขค้างไว้', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) > 0', EditIcon),
               S.divider(),
-              item('todo-band', 'ยังไม่มีระดับราคา', `${TH} && series == "review" && !defined(billBand) && !defined(bill) && !defined(restaurant.priceBand)`, WarningOutlineIcon),
-              item('todo-visit', 'ยังไม่ใส่ Visit', `${TH} && !defined(visit)`, WarningOutlineIcon),
-              item('todo-cover', 'ไม่มีรูปปก', '_type == "article" && !defined(cover.asset)', WarningOutlineIcon),
-              item('todo-alt', 'รูปยังไม่มีคำบรรยาย (alt)', '_type == "article" && ((defined(cover.asset) && !defined(cover.alt)) || count(dishes[defined(image.asset) && !defined(image.alt)]) > 0 || count(gallery[defined(asset) && !defined(alt)]) > 0)', WarningOutlineIcon),
-              item('todo-seo', 'SEO ยังไม่ครบ / ยาวไม่พอดี', '_type == "article" && (!defined(seoTitle) || !defined(seoDescription) || length(seoTitle) > 60 || length(seoDescription) < 120 || length(seoDescription) > 155)', SearchIcon),
+              item('todo-band', 'No price band · ยังไม่มีระดับราคา', `${TH} && series == "review" && !defined(billBand) && !defined(bill) && !defined(restaurant.priceBand)`, WarningOutlineIcon),
+              item('todo-visit', 'No Visit · ยังไม่ใส่ Visit', `${TH} && !defined(visit)`, WarningOutlineIcon),
+              item('todo-cover', 'No cover photo · ไม่มีรูปปก', '_type == "article" && !defined(cover.asset)', WarningOutlineIcon),
+              item('todo-alt', 'Photos without alt text · รูปยังไม่มีคำบรรยาย', '_type == "article" && ((defined(cover.asset) && !defined(cover.alt)) || count(dishes[defined(image.asset) && !defined(image.alt)]) > 0 || count(gallery[defined(asset) && !defined(alt)]) > 0)', WarningOutlineIcon),
+              item('todo-seo', 'SEO missing or wrong length · SEO ยังไม่ครบ', '_type == "article" && (!defined(seoTitle) || !defined(seoDescription) || length(seoTitle) > 60 || length(seoDescription) < 120 || length(seoDescription) > 155)', SearchIcon),
               S.divider(),
-              item('todo-no-en', 'ยังไม่มีคำแปล English', `${TH} && count(*[_type == "article" && language == "en" && translationOf._ref == ^._id]) == 0`, TranslateIcon),
+              item('todo-no-en', 'No English translation · ยังไม่มีคำแปล English', `${TH} && count(*[_type == "article" && language == "en" && translationOf._ref == ^._id]) == 0`, TranslateIcon),
               S.divider(),
               // Photos and cities: things that show as gaps on the site
-              item('todo-dish-photo', 'จานที่ยังไม่มีรูป (เว็บแสดงเป็นข้อความอย่างเดียว)', `${TH} && count(dishes[!defined(image.asset)]) > 0`, WarningOutlineIcon),
-              S.listItem().id('todo-city').title('เมืองที่มีรีวิวแล้ว แต่ยังไม่มีรูปเมือง / คำแนะนำเมือง').icon(PinIcon).child(
-                S.documentList().id('todo-city').apiVersion(API).schemaType('city').title('เมืองที่ยังขาดรูปหรือคำแนะนำ')
+              item('todo-dish-photo', 'Dishes without a photo · จานที่ยังไม่มีรูป', `${TH} && count(dishes[!defined(image.asset)]) > 0`, WarningOutlineIcon),
+              S.listItem().id('todo-city').title('Cities missing a photo or fact · เมืองที่ยังขาดรูปหรือเรื่องน่ารู้').icon(PinIcon).child(
+                S.documentList().id('todo-city').apiVersion(API).schemaType('city').title('Cities missing a photo or fact · เมืองที่ยังขาดรูปหรือเรื่องน่ารู้')
                   .filter('_type == "city" && (!defined(cover.asset) || !defined(intro)) && count(*[_type == "article" && city._ref == ^._id]) > 0')),
             ])),
           S.divider(),
-          S.documentTypeListItem('city').title('เมือง').icon(PinIcon),
+          S.documentTypeListItem('city').title('City · เมือง').icon(PinIcon),
           S.divider(),
-          S.listItem().id('settings').title('ตั้งค่าเว็บ / ข้อความทุกหน้า').icon(CogIcon).child(S.document().schemaType('settings').documentId('settings')),
+          S.listItem().id('settings').title('Site settings · ตั้งค่าเว็บ / ข้อความทุกหน้า').icon(CogIcon).child(S.document().schemaType('settings').documentId('settings')),
         ]);
       },
     }),

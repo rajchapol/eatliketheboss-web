@@ -14,7 +14,7 @@ restaurant:
   name: "Restaurant A"
   chef: "Alain Huang (黃以倫)"
   area: "ต้าอาน"
-  cuisine: "ฝรั่งเศส"
+  cuisine: "French"
   awards: ["MICHELIN 2★"]
 cover: "./images/restaurant-a/cover.jpg | หนวดหมึกยักษ์ย่าง หอย มะเขือเทศสีเหลือง เนยแซฟฟรอน และยอดผักสีเขียว ในชามกระเบื้องสีขาวทรงกลีบดอก ร้าน Restaurant A ไทเป"
 billBand: "฿฿฿"

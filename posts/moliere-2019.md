@@ -8,7 +8,7 @@ city: sapporo
 restaurant:
   name: "Molière"
   chef: ""
-  cuisine: "ฝรั่งเศส"
+  cuisine: "French"
   awards: ["MICHELIN 3★"]
 cover: "./images/moliere-2019/cover.jpg | ซอร์เบต์ส้มแมนดารินในถ้วยลายครามบนจานสีฟ้า ร้าน Molière เมืองซัปโปโร"
 billBand: "฿฿฿"
