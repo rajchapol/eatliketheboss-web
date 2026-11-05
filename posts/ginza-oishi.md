@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Ginza Oishi (銀座 大石) - Counter French แห่งเสียงหัวเราะ"
 slug: ginza-oishi
-tagline: ""
+tagline: "Counter French แห่งเสียงหัวเราะ"
 city: tokyo
 restaurant:
   name: "Ginza Oishi (銀座 大石)"

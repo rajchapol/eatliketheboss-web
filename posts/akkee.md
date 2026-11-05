@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Nonthaburi: AKKEE (อัคคี) - สำรับเมืองนักปราชญ์"
 slug: akkee
-tagline: ""
+tagline: "สำรับเมืองนักปราชญ์"
 city: nonthaburi
 cityNew: {"nameEn": "Nonthaburi", "nameTh": "นนทบุรี", "country": "ไทย", "region": "th", "fact": "Ko Kret, the island just off Pak Kret, was not always an island: a shortcut canal dug in 1722 to speed boats to Ayutthaya widened over time until the river cut it off."}
 restaurant:

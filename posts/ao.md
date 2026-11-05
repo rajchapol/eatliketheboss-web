@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Ao (蒼) - Straight to the Ingredient"
 slug: ao
-tagline: ""
+tagline: "Straight to the Ingredient"
 city: tokyo
 restaurant:
   name: "Ao (蒼)"

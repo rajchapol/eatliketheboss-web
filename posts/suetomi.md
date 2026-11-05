@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Suetomi (末冨) - ไคเซกิร้านลับ"
 slug: suetomi
-tagline: ""
+tagline: "ไคเซกิร้านลับ"
 city: tokyo
 restaurant:
   name: "Suetomi (末冨)"

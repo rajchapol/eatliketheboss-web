@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: Folk Lane by Toby's - การกำเนิดใหม่ของคาเฟ่บรันช์สู่ศิลปะแห่ง Comfort Food ที่ไร้กรอบ"
 slug: folk-lane
-tagline: ""
+tagline: "การกำเนิดใหม่ของคาเฟ่บรันช์สู่ศิลปะแห่ง Comfort Food ที่ไร้กรอบ"
 city: bangkok
 restaurant:
   name: "Folk Lane by Toby's"

@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Sushi Namba Hibiya (鮨 なんば 日比谷) - The Mastery of Temperature"
 slug: sushi-namba-hibiya
-tagline: ""
+tagline: "The Mastery of Temperature"
 city: tokyo
 restaurant:
   name: "Sushi Namba Hibiya (鮨 なんば 日比谷)"

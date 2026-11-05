@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: FILLETS Summer Season - ศิลปะแห่ง Modernist Kappo Omakase ที่ผสานกลิ่นอายตะวันตกอย่างไร้ที่ติ"
 slug: fillets
-tagline: ""
+tagline: "ศิลปะแห่ง Modernist Kappo Omakase ที่ผสานกลิ่นอายตะวันตกอย่างไร้ที่ติ"
 city: bangkok
 restaurant:
   name: "FILLETS"

@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: EBBE - ศิลปะแห่งรสชาติสไตล์ Refined Nordic ที่เรียบง่ายแต่ลุ่มลึก"
 slug: ebbe
-tagline: ""
+tagline: "ศิลปะแห่งรสชาติสไตล์ Refined Nordic ที่เรียบง่ายแต่ลุ่มลึก"
 city: bangkok
 restaurant:
   name: "EBBE"

@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Barcelona: Cinc Sentits - ห้าสัมผัสรสคาตาลัน"
 slug: cinc-sentits
-tagline: ""
+tagline: "ห้าสัมผัสรสคาตาลัน"
 city: barcelona
 restaurant:
   name: "Cinc Sentits"

@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: WI-SET-WI-SO (วิเสทวิโส) - ตำรับห้องเครื่องและบ้านขุนนางเก่า"
 slug: wi-set-wi-so
-tagline: ""
+tagline: "ตำรับห้องเครื่องและบ้านขุนนางเก่า"
 city: bangkok
 restaurant:
   name: "WI-SET-WI-SO"

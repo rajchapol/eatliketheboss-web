@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: Blue by Alain Ducasse x AKKEE - ปรากฏการณ์ศิลปะแห่งรสชาติระหว่างอาหารฝรั่งเศสชั้นสูงและภูมิปัญญาไทยดึกดำบรรพ์"
 slug: blue-x-akkee
-tagline: ""
+tagline: "ปรากฏการณ์ศิลปะแห่งรสชาติระหว่างอาหารฝรั่งเศสชั้นสูงและภูมิปัญญาไทยดึกดำบรรพ์"
 city: bangkok
 restaurant:
   name: "Blue by Alain Ducasse x AKKEE"

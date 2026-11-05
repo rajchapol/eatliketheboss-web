@@ -3,7 +3,7 @@ language: th
 series: review
 title: "Seroja - Nusantara Cuisine ยกระดับวัตถุดิบคาบสมุทรมลายูสู่วงการไฟน์ไดนิ่ง"
 slug: seroja
-tagline: ""
+tagline: "Nusantara Cuisine ยกระดับวัตถุดิบคาบสมุทรมลายูสู่วงการไฟน์ไดนิ่ง"
 city: singapore
 restaurant:
   name: "Seroja"

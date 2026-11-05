@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Phuket: OMEMO - Swiss Alps Meet the Andaman"
 slug: omemo
-tagline: ""
+tagline: "Swiss Alps Meet the Andaman"
 city: phuket
 restaurant:
   name: "OMEMO"

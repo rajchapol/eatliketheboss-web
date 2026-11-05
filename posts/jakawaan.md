@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: JAKAWAAN - สัมผัสศิลปะแห่งรสชาติอาหารตะวันออกผ่านเลนส์ของ Visual Gastronomy"
 slug: jakawaan
-tagline: ""
+tagline: "สัมผัสศิลปะแห่งรสชาติอาหารตะวันออกผ่านเลนส์ของ Visual Gastronomy"
 city: bangkok
 restaurant:
   name: "JAKAWAAN"

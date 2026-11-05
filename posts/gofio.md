@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Madrid: Gofio - Soul of Canary Island"
 slug: gofio
-tagline: ""
+tagline: "Soul of Canary Island"
 city: madrid
 cityNew: {"nameEn": "Madrid", "nameTh": "มาดริด", "country": "สเปน", "region": "europe"}
 restaurant:

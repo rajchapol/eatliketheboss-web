@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Sushi Kimura (すし㐂邑) - ตำนานแห่งการบ่มปลา"
 slug: sushi-kimura
-tagline: ""
+tagline: "ตำนานแห่งการบ่มปลา"
 city: tokyo
 restaurant:
   name: "Sushi Kimura (すし㐂邑)"

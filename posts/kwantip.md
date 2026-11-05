@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม : Kwantip - Samrub Thai Dining สัมผัสสุนทรียะแห่งรสชาติ เมื่อ \"ตำรับชาววัง\" ผสาน \"นวัตกรรม\" อย่างลงตัว (Ari Samphan, Bangkok)"
 slug: kwantip
-tagline: ""
+tagline: "Samrub Thai Dining สัมผัสสุนทรียะแห่งรสชาติ เมื่อ \"ตำรับชาววัง\" ผสาน \"นวัตกรรม\" อย่างลงตัว (Ari Samphan, Bangkok)"
 city: bangkok
 restaurant:
   name: "Kwantip - Samrub Thai Dining"

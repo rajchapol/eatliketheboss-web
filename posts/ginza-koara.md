@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Ginza Koara (銀座 虎あら) - อุนางิไคเซกิ ราคาดี"
 slug: ginza-koara
-tagline: ""
+tagline: "อุนางิไคเซกิ ราคาดี"
 city: tokyo
 restaurant:
   name: "Ginza Koara (銀座 虎あら)"

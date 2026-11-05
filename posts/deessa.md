@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Madrid: Deessa - เรียบง่าย ซ่อนเร้น เซอร์ไพรส์"
 slug: deessa
-tagline: ""
+tagline: "เรียบง่าย ซ่อนเร้น เซอร์ไพรส์"
 city: madrid
 restaurant:
   name: "Deessa"

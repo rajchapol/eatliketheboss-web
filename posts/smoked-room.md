@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Madrid: Smoked Room - บทกวีแห่งเปลวไฟและม่านควัน"
 slug: smoked-room
-tagline: ""
+tagline: "บทกวีแห่งเปลวไฟและม่านควัน"
 city: madrid
 restaurant:
   name: "Smoked Room"

@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: Khaan (ขาล) - The best is yet to come"
 slug: khaan
-tagline: ""
+tagline: "The best is yet to come"
 city: bangkok
 restaurant:
   name: "Khaan"

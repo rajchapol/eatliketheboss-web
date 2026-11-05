@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Sushi Akira (すし 良月) - The Harmony of Temperature"
 slug: sushi-akira
-tagline: ""
+tagline: "The Harmony of Temperature"
 city: tokyo
 restaurant:
   name: "Sushi Akira (すし 良月)"

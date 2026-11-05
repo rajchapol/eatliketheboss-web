@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Tokyo: Bia (美会) - อาหารไทยไคเซกิ ที่ชวนตั้งคำถาม"
 slug: bia
-tagline: ""
+tagline: "อาหารไทยไคเซกิ ที่ชวนตั้งคำถาม"
 city: tokyo
 restaurant:
   name: "Bia (美会)"

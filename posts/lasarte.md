@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Barcelona: Lasarte - นิยามแห่งความสมบูรณ์แบบ"
 slug: lasarte
-tagline: ""
+tagline: "นิยามแห่งความสมบูรณ์แบบ"
 city: barcelona
 cityNew: {"nameEn": "Barcelona", "nameTh": "บาร์เซโลนา", "country": "สเปน", "region": "europe"}
 restaurant:

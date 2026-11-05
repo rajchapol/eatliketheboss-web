@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: MACHRI - \"อาหารเก่าในวันนี้ คืออาหารใหม่ในวันนั้น\""
 slug: machri
-tagline: ""
+tagline: "\"อาหารเก่าในวันนี้ คืออาหารใหม่ในวันนั้น\""
 city: bangkok
 restaurant:
   name: "MACHRI"

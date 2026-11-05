@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: Tharn (ธาร) - สายน้ำ นุ่มนวล พริ้วไหว"
 slug: tharn
-tagline: ""
+tagline: "สายน้ำ นุ่มนวล พริ้วไหว"
 city: bangkok
 restaurant:
   name: "Tharn"

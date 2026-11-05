@@ -3,7 +3,7 @@ language: th
 series: review
 title: "บอสพาชิม in Phuket: 10 years of PRU at Jampa Hideaway - จากพรุถึงจำปา สิบปีแห่งผืนดิน"
 slug: pru-10-years-jampa
-tagline: ""
+tagline: "จากพรุถึงจำปา สิบปีแห่งผืนดิน"
 city: phuket
 restaurant:
   name: "Jampa"
