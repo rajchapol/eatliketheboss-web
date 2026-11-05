@@ -79,14 +79,28 @@ if (fm.cityNew?.nameEn && !LEGACY_CITY.includes(fm.city)) {
   const want = String(fm.cityNew.nameEn).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   if (fm.city !== want) throw new Error(`city ของเมืองใหม่ต้องเป็นชื่อเมืองภาษาอังกฤษอย่างเดียว: city: ${want} (ตอนนี้ "${fm.city}" · ไม่ใส่ชื่อประเทศข้างหน้า)`);
 }
+// New city: needs its "City fact" (Studio → City fact, shown under "Did you know?" on the city page) — the Boss, 5 Nov 2026.
+// cityNew.fact = one short, odd, TRUE fact about the city, in English, 1–2 sentences, checked against a real source.
+// Only asked when the city does not exist in Sanity yet (checked on the public dataset, also in --dry).
+if (fm.cityNew && fm.city) {
+  let exists = null;
+  try {
+    const pid = get('SANITY_PROJECT_ID') || 'ohviqc5c', ds = get('SANITY_DATASET') || 'production';
+    const q = encodeURIComponent(`count(*[_type=="city" && slug.current==${JSON.stringify(String(fm.city))}])`);
+    exists = (await (await fetch(`https://${pid}.apicdn.sanity.io/v2025-01-01/data/query/${ds}?query=${q}`)).json()).result > 0;
+  } catch { console.warn('⚠︎ เช็กไม่ได้ว่าเมืองนี้มีใน Sanity หรือยัง (ออฟไลน์?) · ข้ามการเช็ก cityNew.fact'); }
+  const fact = String(fm.cityNew.fact || '').trim();
+  if (exists === false && (!fact || fact.length < 40 || fact.length > 320 || /[\u0E00-\u0E7F]/.test(fact)))
+    throw new Error(`เมืองใหม่ "${fm.city}" ต้องมี cityNew.fact: เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง ภาษาอังกฤษ 1–2 ประโยค (40–320 ตัวอักษร) ตรวจจากแหล่งจริงแล้ว · ตัวอย่าง: fact: "In Copenhagen a Danish pastry is called wienerbrød, \"Vienna bread\": Austrian bakers brought the recipe during an 1850 bakers' strike."`);
+}
 
 const cityRef = fm.city ? (dry ? { _ref: `(city ${fm.city})` } : await client.fetch('*[_type=="city" && slug.current==$s][0]{_id}', { s: fm.city }).then((c) => {
   if (c) return { _type: 'reference', _ref: c._id };
-  // เมืองใหม่: ใส่ cityNew: { nameEn, nameTh, country, region } ใน frontmatter แล้วระบบสร้างเมืองให้ (ไม่ทับเมืองที่มีอยู่)
+  // เมืองใหม่: ใส่ cityNew: { nameEn, nameTh, country, region, fact } ใน frontmatter แล้วระบบสร้างเมืองให้ (ไม่ทับเมืองที่มีอยู่)
   const n = fm.cityNew;
-  if (!n || !n.nameEn || !n.nameTh) throw new Error(`ไม่พบเมือง "${fm.city}" ใน Sanity — สร้างเมืองก่อนใน Studio หรือใส่ cityNew: { nameEn, nameTh, country, region } ในไฟล์`);
+  if (!n || !n.nameEn || !n.nameTh) throw new Error(`ไม่พบเมือง "${fm.city}" ใน Sanity — สร้างเมืองก่อนใน Studio หรือใส่ cityNew: { nameEn, nameTh, country, region, fact } ในไฟล์`);
   const id = `city-${fm.city}`;
-  return client.createIfNotExists({ _id: id, _type: 'city', nameEn: n.nameEn, nameTh: n.nameTh, slug: { _type: 'slug', current: fm.city }, country: n.country, region: n.region || 'asia', motif: n.motif || 'loop' })
+  return client.createIfNotExists({ _id: id, _type: 'city', nameEn: n.nameEn, nameTh: n.nameTh, slug: { _type: 'slug', current: fm.city }, country: n.country, region: n.region || 'asia', motif: n.motif || 'loop', ...(n.fact ? { intro: String(n.fact).trim() } : {}) })
     .then(() => { console.log(`+ สร้างเมืองใหม่ ${id}`); return { _type: 'reference', _ref: id }; });
 })) : undefined;
 

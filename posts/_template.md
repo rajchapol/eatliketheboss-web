@@ -6,7 +6,14 @@ title: "บอสพาชิม in Tokyo: ชื่อร้าน (ชื่�
 slug: restaurant-name   # อังกฤษตัวเล็ก คั่นด้วย - ตั้งแล้วห้ามเปลี่ยน
 tagline: "คำโปรยเชิงศิลปะ"
 city: tokyo             # slug ของเมืองใน Sanity
-# cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }   # เฉพาะเมืองที่ยังไม่มีใน Sanity
+# เฉพาะเมืองที่ยังไม่มีใน Sanity · city: ต้องเป็นชื่อเมืองอังกฤษอย่างเดียว (เช่น kyoto, san-sebastian)
+# fact = เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง ภาษาอังกฤษ 1–2 ประโยค ตรวจจากแหล่งจริง (บังคับ แสดงใต้ "Did you know?")
+# cityNew:
+#   nameEn: "Taipei"
+#   nameTh: "ไทเป"
+#   country: "ไต้หวัน"
+#   region: asia
+#   fact: "In Taipei, rubbish trucks play Beethoven's Für Elise, and neighbours come out to meet them with their bags."
 restaurant:
   name: "ชื่อร้าน"
   originalName: "ชื่อภาษาเดิม"
