@@ -4,6 +4,24 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · City picture falls back to the city motif
+
+The Boss: a city without a photo showed a "[ภาพ Hangzhou]" placeholder. Now the city's own motif fills the frame on teal until a photo is set; cities without a motif use the general Gold Loop pattern.
+- New `src/components/CityCover.astro`: photo if `city.cover.url`, else `<span class="m-<motif> city-fill">`. It is used for the destinations cards, the featured city and the city page hero.
+- The half-width motif overlay on top of a photo is now only drawn when there is a photo; the round motif badge stays.
+- CSS `.city-fill` at the end of `site.css`.
+- Destinations card stats no longer break "1 ร้าน" / "2 ถอดแว่นชิม" mid-phrase (nowrap items, wrapping row).
+## Session 2026-11-05 · Map + / − buttons fixed
+
+The Boss: pinch zoom works, but the + / − buttons didn't respond. Cause: after a pinch or drag, `moved` stayed high. The capture-phase click guard ("a drag is not a tap on a pin") then swallowed the next click, including the buttons, because `pointerdown` on the buttons returned before resetting `moved`.
+- Fix (`DestinationsMap.astro`):
+  - `moved` resets at the start of every new touch;
+  - the guard never blocks `.map-ctrl`;
+  - `touchend` with no fingers left clears the pointer list, since iOS can skip `pointerup` after a pinch.
+- Tested with Playwright on desktop and phone: drag, then + halves the view width and − doubles it.
+
+---
+
 ## Session 2026-11-05 · New Glasses Off Awards seal (GO) without a year
 
 Brand kit `2026 Brand Kit/logos/glasses-off-awards/` (spec `HANDOFF-web-awards-seal.md`):

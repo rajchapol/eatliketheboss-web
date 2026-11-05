@@ -1,0 +1,13 @@
+---
+// City picture: the city photo from Studio (เมือง → ภาพเมือง), or, until there is one, the city's own
+// motif filling the whole frame on teal. Cities without a motif use the general Gold Loop pattern.
+import Photo from './Photo.astro';
+import { MOTIFS } from '../lib/config';
+import type { City } from '../lib/types';
+interface Props { city: City; label?: string; ratio?: number; widths?: number[]; sizes?: string; eager?: boolean; dark?: boolean }
+const { city, label = `ภาพเมือง ${city.nameEn}`, ...rest } = Astro.props;
+const m = MOTIFS[city.motif] ?? MOTIFS.loop;
+---
+{city.cover?.url
+  ? <Photo img={city.cover} label={label} {...rest} />
+  : <span class={`${m.cls} city-fill`} role="img" aria-label={`ลายประจำเมือง ${city.nameEn}`}></span>}
