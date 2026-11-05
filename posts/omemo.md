@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Other"
   awards: ["MICHELIN Selected"]
 cover: "./images/omemo/cover.jpg | เนื้อวากิวเทนเดอร์ลอยน์กับแครอทย่างและพอมม์ซูเฟล่บนจานขาว ร้าน OMEMO ภูเก็ต"
-billBand: ""
+billBand: "฿฿฿"
 bill: ""
 tag: ""
 visit: Oct-2026
