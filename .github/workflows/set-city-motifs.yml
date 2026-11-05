@@ -1,0 +1,33 @@
+# One-off data fix: gives the 12 cities still on Gold Loop their own motif from the brand kit (and fills an empty country for Helsinki, Copenhagen, Oslo, Istanbul).
+# Manual only: Actions → Set city motifs → Run workflow. Leave "Dry run" ticked first to see the list, then run again unticked.
+# Changes only `motif` (when empty or loop) and an empty `country` of city documents. Uses the existing secret SANITY_WRITE_TOKEN.
+name: Set city motifs
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true # the runner's cached Node can be older than Astro requires
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/set-city-motifs.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/set-city-motifs.mjs

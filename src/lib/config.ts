@@ -34,6 +34,19 @@ export const MOTIFS: Record<string, { cls: string; label: string }> = {
   kikko: { cls: 'm-kikko', label: 'Kikko' },
   prajam: { cls: 'm-prajam', label: 'ลายประจำยาม' },
   fret: { cls: 'm-fret', label: '回纹 Fret' },
+  // 12 more cities from the brand kit (2026 Brand Kit/web-graphics/city-motifs, 5 Nov 2026)
+  shanghai: { cls: 'm-shanghai', label: 'Art Deco ตึกขั้นบันได' },
+  hangzhou: { cls: 'm-hangzhou', label: 'ดอกบัว' },
+  sapporo: { cls: 'm-sapporo', label: 'Yukiwa' },
+  chiangmai: { cls: 'm-chiangmai', label: 'โคมยี่เป็ง' },
+  phuket: { cls: 'm-phuket', label: 'ซุ้มโค้งชิโน-โปรตุกีส' },
+  singapore: { cls: 'm-singapore', label: 'กระเบื้องเปอรานากัน' },
+  taipei: { cls: 'm-taipei', label: 'ดอกเหมย 梅花' },
+  helsinki: { cls: 'm-helsinki', label: 'คลื่น Aalto' },
+  copenhagen: { cls: 'm-copenhagen', label: 'ลายร่อง Musselmalet' },
+  oslo: { cls: 'm-oslo', label: 'ดาว Selbu' },
+  istanbul: { cls: 'm-istanbul', label: 'ดาวแปดแฉกออตโตมัน' },
+  seoul: { cls: 'm-seoul', label: 'หน้าต่าง 亞 เกาหลี' },
   loop: { cls: 'm-loop', label: 'Gold Loop' },
 };
 
