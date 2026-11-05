@@ -4,6 +4,16 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · 12 more city motifs (brand kit)
+
+From `2026 Brand Kit/web-graphics/city-motifs/` (spec `HANDOFF-city-motifs.md` by the brand chat), same style as the first six (gold #c39e5c line, 1px, transparent tile):
+Shanghai (Art Deco), Hangzhou (lotus), Sapporo (yukiwa), Chiang Mai (yi peng lantern), Phuket (Sino-Portuguese arches), Singapore (Peranakan tile), Taipei (plum blossom), Helsinki (Aalto wave), Copenhagen (Musselmalet), Oslo (Selbu star), Istanbul (Ottoman star), Seoul (亞 window).
+- `site.css`: `.m-<key>` classes right after `.m-loop`. `config.ts` `MOTIFS`: 12 keys. Studio city field "ลายประจำเมือง": 12 new choices.
+- Data: `scripts/set-city-motifs.mjs` + manual workflow **Actions → Set city motifs** (dry first). It sets `motif` only where it is empty or `loop` (never overrides a choice), and fills an empty `country` for Helsinki / Copenhagen / Oslo / Istanbul. Dry run on 5 Nov listed 11 cities (Seoul isn't in Sanity yet).
+- Still for the Boss: the city "Istalbul" is misspelt in Studio (slug `turkey-istalbul`); fix the name there. Change the slug only if no article links to it yet.
+
+---
+
 ## Session 2026-11-05 · Flexible Thai search in the finder
 
 `src/lib/search.ts` (new) is used by `ArticleCard.astro` (build time: `searchText()` prepares `data-text`) and the `/restaurants/` script (browser: `matches()`).
