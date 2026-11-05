@@ -45,6 +45,11 @@ const T = {
   summary: { th: 'สรุปมื้อนี้', en: 'Meal summary', ja: 'この食事のまとめ', zh: '本餐小结' },
   more: { th: 'More Tasting Notes', en: 'More Tasting Notes', ja: 'More Tasting Notes', zh: 'More Tasting Notes' },
   visits: { th: 'บอสมาร้านนี้ {n} ครั้ง', en: 'The Boss has reviewed this restaurant {n} times', ja: 'ボスはこの店を{n}回レビュー', zh: 'Boss 已点评此餐厅 {n} 次' },
+  seriesReview: { th: 'บอสพาชิม', en: 'Restaurant review', ja: 'レストランレビュー', zh: '餐厅点评' },
+  seriesHistory: { th: 'มื้ออาหารเปลี่ยนโลก', en: 'Meals that changed the world', ja: '世界を変えた食事', zh: '改变世界的一餐' },
+  seriesDrinks: { th: 'บอสพาดื่ม', en: 'Drinks with the Boss', ja: 'ボスと一杯', zh: '与 Boss 小酌' },
+  readNotes: { th: 'อ่าน Tasting Notes', en: 'Read the Tasting Notes', ja: 'テイスティングノートを読む', zh: '阅读品鉴笔记' },
+  reviewedTimes: { th: 'รีวิว {n} ครั้ง', en: 'Reviewed {n} times', ja: '{n}回レビュー', zh: '点评 {n} 次' },
   thisVisit: { th: 'ครั้งนี้', en: 'This visit', ja: '今回', zh: '本次' },
   review: { th: 'บอสพาชิม', en: 'Eat Like The Boss', ja: 'Eat Like The Boss', zh: 'Eat Like The Boss' },
   in: { th: 'in', en: 'in', ja: 'in', zh: 'in' },
@@ -90,3 +95,12 @@ export const NAV_LABELS: Record<Locale, Record<'finder' | 'destinations' | 'arti
 export const NAV_SHORT: Record<'finder' | 'destinations' | 'articles' | 'awards' | 'about', string> = {
   finder: 'Search', destinations: 'Cities', articles: 'Notes', awards: 'Awards', about: 'About',
 };
+
+/** Cuisine names are stored in Thai (Studio list); show them in the reader's language. */
+const CUISINE: Record<string, Partial<Record<Locale, string>>> = {
+  'ญี่ปุ่น': { en: 'Japanese', ja: '日本料理', zh: '日本料理' }, 'ไทย': { en: 'Thai', ja: 'タイ料理', zh: '泰国菜' },
+  'ฝรั่งเศส': { en: 'French', ja: 'フランス料理', zh: '法国菜' }, 'จีน': { en: 'Chinese', ja: '中国料理', zh: '中餐' },
+  'อิตาเลียน': { en: 'Italian', ja: 'イタリア料理', zh: '意大利菜' }, 'สเปน': { en: 'Spanish', ja: 'スペイン料理', zh: '西班牙菜' },
+  'Modern': { ja: 'モダン', zh: '创意菜' }, 'อื่นๆ': { en: 'Other', ja: 'その他', zh: '其他' },
+};
+export const cuisineLabel = (c: string | undefined, lang: Locale) => (c ? (lang === 'th' ? c : CUISINE[c]?.[lang] ?? c) : '');

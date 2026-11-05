@@ -4,6 +4,39 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · Home slider autoplay + English spelling fixes
+
+**Slider** (`HeroSlider.astro`, CSS "home slider: timer dots…" at the end of `site.css`):
+- Auto-advances every 5 s. The active dot fills like a timer, and that dot's `animationend` moves to the next slide, so the bar and the slide stay in step.
+- Pauses on touch (resumes 8 s after the last touch), on real mouse hover (`pointerType === 'mouse'`, so a phone tap isn't a hover), on keyboard focus (`:focus-visible` only; a tap focuses the track), and when off screen or the tab is hidden. Off under reduced motion.
+- Phones: the next slide peeks (88% columns), the dots / "ปัดดูร้านถัดไป ›" / count bar sits above the slides, the arrows are hidden, and the hint fades after the first swipe.
+
+**Spelling:** the Boss's rule is to fix English mistakes directly but confirm Thai ones first.
+- Spell-checked all English in Sanity: `posts/t-plus-t.md` "overhelm" → "overwhelm" (the post workflow sends only that dish on merge).
+- City "Istalbul" → "Istanbul": `scripts/fix-city-names.mjs` + Actions → **Fix city names** (dry first). It also renames the slug `turkey-istalbul` → `turkey-istanbul` (the old URL 301s via `public/_redirects`) and trims "Helsinki ".
+- Left as printed on the menu: "Nantou Nopale" (zea, Spanish plural is nopales).
+## Session 2026-11-05 · Bug recheck + Studio review
+
+Crawled the live site (29 pages, 1280 + 360 px): no JS errors, no broken links or images, no missing alt, no duplicate ids, no stuck reveals, no horizontal overflow, and JSON-LD parses.
+Fixed:
+- **Dishes without a photo** (Taian Table IV–V, Wu You Xian, logy XI, Jie Xiang Lou) showed a "[ภาพจาน IV]" placeholder. They now render text-only: no frame, a centred 760 px column, never flipped (`[...article].astro`).
+- **Thai on English pages:** cards in "More Tasting Notes" (series badge, "ถอดแว่นชิม", "อ่าน Tasting Notes", "รีวิว N ครั้ง") and the cuisine in the at-a-glance card. New i18n keys `seriesReview/History/Drinks`, `readNotes`, `reviewedTimes` and `cuisineLabel()` (Thai cuisine list → en/ja/zh); `ArticleCard` uses `a.language`. The only Thai left is "ไทย" in the language switcher, which is correct.
+- City names are trimmed when loaded (Sanity had "Helsinki ").
+
+Studio review: every site text is in Studio (settings.json keys = Studio fields). Added:
+- งานที่ต้องทำ → "จานที่ยังไม่มีรูป" and "เมืองที่มีรีวิวแล้ว แต่ยังไม่มีรูปเมือง / คำแนะนำเมือง".
+- A warning when a city name has stray spaces.
+
+Content gaps found (5 Nov) for the Boss:
+- Hangzhou and Taipei have reviews but no city photo. No city has an intro.
+- 5 dishes have no photo.
+- No article has a "ประโยคเด่นของบอส" (`quote`).
+- The 5 Taipei/Hangzhou reviews have no English yet.
+- Cloudflare Web Analytics token is empty.
+- "Istalbul" is misspelt.
+
+---
+
 ## Session 2026-11-05 · City picture falls back to the city motif
 
 The Boss: a city without a photo showed a "[ภาพ Hangzhou]" placeholder. Now the city's own motif fills the frame on teal until a photo is set; cities without a motif use the general Gold Loop pattern.

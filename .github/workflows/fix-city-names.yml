@@ -1,0 +1,33 @@
+# One-off data fix: English spelling in city names (Istalbul → Istanbul, slug too) and stray spaces in names.
+# Manual only: Actions → Fix city names → Run workflow. Leave "Dry run" ticked first to see the list, then run again unticked.
+# Changes only nameEn, nameTh and slug of city documents. Uses the existing secret SANITY_WRITE_TOKEN.
+name: Fix city names
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true # the runner's cached Node can be older than Astro requires
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/fix-city-names.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/fix-city-names.mjs

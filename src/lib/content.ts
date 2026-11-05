@@ -44,7 +44,7 @@ export function getCities(): Promise<City[]> {
   if (!client) return Promise.resolve(seed.cities);
   return (citiesCache ??= client
     .fetch(`*[_type=="city" && !(_id in path("drafts.**"))]${CITY} | order(nameEn asc)`)
-    .then((rows: any[]) => rows.map((c) => ({ ...c, cover: img(c.cover, `ภาพเมือง ${c.nameEn}`) }))));
+    .then((rows: any[]) => rows.map((c) => ({ ...c, nameEn: (c.nameEn || '').trim(), nameTh: (c.nameTh || '').trim(), cover: img(c.cover, `ภาพเมือง ${c.nameEn}`) }))));
 }
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];

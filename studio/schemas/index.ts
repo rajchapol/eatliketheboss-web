@@ -133,8 +133,8 @@ export const city = defineType({
   title: 'เมือง',
   type: 'document',
   fields: [
-    defineField({ name: 'nameEn', title: 'ชื่ออังกฤษ', type: 'string', validation: (r) => r.required() }),
-    defineField({ name: 'nameTh', title: 'ชื่อไทย', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'nameEn', title: 'ชื่ออังกฤษ', type: 'string', validation: (r) => [r.required(), r.custom((v?: string) => (v && v !== v.trim() ? 'มีช่องว่างหน้าหรือท้ายชื่อ ลบออกด้วยครับ' : true)).warning()] }),
+    defineField({ name: 'nameTh', title: 'ชื่อไทย', type: 'string', validation: (r) => [r.required(), r.custom((v?: string) => (v && v !== v.trim() ? 'มีช่องว่างหน้าหรือท้ายชื่อ ลบออกด้วยครับ' : true)).warning()] }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'nameEn' }, validation: (r) => r.required() }),
     defineField({ name: 'country', title: 'ประเทศ (ไทย)', type: 'string' }),
     defineField({ name: 'aliases', title: 'ชื่อเรียกอื่นสำหรับค้นหา (ไม่บังคับ)', description: 'เช่น ชื่อย่าน ชื่อภาษาจีน/ญี่ปุ่น หรือสะกดไทยแบบอื่น · ชื่อเมืองหลักๆ ไทย-อังกฤษ เว็บรู้เองอยู่แล้ว', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
