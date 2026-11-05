@@ -51,17 +51,8 @@ export const MOTIFS: Record<string, { cls: string; label: string }> = {
 };
 
 /** Map pins (lat, lng) for common cities. A city can also set its own point in Studio → เมือง → ตำแหน่งบนแผนที่. */
-export const CITY_COORDS: Record<string, [number, number]> = {
-  bangkok: [13.75, 100.5], phuket: [7.88, 98.39], 'chiang-mai': [18.79, 98.98], pattaya: [12.93, 100.88], 'hua-hin': [12.57, 99.96], 'koh-samui': [9.51, 100.01],
-  tokyo: [35.68, 139.69], osaka: [34.69, 135.5], kyoto: [35.01, 135.77], fukuoka: [33.59, 130.4], sapporo: [43.06, 141.35], kanazawa: [36.56, 136.65], nagoya: [35.18, 136.91],
-  'hong-kong': [22.32, 114.17], macau: [22.2, 113.55], shanghai: [31.23, 121.47], beijing: [39.9, 116.4], guangzhou: [23.13, 113.26], shenzhen: [22.54, 114.06], chengdu: [30.57, 104.07], hangzhou: [30.27, 120.16],
-  taipei: [25.03, 121.57], seoul: [37.57, 126.98], singapore: [1.35, 103.82], 'kuala-lumpur': [3.14, 101.69], bali: [-8.65, 115.22], jakarta: [-6.2, 106.85], manila: [14.6, 120.98], 'ho-chi-minh-city': [10.82, 106.63], hanoi: [21.03, 105.85],
-  paris: [48.86, 2.35], london: [51.51, -0.13], lyon: [45.76, 4.84], 'san-sebastian': [43.32, -1.98], barcelona: [41.39, 2.17], madrid: [40.42, -3.7], rome: [41.9, 12.5], milan: [45.46, 9.19], copenhagen: [55.68, 12.57],
-  oslo: [59.91, 10.75], helsinki: [60.17, 24.94], stockholm: [59.33, 18.07], amsterdam: [52.37, 4.9], berlin: [52.52, 13.4], vienna: [48.21, 16.37], lisbon: [38.72, -9.14], zurich: [47.38, 8.54],
-  taichung: [24.15, 120.67], tainan: [22.99, 120.21], kaohsiung: [22.63, 120.3], busan: [35.18, 129.08], nara: [34.69, 135.8], kobe: [34.69, 135.2], yokohama: [35.44, 139.64], okinawa: [26.21, 127.68],
-  'siem-reap': [13.36, 103.86], 'luang-prabang': [19.89, 102.13], yangon: [16.84, 96.17], 'chiang-rai': [19.91, 99.83], krabi: [8.09, 98.91], 'khao-yai': [14.44, 101.37],
-  istanbul: [41.01, 28.98], istalbul: [41.01, 28.98], 'new-york': [40.71, -74.01], 'san-francisco': [37.77, -122.42], 'los-angeles': [34.05, -118.24], sydney: [-33.87, 151.21], melbourne: [-37.81, 144.96], dubai: [25.2, 55.27],
-};
+import COORDS from '../data/city-coords.json';
+export const CITY_COORDS = Object.fromEntries(Object.entries(COORDS).filter(([k]) => !k.startsWith('_'))) as Record<string, [number, number]>;
 
 /** Cuisine: a few broad categories, in English only (the Boss, 5 Nov 2026), each with optional styles (Sushi, Cantonese…).
  *  Category = the Restaurants filter; style = detail shown next to it. One list for site, Studio and post check:

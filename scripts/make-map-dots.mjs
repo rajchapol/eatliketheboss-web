@@ -45,6 +45,8 @@ function rows(geo, step, latTop, latBottom, lonLeft, lonRight) {
 const svg = (d, step, dot) =>
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 136" width="360" height="136"><path d="${d}" fill="none" stroke="#d4b372" stroke-width="${dot}" stroke-linecap="round" stroke-dasharray="0 ${step}"/></svg>`;
 const l50 = index(land('50m')), l10 = index(land('10m'));
-writeFileSync(`${out}/world-dots.svg`, svg(rows(l50, 1.5, 78, -58, -180, 180), 1.5, 0.95));
-writeFileSync(`${out}/mid-dots.svg`, svg(rows(l50, 0.5, 78, -58, -180, 180), 0.5, 0.32));
-writeFileSync(`${out}/fine-dots.svg`, svg(rows(l10, 0.15, 46, -11, 88, 146) + rows(l10, 0.15, 71, 35, -12, 32), 0.15, 0.095));
+// Dot size ≈ 45% of the spacing: small, crisp dots at every zoom.
+writeFileSync(`${out}/world-dots.svg`, svg(rows(l50, 1.5, 78, -58, -180, 180), 1.5, 0.68));
+writeFileSync(`${out}/mid-dots.svg`, svg(rows(l50, 0.5, 78, -58, -180, 180), 0.5, 0.23));
+// Fine boxes [lonLeft, lonRight, latTop, latBottom]; keep FINE_BOXES in DestinationsMap.astro in step (x = lon + 180, y = 78 - lat).
+writeFileSync(`${out}/fine-dots.svg`, svg(rows(l10, 0.15, 50, -11, 70, 150) + rows(l10, 0.15, 72, 34, -25, 45), 0.15, 0.068));

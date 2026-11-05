@@ -13,6 +13,8 @@ city: tokyo             # slug ของเมืองใน Sanity
 #   nameTh: "ไทเป"
 #   country: "ไต้หวัน"
 #   region: asia
+#   lat: 25.03            # พิกัดเมือง (บังคับถ้าเมืองนี้ยังไม่มีใน src/data/city-coords.json)
+#   lng: 121.57
 #   fact: "In Taipei, rubbish trucks play Beethoven's Für Elise, and neighbours come out to meet them with their bags."
 restaurant:
   name: "ชื่อร้าน"

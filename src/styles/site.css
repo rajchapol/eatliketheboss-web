@@ -256,7 +256,8 @@ img{max-width:100%;height:auto}
 .map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .map-world,.map-mid,.map-fine{opacity:0;transition:opacity .5s}
 [data-layer="world"] .map-world{opacity:.42}[data-layer="mid"] .map-mid{opacity:.5}[data-layer="fine"] .map-fine{opacity:.6}
-.map-route{stroke:#fdeac0;stroke-width:1.6;stroke-opacity:.75;stroke-linecap:round}
+.map-route{stroke:#fdeac0;stroke-width:1.2;stroke-opacity:.42;stroke-linecap:round;transition:stroke-opacity .4s}
+[data-wide="1"] .map-route{stroke-opacity:.28} /* whole world: many arcs, keep them quiet */
 .map-pin{position:absolute;width:0;height:0;z-index:2}
 .map-pin a{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%}
 .pin-dot{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#d4b372 60%,#926633);box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 14px rgba(253,234,192,.7);animation:pin-pulse 2.6s ease-in-out infinite}
@@ -270,6 +271,11 @@ img{max-width:100%;height:auto}
 @media (prefers-reduced-motion: reduce){.pin-dot{animation:none}}
 @container elb (max-width: 720px){.map-box{aspect-ratio:4/3}.pin-label{font-size:12px;padding:3px 8px;left:24px}}
 .map-pin.label-off .pin-label{opacity:0}.map-pin.label-off a:hover .pin-label,.map-pin.label-off a:focus-visible .pin-label{opacity:1}
+/* the city name is part of the link: tap the dot or the name (only while the name shows) */
+.map-pin:not(.label-off) .pin-label,.map-cluster:not(.label-off) .pin-label{pointer-events:auto;cursor:pointer}
+[data-wide="1"] .map-pin .pin-label,[data-wide="1"] .map-cluster .pin-label{pointer-events:none}
+.map-pin.flip .pin-label{left:auto;right:28px}.map-cluster.flip .pin-label{left:auto;right:34px}
+@container elb (max-width: 720px){.map-pin.flip .pin-label{right:24px}}
 /* Sunglasses → glasses off: tinted lenses + glare, cleared when the glasses scroll into view (.lit) */
 .specs::after{content:"";position:absolute;left:6%;right:6%;bottom:-11%;height:16%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 70%);filter:blur(8px);z-index:0;pointer-events:none}
 .specs-frame{z-index:6;pointer-events:none}
@@ -532,3 +538,9 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
 .idx-row[hidden]{display:none!important}
 .idx-toggle{width:100%;border:0;background:none;cursor:pointer;text-align:left}
 .idx-toggle svg{transition:transform .3s}.idx-toggle.is-open svg{transform:rotate(180deg)}
+/* Map: cities that share one spot, listed after a tap on their circle */
+.map-pop{position:absolute;z-index:6;transform:translateX(-50%);display:flex;flex-direction:column;min-width:170px;padding:6px;border-radius:var(--r-md);background:rgba(4,30,32,.95);box-shadow:0 0 0 1px rgba(212,179,114,.6),0 12px 30px -8px rgba(0,0,0,.5)}
+.map-pop[hidden]{display:none}
+.map-pop-link{display:block;padding:10px 12px;border-radius:var(--r-sm);font-family:'Ekkamai New',sans-serif;font-size:14px;color:#fff;white-space:nowrap}
+.map-pop-link:hover,.map-pop-link:focus-visible{background:rgba(212,179,114,.18);color:#fdeac0}
+
