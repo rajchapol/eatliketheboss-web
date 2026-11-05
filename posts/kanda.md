@@ -8,7 +8,7 @@ city: tokyo
 restaurant:
   name: "Nihonryori Kanda"
   chef: ""
-  cuisine: "ญี่ปุ่น"
+  cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
 cover: "./images/kanda/cover.jpg | เนื้อมิยาซากิวากิวทอดวางคู่ผักอ่อนและสาหร่ายบนจานเซรามิกลายเขียว ร้าน Nihonryori Kanda เมืองโตเกียว"
 billBand: "฿฿฿"
