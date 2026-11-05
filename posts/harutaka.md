@@ -12,15 +12,15 @@ restaurant:
   area: "Ginza"
   cuisine: "ญี่ปุ่น"
   awards: ["MICHELIN 3★"]
-cover: "./images/harutaka/cover.jpg | ซูชิอนาโกะราดซอสหวานบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
+cover: "./images/harutaka/cover.jpg | ซูชิปลาซาบะดองหนังสีเงินบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
 billBand: "฿฿฿฿"
 bill: "~65,000 Yen +"
 tag: ""
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, Harutaka, Tokyo]
 publishedAt: 2026-11-05
-seoTitle: "SEO_T"
-seoDescription: "SEO_D"
+seoTitle: "Ginza Harutaka โตเกียว รีวิวซูชิสาย Jiro ย่านกินซ่า"
+seoDescription: "รีวิว Ginza Harutaka ซูชิยะสาย Jiro ย่านกินซ่า โตเกียว ฝีมือปั้นของเชฟยอดเยี่ยม ชาริรสจัดจ้าน ไฮไลท์คืออนาโกะ ซาบะ ซาโยริ และเมจิมากุโระ"
 ---
 Harutaka Takashi น่าจจะเป็นซูชิเชฟที่ปั้นได้ดีที่สุดคนนึงที่ผมเคยเจอ หลายๆคนยังบอกว่านี่คือผู้สืบทอดที่แท้จริงและน่าจะเป็น sushiya สาย Jiro ที่ดีที่สุดในตอนนี้ นี่คงเป็นเหตุผลเพียงพอที่ควรมาลองชิมอาหารสักมื้อที่ฮารุทากะ รวมทั้งฐานันดรศักดิ์ Tabelog silver และมิชลินสตาร์สองดาว คงปฎิเสธไม่ได้ว่านี้คือหนึ่งในร้านซูชิที่โดงดังที่สุดในโตเกียว
 

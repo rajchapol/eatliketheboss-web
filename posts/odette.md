@@ -19,7 +19,7 @@ visit: Jun-2024
 hashtags: [บอสพาชิม, eatliketheboss, OdetteRestaurant, ร้านอาหารหรู, ฟู้ดรีวิว, SingaporeFineDining, MichelinStar, อาหารฝรั่งเศส, FoodReview, GourmetDining, RestaurantReview]
 publishedAt: 2026-11-05
 seoTitle: "Odette สิงคโปร์ รีวิว Fine Dining ฝรั่งเศส 3 ดาวมิชลิน"
-seoDescription: "SEO_PLACEHOLDER"
+seoDescription: "Odette ร้านฝรั่งเศส 3 ดาวมิชลินของเชฟ Julien Royer ใน National Gallery Singapore มื้อกลางวัน Terre & Mer วัตถุดิบชั้นเลิศ บริการมีชีวิตชีวาระดับ benchmark"
 ---
 ไม่ว่าจะมีการจัดอันดับอะไรในโลกของอาหาร Odetteมักยืนอยู่ในระดับสูงที่สุดอยู่เสมอ 3 Star จาก Michelin Guide , Best of Asia จาก Tatler , 3 Knives ของ Best Chef Award , และติดในList ของ 50 Best ทั้ง Asia และ World อยู่เนื่องๆ
 นี้คงเป็นเครื่องยืนยันถึงมาตราฐานที่สูงลิบของห้องอาหารฝรั่งเศสที่ดีที่สุดในโลกแห่งนึง

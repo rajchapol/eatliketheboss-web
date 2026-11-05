@@ -19,7 +19,7 @@ visit: Nov-2024
 hashtags: [บอสพาชิม, eatliketheboss, Zen, Singapore]
 publishedAt: 2026-11-05
 seoTitle: "Zén สิงคโปร์ รีวิว Fine Dining นอร์ดิก 3 ดาวมิชลิน"
-seoDescription: "SEO_PLACEHOLDER"
+seoDescription: "Zén ร้านนอร์ดิก 3 ดาวมิชลินของเชฟ Björn Frantzén บนถนน Bukit Pasoh สิงคโปร์ วัตถุดิบญี่ปุ่นกับเทคนิคสแกนดิเนเวีย ไฮไลท์ปลาเทอร์บอตและซอร์เบต์แครอท"
 ---
 ZEN ถือเป็น Mega ของอาหารสไตล์ Scandinavia ในเอเซีย ที่ต้อนรับนักชิมจากทั่วโลก ให้มาเยือนห้องอาหารเเห่งระดับโลกแห่งนี้
 

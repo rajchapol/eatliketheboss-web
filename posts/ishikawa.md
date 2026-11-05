@@ -19,8 +19,8 @@ tag: ""
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, KagurazakaIshikawa, Tokyo]
 publishedAt: 2026-11-05
-seoTitle: "SEO_T"
-seoDescription: "SEO_D"
+seoTitle: "Kagurazaka Ishikawa โตเกียว รีวิวไคเซกิ 3 ดาวมิชลิน"
+seoDescription: "Kagurazaka Ishikawa ไคเซกิ 3 ดาวมิชลินของเชฟ Hideo Ishikawa ย่านคางุระซากะ โตเกียว ไฮไลท์คือปลาหมึกย่างสามเท็กซ์เจอร์และกะหล่ำย่างที่ยังลืมไม่ลง"
 ---
 ถ้า Ishikawaให้ที่นั่งมาจงรีบจอง เพื่อนผมท่านนึงกล่าวไว้ ร้านนี้ถือเป็นอีกหนึ่งร้านที่ผมตั้งใจจองตอนแรกและเป็นร้านเดียวที่ได้(แต้มบุญน้อย) แม้ผมจะได้offerที่นั่งก่อนเปิดจองในเว็บดังมาทั้งkohaku(3*)ที่คะแนนTabelogมากกว่า และIshikawa แต่ผมอยากเจอเชฟที่สุดยอดอย่าง ishikawa ซังสักครั้ง จึงเลือกishikawa ครับ
 
