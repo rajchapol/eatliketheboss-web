@@ -68,6 +68,7 @@ image: ./images/ginza-oishi/07.jpg | หน่อไม้ฝรั่งขา�
 ดีนะ หน่อไม้ฝรั่งดี คลาสสิก มีเห็ดด้านบน เข้าใจง่าย รสหวานเค็มตัดกันสองตัว มีความครีมมี่
 
 ### Watermelon Juice, Lime Sherbet
+image: ./images/ginza-oishi/08.jpg | เชอร์เบทน้ำแตงโมสีแดงในแก้วทรงสูงวางบนจานลายใบไม้สีเขียว ร้าน Ginza Oishi เมืองโตเกียว
 เชอร์เบทน้ำแตงโม จานคั่นก่อนเนื้อที่ช่วยล้างปาก เย็นดี เข้ากับอากาศร้อน
 
 ### Beef Steak Black Pepper, Fresh Garlic Tempura
