@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 5 Nov 2026 — Cheaper posting from Claude sessions (skill v2.66)
+- Don't retype articles into `posts/*.md`. The writing-style skill (v2.66) has `scripts/web/`: export the Google Doc as PDF (single-tab docs) or `read_doc` + `read_doc_tabs.py --tab final --marked` (multi-tab) → `doc_to_post.py doc.txt --meta meta.json --out posts/<slug>.md` (strips scores/links/info block, turns the glasses-off line into 🕶️ on the next dish, works out billBand, refuses red highlights).
+- Photos: `tools/pack_photos_device.py` in the Boss's project folder zips one restaurant's Food(upload) folder + one contact sheet; `crop_photos.py spec.json` crops 3:2 into `posts/images/<slug>/`.
+- Repeat work goes to a sonnet agent (jobcard `web`, ≤5 posts per batch); the main session asks the Boss and pushes.
+- Sheet register: read column A to find the row, then only that row.
+- Repeat visits: separate slugs (`<name>-<year>` for the older one), same `restaurant.name` → time capsule page (Maaemo, Les Amis live).
+
 ## Session 2026-11-05 (later) · news between roles + first real sync
 - New rule (the Boss): news for another role goes in section **0. ข่าวล่าสุด** of its `docs/handoff/` file, shipped in a PR (PR #31). Not copy-paste messages.
 - After PR #30, ran Actions → Pull articles from Sanity → PR #32 `[sanity-sync]`: 29 files. Checked the diff: Studio price bands, AD tags (Sui Tang Li, Yong Fu), atmosphere dishes (Meet The Bund, Sui Tang Li), EN cuisine "จีน". Image paths kept; les-amis-2020 now holds only 03.jpg for the bread dish (matches live).
