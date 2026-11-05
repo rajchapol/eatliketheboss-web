@@ -9,7 +9,12 @@
 ## 0. ข่าวล่าสุดจากฝ่ายเว็บ (อ่านก่อนโพสต์)
 
 **5 พ.ย. 2026 (เย็น) · ใหม่**
-1. **ประเภทอาหาร (`restaurant.cuisine`) ใช้หมวดใหญ่ภาษาอังกฤษเท่านั้น:** `Japanese | Chinese | Thai | French | Italian | Spanish | Nordic | Modern | Other` (บอสสั่ง) สไตล์ย่อย เช่น sushi, kaiseki, Canarian ให้เขียนในบทความแทน ห้ามใส่ในช่องนี้ ถ้าใส่ค่าอื่น `--dry` จะ error ทันที ไฟล์เก่าทุกไฟล์แก้ให้แล้วใน PR นี้ (เช่น ซูชิ → Japanese, หมู่เกาะคานารี่ → Spanish, ZEA ลาตินอเมริกา → Other)
+1. **ประเภทอาหาร = 2 ช่อง ภาษาอังกฤษเท่านั้น** (บอสสั่ง) รายการทั้งหมดอยู่ใน `src/data/cuisines.json`
+   - `restaurant.cuisine` = หมวดใหญ่ (ใช้กรองหน้า Restaurants): `Japanese | Chinese | Thai | French | Italian | Spanish | Nordic | Modern | Other`
+   - `restaurant.style` = ประเภทย่อย ไม่บังคับ ต้องอยู่ในหมวดนั้น เว็บแสดงเป็น "Japanese · Sushi" เช่น Japanese: Sushi, Kaiseki, Kappo, Tempura… · Chinese: Cantonese, Shanghainese, Zhejiang, Fujian, Vegetarian… · Thai: Royal, Isan, Southern… · Other: Korean, Peranakan, Latin American…
+   - ชื่อ style ไม่ซ้ำคำหมวด (ใช้ `French` + `Contemporary` ไม่ใช่ "Contemporary French")
+   - ใส่ค่าที่ไม่อยู่ในรายการ `--dry` จะ error · **ถ้าไม่มี style ที่ตรงจริงๆ ให้เว้นว่าง** หรือถ้าจำเป็นจริงๆ เพิ่มชื่อใหม่ใน `src/data/cuisines.json` (หมวดที่ถูกต้อง ภาษาอังกฤษ ไม่ซ้ำของเดิม) แล้วเปิด PR ให้บอส merge ก่อนโพสต์บทความนั้น
+   - ไฟล์เก่าแก้และใส่ style ให้แล้วใน PR #35 (เช่น ซูชิ → Japanese · Sushi, หมู่เกาะคานารี่ → Spanish · Canarian, Maaemo → Nordic · New Nordic)
 2. **เมืองใหม่ (`cityNew`): ช่อง `city:` ต้องเป็นชื่อเมืองภาษาอังกฤษอย่างเดียว** เช่น `city: oslo`, `city: san-sebastian` ห้ามใส่ชื่อประเทศข้างหน้าแบบ `norway-oslo` (สคริปต์จะ error) เมืองเก่า 4 เมืองที่ตั้งแบบมีประเทศไปแล้ว (`norway-oslo`, `finland-helsinki`, `denmark-copenhagen`, `turkey-istanbul`) ใช้ต่อได้ตามเดิม เพราะ URL ใช้งานจริงแล้ว
 3. **Studio เปลี่ยนชื่อแท็บและช่องเป็นอังกฤษก่อน ตามด้วยไทย:** แท็บบทความคือ `1 Restaurant & Intro` · `2 Dishes` · `3 Bill & Visit` · `4 SEO` · `5 Languages`
 4. **ช่อง "City fact" ของเมือง (เดิมชื่อ "คำแนะนำเมือง") = เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง สั้นๆ 1–2 ประโยค ภาษาอังกฤษ** เติมให้ครบ 19 เมืองแล้ว (หน้าเมืองแสดงใต้ป้าย "Did you know?") ถ้าสร้างเมืองใหม่ ให้เสนอ fact 1 ข้อที่ตรวจจากแหล่งจริงแล้วให้บอสใส่ใน Studio หรือเพิ่มในรายการ `FACTS` ใน `scripts/set-city-intros.mjs` แล้วเปิด PR

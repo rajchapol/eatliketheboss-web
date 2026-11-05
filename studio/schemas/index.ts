@@ -26,8 +26,12 @@ const altField = defineField({
 const photo = (name: string, title: string, group?: string) =>
   defineField({ name, title, type: 'image', options: { hotspot: true }, fields: [altField], ...(group ? { group } : {}) });
 
-// Broad categories, English only (the Boss, 5 Nov 2026). Keep in step with CUISINES in src/lib/config.ts and scripts/post-article.mjs.
-const CUISINES = ['Japanese', 'Chinese', 'Thai', 'French', 'Italian', 'Spanish', 'Nordic', 'Modern', 'Other'];
+// Cuisine: broad English categories + optional styles, one list for site, Studio and post check (the Boss, 5 Nov 2026).
+import CUISINE_LIST from '../../src/data/cuisines.json';
+const CUISINE_STYLES = Object.fromEntries(Object.entries(CUISINE_LIST).filter(([k]) => !k.startsWith('_'))) as Record<string, string[]>;
+const CUISINES = Object.keys(CUISINE_STYLES);
+// Style list as "Sushi — Japanese"; the value stays "Sushi". A style must belong to the chosen category.
+const STYLE_OPTIONS = CUISINES.flatMap((c) => CUISINE_STYLES[c].map((st) => ({ title: `${st} — ${c}`, value: st })));
 
 export const article = defineType({
   name: 'article',
@@ -83,6 +87,14 @@ export const article = defineType({
         defineField({ name: 'chef', title: 'Chef · เชฟ', type: 'string' }),
         defineField({ name: 'area', title: 'Area · ย่าน', type: 'string' }),
         defineField({ name: 'cuisine', title: 'Cuisine · ประเภทอาหาร', description: 'หมวดใหญ่ภาษาอังกฤษ ใช้กรองในหน้า Restaurants · สไตล์ย่อย เช่น sushi, kaiseki เขียนในบทความ', type: 'string', options: { list: CUISINES, layout: 'radio', direction: 'horizontal' } }),
+        defineField({ name: 'style', title: 'Style (optional) · ประเภทย่อย', description: 'รายละเอียดต่อจากหมวด เช่น Japanese · Sushi, Chinese · Cantonese (แสดงบนการ์ดและในบทความ ไม่ใช้กรอง) · ต้องอยู่ในหมวดที่เลือกด้านบน · ถ้าไม่มีที่ตรงจริงๆ ให้เว้นว่าง แล้วขอฝ่ายเว็บเพิ่มใน src/data/cuisines.json', type: 'string',
+          options: { list: STYLE_OPTIONS },
+          validation: (r) => r.custom((v: string | undefined, ctx: any) => {
+            const cu = ctx.parent?.cuisine;
+            if (!v) return true;
+            if (!cu) return 'เลือก Cuisine (หมวด) ก่อน';
+            return (CUISINE_STYLES[cu] || []).includes(v) ? true : `"${v}" ไม่อยู่ในหมวด ${cu} · เลือกจาก: ${(CUISINE_STYLES[cu] || []).join(', ')}`;
+          }) }),
         defineField({ name: 'priceBand', title: 'Price band (old)', type: 'string', hidden: true }), // older entries; now set in the Bill tab
         defineField({ name: 'sameAs', title: 'Earlier review of this restaurant (optional) · รีวิวครั้งก่อน', description: 'ใช้เฉพาะเมื่อร้านเปลี่ยนชื่อหรือพิมพ์ชื่อไม่ตรงกับครั้งก่อน · ชื่อร้านเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว', type: 'reference', weak: true, to: [{ type: 'article' }],
           options: { filter: 'language == "th" && series == "review"' } }),

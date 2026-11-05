@@ -42,7 +42,7 @@ You never need to touch `src/` to post.
 | All site copy (one Studio tab per page: home, article, finder, destinations, awards, series, about, contact, footer/SEO) | Sanity → ตั้งค่าเว็บ / ข้อความทุกหน้า (defaults: `src/data/settings.json`; Actions → Fill settings texts fills empty fields) |
 | Share image per article (cover + logo + name) | `src/lib/og.ts` → `/og/<article path>.jpg` (fonts `src/og/fonts`) |
 | Contact / recommend-a-restaurant form | `src/pages/contact.astro` → Web3Forms key in Sanity settings |
-| Site URL, series keys, motifs, cuisine categories (`CUISINES`: broad, English only — the Boss, 5 Nov 2026; keep the Studio list and `scripts/post-article.mjs` in step) | `src/lib/config.ts` |
+| Site URL, series keys, motifs, cuisine categories + styles (one list: `src/data/cuisines.json`, read by `config.ts`, the Studio and `scripts/post-article.mjs`; broad English category for the filter, optional style shown as "Japanese · Sushi" — the Boss, 5 Nov 2026) | `src/lib/config.ts` |
 | Studio wording | English first, Thai after (`English · ไทย`) for menus, tabs and field titles; descriptions in Thai. No Thai Studio locale (the Boss prefers English buttons) |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio (city `intro` = "City fact": one odd true fact, English, shown under "Did you know?"; new city slugs = English name only) | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |

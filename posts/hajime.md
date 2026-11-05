@@ -9,6 +9,7 @@ restaurant:
   name: "Hajime"
   chef: "Hajime Yoneda"
   cuisine: "French"
+  style: "Contemporary"
   awards: ["MICHELIN 3★"]
 cover: "./images/hajime/cover.jpg | จานซิกเนเจอร์ของ Hajime ร้านฝรั่งเศสมิชลินสามดาว โอซาก้า จานผักบนจานกลมสีน้ำเงิน มีก้อนขาวตรงกลาง"
 billBand: "฿฿฿฿"

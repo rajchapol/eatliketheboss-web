@@ -5,7 +5,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { DEFAULT_LOCALE, SERIES, SITE, cuisineOf, localePrefix, type Locale } from './config';
+import { DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -85,8 +85,8 @@ export function priceBandFromBill(bill?: string): '฿฿' | '฿฿฿' | '฿�
 /** The Boss's Bill band (and the cuisine category): chosen in Studio (Bill tab), else the older restaurant field, else worked out from the price. */
 const withPriceBand = (a: Article): Article => {
   const band = a.billBand || a.restaurant?.priceBand || priceBandFromBill(a.bill);
-  // cuisine is shown as one of the broad English categories (cuisineOf in config.ts)
-  const restaurant = a.restaurant ? { ...a.restaurant, cuisine: cuisineOf(a.restaurant.cuisine), ...(band ? { priceBand: band } : {}) } : a.restaurant;
+  // cuisine = one of the broad English categories, style = optional detail (cuisineOf / styleOf in config.ts)
+  const restaurant = a.restaurant ? { ...a.restaurant, cuisine: cuisineOf(a.restaurant.cuisine), style: styleOf(a.restaurant), ...(band ? { priceBand: band } : {}) } : a.restaurant;
   return { ...a, billBand: band, restaurant };
 };
 

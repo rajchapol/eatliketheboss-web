@@ -61,7 +61,7 @@ const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
       <dl class="capsule-stats" style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:12px 36px;font-family:'Ekkamai New',sans-serif">
         <div><dt>ครั้งแรก</dt><dd><time datetime={visitIso(first)}>{visitLabel(first)}</time></dd></div>
         <div><dt>ล่าสุด</dt><dd><time datetime={visitIso(latest)}>{visitLabel(latest)}</time></dd></div>
-        {r.cuisine && <div><dt>ประเภท</dt><dd>{r.cuisine}</dd></div>}
+        {r.cuisine && <div><dt>ประเภท</dt><dd>{[r.cuisine, r.style].filter(Boolean).join(' · ')}</dd></div>}
         {city && <div><dt>เมือง</dt><dd>{city.nameEn}{r.area ? ` · ${r.area}` : ''}</dd></div>}
         {glassesTotal > 0 && <div><dt>ถอดแว่นชิม</dt><dd>{glassesTotal} จาน</dd></div>}
       </dl>

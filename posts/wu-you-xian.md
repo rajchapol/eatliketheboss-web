@@ -10,6 +10,7 @@ restaurant:
   originalName: "屋有鲜"
   chef: "Chen Lina"
   cuisine: "Chinese"
+  style: "Shanghainese"
   awards: ["MICHELIN 1★"]
 cover: "./images/wu-you-xian/cover.jpg | เสี่ยวหลงเปาปูขนในเข่งไม้ไผ่ ยอดจีบแต่ละลูกมีมันปูสีส้ม ร้าน Wu You Xian เซี่ยงไฮ้"
 billBand: "฿฿"

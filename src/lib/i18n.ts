@@ -104,3 +104,6 @@ const CUISINE: Record<string, Partial<Record<Locale, string>>> = {
 };
 // Categories are English (Thai and English pages show them as is); Japanese / Chinese pages translate them.
 export const cuisineLabel = (c: string | undefined, lang: Locale) => (c ? CUISINE[c]?.[lang] ?? c : '');
+/** Category and style together, e.g. "Japanese · Sushi" (the style stays in English). */
+export const cuisineText = (r: { cuisine?: string; style?: string } | undefined, lang: Locale) =>
+  [cuisineLabel(r?.cuisine, lang), r?.style].filter(Boolean).join(' · ');

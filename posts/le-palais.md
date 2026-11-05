@@ -8,6 +8,7 @@ restaurant:
   name: "Le Palais"
   originalName: "頤宮"
   cuisine: "Chinese"
+  style: "Cantonese"
   awards: ["MICHELIN 3★"]
 cover: "./images/le-palais/cover.jpg | ซุปเป๋าฮื้อและหัวไชเท้ายัดไส้กังป๋วยในน้ำซุปสีอำพัน ในชามกระเบื้องขาวลายดอกไม้ ร้าน Le Palais ไทเป"
 bill: "~4980 TWD ++"

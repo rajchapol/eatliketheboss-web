@@ -10,6 +10,7 @@ restaurant:
   name: "Gofio"
   chef: "Safe Cruz & Aída González"
   cuisine: "Spanish"
+  style: "Canarian"
   awards: ["MICHELIN 1★"]
 cover: "./images/gofio/cover.jpg | แซนด์วิชทูน่า Bocadillo de Vendimia ร้าน Gofio มาดริด"
 billBand: "฿฿฿"

@@ -7,7 +7,7 @@ import { SERIES } from '../lib/config';
 import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings } from '../lib/content';
 import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
-import { t, cuisineLabel } from '../lib/i18n';
+import { t, cuisineText } from '../lib/i18n';
 interface Props { a: Article; visits?: Article[] }
 const { a, visits = [a] } = Astro.props;
 const all = visits.length ? visits : [a];
@@ -20,7 +20,7 @@ const st = await getSettings();
 const y0 = visitIso(all[all.length - 1]).slice(0, 4), y1 = visitIso(all[0]).slice(0, 4);
 // Finder search text: names, chef, city and every dish name from every visit.
 // Prepared by src/lib/search.ts: Thai/English synonyms added, tone marks and spaces removed.
-const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.restaurant?.cuisine,
+const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.restaurant?.cuisine, v.restaurant?.style,
   ...(v.restaurant?.awards ?? []), ...(v.restaurant?.aliases ?? []), v.city?.nameEn, v.city?.nameTh, v.city?.country, ...(v.city?.aliases ?? []), ...v.dishes.map((d) => d.name), ...v.hashtags]));
 ---
 <article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
@@ -43,7 +43,7 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
     <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.4"><a href={articleUrl(a)} class="card-link">{a.restaurant?.name ?? a.title}</a></h3>
     {a.restaurant && (
       <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">
-        {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{cuisineLabel(a.restaurant.cuisine, L)}</span>}
+        {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{cuisineText(a.restaurant, L)}</span>}
         {a.restaurant.awards?.length ? <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="award" size={16} style="color:#0b5357" />{a.restaurant.awards.join(', ')}</span> : null}
         {a.billBand && <span class="band-pill" title="The Boss's Bill (ระดับราคาโดยประมาณ)"><Icon name="bill" size={13} />{a.billBand}</span>}
       </span>

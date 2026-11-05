@@ -9,6 +9,7 @@ restaurant:
   name: "Sushi Miyakawa"
   chef: "Masaaki Miyakawa"
   cuisine: "Japanese"
+  style: "Sushi"
   awards: ["MICHELIN 3★"]
 cover: "./images/sushi-miyakawa/cover.jpg | ปูต้มเสิร์ฟเย็นราดซอสไข่ปูสีส้มบนจานสีเทาเข้ม ร้าน Sushi Miyakawa เมืองซัปโปโร"
 billBand: "฿฿฿"

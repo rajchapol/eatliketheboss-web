@@ -9,6 +9,7 @@ restaurant:
   name: "Sushi Ikko"
   chef: "Junya Kudo"
   cuisine: "Japanese"
+  style: "Sushi"
   awards: ["MICHELIN 2★"]
 cover: "./images/sushi-ikko/cover.jpg | ซูชิมากุโระห่อสาหร่ายย่างราดซอสสาหร่ายบนจานแก้วลายนูน ร้าน Sushi Ikko เมืองซัปโปโร"
 billBand: "฿฿฿฿"

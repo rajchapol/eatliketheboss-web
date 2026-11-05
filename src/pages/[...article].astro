@@ -11,7 +11,7 @@ import { SERIES } from '../lib/config';
 import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, capsuleUrl } from '../lib/content';
 import { articleLd, breadcrumbs } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
-import { t, formatDate, cuisineLabel } from '../lib/i18n';
+import { t, formatDate, cuisineText } from '../lib/i18n';
 import { getSettings } from '../lib/content';
 import type { Article } from '../lib/types';
 
@@ -77,7 +77,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
               <p class="glance-head">{t(L, 'atGlance')}</p>
               <dl class="glance-grid">
                 <div><dt><Icon name="bill" size={15} />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
-                <div><dt><Icon name="cuisine" size={15} />{t(L, 'cuisine')}</dt><dd>{cuisineLabel(a.restaurant?.cuisine, L) || '—'}</dd></div>
+                <div><dt><Icon name="cuisine" size={15} />{t(L, 'cuisine')}</dt><dd>{cuisineText(a.restaurant, L) || '—'}</dd></div>
                 {a.restaurant?.awards?.length ? <div><dt><Icon name="award" size={15} />{t(L, 'awards')}</dt><dd>{a.restaurant.awards.join(' · ')}</dd></div> : null}
                 {a.city && <div><dt><Icon name="pin" size={15} />{t(L, 'cityArea')}</dt><dd>{a.city.nameEn}{a.restaurant?.area && ` — ${a.restaurant.area}`}</dd></div>}
               </dl>

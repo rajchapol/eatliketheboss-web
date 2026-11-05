@@ -68,7 +68,7 @@ export function articleLd(a: Article) {
       itemReviewed: {
         '@type': 'Restaurant',
         name: a.restaurant.name,
-        servesCuisine: a.restaurant.cuisine,
+        servesCuisine: a.restaurant.style ? [a.restaurant.cuisine, a.restaurant.style] : a.restaurant.cuisine,
         priceRange: a.restaurant.priceBand,
         address: a.city ? { '@type': 'PostalAddress', addressLocality: a.city.nameEn, streetAddress: a.restaurant.area } : undefined,
         award: a.restaurant.awards,

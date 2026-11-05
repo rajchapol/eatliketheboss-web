@@ -64,10 +64,14 @@ async function upload(spec) {
 }
 
 // ---- Checks that keep Studio data tidy (also in --dry) ----
-// Cuisine: one broad English category (the Boss, 5 Nov 2026). Keep in step with CUISINES in src/lib/config.ts and the Studio list.
-const CUISINES = ['Japanese', 'Chinese', 'Thai', 'French', 'Italian', 'Spanish', 'Nordic', 'Modern', 'Other'];
-const cu = fm.restaurant?.cuisine;
-if (cu && !CUISINES.includes(String(cu).trim())) throw new Error(`cuisine "${cu}" ไม่อยู่ในรายการ — ใช้หมวดใหญ่ภาษาอังกฤษอย่างใดอย่างหนึ่ง: ${CUISINES.join(' | ')} (สไตล์ย่อย เช่น sushi, kaiseki เขียนในบทความแทน)`);
+// Cuisine: one broad English category + an optional style from that category (the Boss, 5 Nov 2026).
+// One list for site, Studio and this check: src/data/cuisines.json. Add a style there (in a PR) only when none fits.
+const CUISINE_STYLES = Object.fromEntries(Object.entries(JSON.parse(readFileSync(new URL('../src/data/cuisines.json', import.meta.url), 'utf8'))).filter(([k]) => !k.startsWith('_')));
+const CUISINES = Object.keys(CUISINE_STYLES);
+const cu = fm.restaurant?.cuisine, st = fm.restaurant?.style;
+if (cu && !CUISINES.includes(String(cu).trim())) throw new Error(`cuisine "${cu}" ไม่อยู่ในรายการ — ใช้หมวดใหญ่ภาษาอังกฤษอย่างใดอย่างหนึ่ง: ${CUISINES.join(' | ')} (รายละเอียด เช่น Sushi, Cantonese ใส่ใน restaurant.style)`);
+if (st && !cu) throw new Error('มี restaurant.style แต่ไม่มี restaurant.cuisine — ใส่หมวดก่อน');
+if (st && !CUISINE_STYLES[String(cu).trim()].includes(String(st).trim())) throw new Error(`style "${st}" ไม่อยู่ในหมวด ${cu} — เลือกจาก: ${CUISINE_STYLES[String(cu).trim()].join(', ')} · ถ้าไม่มีที่ตรงจริงๆ เว้นว่างไว้ หรือเพิ่มใน src/data/cuisines.json แล้วเปิด PR`);
 // New city: the slug is the city's English name only, e.g. oslo, san-sebastian (no country in front).
 // Four cities were made with a country prefix before this rule; their URLs are live, so they stay.
 const LEGACY_CITY = ['norway-oslo', 'finland-helsinki', 'denmark-copenhagen', 'turkey-istanbul'];

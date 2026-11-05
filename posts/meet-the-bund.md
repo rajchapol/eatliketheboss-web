@@ -9,6 +9,7 @@ restaurant:
   name: "Meet The Bund at Skyline"
   chef: "Chen Zhiping (陈志平)"
   cuisine: "Chinese"
+  style: "Fujian"
 cover: "./images/meet-the-bund/cover.jpg | เป๋าฮื้อตุ๋นบนช้อนกระเบื้องสีขาว ยกขึ้นจากโถซุปพระกระโดดกำแพงสีขาว ร้าน Meet The Bund at Skyline เซี่ยงไฮ้"
 billBand: "฿฿฿"
 visit: Jan-2026

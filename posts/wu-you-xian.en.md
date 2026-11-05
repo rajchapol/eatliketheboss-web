@@ -10,6 +10,7 @@ restaurant:
   originalName: "屋有鲜"
   chef: "Chen Lina"
   cuisine: "Chinese"
+  style: "Shanghainese"
   awards: ["MICHELIN 1★"]
 cover: "./images/wu-you-xian/cover.jpg | Hairy crab xiaolongbao in a bamboo steamer, each pleated top crowned with orange crab roe, Wu You Xian, Shanghai"
 visit: Jan-2026

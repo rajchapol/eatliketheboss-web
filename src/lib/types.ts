@@ -36,7 +36,8 @@ export interface Restaurant {
   originalName?: string;
   chef?: string;
   area?: string;
-  cuisine?: string;
+  cuisine?: string; // category (src/data/cuisines.json keys)
+  style?: string; // optional style within the category, e.g. Sushi, Cantonese
   priceBand?: '฿฿' | '฿฿฿' | '฿฿฿฿';
   awards?: string[];
   aliases?: string[]; // other names people search by, e.g. Thai spelling (Studio)

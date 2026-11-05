@@ -12,7 +12,8 @@ restaurant:
   originalName: "ชื่อภาษาเดิม"
   chef: "ชื่อเชฟ"
   area: "Ginza"
-  cuisine: "Japanese"   # one of: Japanese | Chinese | Thai | French | Italian | Spanish | Nordic | Modern | Other (English, broad; sushi, kaiseki… go in the text)
+  cuisine: "Japanese"   # หมวดใหญ่ (กรองหน้า Restaurants): Japanese | Chinese | Thai | French | Italian | Spanish | Nordic | Modern | Other
+  style: "Sushi"        # ไม่บังคับ: ประเภทย่อยในหมวดนั้น ดูรายการใน src/data/cuisines.json (เช่น Kaiseki, Cantonese, Isan, Basque)
   awards: ["MICHELIN 2★"]
   # sameAs: old-slug     # ไม่บังคับ: slug ของรีวิวครั้งก่อน ถ้าร้านเปลี่ยนชื่อ (ชื่อเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว)
 cover: "./images/restaurant-name/cover.jpg | ห้องอาหารของร้าน X ที่โตเกียว"

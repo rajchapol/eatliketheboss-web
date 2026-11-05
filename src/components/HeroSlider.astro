@@ -28,7 +28,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
               {a.city && <span class="badge badge-light"><Icon name="pin" size={14} style="color:#c39e5c" />{a.city.nameEn}</span>}
               <span class="badge badge-light"><Icon name="calendar" size={14} style="color:#c39e5c" />Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
-              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name="cuisine" size={14} style="color:#c39e5c" />{a.restaurant.cuisine}</span>}
+              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name="cuisine" size={14} style="color:#c39e5c" />{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
               {a.dishes.some((d) => d.glassesOff) && <span class="badge badge-dark"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
             </p>
             <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>

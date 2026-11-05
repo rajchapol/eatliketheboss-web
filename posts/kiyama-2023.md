@@ -9,6 +9,7 @@ restaurant:
   name: "Kiyama"
   chef: "Yoshiro Kiyama"
   cuisine: "Japanese"
+  style: "Kaiseki"
   awards: ["MICHELIN 1★"]
 cover: "./images/kiyama-2023/cover.jpg | ชุดโต๊ะไคเซกิ ซองตะเกียบพิมพ์ชื่อร้าน 木山 บนถาดเคลือบแดง ร้าน Kiyama เกียวโต"
 billBand: "฿฿฿"
