@@ -13,7 +13,7 @@ restaurant:
   style: "New Nordic"
   awards: ["MICHELIN Plate (2019)"]
 cover: "./images/dill/cover.jpg | เนื้อหมูย่างชิ้นยาวราดซอสเขียวโลเวจบนจานขาว ร้าน Dill เรคยาวิก"
-billBand: ""
+billBand: "฿฿฿"
 bill: "~20,000 Isk (included 3 glasses of beer and champagne )"
 tag: ""
 visit: Aug-2019
