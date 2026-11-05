@@ -9,6 +9,7 @@ restaurant:
   chef: "Shinobu Namae"
   area: "Nishi-Azabu"
   cuisine: "French"
+  style: "Japanese-influenced"
   awards: ["MICHELIN 3★", "MICHELIN Green Star"]
 cover: "./images/leffervescence/cover.jpg | อกเป็ดย่างเนื้อสีชมพูกับซอสพอร์ตไวน์สีเข้มและผักภูเขา บนจานสีขาว ร้าน L'Effervescence โตเกียว"
 bill: "~65000 yen"

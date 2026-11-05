@@ -11,6 +11,7 @@ restaurant:
   chef: "Tony Ye"
   area: "จิ้งอัน"
   cuisine: "Chinese"
+  style: "Contemporary"
   awards: ["Black Pearl 1 Diamond", "MICHELIN Selected"]
 cover: "./images/sui-tang-li/cover.jpg | ปลาบู่ทรายนึ่งราดซอสพริกเขียวบนจานยาวสีขาว ร้าน Sui Tang Li เซี่ยงไฮ้"
 tag: "AD"

@@ -11,6 +11,7 @@ restaurant:
   chef: "Tony Ye"
   area: "Jing'an"
   cuisine: "Chinese"
+  style: "Contemporary"
   awards: ["Black Pearl 1 Diamond", "MICHELIN Selected"]
 cover: "./images/sui-tang-li/cover.jpg | Steamed marble goby with green chilli sauce on a long white plate, Sui Tang Li, Shanghai"
 visit: Oct-2026

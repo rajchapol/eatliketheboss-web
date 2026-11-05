@@ -9,6 +9,7 @@ restaurant:
   chef: "Björn Frantzén"
   area: "Bukit Pasoh"
   cuisine: "Modern"
+  style: "Contemporary"
   awards: ["MICHELIN 3★"]
 cover: "./images/zen-singapore/cover.jpg | ไอศกรีมแครอทบนครีมสีขาว ตกแต่งแวเฟิลฉลุสีทองและผงมัทฉะ ในชามเซรามิกสีครีม ร้าน Zén สิงคโปร์"
 bill: "~700 SGD / pax"

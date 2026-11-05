@@ -9,6 +9,7 @@ restaurant:
   chef: "Julien Royer"
   area: "National Gallery Singapore"
   cuisine: "French"
+  style: "Contemporary"
   awards: ["MICHELIN 3★"]
 cover: "./images/odette/cover.jpg | ทาร์ตสตรอว์เบอร์รีแต่งครีมทรงกลมสีขาวและผิวส้มญี่ปุ่น บนจานสีขาวใบใหญ่ ร้าน Odette สิงคโปร์"
 bill: "~348++ SGD /pax"

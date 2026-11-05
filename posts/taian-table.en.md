@@ -9,6 +9,7 @@ restaurant:
   name: "Taian Table"
   chef: "Stefan Stiller"
   cuisine: "Modern"
+  style: "Innovative"
   awards: ["MICHELIN 3★"]
 cover: "./images/taian-table/cover.jpg | Spiced éclair filled with foie gras mousse, topped with pistachios, purple shiso leaves and a chocolate disc, on a white ceramic base, Taian Table, Shanghai"
 bill: "2888 CNY / Pax"
