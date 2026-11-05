@@ -6,15 +6,12 @@ import { getArticles, glassesOffDishes, getSettings, dishUrl, visitYear } from '
 const st = await getSettings();
 import { SITE } from '../lib/config';
 import { romanAt as roman } from '../lib/roman';
-import sealSvg from '../../public/img/brand/award-seal-2026.svg?raw';
 
 const articles = await getArticles('th');
 const items = glassesOffDishes(articles);
 const years = [...new Set(items.map((x) => visitYear(x.article)))].sort().reverse(); // by the year of the meal
 // Seal shows the latest awards year (the file's 2026 is replaced), inline so it uses the site's fonts.
 const sealYear = years[0] ?? String(new Date().getFullYear());
-const seal = sealSvg.replace(/<\?xml[^>]*>/, '').replace('>2026<', `>${sealYear}<`)
-  .replace(/id="([^"]+)"/g, 'id="seal-$1"').replace(/url\(#([^)]+)\)/g, 'url(#seal-$1)'); // unique ids on the page
 const ld = {
   '@context': 'https://schema.org', '@type': 'ItemList', name: 'Glasses Off Awards',
   itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.dish.name, url: new URL(dishUrl(x.article, x.index), SITE.url).href })),
@@ -40,7 +37,9 @@ const lenses = pool.length ? LENSES.map((cx) => ({ cx, cells: cells.map((c) => {
 <Base title="Glasses Off Awards — จานที่อร่อยจนบอสต้องถอดแว่นชิม" description="รวมทุกจานที่อร่อยจนบอสต้องขอถอดแว่นชิม คัดจากบันทึกการชิมทั้งปี ไม่ผูกกับดาวของร้าน" active="awards" dark jsonLd={[ld]}>
   <section aria-labelledby="aw" class="spot" style="background:radial-gradient(ellipse at 50% 0%,#0f6b6a 0%,#0b5357 40%,#073b3e 100%)">
     <div class="wrap" style="max-width:900px;padding-top:80px;padding-bottom:40px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">
-      <span role="img" aria-label={`ตรา Glasses Off Awards ${sealYear}`} class="gold-glow seal" set:html={seal} />
+      <img src="/img/brand/award-seal.svg" alt="ตรา Glasses Off Awards" width="200" height="200" class="gold-glow seal" />
+      {/* The seal has no year (brand kit, 5 Nov 2026); the year is written as text instead. */}
+      <p class="seal-year">ประจำปี {sealYear}</p>
       <h1 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(48px,9cqi,80px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span></h1>
       <p style="margin:8px 0 0;max-width:34em;font-size:18px;line-height:1.85;font-weight:400;color:#fff">{st.awardsIntro}</p>
       {years.length > 1 && <nav aria-label="เลือกปี" style="display:flex;gap:8px;margin-top:16px;font-family:'Ekkamai New',sans-serif;font-size:15px">{years.map((y) => <a href={`#y${y}`} class="chip" style="padding:8px 22px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{y}</a>)}</nav>}
@@ -92,6 +91,7 @@ const lenses = pool.length ? LENSES.map((cx) => ({ cx, cells: cells.map((c) => {
             <a href={dishUrl(x.article, x.index)} class="fx-lift rc" style="display:flex;flex-direction:column;background:rgba(11,83,87,.6);box-shadow:0 0 0 1px rgba(212,179,114,.5),0 16px 36px rgba(0,0,0,.25)">
               <span class="fx-zoom" style="position:relative;display:block;aspect-ratio:3/2"><Photo img={x.dish.image ?? x.article.cover} label="ภาพจาน" dark ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 380px" />
                 <span style="position:absolute;left:16px;bottom:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:44px;line-height:1;color:#fdeac0;text-shadow:0 2px 14px rgba(0,0,0,.55)">{roman(i)}.</span>
+                <img src="/img/brand/go-mark.svg" alt="" width="44" height="44" class="go-mark" style="position:absolute;left:12px;top:12px" />
                 {x.article.city && <span class="badge badge-dark" style="position:absolute;right:12px;top:12px">{x.article.city.nameEn}</span>}</span>
               <span style="display:flex;flex-direction:column;gap:6px;padding:18px 20px 22px">
                 <span style="font-size:21px;font-weight:600;line-height:1.45;color:#fff">{x.dish.name}</span>

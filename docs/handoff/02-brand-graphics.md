@@ -41,7 +41,7 @@
 ### ไฟล์กราฟิกที่มีในเว็บ (`public/img/`)
 - `logo-gold.webp` (400px สำหรับเว็บ) · `logo-gold.png` (ใหญ่ ใช้ทำรูปแชร์) · `monogram.webp` · `boss-icon-gold.svg`
 - `lineart-dark.webp` / `lineart-light.webp` — ลายเส้นขวด แก้ว ฝาครอบอาหาร (ท้ายเว็บ, About)
-- `brand/award-seal-2026.svg` (ตราประทับ Glasses Off Awards — ปีเปลี่ยนเองตามปีล่าสุด) · `brand/glasses-off-badge.svg` · `brand/empty-state-cloche.svg` · `brand/error-404.svg`
+- `brand/award-seal.svg` (ตรา Glasses Off Awards แบบ GO ไม่มีปี — ปีเขียนเป็นตัวหนังสือใต้ตรา · ห้ามเล็กกว่า 120px) · `brand/go-mark.svg` (ตราย่อ GO สำหรับป้ายบนการ์ด/มุมรูป) · `brand/glasses-off-badge.svg` · `brand/empty-state-cloche.svg` · `brand/error-404.svg`
 - `og-default.jpg` — รูปแชร์ของหน้าที่ไม่ใช่บทความ (ตั้งรูปใหม่ได้ใน Studio → ตั้งค่าเว็บ → ท้ายเว็บ & SEO)
 - แผนที่จุดไข่ปลา `map/world-dots.svg`, `map/sea-dots.svg`
 

@@ -4,6 +4,17 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · New Glasses Off Awards seal (GO) without a year
+
+Brand kit `2026 Brand Kit/logos/glasses-off-awards/` (spec `HANDOFF-web-awards-seal.md`):
+- `public/img/brand/award-seal.svg` (= `seal-color-dark.svg`, fonts embedded) replaces `award-seal-2026.svg`. The year is no longer patched into the seal: `/glasses-off-awards/` shows the seal as an `<img>` (200 px; 160 px on phones) with "ประจำปี {latest year}" as text under it.
+- `public/img/brand/go-mark.svg` (= `go-mark-color-dark.svg`), the small GO mark for anything under ~120 px:
+  - top-left corner of every dish card on the awards page and in the home awards row (40–44 px);
+  - inside the "ถอดแว่นชิม" badge on restaurant cards (20 px), replacing the glasses icon.
+- `glasses-off-badge.svg` (dish badge in articles) is unchanged. Rule: never show the full seal under 120 px, never add a year to it.
+
+---
+
 ## Session 2026-11-05 · 12 more city motifs (brand kit)
 
 From `2026 Brand Kit/web-graphics/city-motifs/` (spec `HANDOFF-city-motifs.md` by the brand chat), same style as the first six (gold #c39e5c line, 1px, transparent tile):

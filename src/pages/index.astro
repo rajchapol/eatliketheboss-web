@@ -92,6 +92,7 @@ const quickCities = settings.homeCitySlugs?.length
           <li class="fx-lift rc" style="background:rgba(7,59,62,.7);box-shadow:0 0 0 1px rgba(212,179,114,.5),0 16px 36px rgba(0,0,0,.25)">
             <a href={dishUrl(article, di)} style="display:flex;flex-direction:column;height:100%">
               <span class="fx-zoom" style="position:relative;display:block;aspect-ratio:3/2"><Photo img={dish.image ?? article.cover} label="ภาพจาน" dark ratio={0.6667} widths={[400, 600]} sizes="(max-width: 720px) 100vw, 300px" />
+                <img src="/img/brand/go-mark.svg" alt="" width="40" height="40" class="go-mark" style="position:absolute;left:12px;top:12px" />
                 <span class="gold-glow" style="position:absolute;left:16px;bottom:10px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;line-height:1;color:#fdeac0;text-shadow:0 2px 12px rgba(0,0,0,.5)">{roman(i)}.</span></span>
               <span style="display:flex;flex-direction:column;gap:6px;padding:18px 20px 22px">
                 <strong style="font-size:19px;font-weight:600;line-height:1.45">{dish.name}</strong>
