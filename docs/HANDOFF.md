@@ -4,6 +4,17 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · Map + / − buttons fixed
+
+The Boss: pinch zoom works, but the + / − buttons didn't respond. Cause: after a pinch or drag, `moved` stayed high. The capture-phase click guard ("a drag is not a tap on a pin") then swallowed the next click, including the buttons, because `pointerdown` on the buttons returned before resetting `moved`.
+- Fix (`DestinationsMap.astro`):
+  - `moved` resets at the start of every new touch;
+  - the guard never blocks `.map-ctrl`;
+  - `touchend` with no fingers left clears the pointer list, since iOS can skip `pointerup` after a pinch.
+- Tested with Playwright on desktop and phone: drag, then + halves the view width and − doubles it.
+
+---
+
 ## Session 2026-11-05 · New Glasses Off Awards seal (GO) without a year
 
 Brand kit `2026 Brand Kit/logos/glasses-off-awards/` (spec `HANDOFF-web-awards-seal.md`):

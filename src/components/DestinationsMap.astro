@@ -153,8 +153,9 @@ const v0 = VIEWS[start];
     // Drag and pinch (pointer events). Vertical swipes still scroll the page on phones (touch-action: pan-y).
     const pts = new Map(); let moved = 0, last = null;
     box.addEventListener('pointerdown', (e) => {
+      if (!pts.size) moved = 0; // a new touch starts fresh (a finished pinch/drag must not block the next tap)
       if (e.target.closest('.map-ctrl')) return;
-      pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = 0; last = null; cancelAnimationFrame(anim);
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); last = null; cancelAnimationFrame(anim);
     });
     box.addEventListener('pointermove', (e) => {
       if (!pts.has(e.pointerId)) return;
@@ -172,7 +173,8 @@ const v0 = VIEWS[start];
     });
     const up = (e) => pts.delete(e.pointerId);
     box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up); box.addEventListener('pointerleave', up);
-    box.addEventListener('click', (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true); // a drag is not a tap on a pin
+    box.addEventListener('touchend', (e) => { if (!e.touches.length) pts.clear(); }); // iPhone can skip pointerup after a pinch
+    box.addEventListener('click', (e) => { if (moved > 6 && !e.target.closest('.map-ctrl')) { e.preventDefault(); e.stopPropagation(); } }, true); // a drag is not a tap on a pin (the + / − buttons always work)
     let hintT = 0;
     box.addEventListener('wheel', (e) => {
       if (!(e.ctrlKey || e.metaKey)) { hint.textContent = 'กด Ctrl (Mac: ⌘) ค้างแล้วเลื่อน เพื่อซูมแผนที่'; root.classList.add('hint-on'); clearTimeout(hintT); hintT = setTimeout(() => root.classList.remove('hint-on'), 1400); return; }
