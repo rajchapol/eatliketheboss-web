@@ -22,6 +22,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
   - The workflow needs Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
 
 ---
+## 5 Nov 2026 — Michelin batch 1 posted
+- Posted 9 old FB/Pantip reviews (content kept, scores/links/stars cut): harutaka, ishikawa, leffervescence, forum, le-palais, jl-studio (new city `taichung` via `cityNew`), zen-singapore, odette, maaemo. All photos 3:2.
+- `scripts/post-article.mjs` supports `cityNew: { nameEn, nameTh, country, region }`.
+- Open: Maaemo 2017 visit (old location) for the time capsule needs its text (FB post 457908344679187); Thai typos in old copies left as written pending the Boss; no glasses-off picks on old articles.
 
 ## Session 2026-11-05 · Home slider autoplay + English spelling fixes
 
