@@ -19,6 +19,23 @@ The Boss: the map couldn't zoom, and nearby cities (Shanghai · Hangzhou · Taip
 
 ---
 
+## Session 2026-11-05 · Restaurant time capsule (repeat visits, option B)
+
+The Boss picked option B: one page per restaurant he reviewed 2+ times, so repeat visits are easy to look back on and never crowd the lists.
+- New page `src/pages/restaurant/[city]/[name].astro` → `/restaurant/<city>/<name>/` (Thai only, only for 2+ visits).
+  - `<name>` = latin slug of the restaurant name from the oldest visit, else that visit's slug (`restaurantSlug()` in `content.ts`).
+  - Contents: hero (visit count, year span, first/latest, cuisine, city, glasses-off total), "จานที่กลับมา" (dish names on 2+ visits, `returningDishes()`), and a vertical timeline, newest first.
+  - Each visit shows: cover, Visit, No., price band, tagline, quote, glasses-off dishes, and what changed since the previous visit (chef, price band, awards). Older covers are slightly sepia.
+- New helpers in `content.ts`: `capsuleUrl(visits)` (undefined for single visits / non-Thai), `returningDishes(visits)`.
+- Lists link to the capsule instead of listing every visit:
+  - `ArticleCard` repeat footer → one "ไทม์แคปซูล · ไป N ครั้ง · 2023–2026" link;
+  - city rows → one pill;
+  - review page: Thai repeat visits get a capsule bar (this is visit k, previous/next visit, button to the capsule); English pages keep the old visit pills;
+  - The Index on home marks "กลับไปครั้งที่ N".
+- Texts in Studio → ตั้งค่าเว็บ → new tab **ไทม์แคปซูล** (`capsuleTitle`, `capsuleIntro`, `capsuleReturning`, `capsuleLink`; defaults in `settings.json`). After merge run Actions → Fill settings texts (dry first) if the Studio doc should show them.
+- The sample content has a second Tokyo visit (`sample-tokyo-2025`, Mar-2025) so the capsule is exercised in sample builds/CI.
+- CSS: `.capsule-*` at the end of `site.css`.
+- Tested: Playwright crawl of the sample build (no errors), screenshots at 390/1280, Studio schema validate + build.
 ## Session 2026-11-05 · Flexible Thai search in the finder
 
 `src/lib/search.ts` (new) is used by `ArticleCard.astro` (build time: `searchText()` prepares `data-text`) and the `/restaurants/` script (browser: `matches()`).

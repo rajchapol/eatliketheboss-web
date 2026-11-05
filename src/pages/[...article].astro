@@ -8,7 +8,7 @@ import Photo from '../components/Photo.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import ShareBar from '../components/ShareBar.astro';
 import { SERIES } from '../lib/config';
-import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel } from '../lib/content';
+import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, capsuleUrl } from '../lib/content';
 import { articleLd, breadcrumbs } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
 import { t, formatDate } from '../lib/i18n';
@@ -27,6 +27,7 @@ const all = await getAllArticles();
 const tr = await translationsOf(a);
 const alternates = tr.map((x) => ({ lang: x.language, href: articleUrl(x) }));
 const visits = visitsOf(a, all); // every review of this restaurant (newest visit first)
+const capsule = capsuleUrl(visits); // Thai repeat visits → time capsule page
 // More Tasting Notes: same city first, then the same series; other visits of this restaurant are already listed above.
 const others = all.filter((x) => x.language === L && x.id !== a.id && restaurantKey(x) !== restaurantKey(a));
 const sameCity = (x: Article) => Boolean(a.city && x.city?.slug === a.city.slug);
@@ -90,7 +91,22 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
             <ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} />
           </div>
         )}
-        {visits.length > 1 && (
+        {visits.length > 1 && capsule && (() => {
+          const k = visits.findIndex((v) => v.id === a.id); // 0 = latest
+          const newer = visits[k - 1], older = visits[k + 1];
+          return (
+            <nav aria-label={st.capsuleTitle} class="rc capsule-bar" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:12px 18px;background:linear-gradient(120deg,#073b3e 0%,#0b5357 100%);color:#fff;font-family:'Ekkamai New',sans-serif">
+              <Icon name="clock" size={18} style="color:#d4b372" />
+              <span style="font-size:15px">{t(L, 'visits', { n: visits.length })} · <b style="color:#fdeac0">{k === 0 ? 'ครั้งล่าสุด' : `ครั้งที่ ${visits.length - k}`}</b></span>
+              <span style="display:inline-flex;gap:6px;margin-left:auto;flex-wrap:wrap">
+                {older && <a href={articleUrl(older)} class="badge" style="border:1px solid rgba(212,179,114,.6);color:#fdeac0;font-size:13px"><Icon name="prev" size={13} />ครั้งก่อน · {visitLabel(older)}</a>}
+                {newer && <a href={articleUrl(newer)} class="badge" style="border:1px solid rgba(212,179,114,.6);color:#fdeac0;font-size:13px">ครั้งถัดไป · {visitLabel(newer)}<Icon name="next" size={13} /></a>}
+                <a href={capsule} class="badge" style="background:linear-gradient(135deg,#d4b372,#fdeac0);color:#1a2632;font-weight:700;font-size:13px">{st.capsuleLink}<Icon name="arrow" size={13} /></a>
+              </span>
+            </nav>
+          );
+        })()}
+        {visits.length > 1 && !capsule && (
           <nav aria-label={t(L, 'visits', { n: visits.length })} class="rc" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:14px 18px;background:linear-gradient(120deg,#073b3e 0%,#0b5357 100%);color:#fff;font-family:'Ekkamai New',sans-serif;box-shadow:0 0 0 1px rgba(212,179,114,.5)">
             <Icon name="calendar" size={18} style="color:#d4b372" />
             <strong style="font-size:15px;margin-right:6px">{t(L, 'visits', { n: visits.length })}</strong>
