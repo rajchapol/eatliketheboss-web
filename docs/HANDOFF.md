@@ -4,6 +4,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 (evening, late) · city facts live, new cities must bring one
+- Ran Actions → Set city facts (dry, then real): 19 cities got their "Did you know?" fact.
+- Cuisine styles for the last 13 posts pushed to main on the Boss's request; all 43 articles in Sanity now have category + style.
+- `post-article.mjs`: a new city (`cityNew`, slug not yet in Sanity, checked on the public dataset even in `--dry`) must carry `cityNew.fact` (English, 40–320 chars); it becomes the city's `intro`. Template and posting hand-off updated.
+
 ## Session 2026-11-05 (night) · Studio fit: cuisine categories, city slugs, English-first Studio, city facts
 - Review of Sanity vs current work (34 reviews in 3 days, mostly posted from files): system fits; four gaps fixed here.
 - **Cuisine styles** (follow-up, same PR): optional `restaurant.style` within the category (Sushi, Cantonese, Isan, Basque…), shown as "Category · Style" on cards, articles, slider, restaurant page and JSON-LD; not a filter. One list `src/data/cuisines.json` for site, Studio (imports it; `deploy-studio.yml` also watches it) and the post check (style must belong to the category). Styles filled for 26 posts where clear; Maaemo 2024 moved Modern → Nordic · New Nordic to match its 2018 visit. `pull-articles.mjs` writes `style`.
