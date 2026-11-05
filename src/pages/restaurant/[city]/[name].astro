@@ -1,0 +1,118 @@
+---
+// Time capsule: one page per restaurant the Boss reviewed 2+ times (Thai). Every visit on a vertical
+// timeline, newest first, with what came back and what changed. Lists link here instead of listing
+// every visit, so repeat reviews never crowd the site. Texts: Studio → ตั้งค่าเว็บ → ไทม์แคปซูล.
+import Base from '../../../layouts/Base.astro';
+import Icon from '../../../components/Icon.astro';
+import Photo from '../../../components/Photo.astro';
+import { getArticles, getSettings, groupByRestaurant, capsuleUrl, returningDishes, articleUrl, visitIso, visitLabel, imgUrl } from '../../../lib/content';
+import { breadcrumbs } from '../../../lib/seo';
+import { SITE } from '../../../lib/config';
+import type { Article } from '../../../lib/types';
+
+export async function getStaticPaths() {
+  const reviews = (await getArticles('th')).filter((a) => a.series === 'review');
+  return groupByRestaurant(reviews)
+    .map((g) => ({ g, url: capsuleUrl(g.visits) }))
+    .filter((x) => x.url)
+    .map(({ g, url }) => { const [, , city, name] = url!.split('/'); return { params: { city, name }, props: { visits: g.visits } }; });
+}
+const { visits } = Astro.props as { visits: Article[] };
+const st = await getSettings();
+const latest = visits[0], first = visits[visits.length - 1];
+const r = latest.restaurant!;
+const city = latest.city;
+const years = [...new Set(visits.map((v) => visitIso(v).slice(0, 4)))];
+const span = years.length > 1 ? `${years[years.length - 1]}–${years[0]}` : years[0];
+const returning = returningDishes(visits);
+const glassesTotal = visits.reduce((n, v) => n + v.dishes.filter((d) => d.glassesOff).length, 0);
+// What changed since the visit before (shown on each visit except the oldest).
+const changes = (v: Article, prev?: Article) => {
+  if (!prev) return [] as string[];
+  const out: string[] = [];
+  if (v.restaurant?.chef && prev.restaurant?.chef && v.restaurant.chef !== prev.restaurant.chef) out.push(`เชฟ ${prev.restaurant.chef} → ${v.restaurant.chef}`);
+  if (v.billBand && prev.billBand && v.billBand !== prev.billBand) out.push(`ระดับราคา ${prev.billBand} → ${v.billBand}`);
+  const aw = (x: Article) => (x.restaurant?.awards ?? []).join(', ');
+  if (aw(v) && aw(prev) && aw(v) !== aw(prev)) out.push(`รางวัล ${aw(prev)} → ${aw(v)}`);
+  return out;
+};
+const name = r.name;
+const title = `${name} ${city?.nameEn ?? ''} — ${st.capsuleTitle} ${visits.length} ครั้ง`;
+const desc = `บอสกลับไป ${name}${city ? ` ${city.nameTh}` : ''} มาแล้ว ${visits.length} ครั้ง (${span}) ย้อนดูทุกมื้อ จานที่กลับมา และสิ่งที่เปลี่ยนไป ในไทม์แคปซูลของบอสพาชิม · Eat Like The Boss`;
+const url = capsuleUrl(visits)!;
+const ld = [
+  breadcrumbs([{ name: 'หน้าแรก', href: '/' }, ...(city ? [{ name: city.nameEn, href: `/city/${city.slug}/` }] : []), { name, href: url }]),
+  { '@context': 'https://schema.org', '@type': 'ItemList', name: `${name} — ${st.capsuleTitle}`,
+    itemListElement: visits.map((v, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(articleUrl(v), SITE.url).href, name: v.title })) },
+];
+const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+---
+<Base title={title} description={desc} image={latest.cover ? imgUrl(latest.cover, 1200, 630) : undefined} active="finder" jsonLd={ld}>
+  <section aria-labelledby="cap" class="on-dark" style="position:relative;overflow:hidden;background:radial-gradient(ellipse at 30% 0%,#0f6b6a 0%,#0b5357 45%,#073b3e 100%);color:#fff">
+    <div aria-hidden="true" class="pat-loop-light" style="position:absolute;inset:0;opacity:.5;-webkit-mask-image:linear-gradient(90deg,transparent,#000 70%);mask-image:linear-gradient(90deg,transparent,#000 70%)"></div>
+    <div class="wrap" style="position:relative;padding-top:64px;padding-bottom:56px;display:flex;flex-direction:column;gap:14px">
+      <p class="crumbs" style="color:#fff"><a href="/" style="color:#fff">หน้าแรก</a>{city && <> / <a href={`/city/${city.slug}/`} style="color:#fff">{city.nameEn}</a></>} / {name}</p>
+      <p style="margin:0;display:inline-flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#fdeac0"><Icon name="clock" size={18} style="color:#d4b372" />{st.capsuleTitle} · ไป {visits.length} ครั้ง · {span}</p>
+      <h1 id="cap" style="margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px">
+        <span class="gold-grad gold-glow" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(48px,8cqi,80px);line-height:1.05">{name}</span>
+        {r.originalName && <span style="font-size:clamp(20px,3cqi,28px);font-weight:400;color:rgba(255,255,255,.9)">{r.originalName}</span>}
+      </h1>
+      <p style="margin:0;max-width:36em;font-size:17px;line-height:1.8;font-weight:300;color:rgba(255,255,255,.92)">{st.capsuleIntro}</p>
+      <dl class="capsule-stats" style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:12px 36px;font-family:'Ekkamai New',sans-serif">
+        <div><dt>ครั้งแรก</dt><dd><time datetime={visitIso(first)}>{visitLabel(first)}</time></dd></div>
+        <div><dt>ล่าสุด</dt><dd><time datetime={visitIso(latest)}>{visitLabel(latest)}</time></dd></div>
+        {r.cuisine && <div><dt>ประเภท</dt><dd>{r.cuisine}</dd></div>}
+        {city && <div><dt>เมือง</dt><dd>{city.nameEn}{r.area ? ` · ${r.area}` : ''}</dd></div>}
+        {glassesTotal > 0 && <div><dt>ถอดแว่นชิม</dt><dd>{glassesTotal} จาน</dd></div>}
+      </dl>
+    </div>
+    <div class="goldrule"></div>
+  </section>
+
+  {returning.length > 0 && (
+    <section aria-labelledby="ret" class="wrap" style="padding-top:48px">
+      <h2 id="ret" style="margin:0 0 14px;font-size:22px;font-weight:600;display:flex;align-items:center;gap:10px"><Icon name="cuisine" style="color:#c39e5c" />{st.capsuleReturning}</h2>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px">
+        {returning.map((d) => (
+          <li class="band-pill" style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.55);font-size:15px">
+            <span>{d.name}</span>
+            <span style="font-family:'Ekkamai New',sans-serif;font-size:13px;color:#6e3f08">{d.visits.map((v) => visitIso(v).slice(0, 4)).join(' · ')}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section aria-label={`ทุกครั้งที่บอสไป ${name}`} class="wrap" style="padding-top:48px;padding-bottom:96px">
+    <ol class="capsule-line" style="margin:0;padding:0;list-style:none">
+      {visits.map((v, i) => {
+        const prev = visits[i + 1];
+        const go = v.dishes.filter((d) => d.glassesOff);
+        const diff = changes(v, prev);
+        const n = visits.length - i; // 1 = first visit
+        return (
+          <li class={i === 0 ? 'capsule-item capsule-latest' : 'capsule-item'}>
+            <span class="capsule-dot" aria-hidden="true">{roman[n - 1] ?? n}</span>
+            <article class="capsule-card">
+              <a href={articleUrl(v)} class="capsule-photo fx-zoom" tabindex="-1" aria-hidden="true"><Photo img={v.cover} label="ภาพปก" ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 420px" /></a>
+              <div class="capsule-body">
+                <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">
+                  <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;line-height:1;color:#0b5357"><time datetime={visitIso(v)}>{visitLabel(v)}</time></span>
+                  <span>{i === 0 ? 'ครั้งล่าสุด' : n === 1 ? 'ครั้งแรก' : `ครั้งที่ ${n}`}</span>
+                  <span>Tasting Notes No. {String(v.no).padStart(3, '0')}</span>
+                  {v.billBand && <span class="band-pill" style="padding:2px 10px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">{v.billBand}</span>}
+                  {v.tag && <span style="color:#6e3f08;font-weight:700">{v.tag}</span>}
+                </p>
+                {v.tagline && <h3 style="margin:10px 0 0;font-size:20px;font-weight:600;line-height:1.5"><a href={articleUrl(v)}>{v.tagline}</a></h3>}
+                {v.quote && <p style="margin:10px 0 0;font-family:'Cormorant Garamond','Noto Serif Thai',serif;font-style:italic;font-size:18px;line-height:1.7;color:#3d4955">“{v.quote}”</p>}
+                {go.length > 0 && <p style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:15px"><Icon name="glasses" size={16} style="color:#c39e5c" /><b style="font-weight:600">ถอดแว่นชิม</b> {go.map((d) => d.name).join(' · ')}</p>}
+                {diff.length > 0 && <ul style="margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">{diff.map((d) => <li style="display:flex;gap:6px;align-items:center"><Icon name="arrow" size={14} style="color:#c39e5c" />{d}</li>)}</ul>}
+                <a href={articleUrl(v)} class="fx-arrow" style="margin-top:16px;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357"><span style="border-bottom:1px solid #c39e5c">อ่านบันทึกครั้งนี้ · {v.dishes.length} จาน</span><Icon name="arrow" size={16} /></a>
+              </div>
+            </article>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+</Base>

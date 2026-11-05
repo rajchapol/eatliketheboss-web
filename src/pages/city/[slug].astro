@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.astro';
 import Photo from '../../components/Photo.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { MOTIFS } from '../../lib/config';
-import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel } from '../../lib/content';
+import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
 
@@ -81,8 +81,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
               <a href={articleUrl(a)} class="card-link" style="font-size:20px;font-weight:600;line-height:1.4">{a.restaurant?.name ?? a.title}</a>
               <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.restaurant?.area, a.restaurant?.awards?.join(', ')].filter(Boolean).join(' — ')}</span>
               {visits.length > 1 && (
-                <span class="over" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">รีวิว {visits.length} ครั้ง:
-                  {visits.map((v) => <a href={articleUrl(v)} class="pill-link" style="min-height:32px"><time datetime={visitIso(v)}>{visitLabel(v)}</time></a>)}</span>
+                <span class="over" style="display:flex;margin-top:6px"><a href={capsuleUrl(visits)} class="pill-link" style="min-height:32px"><Icon name="clock" size={13} />ไทม์แคปซูล · {visits.length} ครั้ง</a></span>
               )}
             </span>
             <span class="cr-side" style="flex:0 0 auto;display:flex;align-items:center;gap:12px 20px">

@@ -109,5 +109,9 @@ export interface Settings {
   contactTitle: string;
   contactIntro: string;
   footerRights: string;
+  capsuleTitle: string;
+  capsuleIntro: string;
+  capsuleReturning: string;
+  capsuleLink: string;
   homeCitySlugs?: string[];
 }
