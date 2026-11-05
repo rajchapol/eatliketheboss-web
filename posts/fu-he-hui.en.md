@@ -9,10 +9,9 @@ restaurant:
   name: "Fu He Hui"
   originalName: "福和慧"
   area: "Yuyuan Road"
-  cuisine: "Chinese"
+  cuisine: "จีน"
   awards: ["MICHELIN 2★", "Black Pearl 2 Diamond", "Asia's 50 Best"]
 cover: "./images/fu-he-hui/cover.jpg | Clear brown mushroom broth with steam rising, maitake piled in the centre and sprinkled with sliced spring onion, in a dark grey ceramic dish, Fu He Hui, Shanghai"
-tag: ""
 bill: "988CNY+298CNY(Tea pairing)"
 visit: Jan-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, Gastronomy, FineDining, FuHeHui, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]

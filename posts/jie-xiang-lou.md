@@ -5,7 +5,11 @@ title: "บอสพาชิม in Hangzhou: Jie Xiang Lou (解香楼) - ม่
 slug: jie-xiang-lou
 tagline: "ม่านฝนริมซีหู และ ตำรับเจียงหนานสมัยใหม่"
 city: hangzhou
-cityNew: { nameEn: "Hangzhou", nameTh: "หางโจว", country: "จีน", region: "asia" }
+cityNew:
+  nameEn: "Hangzhou"
+  nameTh: "หางโจว"
+  country: "จีน"
+  region: asia
 restaurant:
   name: "Jie Xiang Lou"
   originalName: "解香楼"
@@ -14,9 +18,7 @@ restaurant:
   cuisine: "จีน"
   awards: ["MICHELIN 2★"]
 cover: "./images/jie-xiang-lou/cover.jpg | ฟัวกราส์เทรีนหั่นชิ้นสามเหลี่ยมวางเรียงในซอสเหล้าข้าวสีอำพัน ประดับดอกไม้สีขาว ในจานกระเบื้องขาว ร้าน Jie Xiang Lou หางโจว"
-tag: ""
-bill: ""
-billBand: ""
+billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, JieXiangLou, 解香楼, Hangzhou, 杭州, MichelinGuide, JiangnanCuisine, ChineseCuisine, FineDining]
 publishedAt: 2026-11-05

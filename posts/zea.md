@@ -5,7 +5,11 @@ title: "บอสพาชิม in Taipei: ZEA - รสลาติน อิ�
 slug: zea
 tagline: "รสลาติน อิน ไทเป"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
+cityNew:
+  nameEn: "Taipei"
+  nameTh: "ไทเป"
+  country: "ไต้หวัน"
+  region: asia
 restaurant:
   name: "ZEA"
   chef: "Joaquín Elizondo Hourbeigt"
@@ -14,10 +18,8 @@ restaurant:
   awards: ["MICHELIN 1★"]
 cover: "./images/zea/cover.jpg | ทาโก้ปลาทอดกรอบวางบนแป้งตอร์ติญ่าข้าวโพดและซอสสีเขียว ในจานเซรามิกขอบหยัก ร้าน ZEA ไทเป"
 gallery:
-  - "./images/zea/tray.jpg | ถาดไม้วางวัตถุดิบไต้หวัน ทั้งใบกระบองเพชร ผักใบเขียว ส้ม และวัตถุดิบในถ้วยเล็ก ร้าน ZEA ไทเป | ถาดวัตถุดิบไต้หวันที่ใช้ในคืนนี้"
-billBand: ""
-bill: ""
-tag: ""
+  - ./images/zea/tray.jpg | ถาดไม้วางวัตถุดิบไต้หวัน ทั้งใบกระบองเพชร ผักใบเขียว ส้ม และวัตถุดิบในถ้วยเล็ก ร้าน ZEA ไทเป | ถาดวัตถุดิบไต้หวันที่ใช้ในคืนนี้
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, ZEA, Taipei, LatinAmericanCuisine, MichelinGuideTaiwan, Taiwan, FineDining, TasteOfLatin, 台北]
 publishedAt: 2026-11-05

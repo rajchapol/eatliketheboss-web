@@ -12,8 +12,6 @@ restaurant:
   cuisine: "Chinese"
   awards: ["MICHELIN 1★"]
 cover: "./images/wu-you-xian/cover.jpg | Hairy crab xiaolongbao in a bamboo steamer, each pleated top crowned with orange crab roe, Wu You Xian, Shanghai"
-tag: ""
-bill: ""
 visit: Jan-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, WuYouXian, Shanghai, Xiaolongbao, 屋有鲜]
 publishedAt: 2026-11-04

@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม : Maaemo ความเชื่อมโยงของธรรมชาติเเละวัฒนธรรมผ่านจานอาหาร (Oslo, Norway)"
 slug: maaemo-2018
-tagline: ""
 city: norway-oslo
 restaurant:
   name: "Maaemo"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "Nordic"
   awards: ["MICHELIN 3★"]
 cover: "./images/maaemo-2018/cover.jpg | หางแลงกูสทีนย่างวางบนกิ่งสนสีเขียว ร้าน Maaemo ออสโล"
-billBand: "฿฿฿฿"
 bill: "~ อย่างต่ำ 2800Kr"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2018
 hashtags: [บอสพาชิม, eatliketheboss, Maaemo, Oslo]
 publishedAt: 2026-11-05

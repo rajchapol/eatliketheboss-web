@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม : Forum King of Abalone (Hong Kong, China)"
 slug: forum
-tagline: ""
 city: hong-kong
 restaurant:
   name: "Forum"
@@ -12,9 +11,8 @@ restaurant:
   cuisine: "จีน"
   awards: ["MICHELIN 3★"]
 cover: "./images/forum/cover.jpg | ฮะเก๋ากุ้งแป้งใสสี่ลูกในเข่งไม้ไผ่ ร้าน Forum ฮ่องกง"
-billBand: "฿฿฿฿"
 bill: "~2,200 HKD included wine"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jan-2024
 hashtags: [บอสพาชิม, eatliketheboss, Forum, HongKong]
 publishedAt: 2026-11-05

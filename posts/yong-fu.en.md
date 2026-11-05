@@ -13,8 +13,6 @@ restaurant:
   cuisine: "Chinese"
   awards: ["MICHELIN 1★", "Black Pearl 3 Diamond"]
 cover: "./images/yong-fu/cover.jpg | Ningbo marinated crab cut into pieces in a dark sauce, scattered with chilli and spring onion, in a blue-rimmed blue-and-white porcelain bowl, Yong Fu, Shanghai"
-tag: ""
-bill: ""
 visit: Oct-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, YongFu, Shanghai, NingboCuisine, ChineseCuisine, MichelinGuide, NorthBund, FineDining, 甬府]
 publishedAt: 2026-11-04

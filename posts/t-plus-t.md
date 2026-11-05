@@ -5,7 +5,11 @@ title: "บอสพาชิม in Taipei: T+T - Asian Tapas ติดดาว
 slug: t-plus-t
 tagline: "Asian Tapas ติดดาว"
 city: taipei
-cityNew: { nameEn: "Taipei", nameTh: "ไทเป", country: "ไต้หวัน", region: "asia" }
+cityNew:
+  nameEn: "Taipei"
+  nameTh: "ไทเป"
+  country: "ไต้หวัน"
+  region: asia
 restaurant:
   name: "T+T"
   chef: "Johnny Tsai (蔡元善)"
@@ -13,9 +17,7 @@ restaurant:
   cuisine: "Modern"
   awards: ["MICHELIN 1★", "Tatler Best 20 Taiwan 2026"]
 cover: "./images/t-plus-t/cover.jpg | ซุปครีมสีนวลกับเป๋าฮื้อ ฟองเต้าหู้สีทอง และสมุนไพรเส้นฝอย ในชามกระเบื้องสีขาว ร้าน T+T ไทเป"
-billBand: ""
-bill: ""
-tag: ""
+billBand: "฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, TplusT, Taipei, ModernAsian, MichelinGuideTaiwan, Taiwan, FineDining, WinePairing, 台北]
 publishedAt: 2026-11-05

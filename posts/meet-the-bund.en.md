@@ -8,10 +8,8 @@ city: shanghai
 restaurant:
   name: "Meet The Bund at Skyline"
   chef: "Chen Zhiping (陈志平)"
-  cuisine: "Chinese"
+  cuisine: "จีน"
 cover: "./images/meet-the-bund/cover.jpg | Braised abalone on a white porcelain spoon, lifted from a white tureen of Buddha Jumps Over the Wall, Meet The Bund at Skyline, Shanghai"
-tag: ""
-bill: ""
 visit: Jan-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, Gastronomy, FineDining, MeetTheBund, Shanghai, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-04
