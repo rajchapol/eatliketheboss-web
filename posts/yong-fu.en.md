@@ -44,7 +44,7 @@ Thank you to The Forks and Spoons (@TheForksandSpoons852) for looking after us a
 ## The art of taste in this meal
 
 ### Ningbo Marinated Crab (宁式十八斩) 🕶️
-image: ./images/yong-fu/01.jpg | Raw marinated swimming crab cut into pieces and arranged in a ring in a dark sauce, on a blue-and-white porcelain plate, Yong Fu, Shanghai
+image: ./images/yong-fu/01w.jpg | Raw marinated swimming crab cut into pieces and arranged in a ring in a dark sauce, on a blue-and-white porcelain plate, Yong Fu, Shanghai
 Ningbo's most iconic dish, and the true test of a kitchen, because it demands crab of exceptional freshness. It uses three-spot swimming crab (梭子蟹), cured raw in brine without ever touching heat, cut into 18 pieces as the name says, then dressed with sauce. Today it was male crab, which is better than the female at this time of year. The flesh is translucent and viscous, almost like jelly, yet slips down smoothly, with no fishiness at all and no briny smell of the sea. The meat is delicately sweet, its freshness locked in by freezing on board the boat. The sauce is complex, with ginger, vinegar and a gentle touch of chilli. A truly excellent dish, well worthy of being the chef's signature.
 
 ### Fruitwood-Smoked Stone Frog Legs (果木熏石蛙腿)
@@ -73,7 +73,7 @@ One of the signature dishes of Ningbo cooking. It uses stonefish (石头鱼), wh
 The soup is creamy and white, seasoned with salt, with Chinese celery and plenty of umami, and not a trace of fishiness. The skin is bouncy, soft and a little crunchy, not as chewy and crisp as the Japanese style. Delicious.
 
 ### Dalian Scallop with Ningbo Fermented Bean Paste (甬味土酱獐子岛元贝)
-image: ./images/yong-fu/08.jpg | Fried scallop under a crisp shell-shaped wafer, dressed with fermented bean sauce, with rings of green pickled bamboo shoot around the plate, Yong Fu, Shanghai
+image: ./images/yong-fu/08w.jpg | Fried scallop under a crisp shell-shaped wafer, dressed with fermented bean sauce, with rings of green pickled bamboo shoot around the plate, Yong Fu, Shanghai
 Today's scallops come from Zhangzi Island (獐子岛) in the Yellow Sea, near Dalian, where Japanese scallops are farmed. They come with a Ningbo-style fermented bean paste the restaurant ferments itself for a month, served in a faux shell made from a crisp floral wafer, with pickled bamboo shoots on the side.
 The scallops here are every bit as good as the finest from Japan, sweet and firm. The battered, fried scallop is very large and cooked just right; I suspect it was cooked sous vide first and then fried. The flesh is very sweet and very tender. The sauce is salty and full of umami, with a faint scent of fermented bean paste and a light touch of fried garlic, while the pickled bamboo shoots, a little spicy and a little sour, cut through it nicely. This dish paired beautifully with a Chardonnay from Yunnan.
 

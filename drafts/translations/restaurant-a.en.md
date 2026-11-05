@@ -36,11 +36,11 @@ Let's take a look at what was served.
 ## The art of taste in this meal
 
 ### Bouchon (Saltiness: Cauliflower / Comté / Smoked Caviar)
-image: ./images/restaurant-a/01.jpg | Wooden bowl of real wine corks mixed with edible corks, on a cream table, Restaurant A, Taipei
+image: ./images/restaurant-a/01w.jpg | Wooden bowl of real wine corks mixed with edible corks, on a cream table, Restaurant A, Taipei
 Bouchon means cork, and that is exactly what this is: an edible wine cork, served mixed in with real corks in a bowl. The outside is a rolled crisp wafer, filled with chopped cauliflower and Comté cheese. Gently sour, not too salty, a little creamy.
 
 ### Scallop (Sourness & Spiciness)
-image: ./images/restaurant-a/02.jpg | White plate with an orange sauce inside a green ring, garnished with orange vegetable batons, flowers and shoots, with a silver tray of scallop shells and seaweed behind, Restaurant A, Taipei
+image: ./images/restaurant-a/02w.jpg | White plate with an orange sauce inside a green ring, garnished with orange vegetable batons, flowers and shoots, with a silver tray of scallop shells and seaweed behind, Restaurant A, Taipei
 Scallop served with zucchini flower, dressed with a sauce made from orange, jalapeño and orange segments. The sauce leads with sourness; on the palate you get a green heat, the scent of chilli, makrut lime and olive oil. A beautifully gentle sauce with a subtle wicked heat running through it, like a bright young woman with a quiet, deep mischief hidden inside. Great depth. The scallop is slightly chewy, while the crisp zucchini helps bring the sauce and the scallop together.
 
 ### Pistou (Bitterness: Wagyu Beef / Pistachio / Kailan)
@@ -48,11 +48,11 @@ image: ./images/restaurant-a/03.jpg | Green tart topped with white foam, beside 
 Pistou is the Provençal sauce of basil, garlic and olive oil. This dish comes as two bites. The first is an olive stuffed with cheese and wrapped in beef carpaccio, salty and rich but not too punchy. The other is a pistachio tart with beef tartare and Parmesan foam; the pastry is good, richer than the first bite, with a smoky aroma.
 
 ### Soup and Bread (Umami: Mushroom Cappuccino / Truffle Doughnut)
-image: ./images/restaurant-a/04.jpg | Mushroom soup topped with milk foam in a white coffee cup on a saucer, and a doughnut topped with cream and peas on a square white plate, Restaurant A, Taipei
+image: ./images/restaurant-a/04w.jpg | Mushroom soup topped with milk foam in a white coffee cup on a saucer, and a doughnut topped with cream and peas on a square white plate, Restaurant A, Taipei
 The restaurant's signature. Mushroom soup served in a coffee cup, with coffee and coffee powder, topped with milk foam like a cappuccino. The soup is not very earthy. It comes with a warm doughnut filled with mushroom and truffle cream. An unusual doughnut: the béchamel-based sauce leads with sweetness and is not too creamy, while the dough leans salty, contrasting with the gently earthy soup.
 
 ### Hollandaise - Benedict (Orange: Crab / Marigold / Carrot / Mimolette)
-image: ./images/restaurant-a/05.jpg | Yellow cup of carrot, salmon roe and shoots beside a crab shell and an orange madeleine, on a white petal-shaped plate, Restaurant A, Taipei
+image: ./images/restaurant-a/05w.jpg | Yellow cup of carrot, salmon roe and shoots beside a crab shell and an orange madeleine, on a white petal-shaped plate, Restaurant A, Taipei
 Everything in this dish is orange. The cup comes covered with a crab shell; inside are carrot, salmon roe, zuwai crab and marigold, served with Hollandaise, the sauce of egg yolk and butter. Lift the lid and there is a light scent of the sea, the sweet-sour taste of orange, and crunchy carrot. The sauce is made from carrot and butter, with a light smokiness from the roe. It comes with a madeleine made with Mimolette, the orange cheese from Lille in France. Very interesting.
 
 ### Béchamel - Salade Blanche (White: White Asparagus / Elderflower / Coconut / Shiro Ebi)
@@ -60,19 +60,19 @@ image: ./images/restaurant-a/06.jpg | White asparagus standing upright with whit
 Béchamel is a milk sauce thickened with a roux, but here coconut milk replaces the milk, mixed with coffee, with onion, baby corn and cauliflower, and crisp white asparagus. The sauce is wonderfully complex, with great depth. On the palate it is salty and rich, with coconut and a light floral scent; light in taste, sweet and salty, with basil oil and a faint touch of coffee. A dish that shows the true heights of French culinary technique.
 
 ### Sauce Tomate - Bouillabaisse (Yellow: Seasonal Catch / Saffron / Yellow Tomato / Zucchini Flower) 🕶️
-image: ./images/restaurant-a/07.jpg | Grilled octopus, shellfish, yellow tomato, saffron butter and green shoots in a white petal-shaped porcelain bowl, Restaurant A, Taipei
+image: ./images/restaurant-a/07w.jpg | Grilled octopus, shellfish, yellow tomato, saffron butter and green shoots in a white petal-shaped porcelain bowl, Restaurant A, Taipei
 Bouillabaisse is the fishermen's fish soup of Marseille. The version here is a yellow tomato bouillabaisse with shellfish, red grouper, grilled octopus and peeled tomato, topped with yellow saffron butter. The octopus skin is slightly crunchy, the flesh tender, with a grilled aroma; the grouper is springy, the vegetables crunchy, and the soup rich and fragrant with saffron. I recommend eating the tomato as your last bite, because its sweet-sour taste cleanses the palate of the saffron and leaves nothing to interfere with the next dish.
 
 ### Espagnole - Navarin (Rose: Lamb Ribs / Cherry Blossom / Watermelon Radish)
-image: ./images/restaurant-a/08.jpg | Crisp fried lamb ribs topped with watermelon radish and a purple flower, red cabbage and an orange sauce, on a white petal-shaped plate, Restaurant A, Taipei
+image: ./images/restaurant-a/08w.jpg | Crisp fried lamb ribs topped with watermelon radish and a purple flower, red cabbage and an orange sauce, on a white petal-shaped plate, Restaurant A, Taipei
 Espagnole is normally a brown sauce made from roasted bones; here it is made from roasted vegetables instead. Navarin is a French lamb stew. This dish is fried lamb ribs, crisp outside and very tender, with good texture and no gaminess at all, served with soft gnocchi, mushrooms, red cabbage and a sakura brioche. The sauce leads with sweetness, then umami.
 
 ### Coulis - Gimlet (Green: Petit Pois / Jasmine / Guava / Green Olive)
-image: ./images/restaurant-a/09.jpg | Green dessert topped with white granita in a clear glass cup on a glass plate, Restaurant A, Taipei
+image: ./images/restaurant-a/09w.jpg | Green dessert topped with white granita in a clear glass cup on a glass plate, Restaurant A, Taipei
 A dessert inspired by the Gimlet cocktail, charming in taste: a green custard, sour and slightly astringent, with a light, cool scent of jasmine. A panna cotta unlike any other, and it even comes with tiny bua loy glutinous rice balls. Excellent.
 
 ### Vacherin (Red: Beetroot / Hibiscus / Pomegranate / Berries)
-image: ./images/restaurant-a/10.jpg | Red meringue filled with cream on a deep red sauce, on a white petal-shaped plate, Restaurant A, Taipei
+image: ./images/restaurant-a/10w.jpg | Red meringue filled with cream on a deep red sauce, on a white petal-shaped plate, Restaurant A, Taipei
 Vacherin is a crisp baked meringue filled with cream or ice cream. Here it is a meringue made with oatmeal, filled with raspberry sorbet and dressed with raspberry sauce. Astringent and sour, not sweet, with a light scent of oats.
 
 ### Café Gourmande (Cardamom Cannelé)
