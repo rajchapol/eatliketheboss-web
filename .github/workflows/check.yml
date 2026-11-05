@@ -1,4 +1,4 @@
-# Builds every branch and pull request (sample content, live Sanity content, Studio schema),
+# Builds every branch and pull request (sample content, live Sanity content, Lighthouse, Studio schema),
 # so a broken site is caught before it reaches main. Production deploys are unchanged: Cloudflare builds main by itself.
 name: Check build
 
@@ -32,6 +32,14 @@ jobs:
 
       - name: Build with live Sanity content
         run: npm run build
+
+      # Speed / accessibility / SEO floor on 5 key pages of the live-content build (lighthouserc.cjs).
+      # Scores go to the job summary; the step fails only on a big regression (performance < 60, a11y or SEO < 90).
+      - name: Lighthouse
+        run: npx --yes @lhci/cli@0.14.x autorun --config=lighthouserc.cjs
+      - name: Lighthouse scores
+        if: always()
+        run: test -f .lighthouseci/manifest.json && node scripts/lighthouse-summary.mjs >> "$GITHUB_STEP_SUMMARY" || true
 
       - name: Check Sanity Studio schema
         working-directory: studio

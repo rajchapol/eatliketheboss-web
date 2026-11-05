@@ -4,6 +4,25 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-05 · Index expands in place, Lighthouse in CI, pull articles from Sanity
+
+- **The Index** (`index.astro`): every article is in the HTML. The first 10 show; the button "ดูทั้งหมด N เรื่อง ▾" (or "ดูเพิ่มอีก 20 เรื่อง") opens the rest in place, and "ย่อรายการ" folds them back and scrolls to the heading. Without JS, the row links to `/review/`. CSS `.idx-row[hidden]`, `.idx-toggle`.
+- **Lighthouse** in `check.yml` (`lighthouserc.cjs`):
+  - Phone profile on `/`, `/restaurants/`, `/destinations/`, `/glasses-off-awards/` and the first review of the live-content build. Scores go to the job summary (`scripts/lighthouse-summary.mjs`).
+  - Fails only below performance 60, accessibility 90 or SEO 90.
+  - First run (5 Nov): performance 89–98, accessibility 100, best practices 100, SEO 100. The home page was at accessibility 96 because the slider dots were too close for touch; dot gap is now 14px, so centres are 24px apart.
+- **Pull articles from Sanity** (`scripts/pull-articles.mjs`, Actions → Pull articles from Sanity):
+  - Writes every published article back to `posts/<slug>(.lang).md` in the same format and YAML style, and opens a `[sanity-sync]` PR.
+  - Keeps from the existing file: local image paths (matched by `originalFilename`, which post-article sets from the file name), `cityNew`, and the dishes heading. Other photos become Sanity CDN URLs.
+  - If the Studio body has links or headings the format can't hold, it keeps the file's body and warns.
+  - `--check` lists the files that differ; a slug argument limits it to one article.
+  - `post-article.yml` skips commits/merges containing `sanity-sync`, so nothing goes back to Sanity.
+  - Round-trip tested: all 17 pulled files pass `post-article --dry` with the same dish counts, glasses-off and SEO as Sanity.
+  - The first check (5 Nov) found all 17 files out of date, e.g. Meet The Bund: the first tea course was replaced in Studio by an ambience photo, the last tea course was removed, and the price band was set.
+  - The workflow needs Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+
+---
+
 ## Session 2026-11-05 · Home slider autoplay + English spelling fixes
 
 **Slider** (`HeroSlider.astro`, CSS "home slider: timer dots…" at the end of `site.css`):

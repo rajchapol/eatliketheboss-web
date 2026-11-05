@@ -14,7 +14,10 @@ const settings = await getSettings();
 const featured = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId);
 const latest = groupByRestaurant(articles.filter((a) => a.series === 'review')).map((g) => g.latest);
 const slides = (featured ? [featured, ...latest.filter((a) => restaurantKey(a) !== restaurantKey(featured))] : latest).slice(0, 5);
-const index = articles.slice(0, 10); // latest 10; older ones get a "see more" row (No. 001 is the oldest visit)
+// The Index: every article is in the HTML (search engines see them all); the latest 10 show first and
+// "ดูทั้งหมด" opens the rest in place, 20 at a time. Without JS the row links to /review/ instead.
+const INDEX_FIRST = 10, INDEX_STEP = 20;
+const index = articles; // newest visit first; No. 001 is the oldest
 // Repeat visit marker in The Index: 2 = second time at this restaurant (counted by visit order).
 const returnNo = (a: (typeof articles)[number]) => { const vs = articles.filter((x) => restaurantKey(x) === restaurantKey(a)); return vs.length - vs.indexOf(a); };
 // Glasses Off band: this year's dishes (by visit); before the first one of the year, the latest year that has any.
@@ -62,8 +65,8 @@ const quickCities = settings.homeCitySlugs?.length
         <a href={SITE.facebook} rel="me" class="fx-under" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ติดตามบอสพาชิมบน Facebook ระหว่างรอ</a>
       </div>
     )}
-    {index.map((a) => (
-      <a href={articleUrl(a)} class="idx-row fx-row">
+    {index.map((a, i) => (
+      <a href={articleUrl(a)} class="idx-row fx-row" hidden={i >= INDEX_FIRST} data-idx-row>
         <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span>
         <span class="idx-thumb"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[192, 288]} sizes="96px" /></span>
         <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}{a.series === 'review' && returnNo(a) > 1 && <span class="band-pill" style="margin-left:8px;padding:1px 10px;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:400;vertical-align:3px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">กลับไปครั้งที่ {returnNo(a)}</span>}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
@@ -71,11 +74,14 @@ const quickCities = settings.homeCitySlugs?.length
         <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
-    {articles.length > index.length && (
-      <a href="/review/" class="idx-more fx-arrow">
-        <span>ดูบันทึกก่อนหน้าอีก {articles.length - index.length} เรื่อง · No. {[...new Set([articles[articles.length - 1].no, articles[index.length].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
-        <Icon name="arrow" size={16} />
-      </a>
+    {articles.length > INDEX_FIRST && (
+      <div class="idx-more-wrap" data-idx-more data-first={INDEX_FIRST} data-step={INDEX_STEP}>
+        <a href="/review/" class="idx-more fx-arrow" data-idx-link>
+          <span>ดูบันทึกก่อนหน้าอีก {articles.length - INDEX_FIRST} เรื่อง · No. {[...new Set([articles[articles.length - 1].no, articles[INDEX_FIRST].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
+          <Icon name="arrow" size={16} />
+        </a>
+        <button type="button" class="idx-more idx-toggle" data-idx-btn hidden aria-controls="notes" aria-expanded="false"><span data-idx-label></span><Icon name="down" size={16} /></button>
+      </div>
     )}
   </section>
 
@@ -123,3 +129,24 @@ const quickCities = settings.homeCitySlugs?.length
     </div>
   </section>
 </Base>
+
+<script>
+  // The Index: open the remaining rows in place, 20 at a time; when all are open the button folds them away again.
+  document.querySelectorAll('[data-idx-more]').forEach((box) => {
+    const rows = [...document.querySelectorAll('[data-idx-row]')], first = +box.dataset.first, step = +box.dataset.step;
+    const link = box.querySelector('[data-idx-link]'), btn = box.querySelector('[data-idx-btn]'), label = box.querySelector('[data-idx-label]');
+    link.hidden = true; btn.hidden = false;
+    let shown = first;
+    const paint = () => {
+      rows.forEach((r, i) => (r.hidden = i >= shown));
+      const left = rows.length - shown;
+      label.textContent = left <= 0 ? 'ย่อรายการ' : left <= step ? `ดูทั้งหมด ${rows.length} เรื่อง` : `ดูเพิ่มอีก ${step} เรื่อง (เหลือ ${left})`;
+      btn.classList.toggle('is-open', left <= 0); btn.setAttribute('aria-expanded', String(shown > first));
+    };
+    btn.addEventListener('click', () => {
+      if (shown >= rows.length) { shown = first; paint(); document.getElementById('notes')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); return; }
+      const next = rows[shown]; shown = Math.min(rows.length, shown + step); paint(); next?.focus({ preventScroll: true });
+    });
+    paint();
+  });
+</script>

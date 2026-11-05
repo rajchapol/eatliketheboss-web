@@ -64,6 +64,8 @@ Tasting Notes No. is automatic: order of `visit` (Mon-YYYY; oldest meal = No. 00
 Meta title ≤ 60 chars, description 120–155, slug in English, alt text on every photo, publish date, city set. Full rules: `docs/SEO.md`.
 
 ## Checks and previews
+- Lighthouse (phone profile, 5 pages of the live-content build) runs in `check.yml` via `lighthouserc.cjs`; scores land in the job summary. Fails only below performance 60 / accessibility 90 / SEO 90.
+- Files ↔ Sanity: `scripts/pull-articles.mjs` (Actions → Pull articles from Sanity) writes what is live back into `posts/*.md` and opens a `[sanity-sync]` PR; `post-article.yml` skips those merges. Run it before editing a post file the Boss may have changed in Studio.
 - `.github/workflows/check.yml` builds every branch / PR (sample + live content + Studio schema). No preview deploys (the Boss chose not to use Cloudflare previews).
 - Studio: `.github/workflows/deploy-studio.yml` deploys it when `studio/**` changes on main (secret `SANITY_DEPLOY_TOKEN`); by hand: `cd studio && npm ci && npx sanity login && npx sanity deploy`.
 - Cloudflare Web Analytics: paste the site token in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO (empty = off).

@@ -7,3 +7,4 @@ studio/dist/
 .DS_Store
 studio/.sanity/
 dist-sample/
+.lighthouseci/
