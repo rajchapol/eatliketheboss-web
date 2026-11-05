@@ -1,0 +1,40 @@
+# Pull articles from Sanity back into posts/*.md (scripts/pull-articles.mjs) so the repo matches what is live.
+# Manual: Actions → Pull articles from Sanity → Run workflow. It opens a pull request with the changed files for the
+# Boss to look at and merge. Reads the public dataset (no token). The PR is marked [sanity-sync], so merging it does
+# NOT post anything back to Sanity (post-article.yml skips it).
+name: Pull articles from Sanity
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'One article only (slug), or leave empty for all'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Pull
+        run: node scripts/pull-articles.mjs ${{ inputs.slug }} | tee pull.log
+      - name: Open a pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet -- posts; then echo "Nothing changed: the post files already match Sanity." >> "$GITHUB_STEP_SUMMARY"; exit 0; fi
+          BR="sanity-sync-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "github-actions[bot]"; git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BR" && git add posts && git commit -m "[sanity-sync] Pull articles from Sanity into posts/" && git push origin "$BR"
+          { echo "Post files updated to match what is live in Sanity (edits made in Studio)."; echo; echo '```'; cat pull.log; echo '```'; echo; echo "Merging this does not send anything back to Sanity."; } > body.md
+          gh pr create --base main --head "$BR" --title "[sanity-sync] ไฟล์บทความตรงกับ Sanity" --body-file body.md
