@@ -248,6 +248,33 @@ export function visitsOf(a: Article, list: Article[]) {
   const k = restaurantKey(a);
   return list.filter((x) => x.language === a.language && restaurantKey(x) === k);
 }
+/** URL part for a restaurant: its name in latin letters (from the oldest visit, so it stays put), else that visit's slug. */
+function restaurantSlug(visits: Article[]) {
+  const first = visits[visits.length - 1];
+  const s = (first.restaurant?.name ?? '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return s.length >= 2 ? s : first.slug;
+}
+/**
+ * Time capsule page for a restaurant the Boss reviewed 2+ times (Thai only): /restaurant/<city>/<name>/.
+ * `visits` newest first. Returns undefined for a single visit (the review itself is the page).
+ */
+export function capsuleUrl(visits: Article[]) {
+  if (visits.length < 2 || visits[0].language !== DEFAULT_LOCALE || visits[0].series !== 'review') return undefined;
+  return `/restaurant/${visits[0].city?.slug ?? 'other'}/${restaurantSlug(visits)}/`;
+}
+/** Dishes served on 2+ visits (names compared without case, spaces or brackets), with the visits they appear in. */
+export function returningDishes(visits: Article[]) {
+  const key = (n: string) => n.toLowerCase().replace(/\(.*?\)/g, '').replace(/[^\p{L}\p{N}]+/gu, '');
+  const map = new Map<string, { name: string; visits: Article[] }>();
+  for (const v of [...visits].reverse()) for (const d of v.dishes) {
+    const k = key(d.name); if (!k) continue;
+    const e = map.get(k) ?? { name: d.name, visits: [] };
+    if (!e.visits.includes(v)) e.visits.push(v);
+    map.set(k, e);
+  }
+  return [...map.values()].filter((e) => e.visits.length > 1);
+}
+
 /** One entry per restaurant: the latest visit plus every visit (newest first). Keeps list order. */
 export function groupByRestaurant(list: Article[]) {
   const map = new Map<string, Article[]>();

@@ -11,6 +11,7 @@ import { BookIcon } from '@sanity/icons/Book';
 import { UserIcon } from '@sanity/icons/User';
 import { EnvelopeIcon } from '@sanity/icons/Envelope';
 import { EarthGlobeIcon } from '@sanity/icons/EarthGlobe';
+import { CalendarIcon } from '@sanity/icons/Calendar';
 import { ThListIcon } from '@sanity/icons/ThList';
 import { BillIcon } from '@sanity/icons/Bill';
 import { TranslateIcon } from '@sanity/icons/Translate';
@@ -173,6 +174,7 @@ export const settings = defineType({
     { name: 'series', title: 'ซีรีส์', icon: BookIcon },
     { name: 'about', title: 'เกี่ยวกับบอส', icon: UserIcon },
     { name: 'contact', title: 'ติดต่อ', icon: EnvelopeIcon },
+    { name: 'capsule', title: 'ไทม์แคปซูล', icon: CalendarIcon },
     { name: 'footer', title: 'ท้ายเว็บ & SEO', icon: EarthGlobeIcon },
   ],
   fields: [
@@ -223,6 +225,10 @@ export const settings = defineType({
     defineField({ name: 'web3formsKey', title: 'ฟอร์มติดต่อ: Web3Forms access key', description: 'ทำให้ฟอร์มหน้า /contact/ ส่งเข้าอีเมลบอสตรงๆ · web3forms.com → ใส่อีเมลบอส → คัดลอก Access Key ที่ได้ทางอีเมลมาวาง · เว้นว่าง = ฟอร์มเปิดแอปอีเมลของผู้ส่งแทน', type: 'string', group: 'contact' }),
     // ท้ายเว็บ & SEO
     txt('footerRights', 'ข้อความสงวนลิขสิทธิ์ท้ายเว็บ', 'footer'),
+    txt('capsuleTitle', 'หัวข้อเล็กหน้าไทม์แคปซูล (ร้านที่ไปซ้ำ)', 'capsule'),
+    defineField({ name: 'capsuleIntro', title: 'คำอธิบายหน้าไทม์แคปซูล', type: 'text', rows: 2, group: 'capsule' }),
+    txt('capsuleReturning', 'หัวข้อ "จานที่กลับมา"', 'capsule'),
+    txt('capsuleLink', 'ข้อความลิงก์ไปหน้าไทม์แคปซูล (บนการ์ดและในรีวิว)', 'capsule'),
     defineField({ name: 'facebook', title: 'ลิงก์ Facebook', type: 'url', group: 'footer' }),
     defineField({ name: 'instagram', title: 'ลิงก์ Instagram', type: 'url', group: 'footer' }),
     defineField({ name: 'siteDescription', title: 'คำอธิบายเว็บใน Google', description: '120–155 ตัวอักษร', type: 'text', rows: 2, validation: (r) => r.max(160).warning('ยาวเกิน Google จะตัด'), group: 'footer' }),
