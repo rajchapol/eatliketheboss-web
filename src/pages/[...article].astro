@@ -164,7 +164,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
           <span class="course-label" style="flex:0 0 auto;padding:0 6px 0 12px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.2em;color:#0b5357">COURSES</span>
           {a.dishes.map((d, i) => (
             <a href={`#dish-${i + 1}`} class="fx-thumb" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:4px 16px 4px 4px;border-radius:var(--r-pill);background:#fff;box-shadow:0 0 0 1px rgba(212,179,114,.5);font-family:'Ekkamai New',sans-serif;font-size:13px;color:#1a2632;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis">
-              <span class={d.glassesOff ? 'thumb thumb-gold' : 'thumb'} style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#e8dfcf;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#6e3f08">{roman(i)}.</span>{d.glassesOff ? t(L, 'glassesOff') : d.name}
+              <span class={d.glassesOff ? 'thumb thumb-gold' : 'thumb'} style="flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#e8dfcf;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#6e3f08">{roman(i)}.</span><span class="cn-name">{d.glassesOff ? t(L, 'glassesOff') : d.name}</span>
             </a>
           ))}
         </nav>

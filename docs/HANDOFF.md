@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 · readability fixes (brand chat)
+- **฿ showed as "BBB"**: Ekkamai New maps U+0E3F to a ß-like glyph. Two extra `@font-face` rules give the "Ekkamai New" family Noto Serif Thai's ฿ only (`unicode-range:U+0E3F`, declared after Ekkamai so they win). Fixes the Bill in the article fact box, price pills and anywhere Ekkamai prints ฿.
+- **Lede**: the whole first paragraph was 1.14em teal (often 12–15 lines on a phone, heavy to read). Now only its first line is larger and teal (`.prose>p:first-child::first-line`); the rest reads as normal body text.
+- **Course jump bar**: dish names wrap to 2 lines (`.cn-name`, line-clamp 2, max 220px) instead of being cut with "…".
+- **Small Ekkamai text on light grounds** (The Index meta, fact-box labels, slider badges): darker `#2c3844` + 0.2px stroke; Index meta 14 → 15px.
+- Checked on the live-content build at 390px.
+
 ## Session 2026-11-06 · brand marks on photos (brand chat)
 - The Boss asked for magazine-style branding on site photos that works for every restaurant without making new images, kept **small so it never pulls attention from the food**, in the two places he screenshotted.
 - **Home slider** (`.slide-photo`): gold ELB Roundel (`public/img/brand/elb-stamp.svg`, vector traced from his Roundel logo) on a 38% deep-teal disc, bottom-left, 34–46 px.
