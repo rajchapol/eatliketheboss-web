@@ -3,7 +3,7 @@
 // to show "รีวิว N ครั้ง" and a link to each visit.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { SERIES } from '../lib/config';
+import { AWARDS, SERIES } from '../lib/config';
 import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings } from '../lib/content';
 import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
@@ -23,7 +23,7 @@ const y0 = visitIso(all[all.length - 1]).slice(0, 4), y1 = visitIso(all[0]).slic
 const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.name, v.restaurant?.originalName, v.restaurant?.chef, v.restaurant?.area, v.restaurant?.cuisine, v.restaurant?.style,
   ...(v.restaurant?.awards ?? []), ...(v.restaurant?.aliases ?? []), v.city?.nameEn, v.city?.nameTh, v.city?.country, ...(v.city?.aliases ?? []), ...v.dishes.map((d) => d.name), ...v.hashtags]));
 ---
-<article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''}
+<article class="card fx-lift-light" data-city={a.city?.slug ?? ''} data-cuisine={a.restaurant?.cuisine ?? ''} data-awards={(a.restaurant?.awards ?? []).map((x) => AWARDS.parse(x)?.award).filter(Boolean).join('|')}
   data-price={a.billBand ?? ''} data-glasses={glasses ? '1' : ''} data-text={text}
   style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
   <span style="position:relative;display:block;aspect-ratio:3/2">

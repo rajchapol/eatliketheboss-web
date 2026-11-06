@@ -1,0 +1,15 @@
+{
+  "_about": "Restaurant awards: guide → its awards (full names, English). One list for the website (src/lib/config.ts), the Studio dropdown (studio/schemas/index.ts) and the post check (scripts/post-article.mjs). In a post file write one award per line as \"<award>[ <year>][ (<note>)]\", e.g. \"MICHELIN 3★\", \"MICHELIN Young Chef Award 2025 (Chef Au)\", \"Tatler Best 20 2026 (Taiwan)\". Add an award here, in a PR, only when it is real and none fits.",
+  "MICHELIN": ["MICHELIN 3★", "MICHELIN 2★", "MICHELIN 1★", "MICHELIN Green Star", "MICHELIN Bib Gourmand", "MICHELIN Selected", "MICHELIN Plate", "MICHELIN Young Chef Award", "MICHELIN Sommelier Award", "MICHELIN Service Award", "MICHELIN Opening of the Year"],
+  "Black Pearl": ["Black Pearl 3 Diamond", "Black Pearl 2 Diamond", "Black Pearl 1 Diamond", "Black Pearl Recommended"],
+  "The World's 50 Best": ["The World's 50 Best Restaurants", "The World's 51–100 Best Restaurants", "The World's Best Restaurant", "The World's 50 Best Bars"],
+  "Asia's 50 Best": ["Asia's 50 Best Restaurants", "Asia's 51–100 Best Restaurants", "Asia's Best Restaurant", "Asia's 50 Best Bars"],
+  "La Liste": ["La Liste Top 1000", "La Liste Top 100"],
+  "Gault&Millau": ["Gault&Millau 5 Toques", "Gault&Millau 4 Toques", "Gault&Millau 3 Toques", "Gault&Millau 2 Toques", "Gault&Millau 1 Toque"],
+  "Tabelog": ["Tabelog Award Gold", "Tabelog Award Silver", "Tabelog Award Bronze", "Tabelog Top 100"],
+  "Tatler": ["Tatler Best 20", "Tatler Asia's Best 100", "Tatler Best Asia-Pacific"],
+  "Nordic White Guide": ["Nordic White Guide Global Master Level", "Nordic White Guide Masters Level", "Nordic White Guide Very Fine Level"],
+  "Opinionated About Dining": ["OAD Top Restaurants Asia", "OAD Top Restaurants Europe", "OAD Top Restaurants North America", "OAD Top Restaurants Japan"],
+  "The Best Chef": ["The Best Chef Awards"],
+  "Forbes Travel Guide": ["Forbes Travel Guide Five-Star", "Forbes Travel Guide Four-Star"]
+}

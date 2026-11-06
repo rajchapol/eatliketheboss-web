@@ -13,6 +13,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { basename, dirname, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
+import { makeAwards } from '../src/lib/awards.mjs';
+const AWARDS = makeAwards(JSON.parse(readFileSync(new URL('../src/data/awards.json', import.meta.url), 'utf8')));
 import { execFileSync } from 'node:child_process';
 import { createClient } from '@sanity/client';
 import { parse as parseYaml, Document, isScalar, isSeq, visit } from 'yaml';
@@ -121,7 +123,7 @@ for (const a of articles) {
 
   const r = a.restaurant ? clean({
     name: a.restaurant.name, originalName: a.restaurant.originalName, chef: a.restaurant.chef, area: a.restaurant.area,
-    cuisine: a.restaurant.cuisine, style: a.restaurant.style, awards: a.restaurant.awards, aliases: a.restaurant.aliases, sameAs: a.restaurant.sameAs,
+    cuisine: a.restaurant.cuisine, style: a.restaurant.style, awards: a.restaurant.awards?.map((x) => AWARDS.label(x)).filter(Boolean), aliases: a.restaurant.aliases, sameAs: a.restaurant.sameAs,
   }) : undefined;
   const fm = clean({
     language: lang, series: a.series, episode: a.episode, title: a.title, slug: a.slug, tagline: a.tagline, city: a.city,

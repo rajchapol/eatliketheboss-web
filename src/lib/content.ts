@@ -5,7 +5,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale } from './config';
+import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -86,7 +86,9 @@ export function priceBandFromBill(bill?: string): '฿฿' | '฿฿฿' | '฿�
 const withPriceBand = (a: Article): Article => {
   const band = a.billBand || a.restaurant?.priceBand || priceBandFromBill(a.bill);
   // cuisine = one of the broad English categories, style = optional detail (cuisineOf / styleOf in config.ts)
-  const restaurant = a.restaurant ? { ...a.restaurant, cuisine: cuisineOf(a.restaurant.cuisine), style: styleOf(a.restaurant), ...(band ? { priceBand: band } : {}) } : a.restaurant;
+  // awards come as { award, year, note } (Studio) or old plain text; the site uses one label each, e.g. "Tatler Best 20 2026 (Taiwan)"
+  const awards = a.restaurant?.awards?.map((x: any) => AWARDS.label(x)).filter(Boolean);
+  const restaurant = a.restaurant ? { ...a.restaurant, cuisine: cuisineOf(a.restaurant.cuisine), style: styleOf(a.restaurant), awards: awards?.length ? awards : undefined, ...(band ? { priceBand: band } : {}) } : a.restaurant;
   return { ...a, billBand: band, restaurant };
 };
 

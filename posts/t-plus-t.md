@@ -16,7 +16,7 @@ restaurant:
   area: "ซงซาน"
   cuisine: "Modern"
   style: "Fusion"
-  awards: ["MICHELIN 1★", "Tatler Best 20 Taiwan 2026"]
+  awards: ["MICHELIN 1★", "Tatler Best 20 2026 (Taiwan)"]
 cover: "./images/t-plus-t/cover.jpg | ซุปครีมสีนวลกับเป๋าฮื้อ ฟองเต้าหู้สีทอง และสมุนไพรเส้นฝอย ในชามกระเบื้องสีขาว ร้าน T+T ไทเป"
 billBand: "฿฿"
 visit: Apr-2026

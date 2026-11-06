@@ -4,6 +4,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 (midday) · Studio fit 2: awards list, menus, to-dos
+- **Awards**: free text had drifted ("Black Pearl 3 เพชร" vs "Diamond", years in brackets or not). Now `src/data/awards.json` (guide → full award names) + `src/lib/awards.mjs` (`parse` "Tatler Best 20 2026 (Taiwan)" ⇄ `{award, year, note}`, `label`, old spellings mapped). Studio: awards = array of `award` objects (dropdown + year + note). Post files keep one line per award; `post-article.mjs` errors on unknown awards and sends objects; `pull-articles.mjs` writes labels back. Site normalises both forms (`content.ts`), so nothing breaks before the data is migrated. **After merge: Actions → Migrate awards (dry, then real)** turns the 76 articles' text awards into objects. Restaurants page: new "รางวัล" filter grouped by guide (`data-awards` on cards).
+- **Studio menus**: Recently posted / Recently changed (7 days); Restaurants → Repeat visits / All A–Z (async list grouped by name + city, like `restaurantKey()`); article rows show language · city · Visit · band · cuisine · style · tag; city rows show ★ featured, Picks count, "no photo".
+- **Featured cities**: validation blocks a 4th (lists the 3 already ticked). Boss's Picks picker already filtered to the city; now `!defined(translationOf)` instead of language == th.
+- **To-dos**: No cuisine style; Awards not in the list; Cities without a photo (SEO list already had Les Amis).
+- 37 unused images listed for the Boss (contact sheet sent in chat, not deleted; some look like city photos never set, e.g. Munch Museum Oslo, Shibuya).
+- Scale note for 200–300 articles: build 137 pages in ~30 s locally (fine); /restaurants and /review HTML grow ~6 KB per card (575 KB now) → plan paging / rendering a first batch around 150 articles; Sanity free plan has hard caps (10k documents, 100 GB bandwidth/month for images from cdn.sanity.io) → watch usage, move images behind Cloudflare if traffic grows.
+
 ## Session 2026-11-06 · English 6% smaller in running text (brand chat)
 - The Boss approved: in Noto Serif Thai the Latin letters run bigger and heavier than the Thai, so the many English names in his articles (chefs, restaurants, awards) jumped out. New family **"ELB Body"** = the same Noto files, Latin faces with `size-adjust:94%`; used by `.prose` (article body) and `.dish-desc` (dish descriptions, class added in `[...article].astro`). Headings, restaurant names and every other place keep plain "Noto Serif Thai". No extra downloads. Don't go below ~92% (English starts to look small).
 - Stacked on the readability PR (#42).

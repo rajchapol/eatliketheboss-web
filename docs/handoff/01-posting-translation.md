@@ -8,6 +8,10 @@
 
 ## 0. ข่าวล่าสุดจากฝ่ายเว็บ (อ่านก่อนโพสต์)
 
+**6 พ.ย. 2026 · ใหม่**
+1. **รางวัลของร้าน (`restaurant.awards`) ต้องเป็นชื่อในรายการ `src/data/awards.json` เท่านั้น** (จัดตามสถาบัน: MICHELIN, Black Pearl, The World's 50 Best, Asia's 50 Best, La Liste, Gault&Millau, Tabelog, Tatler, Nordic White Guide, OAD ฯลฯ) เขียนบรรทัดละรางวัลแบบ `"<ชื่อรางวัล>[ ปี][ (หมายเหตุ)]"` เช่น `"MICHELIN 2★"`, `"MICHELIN Young Chef Award 2025 (Chef Au)"`, `"Tatler Best 20 2026 (Taiwan)"` · ห้ามเขียนไทยหรือย่อเอง เช่น "Black Pearl 3 เพชร" → `"Black Pearl 3 Diamond"`, "Asia's 50 Best" → `"Asia's 50 Best Restaurants"` · ชื่อที่ไม่อยู่ในรายการ `--dry` จะ error · รางวัลจริงที่ยังไม่มี: เพิ่มในไฟล์รายการแล้วเปิด PR · ไฟล์เก่าแก้ให้แล้ว
+2. **Studio มีเมนูใหม่:** Recently posted / Recently changed (7 วัน), Restaurants (ร้านที่ไปซ้ำ, ร้านทั้งหมด A–Z) · งานที่ต้องทำเพิ่ม: ยังไม่มีประเภทย่อย (style), รางวัลที่ไม่อยู่ในรายการ, เมืองที่ยังไม่มีรูป · ช่วยเติม style ให้ร้านที่ยังว่างเวลาแก้บทความนั้น
+
 **5 พ.ย. 2026 (ดึก) · ใหม่**
 1. **เมืองใหม่ต้องมีพิกัดแผนที่:** ถ้าเมืองนั้นยังไม่มีใน `src/data/city-coords.json` ให้ใส่ `lat:` และ `lng:` (องศาทศนิยม เช่น Frankfurt `lat: 50.11`, `lng: 8.68`) ใน `cityNew` ไม่งั้น `--dry` จะ error · เคยมี 3 เมือง (Frankfurt, Reykjavik, Nonthaburi) หายจากแผนที่เพราะไม่มีพิกัด แก้แล้ว · ไฟล์พิกัดมีเมืองไฟน์ไดนิ่งหลักๆ ราว 140 เมืองแล้ว
 
