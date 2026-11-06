@@ -10,7 +10,7 @@ restaurant:
   chef: "Þráinn Freyr Vigfússon"
   cuisine: "Nordic"
   style: "New Nordic"
-  awards: ["MICHELIN Plate (2019)", "Nordic White Guide Global Master Level"]
+  awards: ["MICHELIN Plate 2019", "Nordic White Guide Global Master Level"]
 cover: "./images/ox-reykjavik/cover.jpg | ขนมชั้นสีเขียวซ้อนบนจานเทาล้อมด้วยซอสเขียว ร้าน Ox เรคยาวิก"
 billBand: "฿฿฿"
 bill: ""

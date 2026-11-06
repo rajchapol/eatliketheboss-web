@@ -43,6 +43,7 @@ You never need to touch `src/` to post.
 | Share image per article (cover + logo + name) | `src/lib/og.ts` → `/og/<article path>.jpg` (fonts `src/og/fonts`) |
 | Contact / recommend-a-restaurant form | `src/pages/contact.astro` → Web3Forms key in Sanity settings |
 | Site URL, series keys, motifs, cuisine categories + styles (one list: `src/data/cuisines.json`, read by `config.ts`, the Studio and `scripts/post-article.mjs`; broad English category for the filter, optional style shown as "Japanese · Sushi" — the Boss, 5 Nov 2026) | `src/lib/config.ts` |
+| Restaurant awards (guide → award; one list `src/data/awards.json`, read by `config.ts`, the Studio award dropdown and `scripts/post-article.mjs`; parse/label in `src/lib/awards.mjs`; Sanity stores `{award, year, note}`, post files one line `"<award>[ <year>][ (<note>)]"`; Restaurants page filters by award) | `src/data/awards.json` |
 | Studio wording | English first, Thai after (`English · ไทย`) for menus, tabs and field titles; descriptions in Thai. No Thai Studio locale (the Boss prefers English buttons) |
 | Loading content (Sanity / sample) | `src/lib/content.ts` |
 | Content fields in Studio (city `intro` = "City fact": one odd true fact, English, shown under "Did you know?"; new city slugs = English name only) | `studio/schemas/index.ts` (keep `src/lib/content.ts` GROQ in step) |

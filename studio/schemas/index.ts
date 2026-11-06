@@ -26,6 +26,20 @@ const altField = defineField({
 const photo = (name: string, title: string, group?: string) =>
   defineField({ name, title, type: 'image', options: { hotspot: true }, fields: [altField], ...(group ? { group } : {}) });
 
+// Awards: guide → award, one list for site, Studio and post check (src/data/awards.json; the Boss, 6 Nov 2026).
+import AWARD_LIST from '../../src/data/awards.json';
+const AWARD_GROUPS = Object.fromEntries(Object.entries(AWARD_LIST).filter(([k]) => !k.startsWith('_'))) as Record<string, string[]>;
+const AWARD_OPTIONS = Object.entries(AWARD_GROUPS).flatMap(([g, list]) => list.map((a) => ({ title: a.startsWith(g) || a.includes(g) ? a : `${a} — ${g}`, value: a })));
+const award = defineType({
+  name: 'award', title: 'Award · รางวัล', type: 'object',
+  fields: [
+    defineField({ name: 'award', title: 'Award · รางวัล', type: 'string', options: { list: AWARD_OPTIONS }, validation: (r) => r.required().custom((v: string | undefined) => (!v || AWARD_OPTIONS.some((o) => o.value === v) ? true : `"${v}" ไม่อยู่ในรายการรางวัล`)) }),
+    defineField({ name: 'year', title: 'Year (optional) · ปี', type: 'number', validation: (r) => r.min(1900).max(2100).integer() }),
+    defineField({ name: 'note', title: 'Note (optional) · หมายเหตุ', description: 'สั้นๆ เช่น Chef Au, Taiwan', type: 'string' }),
+  ],
+  preview: { select: { a: 'award', y: 'year', n: 'note' }, prepare: ({ a, y, n }) => ({ title: `${a || '(เลือกรางวัล)'}${y ? ` ${y}` : ''}${n ? ` (${n})` : ''}` }) },
+});
+
 // Cuisine: broad English categories + optional styles, one list for site, Studio and post check (the Boss, 5 Nov 2026).
 import CUISINE_LIST from '../../src/data/cuisines.json';
 const CUISINE_STYLES = Object.fromEntries(Object.entries(CUISINE_LIST).filter(([k]) => !k.startsWith('_'))) as Record<string, string[]>;
@@ -99,7 +113,8 @@ export const article = defineType({
         defineField({ name: 'sameAs', title: 'Earlier review of this restaurant (optional) · รีวิวครั้งก่อน', description: 'ใช้เฉพาะเมื่อร้านเปลี่ยนชื่อหรือพิมพ์ชื่อไม่ตรงกับครั้งก่อน · ชื่อร้านเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว', type: 'reference', weak: true, to: [{ type: 'article' }],
           options: { filter: 'language == "th" && series == "review"' } }),
         defineField({ name: 'aliases', title: 'Search aliases (optional) · ชื่อเรียกอื่นสำหรับค้นหา', description: 'ชื่อที่คนอาจพิมพ์ค้นหา เช่น ชื่อร้านสะกดไทย "หย่งฟู" หรือชื่อเล่นของร้าน · ไม่แสดงบนเว็บ ใช้ค้นหาเท่านั้น · ชื่อเมือง/ประเภทอาหารภาษาไทย-อังกฤษ เว็บรู้เองอยู่แล้ว', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
-        defineField({ name: 'awards', title: 'Awards · รางวัล (ตรวจจากแหล่งจริงแล้ว)', description: 'หนึ่งบรรทัดต่อหนึ่งรางวัล เช่น MICHELIN 1★ · กด Add item เพื่อเพิ่ม กดที่ข้อความเพื่อแก้ ลากเพื่อเรียงลำดับ', type: 'array', of: [defineArrayMember({ type: 'string' })] }),
+        defineField({ name: 'awards', title: 'Awards · รางวัล (ตรวจจากแหล่งจริงแล้ว)', description: 'กด Add item → เลือกรางวัลจากรายการ (จัดตามสถาบัน) · ใส่ปีถ้ามี · หมายเหตุสั้นๆ เช่น ชื่อเชฟ หรือประเทศ · ลากเพื่อเรียงลำดับ · รางวัลจริงที่ยังไม่มีในรายการ: ขอฝ่ายเว็บเพิ่มใน src/data/awards.json',
+          type: 'array', of: [defineArrayMember({ type: 'award' })] }),
       ] }),
     photo('cover', 'ภาพปก (แนวนอน 3:2 — ทุกรูปอาหารในเว็บแสดง 3:2)', 'main'),
     defineField({ name: 'gallery', title: 'Gallery (optional) · ภาพบรรยากาศร้าน / เชฟ', description: 'แสดงต่อจากบทนำ ก่อนรายการจาน · 1–6 รูป แนวนอนดีที่สุด · ใส่คำบรรยายสั้นๆ ได้ เช่น "ห้องอาหารชั้น 56" หรือชื่อเชฟ', type: 'array', group: 'main',
@@ -132,11 +147,12 @@ export const article = defineType({
       components: { input: charCount(120, 155) as any }, validation: (r) => r.min(120).max(155).warning('ควรยาว 120–155 ตัวอักษร') }),
   ],
   orderings: [{ title: 'Newest · ใหม่สุด', name: 'newest', by: [{ field: 'publishedAt', direction: 'desc' }] }],
-  preview: { select: { title: 'title', name: 'restaurant.name', series: 'series', ep: 'episode', visit: 'visit', lang: 'language', city: 'city.nameEn', media: 'cover' },
+  preview: { select: { title: 'title', name: 'restaurant.name', series: 'series', ep: 'episode', visit: 'visit', lang: 'language', city: 'city.nameEn', media: 'cover', band: 'billBand', cu: 'restaurant.cuisine', st: 'restaurant.style', tag: 'tag' },
     // The restaurant name first, so lists and the "แปลจากบทความ" picker show which article it is at a glance.
-    prepare: ({ title, name, series, ep, visit, lang, city, media }: any) => ({
+    // e.g. "TH · Tokyo · Visit Apr-2024 · ฿฿฿฿ · Japanese · Sushi · Event"
+    prepare: ({ title, name, series, ep, visit, lang, city, media, band, cu, st, tag }: any) => ({
       title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : (name || title || 'ไม่มีชื่อ'),
-      subtitle: [LANGS.find((l) => l.id === (lang || 'th'))?.short ?? 'TH', city, visit && `Visit ${visit}`].filter(Boolean).join(' · '),
+      subtitle: [LANGS.find((l) => l.id === (lang || 'th'))?.short ?? 'TH', city, visit && `Visit ${visit}`, band, [cu, st].filter(Boolean).join(' · '), tag].filter(Boolean).join(' · '),
       media,
     }) },
 });
@@ -158,13 +174,26 @@ export const city = defineType({
     defineField({ name: 'intro', title: 'City fact · เรื่องน่ารู้ของเมือง', description: 'เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง สั้นๆ 1–2 ประโยค ภาษาอังกฤษ (แสดงในหน้าเมือง)', type: 'text', rows: 3 }),
     defineField({ name: 'location', title: 'Map position (optional) · ตำแหน่งบนแผนที่', description: 'เมืองหลักๆ เว็บรู้ตำแหน่งอยู่แล้ว ใส่เฉพาะเมืองที่ไม่ขึ้นบนแผนที่หน้าจุดหมาย', type: 'geopoint' }),
     photo('cover', 'ภาพเมือง'),
-    defineField({ name: 'featured', title: 'Featured on Destinations · เมืองแนะนำ', description: 'ติ๊กได้สูงสุด 3 เมือง หน้าจุดหมายแสดงเป็นแท็บให้กดสลับ (เรียงตามจำนวนร้าน) · กด Publish ด้วยทุกเมือง', type: 'boolean', initialValue: false }),
+    defineField({ name: 'featured', title: 'Featured on Destinations · เมืองแนะนำ', description: 'ติ๊กได้สูงสุด 3 เมือง หน้าจุดหมายแสดงเป็นการ์ดเรียงกัน (เรียงตามจำนวนร้าน) · ต้องมีรีวิวในเมืองนั้นแล้ว · กด Publish ด้วยทุกเมือง', type: 'boolean', initialValue: false,
+      // more than 3 published featured cities: say which ones are already ticked
+      validation: (r) => r.custom(async (v: boolean | undefined, ctx: any) => {
+        if (!v) return true;
+        const id = String(ctx.document?._id || '').replace(/^drafts\./, '');
+        const others: string[] = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('*[_type == "city" && featured == true && !(_id in path("drafts.**")) && _id != $id].nameEn', { id });
+        return others.length >= 3 ? `ติ๊กเมืองแนะนำได้สูงสุด 3 เมือง ตอนนี้มีแล้ว: ${others.join(', ')} · เอาติ๊กเมืองอื่นออกก่อน` : true;
+      }) }),
     defineField({ name: 'picks', title: "Boss's Picks · ร้านแนะนำของเมืองนี้", description: 'เลือกได้สูงสุด 3 ร้าน เรียงตามลำดับที่ใส่ · เว้นว่าง = เว็บเลือกให้เอง (ร้านล่าสุดที่มีจานถอดแว่นชิม)', type: 'array',
       of: [defineArrayMember({ type: 'reference', weak: true, to: [{ type: 'article' }], // weak: deleting an article is never blocked
-        options: { filter: ({ document }: any) => ({ filter: 'language == "th" && series == "review" && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
+        options: { filter: ({ document }: any) => ({ filter: '!defined(translationOf) && series == "review" && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
       validation: (r) => r.max(3) }),
   ],
-  preview: { select: { title: 'nameEn', subtitle: 'nameTh', media: 'cover' } },
+  // ★ = featured on Destinations · how many Boss's Picks · "no photo" when the city still needs one
+  preview: { select: { title: 'nameEn', th: 'nameTh', country: 'country', f: 'featured', picks: 'picks', media: 'cover' },
+    prepare: ({ title, th, country, f, picks, media }: any) => ({
+      title: `${f ? '★ ' : ''}${title || ''}`,
+      subtitle: [th, country, picks?.length ? `Picks ${picks.length}` : '', media ? '' : 'no photo'].filter(Boolean).join(' · '),
+      media,
+    }) },
 });
 
 // Site settings: one tab per page of the website, in the order a visitor meets them.
@@ -251,4 +280,4 @@ export const settings = defineType({
   preview: { prepare: () => ({ title: 'Site settings · ตั้งค่าเว็บ / ข้อความทุกหน้า' }) },
 });
 
-export const schemaTypes = [article, city, settings];
+export const schemaTypes = [article, city, settings, award];

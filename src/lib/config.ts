@@ -84,6 +84,11 @@ export function styleOf(r?: { cuisine?: string; style?: string }): string | unde
   return hit ? hit[1].find((x) => x.toLowerCase() === v.toLowerCase()) : undefined;
 }
 
+/** Restaurant awards: guide → awards, one list (src/data/awards.json). parse() / label() in src/lib/awards.mjs. */
+import AWARD_LIST from '../data/awards.json';
+import { makeAwards } from './awards.mjs';
+export const AWARDS = makeAwards(AWARD_LIST);
+
 /** Map position of a city: Studio pin, else CITY_COORDS by slug, by English name, or by the slug without a country prefix
  *  (cities are often saved as "norway-oslo"). */
 export function cityCoords(c: { slug: string; nameEn?: string; location?: { lat?: number; lng?: number } }): [number, number] | undefined {

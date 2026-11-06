@@ -1,0 +1,33 @@
+# One-off data fix: turns plain-text restaurant awards in Sanity into award items { award, year, note } for the Studio dropdown (scripts/migrate-awards.mjs).
+# Manual only: Actions → Migrate awards → Run workflow. Leave "Dry run" ticked first to see the list, then run again unticked.
+# Changes only restaurant.awards of articles; text that matches no award in src/data/awards.json is listed and left out. Uses the existing secret SANITY_WRITE_TOKEN.
+name: Migrate awards
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true # the runner's cached Node can be older than Astro requires
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/migrate-awards.mjs --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/migrate-awards.mjs

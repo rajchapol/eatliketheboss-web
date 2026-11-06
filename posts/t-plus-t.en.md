@@ -11,7 +11,7 @@ restaurant:
   area: "Songshan"
   cuisine: "Modern"
   style: "Fusion"
-  awards: ["MICHELIN 1★", "Tatler Best 20 Taiwan 2026"]
+  awards: ["MICHELIN 1★", "Tatler Best 20 2026 (Taiwan)"]
 cover: "./images/t-plus-t/cover.jpg | Creamy pale soup with abalone, golden tofu skin and fine strands of herbs, in a white porcelain bowl, T+T, Taipei"
 billBand: "฿฿"
 bill: ""

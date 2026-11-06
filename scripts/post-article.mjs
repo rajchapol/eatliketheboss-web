@@ -10,6 +10,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, resolve, basename, relative } from 'node:path';
+import { makeAwards } from '../src/lib/awards.mjs';
 import { createClient } from '@sanity/client';
 import { parse as parseYaml } from 'yaml';
 
@@ -71,6 +72,10 @@ const CUISINES = Object.keys(CUISINE_STYLES);
 const cu = fm.restaurant?.cuisine, st = fm.restaurant?.style;
 if (cu && !CUISINES.includes(String(cu).trim())) throw new Error(`cuisine "${cu}" ไม่อยู่ในรายการ — ใช้หมวดใหญ่ภาษาอังกฤษอย่างใดอย่างหนึ่ง: ${CUISINES.join(' | ')} (รายละเอียด เช่น Sushi, Cantonese ใส่ใน restaurant.style)`);
 if (st && !cu) throw new Error('มี restaurant.style แต่ไม่มี restaurant.cuisine — ใส่หมวดก่อน');
+// Awards: each line must start with an award from src/data/awards.json (then an optional year and "(note)").
+const AWARDS = makeAwards(JSON.parse(readFileSync(new URL('../src/data/awards.json', import.meta.url), 'utf8')));
+const badAwards = (fm.restaurant?.awards || []).filter((x) => x != null && String(x).trim() && !AWARDS.parse(x));
+if (badAwards.length) throw new Error(`รางวัลไม่อยู่ในรายการ: ${badAwards.map((x) => `"${x}"`).join(', ')} — เขียนเป็น "<ชื่อรางวัลในรายการ> [ปี] [(หมายเหตุ)]" เช่น "MICHELIN 2★", "Tatler Best 20 2026 (Taiwan)" · รายการทั้งหมดอยู่ใน src/data/awards.json (ถ้าเป็นรางวัลจริงที่ยังไม่มี ให้เพิ่มในไฟล์นั้นแล้วเปิด PR)`);
 if (st && !CUISINE_STYLES[String(cu).trim()].includes(String(st).trim())) throw new Error(`style "${st}" ไม่อยู่ในหมวด ${cu} — เลือกจาก: ${CUISINE_STYLES[String(cu).trim()].join(', ')} · ถ้าไม่มีที่ตรงจริงๆ เว้นว่างไว้ หรือเพิ่มใน src/data/cuisines.json แล้วเปิด PR`);
 // New city: the slug is the city's English name only, e.g. oslo, san-sebastian (no country in front).
 // Four cities were made with a country prefix before this rule; their URLs are live, so they stay.
@@ -127,7 +132,9 @@ const doc = {
     return { ...im, _key: key(), ...(caption ? { caption } : {}) };
   })) : undefined,
   // restaurant.sameAs: <slug of the earlier review> links visits when the restaurant's name changed
-  restaurant: fm.restaurant && { ...fm.restaurant, sameAs: fm.restaurant.sameAs ? { _type: 'reference', _ref: `article-${fm.restaurant.sameAs}`, _weak: true } : undefined },
+  restaurant: fm.restaurant && { ...fm.restaurant, sameAs: fm.restaurant.sameAs ? { _type: 'reference', _ref: `article-${fm.restaurant.sameAs}`, _weak: true } : undefined,
+    // awards: "Tatler Best 20 2026 (Taiwan)" → { award, year, note } (the Studio dropdown); empty lines dropped
+    awards: fm.restaurant.awards ? fm.restaurant.awards.map((x) => AWARDS.parse(x)).filter(Boolean).map((o, i) => ({ _key: `aw${i}`, _type: 'award', ...o })) : undefined },
   body: bodyBlocks, quote: fm.quote,
   dishes: await Promise.all(dishes.map(async (d) => ({ _type: 'dish', _key: key(), name: d.name, description: d.description, glassesOff: d.glassesOff, image: await upload(d.image) }))),
   tag: fm.tag || '', bill: fm.bill || undefined, billBand: fm.billBand || fm.restaurant?.priceBand || undefined, visit: fm.visit, hashtags: (fm.hashtags || []).map((h) => String(h).replace(/^#/, '')),
