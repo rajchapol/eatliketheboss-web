@@ -113,6 +113,8 @@ const msg = { photo: t(lang, 'photoRights'), source: t(lang, 'source'), site: 'à
       const step = (now) => { const t = Math.min(1, (now - t0) / D); el.textContent = String(Math.round(to * (1 - Math.pow(1 - t, 3)))); if (t < 1) requestAnimationFrame(step); };
       el.textContent = '0'; requestAnimationFrame(step);
     }), { threshold: 0.6 });
+    // numbers that count up: Google Translate (in the browser) would re-translate every frame, so it leaves them alone
+    document.querySelectorAll('[data-count-to]').forEach((el) => el.setAttribute('translate', 'no'));
     if (!calm) document.querySelectorAll('[data-count-to]').forEach((el) => cio.observe(el));
 
     const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;

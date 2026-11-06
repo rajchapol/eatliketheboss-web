@@ -4,6 +4,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 · smooth map zoom, browser Google Translate, tabs
+- **Map lag** (the Boss, phone): the pin pulse animated `box-shadow` on 21 pins and the route dash moved forever, so the map repainted every frame even when idle (idle CPU now 0); every zoom frame also re-set the viewBox and re-ran clustering with layout reads (361 → 50 layouts in a test). Now: while moving, only a CSS transform on the drawn map and `translate` on pins/clusters; `draw(v, true)` (viewBox, dot level, clusters, labels) runs once when it settles (`settle()`, 160 ms). The drawn map has 25% spare on each side (`SPARE`, `.map-svg` 150%); animated button zooms first draw the union of both views. Pulse = `::after` ring (transform/opacity), paused off screen (`.map-off`) and while moving. Clusters whose circles still overlap merge.
+- **Browser Google Translate**: `translate="no"` on logo, English menu words, restaurant names (cards, slider, article h1), map pins/clusters/list, slider counter, count-up numbers. `html.translated-ltr .nav-sub{display:none}`. Tested with a simulated translation (longer words) on phone and desktop: tabs keep their size.
+- **Tabs**: map zoom buttons are one sideways-scrolling row on phones (`.map-zooms`).
+- This branch includes PR #39 (map polish).
+
 ## Session 2026-11-05 (night) · map polish
 - Boss (phone): count line under the map removed (it kept changing and disagreed with the stats); city names are part of the link now; "make the map neat".
 - 3 cities had no pin (Frankfurt, Reykjavik, Nonthaburi): coordinates moved to `src/data/city-coords.json` (~140 cities) and `post-article.mjs` requires `cityNew.lat/lng` for a city not in it (saved as the city's `location`).

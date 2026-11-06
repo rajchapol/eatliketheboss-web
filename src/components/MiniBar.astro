@@ -9,7 +9,7 @@ const { active = 'home', lang } = Astro.props;
 ---
 <div class="mini-bar" data-minibar inert aria-hidden="true">
   <div class="wrap mini-in">
-    <a href="/" class="mini-logo" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="" width="200" height="179" /></a>
+    <a href="/" class="mini-logo" translate="no" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-gold.webp" alt="" width="200" height="179" /></a>
     <nav aria-label={lang === "th" ? "เมนูหลัก (แถบย่อ)" : "Main menu (compact)"} class="mini-nav">
       <NavLinks active={active} lang={lang} />
     </nav>

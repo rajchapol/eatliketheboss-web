@@ -40,7 +40,7 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
   </span>
   <span style="padding:18px 20px 16px;display:flex;flex-direction:column;gap:8px">
     {a.city && <span style="display:flex;align-items:center;gap:6px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.14em;color:#0b5357"><Icon name="pin" size={15} style="color:#c39e5c" />{a.city.nameEn.toUpperCase()}<span style="letter-spacing:0;color:#3d4955">· Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span></span>}
-    <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.4"><a href={articleUrl(a)} class="card-link">{a.restaurant?.name ?? a.title}</a></h3>
+    <h3 style="margin:0;font-size:20px;font-weight:600;line-height:1.4"><a href={articleUrl(a)} class="card-link" translate={a.restaurant?.name ? "no" : undefined}>{a.restaurant?.name ?? a.title}</a></h3>
     {a.restaurant && (
       <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">
         {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{cuisineText(a.restaurant, L)}</span>}
