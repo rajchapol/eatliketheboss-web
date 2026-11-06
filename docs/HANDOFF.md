@@ -4,6 +4,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 · English 6% smaller in running text (brand chat)
+- The Boss approved: in Noto Serif Thai the Latin letters run bigger and heavier than the Thai, so the many English names in his articles (chefs, restaurants, awards) jumped out. New family **"ELB Body"** = the same Noto files, Latin faces with `size-adjust:94%`; used by `.prose` (article body) and `.dish-desc` (dish descriptions, class added in `[...article].astro`). Headings, restaurant names and every other place keep plain "Noto Serif Thai". No extra downloads. Don't go below ~92% (English starts to look small).
+- Stacked on the readability PR (#42).
+
 ## Session 2026-11-06 · readability fixes (brand chat)
 - **฿ showed as "BBB"**: Ekkamai New maps U+0E3F to a ß-like glyph. Two extra `@font-face` rules give the "Ekkamai New" family Noto Serif Thai's ฿ only (`unicode-range:U+0E3F`, declared after Ekkamai so they win). Fixes the Bill in the article fact box, price pills and anywhere Ekkamai prints ฿.
 - **Lede**: the whole first paragraph was 1.14em teal (often 12–15 lines on a phone, heavy to read). Now only its first line is larger and teal (`.prose>p:first-child::first-line`); the rest reads as normal body text.
