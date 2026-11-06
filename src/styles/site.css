@@ -245,28 +245,40 @@ img{max-width:100%;height:auto}
 .search-go{position:absolute;right:5px;top:5px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:linear-gradient(120deg,#073b3e,#0b5357);color:#fdeac0;transition:transform .2s}.search-go:hover{transform:translateX(2px)}
 
 /* ---------- Destinations: The Boss's Map ---------- */
-.map-band{padding:clamp(20px,4cqi,40px);display:flex;flex-direction:column;gap:18px;background:radial-gradient(ellipse at 30% 0%,#0f6b6a 0%,#0b5357 45%,#062f32 100%);box-shadow:0 0 0 1px rgba(212,179,114,.45),0 30px 60px -24px rgba(7,59,62,.55);color:#fff}
+.map-band{--mp:clamp(20px,4cqi,40px);padding:var(--mp);display:flex;flex-direction:column;gap:18px;background:radial-gradient(ellipse at 30% 0%,#0f6b6a 0%,#0b5357 45%,#062f32 100%);box-shadow:0 0 0 1px rgba(212,179,114,.45),0 30px 60px -24px rgba(7,59,62,.55);color:#fff}
 .map-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
 .map-zoom{min-height:40px;padding:0 16px;border-radius:var(--r-pill);border:1px solid rgba(212,179,114,.55);background:rgba(255,255,255,.06);color:#fdeac0;font-family:'Ekkamai New',sans-serif;font-size:14px;transition:background .25s,color .25s}
 .map-zoom:hover{background:rgba(255,255,255,.14)}.map-zoom[aria-pressed="true"]{background:linear-gradient(135deg,#d4b372,#fdeac0);color:#1a2632;border-color:#d4b372}
 .map-box{position:relative;width:100%;aspect-ratio:21/8;overflow:hidden;border-radius:var(--r-md);background:radial-gradient(ellipse at 50% 60%,rgba(253,234,192,.06),transparent 70%)}
-.map-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.map-svg{position:absolute;left:-25%;top:-25%;width:150%;height:150%;display:block} /* spare map around the view: SPARE in DestinationsMap */
+.map-svg{transform-origin:0 0}.moving .map-svg{will-change:transform}
+.moving .pin-label,.moving .map-cluster .pin-label{transition:none} /* smooth zoom: no extra work while the map moves */
 .map-world,.map-mid,.map-fine{opacity:0;transition:opacity .5s}
 [data-layer="world"] .map-world{opacity:.42}[data-layer="mid"] .map-mid{opacity:.5}[data-layer="fine"] .map-fine{opacity:.6}
-.map-route{stroke:#fdeac0;stroke-width:1.6;stroke-opacity:.75;stroke-linecap:round}
+.map-route.fx-route{animation:none} /* a moving dash repainted the whole map every frame */
+.map-route{stroke:#fdeac0;stroke-width:1.2;stroke-opacity:.42;stroke-linecap:round;transition:stroke-opacity .4s}
+[data-wide="1"] .map-route{stroke-opacity:.28} /* whole world: many arcs, keep them quiet */
 .map-pin{position:absolute;width:0;height:0;z-index:2}
 .map-pin a{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%}
-.pin-dot{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#d4b372 60%,#926633);box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 14px rgba(253,234,192,.7);animation:pin-pulse 2.6s ease-in-out infinite}
-@keyframes pin-pulse{0%,100%{box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 12px rgba(253,234,192,.6)}50%{box-shadow:0 0 0 8px rgba(253,234,192,0),0 0 20px rgba(253,234,192,.9)}}
+.pin-dot{position:relative;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#d4b372 60%,#926633);box-shadow:0 0 0 3px rgba(253,234,192,.25),0 0 12px rgba(253,234,192,.65)}
+/* pulse ring: transform + opacity only, so the graphics card animates it without repainting the map; paused off screen */
+.pin-dot::after{content:"";position:absolute;inset:-3px;border-radius:50%;box-shadow:0 0 0 2px rgba(253,234,192,.55);opacity:0;will-change:transform,opacity;animation:pin-ring 2.6s ease-out infinite}
+@keyframes pin-ring{0%{transform:scale(.7);opacity:.8}70%,100%{transform:scale(2.1);opacity:0}}
+.map-off .pin-dot::after,.moving .pin-dot::after{animation-play-state:paused}
 .pin-label{position:absolute;left:28px;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:var(--r-pill);background:rgba(4,30,32,.88);box-shadow:0 0 0 1px rgba(212,179,114,.55);font-family:'Ekkamai New',sans-serif;font-size:13px;color:#fff;white-space:nowrap;transition:opacity .25s;pointer-events:none}
 .pin-label b{font-weight:700;color:#fdeac0}
 [data-wide="1"] .map-pin .pin-label{opacity:0}
 .map-pin a:hover .pin-label,.map-pin a:focus-visible .pin-label{opacity:1}
 .map-pin a:hover .pin-dot,.map-pin a:focus-visible .pin-dot{transform:scale(1.35)}.pin-dot{transition:transform .25s}
 .map-pin:hover,.map-pin:focus-within{z-index:5}
-@media (prefers-reduced-motion: reduce){.pin-dot{animation:none}}
+@media (prefers-reduced-motion: reduce){.pin-dot::after{animation:none}}
 @container elb (max-width: 720px){.map-box{aspect-ratio:4/3}.pin-label{font-size:12px;padding:3px 8px;left:24px}}
 .map-pin.label-off .pin-label{opacity:0}.map-pin.label-off a:hover .pin-label,.map-pin.label-off a:focus-visible .pin-label{opacity:1}
+/* the city name is part of the link: tap the dot or the name (only while the name shows) */
+.map-pin:not(.label-off) .pin-label,.map-cluster:not(.label-off) .pin-label{pointer-events:auto;cursor:pointer}
+[data-wide="1"] .map-pin .pin-label,[data-wide="1"] .map-cluster .pin-label{pointer-events:none}
+.map-pin.flip .pin-label{left:auto;right:28px}.map-cluster.flip .pin-label{left:auto;right:34px}
+@container elb (max-width: 720px){.map-pin.flip .pin-label{right:24px}}
 /* Sunglasses → glasses off: tinted lenses + glare, cleared when the glasses scroll into view (.lit) */
 .specs::after{content:"";position:absolute;left:6%;right:6%;bottom:-11%;height:16%;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 70%);filter:blur(8px);z-index:0;pointer-events:none}
 .specs-frame{z-index:6;pointer-events:none}
@@ -557,4 +569,24 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
   .feat-grid.n2 .feat-card,.feat-grid.n3 .feat-card{flex:0 0 86%;scroll-snap-align:center}
   .feat-grid.n3 .feat-card:last-child{grid-column:auto}
 }
+/* Map: cities that share one spot, listed after a tap on their circle */
+.map-pop{position:absolute;z-index:6;transform:translateX(-50%);display:flex;flex-direction:column;min-width:170px;padding:6px;border-radius:var(--r-md);background:rgba(4,30,32,.95);box-shadow:0 0 0 1px rgba(212,179,114,.6),0 12px 30px -8px rgba(0,0,0,.5)}
+.map-pop[hidden]{display:none}
+.map-pop-link{display:block;padding:10px 12px;border-radius:var(--r-sm);font-family:'Ekkamai New',sans-serif;font-size:14px;color:#fff;white-space:nowrap}
+.map-pop-link:hover,.map-pop-link:focus-visible{background:rgba(212,179,114,.18);color:#fdeac0}
 
+
+/* Google Translate in the browser (Chrome adds .translated-ltr to <html>). Names, numbers, the logo and the English menu
+   words carry translate="no"; the small Thai menu line under each word is hidden once translated (it would only repeat
+   the English word), so every tab keeps its size. */
+html.translated-ltr .nav-sub,html.translated-rtl .nav-sub{display:none}
+html.translated-ltr .map-zoom,html.translated-ltr .chip,html.translated-ltr .btn-gold,html.translated-ltr .btn-ghost{white-space:nowrap}
+html.translated-ltr font{vertical-align:inherit!important}
+
+/* Map zoom buttons: one row; on phones it scrolls sideways instead of wrapping onto a second line */
+.map-zooms{display:flex;gap:6px;flex-wrap:wrap}
+@container elb (max-width: 720px){
+  .map-zooms{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--mp) * -1);padding:2px var(--mp);width:calc(100% + 2 * var(--mp))}
+  .map-zooms::-webkit-scrollbar{display:none}
+  .map-zooms .map-zoom{flex:0 0 auto;min-height:40px!important;padding:0 14px;font-size:14px}
+}

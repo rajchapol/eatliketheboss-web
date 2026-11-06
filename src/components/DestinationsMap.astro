@@ -23,7 +23,7 @@ const fitPins = (ps: typeof pins, minW = 26): number[] => {
   const w = Math.max(minW, (x1 - x0) * 1.3 + 8), h = Math.max(minW * 0.4, (y1 - y0) * 1.3 + 6);
   return [(x0 + x1) / 2 - w / 2, (y0 + y1) / 2 - h / 2, w, h].map((n) => +n.toFixed(2));
 };
-const VIEWS: Record<string, number[]> = { world: [0, 4, 360, 128], th: [266, 50, 52, 22] };
+const VIEWS: Record<string, number[]> = { world: [0, 4, 360, 128], th: [276.5, 56.5, 11, 17] }; // th = Thailand only (97.5–106.5°E, 21.5–4.5°N)
 const hasThai = pins.some((p) => p.region === 'th');
 const zoomBtns: { id: string; label: string }[] = [{ id: 'world', label: 'ทั้งโลก' }];
 if (hasThai) zoomBtns.push({ id: 'th', label: 'ประเทศไทย' });
@@ -34,6 +34,8 @@ for (const r of REGIONS) {
   VIEWS[r.id] = fitPins(ps);
   zoomBtns.push({ id: r.id, label: r.name });
 }
+// Narrow boxes (phones): "ทั้งโลก" fits every pin instead of the whole globe, which would be a thin strip.
+if (pins.length) VIEWS.worldNarrow = fitPins(pins, 60);
 const inside = (v: number[]) => pins.every((p) => p.x >= v[0] && p.x <= v[0] + v[2] && p.y >= v[1] && p.y <= v[1] + v[3]);
 const start = VIEWS.asia && inside(VIEWS.asia) ? 'asia' : 'world';
 // Route: cities in the order the Boss first ate there, joined by gentle arcs.
@@ -50,24 +52,24 @@ const v0 = VIEWS[start];
     <div class="map-band rl on-dark spot" data-map data-views={JSON.stringify(VIEWS)} data-start={start} data-layer="world">
       <div class="map-head">
         <h2 id="map-h" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,5cqi,40px);line-height:1.1;color:#fdeac0">{st.mapTitle}</h2>
-        <div role="group" aria-label="ซูมแผนที่" style="display:flex;gap:6px;flex-wrap:wrap">
+        <div role="group" aria-label="ซูมแผนที่" class="map-zooms">
           {zoomBtns.map((b) => <button type="button" class="map-zoom" data-view={b.id} aria-pressed={start === b.id ? 'true' : 'false'}>{b.label}</button>)}
         </div>
       </div>
       <div class="map-box" data-box>
-        <svg class="map-svg" data-svg viewBox={v0.join(' ')} preserveAspectRatio="none" aria-hidden="true">
+        <svg class="map-svg" data-svg viewBox={[v0[0] - v0[2] * .25, v0[1] - v0[3] * .25, v0[2] * 1.5, v0[3] * 1.5].join(' ')} preserveAspectRatio="none" aria-hidden="true">
           {[-360, 0, 360].map((dx) => <image href="/img/map/world-dots.svg" x={dx} y="0" width="360" height="136" class="map-world" />) /* repeated so zoomed views wrap past the date line */}
           {[-360, 0, 360].map((dx) => <image data-href="/img/map/mid-dots.svg" x={dx} y="0" width="360" height="136" class="map-mid" />) /* finer dots, loaded on first zoom */}
           <image data-href="/img/map/fine-dots.svg" x="0" y="0" width="360" height="136" class="map-fine" />
           {routeD && <path d={routeD} class="map-route fx-route" fill="none" vector-effect="non-scaling-stroke" />}
         </svg>
-        <div class="map-clusters" data-clusters></div>
+        <div class="map-clusters" data-clusters translate="no"></div>
         <div class="map-ctrl" role="group" aria-label="ซูมเข้าออก">
           <button type="button" class="map-btn" data-zoom-in aria-label="ซูมเข้า">+</button>
           <button type="button" class="map-btn" data-zoom-out aria-label="ซูมออก">−</button>
         </div>
         <p class="map-hint" data-hint aria-hidden="true"></p>
-        <ol class="map-pins" style="list-style:none;margin:0;padding:0">
+        <ol class="map-pins" translate="no" style="list-style:none;margin:0;padding:0">
           {pins.map((p) => (
             <li class="map-pin" data-x={p.x} data-y={p.y} data-count={p.count} style={`left:${((p.x - v0[0]) / v0[2]) * 100}%;top:${((p.y - v0[1]) / v0[3]) * 100}%`}>
               <a href={`/city/${p.slug}/`} aria-label={`${p.en} ${p.count} ร้าน (${p.th})`}>
@@ -78,7 +80,7 @@ const v0 = VIEWS[start];
           ))}
         </ol>
       </div>
-      <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{pins.length} เมืองที่บอสไปชิมแล้ว{route.length > 1 ? ' · เส้นทองคือลำดับเมืองที่บอสไปครั้งแรก' : ''} · กดหมุดเพื่อดูร้าน</p>
+      <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:14px;color:rgba(255,255,255,.92)">{route.length > 1 ? 'เส้นทองคือลำดับเมืองที่บอสไปครั้งแรก · ' : ''}กดหมุดหรือชื่อเมืองเพื่อดูร้าน</p>
     </div>
   </section>
 )}
@@ -90,8 +92,8 @@ const v0 = VIEWS[start];
     const pins = [...root.querySelectorAll('.map-pin')], btns = [...root.querySelectorAll('[data-view]')];
     const layer = root.querySelector('[data-clusters]'), hint = root.querySelector('[data-hint]');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const MIN_W = 8, MAX_W = 380; // degrees across: about one city … the whole world
-    let name = root.dataset.start, cur = null, anim = 0, raf = 0;
+    const MIN_W = 12, MAX_W = 380; // degrees across: about one city … the whole world
+    let name = root.dataset.start, cur = null, base = null, anim = 0, raf = 0, settleT = 0;
     const fit = ([x, y, w, h]) => {
       const A = box.clientWidth / Math.max(1, box.clientHeight);
       if (w / h < A) { const nw = h * A; x -= (nw - w) / 2; w = nw; } else { const nh = w / A; y -= (nh - h) / 2; h = nh; }
@@ -103,22 +105,66 @@ const v0 = VIEWS[start];
       const ccx = Math.min(390, Math.max(-30, cx)), ccy = Math.min(132, Math.max(4, cy));
       return [ccx - w / 2, ccy - h / 2, w, h];
     };
-    const draw = (v) => {
-      cur = v; svg.setAttribute('viewBox', v.join(' '));
-      pins.forEach((p) => { p.style.left = ((p.dataset.x - v[0]) / v[2]) * 100 + '%'; p.style.top = ((p.dataset.y - v[1]) / v[3]) * 100 + '%'; });
-      root.dataset.wide = v[2] > 200 ? '1' : '';
-      // Dot layer by zoom, so dots never swell into blobs: world (1.5°) → mid (0.5°) → fine (0.15°; only East & Southeast Asia
-      // and Europe, boxes [x0, y0, x1, y1] as in scripts/make-map-dots.mjs). Elsewhere, very close up, the dots are hidden.
-      const FINE_BOXES = [[268, 32, 326, 89], [168, 7, 212, 43]];
+    // Smooth zoom: while the map moves (animation, drag, pinch, wheel) only the drawn map is transformed and the pins slide,
+    // all on the graphics card. The real redraw (viewBox, dot level, clusters, labels) runs once, when it settles.
+    // Dot layer by zoom, so dots never swell into blobs: world (1.5°) → mid (0.5°) → fine (0.15°; only East & Southeast Asia
+    // and Europe, boxes [x0, y0, x1, y1] as in scripts/make-map-dots.mjs). Elsewhere, very close up, the dots are hidden.
+    const FINE_BOXES = [[250, 28, 330, 89], [155, 6, 225, 44]];
+    const setLayer = (v) => {
       const inFine = FINE_BOXES.some((b) => v[0] >= b[0] && v[0] + v[2] <= b[2] && v[1] >= b[1] && v[1] + v[3] <= b[3]); // whole view inside: no hard edge
-      const px = box.clientWidth / v[2]; // screen pixels per degree: keep dots about 15 px apart or less
-      const layer = 1.5 * px <= 15 ? 'world' : 0.5 * px <= 15 ? 'mid' : inFine ? 'fine' : 0.5 * px <= 30 ? 'mid' : 'none';
-      if (layer !== root.dataset.layer) {
-        root.dataset.layer = layer;
-        root.querySelectorAll(`.map-${layer}[data-href]`).forEach((im) => { im.setAttribute('href', im.dataset.href); im.removeAttribute('data-href'); });
+      const px = box.clientWidth / v[2]; // screen pixels per degree: keep dots about 10 px apart or less
+      const l = 1.5 * px <= 10 ? 'world' : 0.5 * px <= 10 ? 'mid' : inFine ? 'fine' : 0.5 * px <= 24 ? 'mid' : 'none';
+      if (l === root.dataset.layer) return;
+      root.dataset.layer = l;
+      root.querySelectorAll(`.map-${l}[data-href]`).forEach((im) => { im.setAttribute('href', im.dataset.href); im.removeAttribute('data-href'); });
+    };
+    // The drawn map has a quarter box of spare map on every side (SPARE, as in .map-svg), so a short drag or a small
+    // zoom-out never shows an empty edge before it settles. More spare = more to paint, so keep it small.
+    const SPARE = 0.25;
+    const setBase = (v) => {
+      base = v; svg.style.transform = '';
+      svg.setAttribute('viewBox', [v[0] - v[2] * SPARE, v[1] - v[3] * SPARE, v[2] * (1 + 2 * SPARE), v[3] * (1 + 2 * SPARE)].join(' '));
+      pins.forEach((p) => { p.style.translate = ''; p.style.left = ((p.dataset.x - v[0]) / v[2]) * 100 + '%'; p.style.top = ((p.dataset.y - v[1]) / v[3]) * 100 + '%'; });
+    };
+    // Smooth zoom: while the map moves (animation, drag, pinch, wheel) only the drawn map is transformed and the pins slide,
+    // all on the graphics card. The real redraw (viewBox, dot level, clusters, labels) runs once, when it settles.
+    const draw = (v, final = true) => {
+      cur = v;
+      if (!final && base) {
+        const W = box.clientWidth, H = box.clientHeight, s = base[2] / v[2];
+        root.classList.add('moving');
+        svg.style.transform = `translate(${((base[0] - v[0]) / v[2]) * W + SPARE * W * (1 - s)}px,${((base[1] - v[1]) / v[3]) * H + SPARE * H * (1 - s)}px) scale(${s})`;
+        const shift = (el) => { const x = +el.dataset.x, y = +el.dataset.y; el.style.translate = `${((x - v[0]) / v[2] - (x - base[0]) / base[2]) * W}px ${((y - v[1]) / v[3] - (y - base[1]) / base[3]) * H}px`; };
+        pins.forEach(shift); layer.querySelectorAll('.map-cluster').forEach(shift);
+        placePop();
+        return;
       }
+      root.classList.remove('moving');
+      setBase(v); placePop();
+      root.dataset.wide = v[2] > 200 ? '1' : '';
+      setLayer(v);
       cancelAnimationFrame(raf); raf = requestAnimationFrame(group);
     };
+    // List of cities that share one spot (see the cluster click). Follows the map while it moves; Esc or a tap elsewhere closes it.
+    const pop = document.createElement('div'); pop.className = 'map-pop'; pop.translate = false; pop.hidden = true; box.appendChild(pop);
+    let popAt = null;
+    // Above the spot, or below it when there is no room; never past the left / right edge.
+    const placePop = () => {
+      if (!popAt || !cur || pop.hidden) return;
+      const W = box.clientWidth, H = box.clientHeight, x = ((popAt[0] - cur[0]) / cur[2]) * W, y = ((popAt[1] - cur[1]) / cur[3]) * H;
+      const pw = pop.offsetWidth, ph = pop.offsetHeight, below = y - ph - 26 < 4;
+      pop.style.left = Math.min(W - pw / 2 - 6, Math.max(pw / 2 + 6, x)) + 'px';
+      pop.style.top = (below ? Math.min(y + 26, H - ph - 4) : y - ph - 26) + 'px';
+    };
+    const closePop = () => { pop.hidden = true; popAt = null; };
+    const openPop = (x, y, links) => {
+      popAt = [x, y];
+      pop.innerHTML = '';
+      links.forEach((a) => { const c = a.cloneNode(false); c.className = 'map-pop-link'; c.textContent = a.querySelector('.pin-label').textContent.trim().replace(/\s+(\d+)$/, ' · $1 ร้าน'); pop.appendChild(c); });
+      pop.hidden = false; placePop(); pop.querySelector('a')?.focus({ preventScroll: true });
+    };
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') closePop(); });
+    document.addEventListener('pointerdown', (e) => { if (!pop.hidden && !pop.contains(e.target) && !e.target.closest('.map-cluster')) closePop(); });
     // Merge pins closer than R px into a cluster; then hide labels that would still overlap.
     const group = () => {
       const W = box.clientWidth, H = box.clientHeight, R = W < 500 ? 30 : 34;
@@ -129,6 +175,15 @@ const v0 = VIEWS[start];
         for (let i = left.length - 1; i >= 0; i--) if (g.some((m) => Math.hypot(m.x - left[i].x, m.y - left[i].y) < R)) g.push(...left.splice(i, 1));
         groups.push(g);
       }
+      // Groups whose circles would still overlap merge too (repeat until none do).
+      const mid = (g) => [g.reduce((t, m) => t + m.x, 0) / g.length, g.reduce((t, m) => t + m.y, 0) / g.length];
+      for (let merged = true; merged; ) {
+        merged = false;
+        outer: for (let i = 0; i < groups.length; i++) for (let j = i + 1; j < groups.length; j++) {
+          const [ax, ay] = mid(groups[i]), [bx, by] = mid(groups[j]);
+          if (Math.hypot(ax - bx, ay - by) < R) { groups[i].push(...groups.splice(j, 1)[0]); merged = true; break outer; }
+        }
+      }
       layer.textContent = '';
       groups.forEach((g) => {
         g.forEach((m) => m.p.classList.toggle('clustered', g.length > 1));
@@ -138,6 +193,7 @@ const v0 = VIEWS[start];
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'map-cluster';
         b.style.left = (cx / W) * 100 + '%'; b.style.top = (cy / H) * 100 + '%';
+        b.dataset.x = cur[0] + (cx / W) * cur[2]; b.dataset.y = cur[1] + (cy / H) * cur[3]; // map position, for sliding while moving
         b.setAttribute('aria-label', `${g.length} เมือง ${total} ร้าน: ${names.join(', ')} — กดเพื่อซูมเข้า`);
         b.innerHTML = `<span class="cl-dot">${g.length}</span><span class="pin-label">${names[0]} +${g.length - 1} <b>${total}</b></span>`;
         b.addEventListener('click', () => {
@@ -147,14 +203,23 @@ const v0 = VIEWS[start];
           g.forEach((m, i) => g.slice(i + 1).forEach((o) => { near = Math.min(near, Math.hypot(m.p.dataset.x - o.p.dataset.x, m.p.dataset.y - o.p.dataset.y)); }));
           const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) * (W / H));
           const w = Math.max(MIN_W, span * 1.4, Math.min(span * 2.2, (near * W) / (R * 1.8))), h = w * (H / W);
-          go(clamp(fit([(Math.max(...xs) + Math.min(...xs)) / 2 - w / 2, (Math.max(...ys) + Math.min(...ys)) / 2 - h / 2, w, h])), 'custom');
+          const mx = (Math.max(...xs) + Math.min(...xs)) / 2, my = (Math.max(...ys) + Math.min(...ys)) / 2;
+          // Cities too close to ever get their own pins (e.g. Bangkok and Nonthaburi): zoom in and list them to choose from.
+          if ((near * W) / MIN_W < R) { openPop(mx, my, g.map((m) => m.p.querySelector('a'))); return; }
+          go(clamp(fit([mx - w / 2, my - h / 2, w, h])), 'custom');
         });
         layer.appendChild(b);
       });
-      const kept = [];
+      const bx = box.getBoundingClientRect(), ctl = root.querySelector('.map-ctrl').getBoundingClientRect();
+      const kept = [{ l: ctl.left - 4, r: ctl.right + 4, t: ctl.top - 4, b: ctl.bottom + 4 }]; // never put a name under the + / − buttons
       [...pins.filter((p) => !p.classList.contains('clustered')), ...layer.children].sort((a, b) => (b.dataset.count || 99) - (a.dataset.count || 99)).forEach((p) => {
-        p.classList.remove('label-off');
-        const l = p.querySelector('.pin-label').getBoundingClientRect();
+        p.classList.remove('label-off', 'flip');
+        let l = p.querySelector('.pin-label').getBoundingClientRect();
+        // a label that would run past the right edge goes on the left of its pin
+        if (l.right > bx.right - 6) { p.classList.add('flip'); l = p.querySelector('.pin-label').getBoundingClientRect(); }
+        // a pin outside the visible map shows no label
+        const c = (p.querySelector('a') || p).getBoundingClientRect(), cx = (c.left + c.right) / 2, cy = (c.top + c.bottom) / 2;
+        if (cx < bx.left || cx > bx.right || cy < bx.top || cy > bx.bottom) { p.classList.add('label-off'); return; }
         const r = { l: l.left - 4, r: l.right + 4, t: l.top - 2, b: l.bottom + 2 };
         if (kept.some((k) => r.l < k.r && r.r > k.l && r.t < k.b && r.b > k.t)) p.classList.add('label-off'); else kept.push(r);
       });
@@ -163,17 +228,24 @@ const v0 = VIEWS[start];
     const go = (to, n, animate = true) => {
       press(n); cancelAnimationFrame(anim);
       if (!animate || reduce || !cur) return draw(to);
-      const from = cur, t0 = performance.now(), D = 800, ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-      const step = (now) => { const t = Math.min(1, (now - t0) / D), e = ease(t); draw(from.map((a, i) => a + (to[i] - a) * e)); if (t < 1) anim = requestAnimationFrame(step); };
+      // Draw the map once for the whole trip (both views, plus spare), then just slide and scale it.
+      const from = cur, ux0 = Math.min(from[0], to[0]), uy0 = Math.min(from[1], to[1]);
+      const u = fit([ux0, uy0, Math.max(from[0] + from[2], to[0] + to[2]) - ux0, Math.max(from[1] + from[3], to[1] + to[3]) - uy0]);
+      if (u[2] > base[2] * 1.4) { setBase(u); setLayer(u); }
+      draw(from, false);
+      const t0 = performance.now(), D = 800, ease = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const step = (now) => { const t = Math.min(1, (now - t0) / D), e = ease(t); draw(from.map((a, i) => a + (to[i] - a) * e), t >= 1); if (t < 1) anim = requestAnimationFrame(step); };
       anim = requestAnimationFrame(step);
     };
-    const show = (n, animate) => go(fit(VIEWS[n]), n, animate);
+    const show = (n, animate) => go(fit(n === 'world' && VIEWS.worldNarrow && box.clientWidth / box.clientHeight < 1.6 ? VIEWS.worldNarrow : VIEWS[n]), n, animate);
     // Zoom by factor k around a point of the box (fractions 0–1).
+    const settle = () => { clearTimeout(settleT); settleT = setTimeout(() => draw(cur, true), 160); };
     const zoomAt = (k, fx = .5, fy = .5) => {
       const [x, y, w, h] = cur, nw = w / k, nh = h / k;
-      go(clamp([x + fx * w - fx * nw, y + fy * h - fy * nh, nw, nh]), 'custom', false);
+      press('custom'); cancelAnimationFrame(anim);
+      draw(clamp([x + fx * w - fx * nw, y + fy * h - fy * nh, nw, nh]), false); settle();
     };
-    btns.forEach((b) => b.addEventListener('click', () => show(b.dataset.view, true)));
+    btns.forEach((b) => b.addEventListener('click', () => { closePop(); show(b.dataset.view, true); }));
     root.querySelector('[data-zoom-in]').addEventListener('click', () => { const [x, y, w, h] = cur; go(clamp([x + w / 4, y + h / 4, w / 2, h / 2]), 'custom'); });
     root.querySelector('[data-zoom-out]').addEventListener('click', () => { const [x, y, w, h] = cur; go(clamp([x - w / 2, y - h / 2, w * 2, h * 2]), 'custom'); });
     // Drag and pinch (pointer events). Vertical swipes still scroll the page on phones (touch-action: pan-y).
@@ -189,7 +261,7 @@ const v0 = VIEWS[start];
       const W = box.clientWidth, H = box.clientHeight, rect = box.getBoundingClientRect();
       if (pts.size === 1) {
         const dx = now.x - prev.x, dy = now.y - prev.y; moved += Math.abs(dx) + Math.abs(dy);
-        if (moved > 4) { box.setPointerCapture?.(e.pointerId); press('custom'); draw(clamp([cur[0] - (dx / W) * cur[2], cur[1] - (dy / H) * cur[3], cur[2], cur[3]])); }
+        if (moved > 4) { box.setPointerCapture?.(e.pointerId); press('custom'); draw(clamp([cur[0] - (dx / W) * cur[2], cur[1] - (dy / H) * cur[3], cur[2], cur[3]]), false); settle(); }
       } else if (pts.size === 2) {
         const [a, b] = [...pts.values()], other = a === prev ? b : a;
         const d0 = Math.hypot(prev.x - other.x, prev.y - other.y), d1 = Math.hypot(now.x - other.x, now.y - other.y);
@@ -210,5 +282,7 @@ const v0 = VIEWS[start];
     addEventListener('resize', () => (name === 'custom' ? draw(clamp(fit(cur))) : show(name, false)));
     show(name, false);
     root.classList.add('map-ready');
+    // Pause the pin pulse while the map is off screen.
+    new IntersectionObserver(([e]) => root.classList.toggle('map-off', !e.isIntersecting)).observe(box);
   });
 </script>

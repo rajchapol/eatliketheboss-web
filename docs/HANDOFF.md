@@ -4,6 +4,19 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 · smooth map zoom, browser Google Translate, tabs
+- **Map lag** (the Boss, phone): the pin pulse animated `box-shadow` on 21 pins and the route dash moved forever, so the map repainted every frame even when idle (idle CPU now 0); every zoom frame also re-set the viewBox and re-ran clustering with layout reads (361 → 50 layouts in a test). Now: while moving, only a CSS transform on the drawn map and `translate` on pins/clusters; `draw(v, true)` (viewBox, dot level, clusters, labels) runs once when it settles (`settle()`, 160 ms). The drawn map has 25% spare on each side (`SPARE`, `.map-svg` 150%); animated button zooms first draw the union of both views. Pulse = `::after` ring (transform/opacity), paused off screen (`.map-off`) and while moving. Clusters whose circles still overlap merge.
+- **Browser Google Translate**: `translate="no"` on logo, English menu words, restaurant names (cards, slider, article h1), map pins/clusters/list, slider counter, count-up numbers. `html.translated-ltr .nav-sub{display:none}`. Tested with a simulated translation (longer words) on phone and desktop: tabs keep their size.
+- **Tabs**: map zoom buttons are one sideways-scrolling row on phones (`.map-zooms`).
+- This branch includes PR #39 (map polish).
+
+## Session 2026-11-05 (night) · map polish
+- Boss (phone): count line under the map removed (it kept changing and disagreed with the stats); city names are part of the link now; "make the map neat".
+- 3 cities had no pin (Frankfurt, Reykjavik, Nonthaburi): coordinates moved to `src/data/city-coords.json` (~140 cities) and `post-article.mjs` requires `cityNew.lat/lng` for a city not in it (saved as the city's `location`).
+- Labels: flip to the left of a pin near the right edge; hidden when the pin is outside the view or under the + / − buttons; clickable only while shown.
+- Cities that can never split (Bangkok + Nonthaburi, ~12 km): tapping their circle opens a small list (`.map-pop`) instead of zooming forever. MIN_W 8 → 12.
+- Dots: smaller (≈45% of spacing), layer switches at ~10 px spacing, fine layer now covers 70–150°E / 50°N–11°S and Europe 25°W–45°E / 72–34°N (`FINE_BOXES` in step). Thailand button = Thailand only. On phones "ทั้งโลก" fits all pins (`worldNarrow`). Route lines quieter.
+
 ## Session 2026-11-05 (evening, later) · several featured cities
 - Destinations showed only the first city ticked "Featured on Destinations". Now up to 3 ticked cities (most restaurants first) as cards side by side (`.feat-grid` in `site.css`): photo 3:2, name, counts, "Did you know?" fact, Boss's Picks, button. 1 city = the wide band (photo left); 3 cards → 2+1 on tablets; phones swipe sideways with the next card peeking. (A first version with tabs looked poor to the Boss; replaced.) Only cities with reviews can be featured. Studio field description says max 3 and to Publish each city.
 

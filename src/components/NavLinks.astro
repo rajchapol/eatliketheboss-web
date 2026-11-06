@@ -12,7 +12,7 @@ const SUB = lang === 'en' ? undefined : { ...NAV_LABELS[lang], ...(lang === 'th'
   <a href={href} aria-current={key === active ? 'page' : undefined}>
     <Icon name={icon} size={18} class="nav-ico" />
     <span class="nav-txt">
-      <span class="nav-en"><span class="nav-full">{EN[key]}</span><span class="nav-short">{NAV_SHORT[key]}</span></span>
+      <span class="nav-en" lang="en" translate="no"><span class="nav-full">{EN[key]}</span><span class="nav-short">{NAV_SHORT[key]}</span></span>
       {SUB && SUB[key] !== EN[key] && <span class="nav-sub" lang={lang}>{SUB[key]}</span>}
     </span>
   </a>))}

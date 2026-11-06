@@ -8,6 +8,9 @@
 
 ## 0. ข่าวล่าสุดจากฝ่ายเว็บ (อ่านก่อนโพสต์)
 
+**5 พ.ย. 2026 (ดึก) · ใหม่**
+1. **เมืองใหม่ต้องมีพิกัดแผนที่:** ถ้าเมืองนั้นยังไม่มีใน `src/data/city-coords.json` ให้ใส่ `lat:` และ `lng:` (องศาทศนิยม เช่น Frankfurt `lat: 50.11`, `lng: 8.68`) ใน `cityNew` ไม่งั้น `--dry` จะ error · เคยมี 3 เมือง (Frankfurt, Reykjavik, Nonthaburi) หายจากแผนที่เพราะไม่มีพิกัด แก้แล้ว · ไฟล์พิกัดมีเมืองไฟน์ไดนิ่งหลักๆ ราว 140 เมืองแล้ว
+
 **5 พ.ย. 2026 (เย็น) · ใหม่**
 1. **ประเภทอาหาร = 2 ช่อง ภาษาอังกฤษเท่านั้น** (บอสสั่ง) รายการทั้งหมดอยู่ใน `src/data/cuisines.json`
    - `restaurant.cuisine` = หมวดใหญ่ (ใช้กรองหน้า Restaurants): `Japanese | Chinese | Thai | French | Italian | Spanish | Nordic | Modern | Other`

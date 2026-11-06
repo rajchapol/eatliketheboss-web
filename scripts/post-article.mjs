@@ -89,6 +89,15 @@ if (fm.cityNew && fm.city) {
     const q = encodeURIComponent(`count(*[_type=="city" && slug.current==${JSON.stringify(String(fm.city))}])`);
     exists = (await (await fetch(`https://${pid}.apicdn.sanity.io/v2025-01-01/data/query/${ds}?query=${q}`)).json()).result > 0;
   } catch { console.warn('⚠︎ เช็กไม่ได้ว่าเมืองนี้มีใน Sanity หรือยัง (ออฟไลน์?) · ข้ามการเช็ก cityNew.fact'); }
+  // Map pin: a city not in src/data/city-coords.json needs cityNew.lat / cityNew.lng, or it never shows on the Destinations map.
+  const COORDS = JSON.parse(readFileSync(new URL('../src/data/city-coords.json', import.meta.url), 'utf8'));
+  const nameKey = String(fm.cityNew.nameEn || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const parts = String(fm.city).split('-');
+  const known = [fm.city, nameKey, ...parts.map((_, i) => parts.slice(i + 1).join('-')).filter(Boolean)].some((k) => COORDS[k]);
+  const lat = Number(fm.cityNew.lat), lng = Number(fm.cityNew.lng);
+  const hasPos = fm.cityNew.lat != null && fm.cityNew.lng != null && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
+  if (exists === false && !known && !hasPos)
+    throw new Error(`เมืองใหม่ "${fm.city}" ยังไม่มีพิกัดแผนที่ — ใส่ cityNew.lat และ cityNew.lng (ตัวเลข องศาทศนิยม เช่น lat: 50.11, lng: 8.68) ไม่งั้นหมุดไม่ขึ้นในหน้าจุดหมาย`);
   const fact = String(fm.cityNew.fact || '').trim();
   if (exists === false && (!fact || fact.length < 40 || fact.length > 320 || /[\u0E00-\u0E7F]/.test(fact)))
     throw new Error(`เมืองใหม่ "${fm.city}" ต้องมี cityNew.fact: เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง ภาษาอังกฤษ 1–2 ประโยค (40–320 ตัวอักษร) ตรวจจากแหล่งจริงแล้ว · ตัวอย่าง: fact: "In Copenhagen a Danish pastry is called wienerbrød, \"Vienna bread\": Austrian bakers brought the recipe during an 1850 bakers' strike."`);
@@ -100,7 +109,7 @@ const cityRef = fm.city ? (dry ? { _ref: `(city ${fm.city})` } : await client.fe
   const n = fm.cityNew;
   if (!n || !n.nameEn || !n.nameTh) throw new Error(`ไม่พบเมือง "${fm.city}" ใน Sanity — สร้างเมืองก่อนใน Studio หรือใส่ cityNew: { nameEn, nameTh, country, region, fact } ในไฟล์`);
   const id = `city-${fm.city}`;
-  return client.createIfNotExists({ _id: id, _type: 'city', nameEn: n.nameEn, nameTh: n.nameTh, slug: { _type: 'slug', current: fm.city }, country: n.country, region: n.region || 'asia', motif: n.motif || 'loop', ...(n.fact ? { intro: String(n.fact).trim() } : {}) })
+  return client.createIfNotExists({ _id: id, _type: 'city', nameEn: n.nameEn, nameTh: n.nameTh, slug: { _type: 'slug', current: fm.city }, country: n.country, region: n.region || 'asia', motif: n.motif || 'loop', ...(n.fact ? { intro: String(n.fact).trim() } : {}), ...(n.lat != null && n.lng != null ? { location: { _type: 'geopoint', lat: Number(n.lat), lng: Number(n.lng) } } : {}) })
     .then(() => { console.log(`+ สร้างเมืองใหม่ ${id}`); return { _type: 'reference', _ref: id }; });
 })) : undefined;
 
