@@ -4,6 +4,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-06 · brand marks on photos (brand chat)
+- The Boss asked for magazine-style branding on site photos that works for every restaurant without making new images, kept **small so it never pulls attention from the food**, in the two places he screenshotted.
+- **Home slider** (`.slide-photo`): gold ELB Roundel (`public/img/brand/elb-stamp.svg`, vector traced from his Roundel logo) on a 38% deep-teal disc, bottom-left, 34–46 px.
+- **The Index thumbnails** (`.idx-thumb`): his gold signature (the script wordmark without "Gastronomy Bloggers", `public/img/brand/elb-signature.svg`), 46 px wide, bottom-left over a soft ink corner shade. Hidden on placeholders (`:has(.ph)`) and in print.
+- Bottom-left because posted photos already carry his faint watermark bottom-right. CSS block "Brand marks on photos" at the end of `site.css`. Overlays sit on `::after` of the frame, so slider zoom and copy protection are unchanged.
+
 ## Session 2026-11-06 · smooth map zoom, browser Google Translate, tabs
 - **Map lag** (the Boss, phone): the pin pulse animated `box-shadow` on 21 pins and the route dash moved forever, so the map repainted every frame even when idle (idle CPU now 0); every zoom frame also re-set the viewBox and re-ran clustering with layout reads (361 → 50 layouts in a test). Now: while moving, only a CSS transform on the drawn map and `translate` on pins/clusters; `draw(v, true)` (viewBox, dot level, clusters, labels) runs once when it settles (`settle()`, 160 ms). The drawn map has 25% spare on each side (`SPARE`, `.map-svg` 150%); animated button zooms first draw the union of both views. Pulse = `::after` ring (transform/opacity), paused off screen (`.map-off`) and while moving. Clusters whose circles still overlap merge.
 - **Browser Google Translate**: `translate="no"` on logo, English menu words, restaurant names (cards, slider, article h1), map pins/clusters/list, slider counter, count-up numbers. `html.translated-ltr .nav-sub{display:none}`. Tested with a simulated translation (longer words) on phone and desktop: tabs keep their size.
