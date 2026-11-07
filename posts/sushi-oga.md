@@ -96,6 +96,7 @@ image: ./images/sushi-oga/17.jpg | เทมากิเนงิโทโร่
 
 ### Tamagoyaki & Futomaki
 image: ./images/sushi-oga/20.jpg | ทามาโกะยากิชิ้นเหลี่ยมกับฟุโตมากิชิ้นหนาข้างขิงดองบนจานสีขาว ร้าน Sushi Oga เมืองซาไก
+ทามาโกะยากิ และฟุโตมากิใส่ปลาไหล แตงกวา และคัมเปียว
 
 ### Dashi soup
 image: ./images/sushi-oga/18.jpg | ซุปดาชิสาหร่ายในถ้วยไม้เคลือบแดงดำ ร้าน Sushi Oga เมืองซาไก
