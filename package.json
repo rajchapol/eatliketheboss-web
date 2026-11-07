@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "post": "node scripts/post-article.mjs"
+    "post": "node scripts/post-article.mjs",
+    "crop-preview": "node scripts/crop-preview.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
