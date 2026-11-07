@@ -47,8 +47,29 @@ export const MOTIFS: Record<string, { cls: string; label: string }> = {
   oslo: { cls: 'm-oslo', label: 'ดาว Selbu' },
   istanbul: { cls: 'm-istanbul', label: 'ดาวแปดแฉกออตโตมัน' },
   seoul: { cls: 'm-seoul', label: 'หน้าต่าง 亞 เกาหลี' },
+  // 9 more cities (brand chat, 7 Nov 2026)
+  amsterdam: { cls: 'm-amsterdam', label: 'หน้าจั่วบ้านริมคลอง' },
+  barcelona: { cls: 'm-barcelona', label: 'กระเบื้องทางเท้า Panot ลายดอกไม้' },
+  frankfurt: { cls: 'm-frankfurt', label: 'โครงไม้ Fachwerk แบบตึก Römer' },
+  iwaki: { cls: 'm-iwaki', label: 'ไอน้ำ Tatewaku เมืองออนเซ็น' },
+  madrid: { cls: 'm-madrid', label: 'ระเบียงเหล็กดัด' },
+  nonthaburi: { cls: 'm-nonthaburi', label: 'โอ่งดินเผามอญเกาะเกร็ด' },
+  reykjavik: { cls: 'm-reykjavik', label: 'เสาหินบะซอลต์ Hallgrímskirkja' },
+  sakai: { cls: 'm-sakai', label: 'สุสานโบราณรูปรูกุญแจ Kofun' },
+  taichung: { cls: 'm-taichung', label: 'โค้งโรงละคร Taichung Theater' },
   loop: { cls: 'm-loop', label: 'Gold Loop' },
 };
+
+/** The motif to show for a city: the one picked in Studio, or — when Studio still says Gold Loop
+ *  (or nothing) — the city's own motif matched by English name, so a new or duplicate city doc
+ *  gets its pattern without a Studio edit. Falls back to Gold Loop. */
+export function motifOf(city: { motif?: string | null; nameEn?: string | null; slug?: string | null }) {
+  if (city.motif && city.motif !== 'loop' && MOTIFS[city.motif]) return MOTIFS[city.motif];
+  const key = String(city.nameEn || city.slug || '').toLowerCase().replace(/[^a-z]/g, '');
+  const byName: Record<string, string> = { tokyo: 'seigaiha', kyoto: 'shippo', osaka: 'kikko', bangkok: 'prajam', hongkong: 'fret' };
+  const k = byName[key] ?? key;
+  return MOTIFS[k] && k !== 'loop' ? MOTIFS[k] : MOTIFS.loop;
+}
 
 /** Map pins (lat, lng) for common cities. A city can also set its own point in Studio → เมือง → ตำแหน่งบนแผนที่. */
 import COORDS from '../data/city-coords.json';

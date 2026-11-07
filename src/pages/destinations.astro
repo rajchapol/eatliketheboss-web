@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import CityCover from '../components/CityCover.astro';
 import DestinationsMap from '../components/DestinationsMap.astro';
-import { MOTIFS, REGIONS, regionOf } from '../lib/config';
+import { motifOf, REGIONS, regionOf } from '../lib/config';
 import { getCities, getArticles, articleUrl, getSettings, groupByRestaurant, cityPicks, citiesByCount, visitIso } from '../lib/content';
 import { romanAt as roman } from '../lib/roman';
 const st = await getSettings();
@@ -21,7 +21,7 @@ const glasses = (slug: string) => inCity(slug).reduce((n, a) => n + a.dishes.fil
 // city with the most restaurants. Several = tabs that switch the band.
 const ticked = cities.filter((c) => c.featured).sort((x, y) => count(y.slug) - count(x.slug)).slice(0, 3);
 const featuredList = (ticked.length ? ticked : [withReviews[0]?.city ?? cities[0]]).filter(Boolean).map((city) => ({
-  city, fm: MOTIFS[city.motif] ?? MOTIFS.loop, picks: cityPicks(city, inCity(city.slug)),
+  city, fm: motifOf(city), picks: cityPicks(city, inCity(city.slug)),
 }));
 const regions = REGIONS.map((r, i) => {
   const list = cities.filter((c) => regionOf(c) === r.id);
@@ -85,7 +85,7 @@ const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisi
           <div style="padding-top:32px">
             {g.id !== 'th' && <h3 style="margin:0 0 20px;display:flex;align-items:center;gap:12px;font-size:21px;font-weight:600"><Icon name="pin" size={18} style="color:#c39e5c" />{country.name}<span style="font-family:'Ekkamai New',sans-serif;font-size:13px;font-weight:400;color:#3d4955">{country.cities.length} เมือง</span></h3>}
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:28px">
-              {country.cities.map((c) => { const m = MOTIFS[c.motif] ?? MOTIFS.loop; return (
+              {country.cities.map((c) => { const m = motifOf(c); return (
                 <a href={`/city/${c.slug}/`} class="fx-lift-light card" style="display:flex;flex-direction:column;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.45),0 14px 32px rgba(195,158,92,.2)">
                   <span style="position:relative;display:block;aspect-ratio:3/2">
                     <span class="fx-zoom" style="position:absolute;inset:0;display:block"><CityCover city={c} label={`ภาพ ${c.nameEn}`} ratio={0.6667} widths={[400, 600]} sizes="300px" /></span>

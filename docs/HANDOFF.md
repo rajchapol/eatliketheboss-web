@@ -4,6 +4,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-07 · city motifs for every city (brand chat)
+- The Boss asked for a motif for every city on the site. Live data had 9 cities on Gold Loop: Amsterdam (canal-house gables), Barcelona (Panot flower pavement), Frankfurt (Fachwerk half-timbering), Iwaki (tatewaku onsen steam), Madrid (wrought-iron balcony), Nonthaburi (Ko Kret Mon pottery jar), Reykjavik (basalt columns), Sakai (keyhole kofun), Taichung (Taichung Theater curved caves). Same style as the others: gold #c39e5c line, opacity .6, 1px, seamless tile (`site.css` after `.m-seoul`).
+- New `motifOf(city)` in `config.ts`: the Studio choice wins; when Studio still says Gold Loop (or nothing) the city gets its own motif by English name. So these cities (and the second "Copenhagen" city document, still on loop) show their pattern without Studio edits. Used in `CityCover.astro`, `city/[slug].astro`, `destinations.astro`.
+- Studio motif list has the 9 new options. Brand files: Drive `2026 Brand Kit/city-motifs` + design system.
+- Data note for the Boss: there are two "Copenhagen" city documents in Sanity; one should be merged/deleted in Studio.
 ## Session 2026-11-07 · Restaurant finder with many cities
 - 26 cities made the city chips three rows deep. Now: "ทุกเมือง" + the 6 cities with most restaurants as chips (with counts), and a list of every city grouped by country (`#city-all`, optgroups in region order); both stay in sync (`setCity`). Phones: chips one sideways row, the list full width, cuisine / award / price / glasses folded under "ตัวกรองเพิ่มเติม" with a badge counting filters in use. CSS block "Restaurant finder" at the end of `site.css` (class `.finder-cities`; `.city-row` is taken by the Destinations list).
 

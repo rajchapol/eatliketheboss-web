@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.astro';
 import Photo from '../../components/Photo.astro';
 import CityCover from '../../components/CityCover.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { MOTIFS } from '../../lib/config';
+import { motifOf } from '../../lib/config';
 import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 const { c } = Astro.props as { c: City };
 const list = (await getArticles('th')).filter((a) => a.city?.slug === c.slug && a.series === 'review');
 const restaurants = groupByRestaurant(list);
-const motif = MOTIFS[c.motif] ?? MOTIFS.loop;
+const motif = motifOf(c);
 const glassesCount = list.reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);
 const picks = cityPicks(c, list);
 const cuisineOf = (a: (typeof list)[number]) => a.restaurant?.cuisine ?? 'Other';
