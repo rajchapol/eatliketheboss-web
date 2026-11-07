@@ -14,7 +14,7 @@ restaurant:
   awards: []
 cover: "./images/sushi-jin/cover.jpg | โคฮาดะนิกิริบนแท่นแก้วเจียระไน ร้าน Sushi Jin เมืองคานาซาว่า"
 billBand: "฿฿฿฿"
-bill: "฿฿฿฿"
+bill: ""
 tag: ""
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, SushiJin, Kanazawa, Ishikawa, Hokuriku, Japan]
