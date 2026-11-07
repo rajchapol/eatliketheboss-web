@@ -12,7 +12,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Sushi"
   awards: []
-cover: "./images/sushi-jin/cover.jpg | โคฮาดะนิกิริบนแท่นแก้วเจียระไน ร้าน Sushi Jin เมืองคานาซาว่า"
+cover: "./images/sushi-jin/cover.jpg | หอยนางรมท้องถิ่นใต้เจลลี่ดาชิกับพริกหยวกสับในถ้วยแก้ว ร้าน Sushi Jin เมืองคานาซาว่า"
 billBand: "฿฿฿฿"
 bill: ""
 tag: ""
