@@ -3,13 +3,21 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { getArticles, getCities, getSettings, groupByRestaurant } from '../lib/content';
-import { AWARDS, CUISINES } from '../lib/config';
+import { AWARDS, CUISINES, REGIONS, regionOf } from '../lib/config';
 const st = await getSettings();
 
 const list = (await getArticles('th')).filter((a) => a.series === 'review');
 // One card per restaurant; repeat visits are listed inside the card.
 const groups = groupByRestaurant(list);
 const cityList = (await getCities()).filter((c) => list.some((a) => a.city?.slug === c.slug));
+// Cities: the busiest few as quick chips; every city in a list grouped by country (the list keeps working at 50+ cities).
+const TOP = 6;
+const nIn = (slug: string) => groups.filter((g) => g.latest.city?.slug === slug).length;
+const byCount = [...cityList].sort((a, b) => nIn(b.slug) - nIn(a.slug) || a.nameEn.localeCompare(b.nameEn));
+const topCities = byCount.slice(0, TOP);
+const regionRank = (c: any) => REGIONS.findIndex((r) => r.id === regionOf(c));
+const countries = [...new Set([...cityList].sort((a, b) => regionRank(a) - regionRank(b)).map((c) => c.country || 'อื่นๆ'))]
+  .map((country) => [country, cityList.filter((c) => (c.country || 'อื่นๆ') === country).sort((a, b) => a.nameEn.localeCompare(b.nameEn))] as const);
 const cuisines = ([...new Set(groups.map((g) => g.latest.restaurant?.cuisine).filter(Boolean))] as string[]) // match each card's (latest visit) cuisine
   .sort((x, y) => (CUISINES as readonly string[]).indexOf(x) - (CUISINES as readonly string[]).indexOf(y)); // in the CUISINES order, Other last
 // Award filter: awards that some card (latest visit) holds, grouped by guide in the awards.json order
@@ -42,12 +50,24 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
         </label>
         <div style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">
           <span>เมือง</span>
-          <div class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px" data-group="city">
-            <button type="button" class="chip" data-v="" aria-pressed="true" style={chip}>ทุกเมือง</button>
-            {cityList.map((c) => <button type="button" class="chip" data-v={c.slug} aria-pressed="false" style={chip}><Icon name="pin" size={16} />{c.nameEn}</button>)}
+          <div class="finder-cities">
+            <div class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px" data-group="city">
+              <button type="button" class="chip" data-v="" aria-pressed="true" style={chip}>ทุกเมือง</button>
+              {topCities.map((c) => <button type="button" class="chip" data-v={c.slug} aria-pressed="false" style={chip} translate="no"><Icon name="pin" size={16} />{c.nameEn}<span class="chip-n">{nIn(c.slug)}</span></button>)}
+            </div>
+            {cityList.length > TOP && (
+              <label class="city-more">
+                <span class="sr-only">เลือกเมือง</span>
+                <select id="city-all" class="field" aria-label={`เลือกเมือง (ทั้งหมด ${cityList.length} เมือง)`}>
+                  <option value="">เมืองอื่นๆ · ทั้งหมด {cityList.length} เมือง</option>
+                  {countries.map(([country, cs]) => <optgroup label={country}>{cs.map((c) => <option value={c.slug} translate="no">{c.nameEn} ({nIn(c.slug)})</option>)}</optgroup>)}
+                </select>
+              </label>
+            )}
           </div>
         </div>
-        <div class="sm-stack" style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end">
+        <button type="button" id="more-toggle" class="more-toggle" aria-expanded="false" aria-controls="more-filters"><Icon name="filter" size={18} />ตัวกรองเพิ่มเติม<span id="more-n" class="chip-n" hidden></span><span class="chev" aria-hidden="true">▾</span></button>
+        <div id="more-filters" class="sm-stack more-filters" style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end">
           <label class="sm-full" style="display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">ประเภทอาหาร
             <select id="cuisine" class="field" style="height:44px;min-width:200px;padding:0 18px;border:1px solid rgba(11,83,87,.4);background:#fff;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#1a2632">
               <option value="">ทั้งหมด</option>{cuisines.map((c) => <option value={c}>{c}</option>)}
@@ -92,6 +112,12 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
       const q = document.getElementById('q'), sel = document.getElementById('cuisine'), aw = document.getElementById('award'), g = document.getElementById('glasses');
       const cards = [...document.querySelectorAll('#results .card')];
       const press = (group, v) => document.querySelectorAll(`[data-group="${group}"] .chip`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+      // the city list and the quick chips show the same choice
+      const cityAll = document.getElementById('city-all');
+      const setCity = (v) => { st.city = v; press('city', v); if (cityAll) cityAll.value = v; };
+      // phones: "ตัวกรองเพิ่มเติม" opens the cuisine / award / price / glasses filters; the badge counts the ones in use
+      const more = document.getElementById('more-filters'), moreBtn = document.getElementById('more-toggle'), moreN = document.getElementById('more-n');
+      moreBtn.addEventListener('click', () => { const open = moreBtn.getAttribute('aria-expanded') !== 'true'; moreBtn.setAttribute('aria-expanded', String(open)); more.classList.toggle('open', open); });
       const run = () => {
         const term = st.q.trim(); let n = 0;
         cards.forEach((c) => {
@@ -99,16 +125,21 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
           c.hidden = !ok; if (ok) n++;
         });
         document.getElementById('count').textContent = n; document.getElementById('empty').hidden = n > 0;
+        const used = [st.cuisine, st.award, st.price, st.glasses].filter(Boolean).length;
+        moreN.hidden = !used; moreN.textContent = used;
       };
-      q.value = st.q; press('city', st.city);
+      q.value = st.q; setCity(st.city);
       q.addEventListener('input', () => { st.q = q.value; run(); });
       sel.addEventListener('change', () => { st.cuisine = sel.value; run(); });
       aw?.addEventListener('change', () => { st.award = aw.value; run(); });
+      cityAll?.addEventListener('change', () => { setCity(cityAll.value); run(); });
       g.addEventListener('click', () => { st.glasses = !st.glasses; g.setAttribute('aria-pressed', String(st.glasses)); run(); });
       document.querySelectorAll('[data-group]').forEach((grp) => grp.addEventListener('click', (e) => {
-        const b = e.target.closest('.chip'); if (!b) return; st[grp.dataset.group] = b.dataset.v; press(grp.dataset.group, b.dataset.v); run();
+        const b = e.target.closest('.chip'); if (!b) return;
+        if (grp.dataset.group === 'city') setCity(b.dataset.v); else { st[grp.dataset.group] = b.dataset.v; press(grp.dataset.group, b.dataset.v); }
+        run();
       }));
-      document.getElementById('reset').addEventListener('click', () => { Object.assign(st, { q: '', city: '', price: '', cuisine: '', award: '', glasses: false }); q.value = ''; sel.value = ''; if (aw) aw.value = ''; g.setAttribute('aria-pressed', 'false'); press('city', ''); press('price', ''); run(); });
+      document.getElementById('reset').addEventListener('click', () => { Object.assign(st, { q: '', city: '', price: '', cuisine: '', award: '', glasses: false }); q.value = ''; sel.value = ''; if (aw) aw.value = ''; g.setAttribute('aria-pressed', 'false'); setCity(''); press('price', ''); run(); });
       run();
     })();
   </script>
