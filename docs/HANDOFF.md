@@ -4,6 +4,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-07 · duplicate Copenhagen
+- Cause (my rule from 5 Nov): new cities must use the bare English slug, and the check only looked at the slug. `denmark-copenhagen` (photo, motif, no articles) already existed; the Kadeau post made `city-copenhagen` (now 4 articles). Fix: `post-article.mjs` looks up an existing city with the same English name (public dataset, also in `--dry`) and stops with its slug; Studio warns on a second city with the same English name; the build logs `[cities] "X" twice`. `denmark-copenhagen` left the legacy list.
+- Merge tool: `scripts/merge-cities.mjs` + Actions → Merge duplicate cities (from / into ids, dry first): moves articles, fills photo / motif / position / aliases on the kept city, deletes the other. Redirect `/city/denmark-copenhagen/` → `/city/copenhagen/` added.
+- To run after merge: from `9b6a0a67-c897-447d-9d40-1ea265ec69f8` into `city-copenhagen`.
+
 ## Session 2026-11-07 · city motifs for every city (brand chat)
 - The Boss asked for a motif for every city on the site. Live data had 9 cities on Gold Loop: Amsterdam (canal-house gables), Barcelona (Panot flower pavement), Frankfurt (Fachwerk half-timbering), Iwaki (tatewaku onsen steam), Madrid (wrought-iron balcony), Nonthaburi (Ko Kret Mon pottery jar), Reykjavik (basalt columns), Sakai (keyhole kofun), Taichung (Taichung Theater curved caves). Same style as the others: gold #c39e5c line, opacity .6, 1px, seamless tile (`site.css` after `.m-seoul`).
 - New `motifOf(city)` in `config.ts`: the Studio choice wins; when Studio still says Gold Loop (or nothing) the city gets its own motif by English name. So these cities (and the second "Copenhagen" city document, still on loop) show their pattern without Studio edits. Used in `CityCover.astro`, `city/[slug].astro`, `destinations.astro`.

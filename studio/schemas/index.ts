@@ -162,7 +162,14 @@ export const city = defineType({
   title: 'City · เมือง',
   type: 'document',
   fields: [
-    defineField({ name: 'nameEn', title: 'English name · ชื่ออังกฤษ', type: 'string', validation: (r) => [r.required(), r.custom((v?: string) => (v && v !== v.trim() ? 'มีช่องว่างหน้าหรือท้ายชื่อ ลบออกด้วยครับ' : true)).warning()] }),
+    defineField({ name: 'nameEn', title: 'English name · ชื่ออังกฤษ', type: 'string', validation: (r) => [r.required(), r.custom((v?: string) => (v && v !== v.trim() ? 'มีช่องว่างหน้าหรือท้ายชื่อ ลบออกด้วยครับ' : true)).warning(),
+      // one document per city: another city with the same English name is an error (merge them: Actions → Merge duplicate cities)
+      r.custom(async (v: string | undefined, ctx: any) => {
+        if (!v?.trim()) return true;
+        const id = String(ctx.document?._id || '').replace(/^drafts\./, '');
+        const other: string | null = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('*[_type == "city" && lower(nameEn) == $n && !(_id in [$id, "drafts." + $id])][0].slug.current', { n: v.trim().toLowerCase(), id });
+        return other ? `มีเมืองชื่อนี้อยู่แล้ว (slug: ${other}) · ใช้เมืองเดิม หรือรวมกันด้วย Actions → Merge duplicate cities` : true;
+      })] }),
     defineField({ name: 'nameTh', title: 'Thai name · ชื่อไทย', type: 'string', validation: (r) => [r.required(), r.custom((v?: string) => (v && v !== v.trim() ? 'มีช่องว่างหน้าหรือท้ายชื่อ ลบออกด้วยครับ' : true)).warning()] }),
     defineField({ name: 'slug', title: 'Slug', type: 'slug', options: { source: 'nameEn' }, validation: (r) => r.required() }),
     defineField({ name: 'country', title: 'Country (in Thai) · ประเทศ', type: 'string' }),

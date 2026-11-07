@@ -79,7 +79,7 @@ if (badAwards.length) throw new Error(`รางวัลไม่อยู่�
 if (st && !CUISINE_STYLES[String(cu).trim()].includes(String(st).trim())) throw new Error(`style "${st}" ไม่อยู่ในหมวด ${cu} — เลือกจาก: ${CUISINE_STYLES[String(cu).trim()].join(', ')} · ถ้าไม่มีที่ตรงจริงๆ เว้นว่างไว้ หรือเพิ่มใน src/data/cuisines.json แล้วเปิด PR`);
 // New city: the slug is the city's English name only, e.g. oslo, san-sebastian (no country in front).
 // Four cities were made with a country prefix before this rule; their URLs are live, so they stay.
-const LEGACY_CITY = ['norway-oslo', 'finland-helsinki', 'denmark-copenhagen', 'turkey-istanbul'];
+const LEGACY_CITY = ['norway-oslo', 'finland-helsinki', 'turkey-istanbul'];
 if (fm.cityNew?.nameEn && !LEGACY_CITY.includes(fm.city)) {
   const want = String(fm.cityNew.nameEn).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   if (fm.city !== want) throw new Error(`city ของเมืองใหม่ต้องเป็นชื่อเมืองภาษาอังกฤษอย่างเดียว: city: ${want} (ตอนนี้ "${fm.city}" · ไม่ใส่ชื่อประเทศข้างหน้า)`);
@@ -88,12 +88,19 @@ if (fm.cityNew?.nameEn && !LEGACY_CITY.includes(fm.city)) {
 // cityNew.fact = one short, odd, TRUE fact about the city, in English, 1–2 sentences, checked against a real source.
 // Only asked when the city does not exist in Sanity yet (checked on the public dataset, also in --dry).
 if (fm.cityNew && fm.city) {
-  let exists = null;
+  let exists = null, dupCity = null;
   try {
     const pid = get('SANITY_PROJECT_ID') || 'ohviqc5c', ds = get('SANITY_DATASET') || 'production';
     const q = encodeURIComponent(`count(*[_type=="city" && slug.current==${JSON.stringify(String(fm.city))}])`);
     exists = (await (await fetch(`https://${pid}.apicdn.sanity.io/v2025-01-01/data/query/${ds}?query=${q}`)).json()).result > 0;
+    // Same city under another slug (e.g. "denmark-copenhagen" while this file says "copenhagen"): use that one, never make a second.
+    if (!exists && fm.cityNew.nameEn) {
+      const q2 = encodeURIComponent(`*[_type=="city" && lower(nameEn)==${JSON.stringify(String(fm.cityNew.nameEn).trim().toLowerCase())}][0].slug.current`);
+      const other = (await (await fetch(`https://${pid}.apicdn.sanity.io/v2025-01-01/data/query/${ds}?query=${q2}`)).json()).result;
+      if (other) dupCity = other;
+    }
   } catch { console.warn('⚠︎ เช็กไม่ได้ว่าเมืองนี้มีใน Sanity หรือยัง (ออฟไลน์?) · ข้ามการเช็ก cityNew.fact'); }
+  if (dupCity) throw new Error(`มีเมือง "${fm.cityNew.nameEn}" อยู่แล้วใน Sanity (city: ${dupCity}) — ใช้ city: ${dupCity} และลบ cityNew ออก ไม่งั้นจะได้เมืองซ้ำ 2 รายการ`);
   // Map pin: a city not in src/data/city-coords.json needs cityNew.lat / cityNew.lng, or it never shows on the Destinations map.
   const COORDS = JSON.parse(readFileSync(new URL('../src/data/city-coords.json', import.meta.url), 'utf8'));
   const nameKey = String(fm.cityNew.nameEn || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

@@ -44,7 +44,12 @@ export function getCities(): Promise<City[]> {
   if (!client) return Promise.resolve(seed.cities);
   return (citiesCache ??= client
     .fetch(`*[_type=="city" && !(_id in path("drafts.**"))]${CITY} | order(nameEn asc)`)
-    .then((rows: any[]) => rows.map((c) => ({ ...c, nameEn: (c.nameEn || '').trim(), nameTh: (c.nameTh || '').trim(), cover: img(c.cover, `ภาพเมือง ${c.nameEn}`) }))));
+    .then((rows: any[]) => {
+      const out = rows.map((c) => ({ ...c, nameEn: (c.nameEn || '').trim(), nameTh: (c.nameTh || '').trim(), cover: img(c.cover, `ภาพเมือง ${c.nameEn}`) }));
+      const seen = new Map<string, string>();
+      out.forEach((c) => { const k = c.nameEn.toLowerCase(); if (seen.has(k)) console.warn(`[cities] "${c.nameEn}" twice: ${seen.get(k)} and ${c.slug} — merge them (Actions → Merge duplicate cities)`); else seen.set(k, c.slug); });
+      return out;
+    }));
 }
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
