@@ -8,6 +8,9 @@
 
 ## 0. ข่าวล่าสุดจากฝ่ายเว็บ (อ่านก่อนโพสต์)
 
+**7 พ.ย. 2026 · ใหม่**
+1. **ก่อนใส่ `cityNew` เช็กก่อนว่าเมืองมีอยู่แล้วหรือยัง** (Studio → City หรือ `/city/<slug>/`) · เคยเกิด Copenhagen ซ้ำ 2 รายการ (`denmark-copenhagen` กับ `copenhagen`) · ตอนนี้ถ้ามีเมืองชื่ออังกฤษเดียวกันอยู่แล้ว `--dry` จะ error และบอก slug ที่ต้องใช้แทน
+
 **6 พ.ย. 2026 · ใหม่**
 1. **รางวัลของร้าน (`restaurant.awards`) ต้องเป็นชื่อในรายการ `src/data/awards.json` เท่านั้น** (จัดตามสถาบัน: MICHELIN, Black Pearl, The World's 50 Best, Asia's 50 Best, La Liste, Gault&Millau, Tabelog, Tatler, Nordic White Guide, OAD ฯลฯ) เขียนบรรทัดละรางวัลแบบ `"<ชื่อรางวัล>[ ปี][ (หมายเหตุ)]"` เช่น `"MICHELIN 2★"`, `"MICHELIN Young Chef Award 2025 (Chef Au)"`, `"Tatler Best 20 2026 (Taiwan)"` · ห้ามเขียนไทยหรือย่อเอง เช่น "Black Pearl 3 เพชร" → `"Black Pearl 3 Diamond"`, "Asia's 50 Best" → `"Asia's 50 Best Restaurants"` · ชื่อที่ไม่อยู่ในรายการ `--dry` จะ error · รางวัลจริงที่ยังไม่มี: เพิ่มในไฟล์รายการแล้วเปิด PR · ไฟล์เก่าแก้ให้แล้ว
 2. **Studio มีเมนูใหม่:** Recently posted / Recently changed (7 วัน), Restaurants (ร้านที่ไปซ้ำ, ร้านทั้งหมด A–Z) · งานที่ต้องทำเพิ่ม: ยังไม่มีประเภทย่อย (style), รางวัลที่ไม่อยู่ในรายการ, เมืองที่ยังไม่มีรูป · ช่วยเติม style ให้ร้านที่ยังว่างเวลาแก้บทความนั้น

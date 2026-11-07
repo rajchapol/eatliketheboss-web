@@ -1,0 +1,47 @@
+# Data fix: merges a duplicate city into the one to keep (scripts/merge-cities.mjs): moves its articles, fills missing
+# photo / motif / map position on the kept city, then deletes the duplicate.
+# Manual only: Actions → Merge duplicate cities → Run workflow with the two city ids. Leave "Dry run" ticked first.
+# Uses the existing secret SANITY_WRITE_TOKEN.
+name: Merge duplicate cities
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: 'City id to merge and delete (e.g. 9b6a0a67-…)'
+        required: true
+        type: string
+      into:
+        description: 'City id to keep (e.g. city-copenhagen)'
+        required: true
+        type: string
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: post-article # never at the same time as a post being published
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+      FROM: ${{ inputs.from }}
+      INTO: ${{ inputs.into }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/merge-cities.mjs --from "$FROM" --into "$INTO" --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/merge-cities.mjs --from "$FROM" --into "$INTO"
