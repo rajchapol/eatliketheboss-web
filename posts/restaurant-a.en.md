@@ -13,8 +13,6 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
 cover: "./images/restaurant-a/cover.jpg | Grilled octopus, shellfish, yellow tomato, saffron butter and green shoots in a white petal-shaped porcelain bowl, Restaurant A, Taipei"
-tag: ""
-bill: ""
 billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, RestaurantA, Taipei, AlainHuang, MichelinGuideTaiwan, FrenchCuisine, Taiwan, FineDining, 台北]

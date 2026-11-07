@@ -13,8 +13,6 @@ restaurant:
   awards: ["MICHELIN 2★"]
 cover: "./images/cinc-sentits/cover.jpg | Teardrop Peas ถั่วลันเตาในซอสถั่วกับปลิงทะเลจิ๋ว ร้าน Cinc Sentits บาร์เซโลนา"
 billBand: "฿฿฿฿"
-bill: ""
-tag: ""
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, CincSentits, Barcelona]
 publishedAt: 2026-11-05

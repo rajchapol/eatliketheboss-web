@@ -10,14 +10,12 @@ restaurant:
   chef: "Evens Lopez & Sittikorn Chantop"
   cuisine: "French"
   style: "Contemporary"
-  awards: []
 cover: "./images/blue-x-akkee/cover.jpg | ล็อบสเตอร์ย่างข้างแกงเผ็ดฟักทองบนจานลายแดงน้ำเงิน ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
 gallery:
-  - "./images/blue-x-akkee/g1.jpg | เมนูอีเวนต์สีน้ำเงินเข้มโลโก้ Blue และ AKKEE วางบนโต๊ะผ้าขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
-  - "./images/blue-x-akkee/g2.jpg | ของหวานเกล็ดสีชมพูโรยบนครีมขาวในถ้วยกลมสีขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)"
-billBand: "฿฿฿"
-bill: ""
+  - ./images/blue-x-akkee/g1.jpg | เมนูอีเวนต์สีน้ำเงินเข้มโลโก้ Blue และ AKKEE วางบนโต๊ะผ้าขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)
+  - ./images/blue-x-akkee/g2.jpg | ของหวานเกล็ดสีชมพูโรยบนครีมขาวในถ้วยกลมสีขาว ร้าน Blue by Alain Ducasse กรุงเทพฯ (อีเวนต์ร่วมกับ AKKEE)
 tag: "Event"
+billBand: "฿฿฿"
 visit: Sep-2026
 hashtags: [บอสพาชิม, eatliketheboss, BluebyAlainDucasse, AKKEE, Bangkok]
 publishedAt: 2026-11-05

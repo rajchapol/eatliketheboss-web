@@ -5,7 +5,11 @@ title: "บอสพาชิม in Madrid: Gofio - Soul of Canary Island"
 slug: gofio
 tagline: "Soul of Canary Island"
 city: madrid
-cityNew: {"nameEn": "Madrid", "nameTh": "มาดริด", "country": "สเปน", "region": "europe"}
+cityNew:
+  nameEn: "Madrid"
+  nameTh: "มาดริด"
+  country: "สเปน"
+  region: europe
 restaurant:
   name: "Gofio"
   chef: "Safe Cruz & Aída González"
@@ -14,8 +18,6 @@ restaurant:
   awards: ["MICHELIN 1★"]
 cover: "./images/gofio/cover.jpg | แซนด์วิชทูน่า Bocadillo de Vendimia ร้าน Gofio มาดริด"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, Gofio, Madrid]
 publishedAt: 2026-11-05

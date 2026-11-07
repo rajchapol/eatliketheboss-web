@@ -3,18 +3,15 @@ language: th
 series: review
 title: "บอสพาชิม in Sapporo EP:1 Molière ร้านอาหารฝรั่งเศสมิชลินสามดาวที่ถูกที่สุดในโลก (Sapporo, Japan)"
 slug: moliere-2019
-tagline: ""
 city: sapporo
 restaurant:
   name: "Molière"
-  chef: ""
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 3★"]
 cover: "./images/moliere-2019/cover.jpg | ซอร์เบต์ส้มแมนดารินในถ้วยลายครามบนจานสีฟ้า ร้าน Molière เมืองซัปโปโร"
-billBand: "฿฿฿"
 bill: "~16000 Yen"
-tag: ""
+billBand: "฿฿฿"
 visit: Dec-2019
 hashtags: [บอสพาชิม, eatliketheboss, Moliere, Sapporo, Japan]
 publishedAt: 2026-11-05
@@ -110,4 +107,3 @@ image: ./images/moliere-2019/11.jpg | มงต์บล็องเกาลั
 ### Petit Four
 image: ./images/moliere-2019/12.jpg | ขนมอบฟูโรยน้ำตาลไอซิ่งวางบนกระป๋องไม้ทรงกลม ร้าน Molière เมืองซัปโปโร
 Petit four ของเรา เป็นขนมอบสไตลฝรั่งเศสรสเหมือนโดนัท อันนี้ทำมาได้ดี เจลบี่เลม่อนเปรี้ยวจิ๊ด และสตอเบอรรี่สด โดยรวมออกจะธรรมดาไปบ้าง แต่ขนมอบมาได้ดีทีเดียวติดนิดนึงที่ชิ้นใหญ่ไปมากสำหรับผม
-

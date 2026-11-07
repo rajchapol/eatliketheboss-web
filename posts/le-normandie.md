@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Le Normandie by Alain Roux ตำนานที่ยังมีลมหายใจ"
 slug: le-normandie
-tagline: ""
 city: bangkok
 restaurant:
   name: "Le Normandie"
   chef: "Alain Roux"
   cuisine: "French"
   style: "Classic"
-  awards: []
 cover: "./images/le-normandie/cover.jpg | ปลาหมอทะเลหางเสิร์ฟในซอสไวน์ขาวและดิลล์บนจานก้นลึก ร้าน Le Normandie กรุงเทพ"
-billBand: "฿฿฿"
 bill: "~2,900 THB ++"
-tag: ""
+billBand: "฿฿฿"
 visit: Jun-2023
 hashtags: [บอสพาชิม, eatliketheboss, LeNormandie, Bangkok]
 publishedAt: 2026-11-05

@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม: Tavie ร้าน Michelinสามดาวที่มีพนักงานน้อยที่สุดในโลก (Hongkong)"
 slug: ta-vie
-tagline: ""
 city: hong-kong
 restaurant:
   name: "Ta Vie"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "French"
   awards: ["MICHELIN 3★"]
 cover: "./images/ta-vie/cover.jpg | กุ้งล็อบสเตอร์บริทานีย์ย่างกับซอสครีมในจานขาวขอบลอน ร้าน Ta Vie ฮ่องกง"
-billBand: "฿฿฿฿"
 bill: "~2980 HKD+ ต่อคน"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jan-2024
 hashtags: [บอสพาชิม, eatliketheboss, TaVie, HongKong]
 publishedAt: 2026-11-05

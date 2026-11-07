@@ -3,18 +3,14 @@ language: th
 series: review
 title: "Neolokal Refine modern Turkish"
 slug: neolokal
-tagline: ""
 city: turkey-istanbul
 restaurant:
   name: "Neolokal"
-  chef: ""
   cuisine: "Other"
   style: "Turkish"
-  awards: []
 cover: "./images/neolokal/cover.jpg | ปลากระพงนึ่งในชามทองแดงลายตอก ร้าน Neolokal อิสตันบูล"
-billBand: "฿฿฿"
 bill: "~3,900 TL + 3,500TL"
-tag: ""
+billBand: "฿฿฿"
 visit: Aug-2023
 hashtags: [บอสพาชิม, eatliketheboss, Neolokal, Istanbul]
 publishedAt: 2026-11-05

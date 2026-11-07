@@ -10,13 +10,12 @@ restaurant:
   chef: "เชฟแรนดี้ 'ฟร้อนท์' ชัยชัช นพประภา"
   cuisine: "Japanese"
   style: "Kappo"
-  awards: []
 cover: "./images/fillets/cover.jpg | เป๋าฮื้อซอสตับและกระเทียมดำ โรยเส้นแครอททอดสีส้มบนจานขาว ร้าน FILLETS กรุงเทพฯ"
 gallery:
-  - "./images/fillets/g1.jpg | ไข่หวานญี่ปุ่นทรงสี่เหลี่ยมสีทองบนแท่นหินสีเทา ร้าน FILLETS กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: "AD"
+  - ./images/fillets/g1.jpg | ไข่หวานญี่ปุ่นทรงสี่เหลี่ยมสีทองบนแท่นหินสีเทา ร้าน FILLETS กรุงเทพฯ
 tag: "AD"
+bill: "AD"
+billBand: "฿฿฿฿"
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, FILLETS, Bangkok, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-05

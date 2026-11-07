@@ -10,11 +10,9 @@ restaurant:
   chef: "Luca"
   cuisine: "Other"
   style: "Peranakan"
-  awards: []
 cover: "./images/baba-lee/cover.jpg | อาคาร Baba Mansion ประดับไฟสีเหลืองยามค่ำคืน ที่ตั้งของร้าน Baba Lee ย่านเมืองเก่าภูเก็ต"
-billBand: "฿฿฿"
-bill: ""
 tag: "Event"
+billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, BabaLee, Phuket, TatlerBestOfAndaman]
 publishedAt: 2026-11-07

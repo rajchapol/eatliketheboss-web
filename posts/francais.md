@@ -3,19 +3,20 @@ language: th
 series: review
 title: "Francais"
 slug: francais
-tagline: ""
 city: frankfurt
-cityNew: {"nameEn": "Frankfurt", "nameTh": "แฟรงก์เฟิร์ต", "country": "เยอรมนี", "region": "europe", "fact": "In 1926 Frankfurt gave the world a template for the modern fitted kitchen: architect Margarete Schütte-Lihotzky designed the compact 'Frankfurt kitchen' for the city's New Frankfurt social housing project."}
+cityNew:
+  nameEn: "Frankfurt"
+  nameTh: "แฟรงก์เฟิร์ต"
+  country: "เยอรมนี"
+  region: europe
+  fact: "In 1926 Frankfurt gave the world a template for the modern fitted kitchen: architect Margarete Schütte-Lihotzky designed the compact 'Frankfurt kitchen' for the city's New Frankfurt social housing project."
 restaurant:
   name: "Francais"
-  chef: ""
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 1★"]
 cover: "./images/francais/cover.jpg | รูบาร์บหลายแบบกับซอร์เบต์สีชมพูบนจานเขียวเทา ร้าน Francais แฟรงก์เฟิร์ต"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Apr-2019
 hashtags: [บอสพาชิม, eatliketheboss, Francais, Frankfurt]
 publishedAt: 2026-11-05

@@ -3,17 +3,13 @@ language: th
 series: review
 title: "Suhring"
 slug: suhring
-tagline: ""
 city: bangkok
 restaurant:
   name: "Suhring"
-  chef: ""
   cuisine: "Other"
-  awards: []
 cover: "./images/suhring/cover.jpg | ปลาเทอร์บอตกับไข่ปลาคาเวียร์และซอสไวน์บนจานสีขาว ร้าน Suhring กรุงเทพ"
-billBand: "฿฿฿"
 bill: "~5500/person THB"
-tag: ""
+billBand: "฿฿฿"
 visit: Jan-2021
 hashtags: [บอสพาชิม, eatliketheboss, Suhring, Bangkok]
 publishedAt: 2026-11-05

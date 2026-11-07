@@ -3,17 +3,14 @@ language: th
 series: review
 title: "บอสพาชิม : Rangoon Tea House ICONSIAM ตำนานจากพม่าสู่สุนทรียภาพริมเจ้าพระยา (Bangkok, Thailand)"
 slug: rangoon-tea-house-iconsiam
-tagline: ""
 city: bangkok
 restaurant:
   name: "Rangoon Tea House ICONSIAM"
-  chef: ""
   cuisine: "Other"
-  awards: []
 cover: "./images/rangoon-tea-house-iconsiam/cover.jpg | โต๊ะอาหารยาวในห้องที่ตกแต่งด้วยต้นไม้และผนังไม้ ร้าน Rangoon Tea House ICONSIAM กรุงเทพ"
-billBand: "฿฿"
-bill: "~ 1,000 - 1,500 THB / pax"
 tag: "AD"
+bill: "~ 1,000 - 1,500 THB / pax"
+billBand: "฿฿"
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, RangoonTeaHouse, RTH, ICONSIAM, ModernBurmese, BurmeseFood, Bangkok]
 publishedAt: 2026-11-07

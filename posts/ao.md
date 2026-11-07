@@ -10,11 +10,9 @@ restaurant:
   chef: "Koji Minemura"
   cuisine: "Japanese"
   style: "Innovative"
-  awards: []
 cover: "./images/ao/cover.jpg | เฟเดลินีเย็นโปะอูนิสีส้มบนจานเซรามิกสีฟ้าอ่อนทรงอิสระ ร้าน Ao โตเกียว"
-billBand: "฿฿฿฿"
 bill: "50,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jun-2026
 hashtags: [บอสพาชิม, eatliketheboss, Ao, Tokyo, Nishiazabu, TabelogAward, FineDining, Gastronomy, Innovative]
 publishedAt: 2026-11-05

@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Ox ร้านอาหารที่อินดี้ที่สุดในไอซ์แลนด์"
 slug: ox-reykjavik
-tagline: ""
 city: reykjavik
 restaurant:
   name: "Ox"
@@ -13,8 +12,6 @@ restaurant:
   awards: ["MICHELIN Plate 2019", "Nordic White Guide Global Master Level"]
 cover: "./images/ox-reykjavik/cover.jpg | ขนมชั้นสีเขียวซ้อนบนจานเทาล้อมด้วยซอสเขียว ร้าน Ox เรคยาวิก"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Aug-2019
 hashtags: [บอสพาชิม, eatliketheboss, Ox, Reykjavik]
 publishedAt: 2026-11-05

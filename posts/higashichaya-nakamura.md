@@ -12,9 +12,8 @@ restaurant:
   style: "Kaiseki"
   awards: ["MICHELIN 1★"]
 cover: "./images/higashichaya-nakamura/cover.jpg | ซุปปลาหินในชามดำ โรยต้นหอมซอยและส้มเขียวฝาน ร้าน Higashichaya Nakamura เมืองโอซาก้า"
-billBand: "฿฿฿"
 bill: "฿฿฿"
-tag: ""
+billBand: "฿฿฿"
 visit: Aug-2026
 hashtags: [บอสพาชิม, eatliketheboss, HigashichayaNakamura, Osaka, Kanazawa, michelinguide, michelinstar, JapaneseCuisine, FineDining, ฮาโมะ]
 publishedAt: 2026-11-07

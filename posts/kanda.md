@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Nihonryori Kanda  (Tokyo) มิชลินสตาร์สามดาวแห่งความเรียบง่ายและพอดี"
 slug: kanda
-tagline: ""
 city: tokyo
 restaurant:
   name: "Nihonryori Kanda"
-  chef: ""
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 3★"]
 cover: "./images/kanda/cover.jpg | เนื้อมิยาซากิวากิวทอดวางคู่ผักอ่อนและสาหร่ายบนจานเซรามิกลายเขียว ร้าน Nihonryori Kanda เมืองโตเกียว"
-billBand: "฿฿฿"
 bill: "~30,000 Yen up"
-tag: ""
+billBand: "฿฿฿"
 visit: Mar-2018
 hashtags: [บอสพาชิม, eatliketheboss, Kanda, NihonryoriKanda, Tokyo, Japan]
 publishedAt: 2026-11-05

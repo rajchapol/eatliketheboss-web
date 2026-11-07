@@ -3,18 +3,22 @@ language: th
 series: review
 title: "บอสพาชิม : Kuromori ยอดกระบี่อาหารจีนแห่งโทโฮคุ (Miyagi,Japan)"
 slug: kuromori
-tagline: ""
 city: sendai
-cityNew: {"nameEn": "Sendai", "nameTh": "เซนได", "country": "ญี่ปุ่น", "region": "asia", "lat": 38.27, "lng": 140.87, "fact": "Sendai is nicknamed the City of Trees: in the early 1600s its founder Date Masamune had retainers plant bamboo, fruit trees and cedar forests, and zelkova trees now line Jozenji-dori avenue."}
+cityNew:
+  nameEn: "Sendai"
+  nameTh: "เซนได"
+  country: "ญี่ปุ่น"
+  region: asia
+  lat: 38.27
+  lng: 140.87
+  fact: "Sendai is nicknamed the City of Trees: in the early 1600s its founder Date Masamune had retainers plant bamboo, fruit trees and cedar forests, and zelkova trees now line Jozenji-dori avenue."
 restaurant:
   name: "Kuromori"
   chef: "Yoji Kuromori"
   cuisine: "Chinese"
-  awards: []
 cover: "./images/kuromori/cover.jpg | เป็ดย่างถ่านหั่นสองชิ้นอกและขาบนจานลายครามทรงเหลี่ยม ร้าน Kuromori เมืองเซนได"
-billBand: "฿฿฿"
 bill: "~26,000 yen /pax"
-tag: ""
+billBand: "฿฿฿"
 visit: Apr-2025
 hashtags: [บอสพาชิม, eatliketheboss, Kuromori, Sendai, Miyagi, Tohoku, Japan]
 publishedAt: 2026-11-07

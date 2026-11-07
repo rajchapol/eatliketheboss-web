@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Kiyama (Kyoto,Japan)"
 slug: kiyama-2023
-tagline: ""
 city: kyoto
 restaurant:
   name: "Kiyama"
@@ -12,9 +11,8 @@ restaurant:
   style: "Kaiseki"
   awards: ["MICHELIN 1★"]
 cover: "./images/kiyama-2023/cover.jpg | ชุดโต๊ะไคเซกิ ซองตะเกียบพิมพ์ชื่อร้าน 木山 บนถาดเคลือบแดง ร้าน Kiyama เกียวโต"
-billBand: "฿฿฿"
 bill: "~15,000 yen"
-tag: ""
+billBand: "฿฿฿"
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, Kiyama, Kyoto, Japan]
 publishedAt: 2026-11-05
@@ -42,3 +40,7 @@ seoDescription: "บอสพาชิมไปกิน Kiyama ร้านไ�
 เราปิดท้ายมื้อด้วยส้มดีๆอย่าง Kawachi bankan และมัทฉะเป็นการจบมื้อเที่ยงที่ยอดเยี่ยมที่ Kiyama
 
 การทำอาหารที่ยอดเยี่ยมนั้นควรค่าแก่การชื่นชม มื้ออาหารที่เงียบสงบและเรียบง่ายจาก Yoshiro Kiyama ที่แม้จะเงียบครีมแต่ก็มีรอยยิ้มออกมาอยู่เรื่อยๆ นั้นออกมาดีมากๆ ยิ่งเมื่อคำนวนเรื่องราคาทำให้ Kiyama คงเป็นร้านที่ผมกลับมาอย่างแน่นอน และอยากแนะนำให้ทุกคนมาลองกัน
+
+## ศิลปะแห่งรสชาติในมื้อนี้
+
+

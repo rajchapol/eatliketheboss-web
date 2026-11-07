@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม:มื้อค่ำแห่งทศศิลป์: 10 Hands collaboration ที่ \"นุสรา\""
 slug: nusara-2025
-tagline: ""
 city: bangkok
 restaurant:
   name: "Nusara"
@@ -12,9 +11,8 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN 1★", "Asia's 50 Best Restaurants"]
 cover: "./images/nusara-2025/cover.jpg | ยอดเจดีย์วัดสีทองยามพลบค่ำเห็นจากดาดฟ้าร้าน Nusara กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: ""
 tag: "Event"
+billBand: "฿฿฿฿"
 visit: Jul-2025
 hashtags: [บอสพาชิม, eatliketheboss, Nusara, Bangkok, 10Hands, ThaiFineDining]
 publishedAt: 2026-11-07

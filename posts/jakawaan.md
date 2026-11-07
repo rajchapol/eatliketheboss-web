@@ -10,11 +10,10 @@ restaurant:
   chef: "Chef Nik"
   cuisine: "Thai"
   style: "Contemporary"
-  awards: []
 cover: "./images/jakawaan/cover.jpg | ไข่พะโล้ครึ่งซีกไข่แดงเยิ้มในชามสีชมพู ร้าน JAKAWAAN กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "AD"
 tag: "AD"
+bill: "AD"
+billBand: "฿฿฿"
 visit: Jun-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, JAKAWAAN, Bangkok, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-05

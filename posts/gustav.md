@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Gustav การนำเสนออาหรารเยอรมันพื้นถิ่นในอีกรูปแบบ"
 slug: gustav
-tagline: ""
 city: frankfurt
 restaurant:
   name: "Gustav"
@@ -12,8 +11,6 @@ restaurant:
   awards: ["MICHELIN 1★"]
 cover: "./images/gustav/cover.jpg | แพนเค้กกะหล่ำปลีโรยต้นอ่อนและผงทรัฟเฟิลบนจานขาว ร้าน Gustav แฟรงก์เฟิร์ต"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Apr-2019
 hashtags: [บอสพาชิม, eatliketheboss, Gustav, Frankfurt]
 publishedAt: 2026-11-05

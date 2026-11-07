@@ -13,9 +13,9 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN Selected"]
 cover: "./images/tharn/cover.jpg | เป็ดรมควันฟางหนังกรอบวางบนซอสน้ำปลาหวานสีน้ำตาลเข้ม ร้านธาร (Tharn) กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "2,990 THB++"
 tag: "AD"
+bill: "2,990 THB++"
+billBand: "฿฿฿"
 visit: Aug-2026
 hashtags: [บอสพาชิม, eatliketheboss, Tharn, Bangkok, FineDining, ThaiFineDining, michelinguide, อาหารไทยโบราณ, WinePairing, ต้มมะดัน]
 publishedAt: 2026-11-05

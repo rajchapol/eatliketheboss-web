@@ -5,7 +5,11 @@ title: "บอสพาชิม in Barcelona: Lasarte - นิยามแห�
 slug: lasarte
 tagline: "นิยามแห่งความสมบูรณ์แบบ"
 city: barcelona
-cityNew: {"nameEn": "Barcelona", "nameTh": "บาร์เซโลนา", "country": "สเปน", "region": "europe"}
+cityNew:
+  nameEn: "Barcelona"
+  nameTh: "บาร์เซโลนา"
+  country: "สเปน"
+  region: europe
 restaurant:
   name: "Lasarte"
   chef: "Martín Berasategui · Paolo Casagrande"
@@ -14,8 +18,6 @@ restaurant:
   awards: ["MICHELIN 3★"]
 cover: "./images/lasarte/cover.jpg | มิลเฟยปลาไหลรมควัน ฟัวกราส์ และแอปเปิ้ลเขียว ร้าน Lasarte บาร์เซโลนา"
 billBand: "฿฿฿฿"
-bill: ""
-tag: ""
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, Lasarte, Barcelona]
 publishedAt: 2026-11-05

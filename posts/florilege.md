@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Florilège (Tokyo, Japan)"
 slug: florilege
-tagline: ""
 city: tokyo
 restaurant:
   name: "Florilège"
@@ -12,9 +11,8 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
 cover: "./images/florilege/cover.jpg | หมูย่างเสิร์ฟบนจานขาวกับซอสไวน์แดงเข้มและของเคียงชิ้นเล็ก ร้าน Florilège เมืองโตเกียว"
-billBand: "฿฿"
 bill: "~9000 Yen"
-tag: ""
+billBand: "฿฿"
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, Florilege, Tokyo, Japan]
 publishedAt: 2026-11-05

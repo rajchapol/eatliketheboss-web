@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Tagetsu  ร้านมิชลินสตาร์เล็กๆใจกลางเมืองใหญ่(Omotesando,Tokyo)"
 slug: tagetsu
-tagline: ""
 city: tokyo
 restaurant:
   name: "Tagetsu"
@@ -12,9 +11,8 @@ restaurant:
   style: "Kaiseki"
   awards: ["MICHELIN 1★"]
 cover: "./images/tagetsu/cover.jpg | จานรวมหลายชนิดบนถาดสีแดงของร้าน Tagetsu ร้านไคเซกิที่โตเกียว มีมะนาวเขียวและใบไม้ประดับ"
-billBand: "฿฿฿"
 bill: "~20,000Yen / Persons not included beverages"
-tag: ""
+billBand: "฿฿฿"
 visit: Mar-2018
 hashtags: [บอสพาชิม, eatliketheboss, Tagetsu, Tokyo, Japan]
 publishedAt: 2026-11-05

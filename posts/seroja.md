@@ -11,9 +11,8 @@ restaurant:
   cuisine: "Other"
   awards: ["MICHELIN Green Star"]
 cover: "./images/seroja/cover.jpg | ปลาจาระเม็ดเงินย่างกับอะบาโลนในซอสทาไปบนจานขาว ร้าน Seroja สิงคโปร์"
-billBand: "฿฿฿"
 bill: "~Sgd$300+ ต่อท่าน"
-tag: ""
+billBand: "฿฿฿"
 visit: Feb-2026
 hashtags: [บอสพาชิม, eatliketheboss, Seroja, Singapore, NusantaraCuisine]
 publishedAt: 2026-11-05

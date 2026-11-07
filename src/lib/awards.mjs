@@ -19,8 +19,10 @@ export function makeAwards(list) {
     if (raw && typeof raw === 'object') return raw.award ? { award: raw.award, ...(raw.year ? { year: +raw.year } : {}), ...(raw.note ? { note: String(raw.note) } : {}) } : null;
     let s = String(raw ?? '').trim();
     if (!s) return null;
-    for (const [k, v] of Object.entries(OLD)) if (s.toLowerCase().startsWith(k)) { s = v + s.slice(k.length); break; }
-    const award = byLen.find((a) => s.toLowerCase().startsWith(a.toLowerCase()));
+    const fits = (t) => byLen.find((a) => t.toLowerCase().startsWith(a.toLowerCase()));
+    // Old spellings only when no name in the list fits ("Asia's 50 Best Restaurants" must not become "… Restaurants Restaurants")
+    if (!fits(s)) for (const [k, v] of Object.entries(OLD).sort((x, y) => y[0].length - x[0].length)) if (s.toLowerCase().startsWith(k)) { s = v + s.slice(k.length); break; }
+    const award = fits(s);
     if (!award) return null;
     let rest = s.slice(award.length).trim(), year, notes = [];
     rest = rest.replace(/\(([^)]*)\)/g, (_, inner) => { inner.split(/[,·]/).map((x) => x.trim()).filter(Boolean).forEach((x) => (/^(19|20)\d\d$/.test(x) ? (year = +x) : notes.push(x))); return ' '; });

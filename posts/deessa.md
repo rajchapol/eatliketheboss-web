@@ -13,8 +13,6 @@ restaurant:
   awards: ["MICHELIN 2★"]
 cover: "./images/deessa/cover.jpg | ซุปบีทรูทเย็นกับไอศกรีมคีเฟอร์และแซลมอนในชามเปลือกหอยสีมุก ร้าน Deessa มาดริด"
 billBand: "฿฿฿฿"
-bill: ""
-tag: ""
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, Deessa, Madrid, QuiqueDacosta, MandarinOrientalRitz, MichelinGuide, FineDining, Spain]
 publishedAt: 2026-11-05

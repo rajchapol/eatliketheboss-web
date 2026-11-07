@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Sushi Shikon ( หรือ Sushi Yoshitake) ซูชิสามดาวที่ถูกลืม (Hongkong,China)"
 slug: sushi-shikon
-tagline: ""
 city: hong-kong
 restaurant:
   name: "Sushi Shikon"
@@ -11,9 +10,8 @@ restaurant:
   cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
 cover: "./images/sushi-shikon/cover.jpg | ปลาคาสึโอะรนไฟกับอูนิที่ Sushi Shikon ฮ่องกง"
-billBand: "฿฿฿฿"
 bill: "~3500 HKD ต่อคน"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jun-2018
 hashtags: [บอสพาชิม, eatliketheboss, SushiShikon, HongKong]
 publishedAt: 2026-11-05

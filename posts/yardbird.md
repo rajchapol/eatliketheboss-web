@@ -3,17 +3,14 @@ language: th
 series: review
 title: "บอสพาชิม in Hongkong : Yardbird"
 slug: yardbird
-tagline: ""
 city: hong-kong
 restaurant:
   name: "Yardbird"
-  chef: ""
   cuisine: "Japanese"
   awards: ["MICHELIN 1★"]
 cover: "./images/yardbird/cover.jpg | ยูบะเกี๊ยวทอดในกระทะเหล็กเสิร์ฟร้อนๆ ร้าน Yardbird ฮ่องกง"
-billBand: "฿฿"
 bill: "~600 HKD ต่อคน รวมเครื่องดื่มบางส่วน"
-tag: ""
+billBand: "฿฿"
 visit: Jan-2024
 hashtags: [บอสพาชิม, eatliketheboss, Yardbird, HongKong]
 publishedAt: 2026-11-05

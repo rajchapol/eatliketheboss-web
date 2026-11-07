@@ -12,9 +12,8 @@ restaurant:
   style: "Classic"
   awards: ["Tabelog Award Silver"]
 cover: "./images/ginza-oishi/cover.jpg | หน่อไม้ฝรั่งเขียวห่อเป็นทรงชาร์ล็อตต์ราดซอสส้มวางกลางจานขาว โรยเกล็ดไข่และผักสมุนไพร ร้าน Ginza Oishi เมืองโตเกียว"
-billBand: "฿฿฿"
 bill: "31,900 Yen"
-tag: ""
+billBand: "฿฿฿"
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, GinzaOishi, Tokyo, Ginza, CounterFrench, FrenchCuisine, MatsusakaBeef, Tabelog, FineDining]
 publishedAt: 2026-11-05

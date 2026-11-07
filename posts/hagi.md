@@ -3,23 +3,25 @@ language: th
 series: review
 title: "บอสพาชิม in Tohoku : HAGI จิตวิญญาณแห่ง Fukushima และรสชาติแห่งผืนดิน (Iwaki, Japan)"
 slug: hagi
-tagline: ""
 city: iwaki
-cityNew: {"nameEn": "Iwaki", "nameTh": "อิวากิ", "country": "ญี่ปุ่น", "region": "asia", "fact": "Iwaki began as a coal town: in 1966, as oil replaced coal, a mining company opened a Hawaiian-themed hot-spring resort here, with a hula troupe trained from its employees' daughters. The 2006 film Hula Girls tells that story."}
+cityNew:
+  nameEn: "Iwaki"
+  nameTh: "อิวากิ"
+  country: "ญี่ปุ่น"
+  region: asia
+  fact: "Iwaki began as a coal town: in 1966, as oil replaced coal, a mining company opened a Hawaiian-themed hot-spring resort here, with a hula troupe trained from its employees' daughters. The 2006 film Hula Girls tells that story."
 restaurant:
   name: "HAGI"
   chef: "Harutomo Hagi"
   cuisine: "French"
   style: "Contemporary"
-  awards: []
 cover: "./images/hagi/cover.jpg | มันเทศเผาผ่าครึ่งเผยเนื้อสีเหลืองบนจานโลหะสนิม ร้าน HAGI เมืองอิวากิ ญี่ปุ่น"
 gallery:
-  - "./images/hagi/g1.jpg | ครัวเปิดมีเตาฟืนไฟลุกและเคาน์เตอร์ไม้ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น"
-  - "./images/hagi/g2.jpg | เมนูมื้อค่ำของร้านเปิดวางบนโต๊ะไม้ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น"
-  - "./images/hagi/g3.jpg | ปลาไหลทะเลย่างซอสเงาสองชิ้นบนจานลายซี่สีเทาดำ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น"
-billBand: "฿฿฿฿"
+  - ./images/hagi/g1.jpg | ครัวเปิดมีเตาฟืนไฟลุกและเคาน์เตอร์ไม้ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น
+  - ./images/hagi/g2.jpg | เมนูมื้อค่ำของร้านเปิดวางบนโต๊ะไม้ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น
+  - ./images/hagi/g3.jpg | ปลาไหลทะเลย่างซอสเงาสองชิ้นบนจานลายซี่สีเทาดำ ร้าน HAGI เมืองอิวากิ ญี่ปุ่น
 bill: "~40,000 Yen /pax incl. pairing"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2025
 hashtags: [บอสพาชิม, eatliketheboss, HAGI, Iwaki, Fukushima, Japan]
 publishedAt: 2026-11-05

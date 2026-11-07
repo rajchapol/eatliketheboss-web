@@ -7,17 +7,13 @@ tagline: "การกำเนิดใหม่ของคาเฟ่บร�
 city: bangkok
 restaurant:
   name: "Folk Lane by Toby's"
-  chef: ""
   cuisine: "Modern"
   style: "Fusion"
-  awards: []
 cover: "./images/folk-lane/cover.jpg | มัทฉะเฟรนช์โทสต์กรอบราดซอสเขียวและไอศกรีมโรยผงชาเขียว ร้าน Folk Lane by Toby's กรุงเทพฯ"
 gallery:
-  - "./images/folk-lane/g1.jpg | เมนูอาหารปกสีฟ้าโลโก้ Folk Lane วางบนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ"
-  - "./images/folk-lane/g2.jpg | กาแฟดำและลาเต้ลายใบไม้ในถ้วยสีแดง บนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ"
+  - ./images/folk-lane/g1.jpg | เมนูอาหารปกสีฟ้าโลโก้ Folk Lane วางบนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ
+  - ./images/folk-lane/g2.jpg | กาแฟดำและลาเต้ลายใบไม้ในถ้วยสีแดง บนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ
 billBand: "฿฿"
-bill: ""
-tag: ""
 visit: Sep-2026
 hashtags: [บอสพาชิม, eatliketheboss, FolkLane, TobysSukhumvit38, Bangkok]
 publishedAt: 2026-11-05

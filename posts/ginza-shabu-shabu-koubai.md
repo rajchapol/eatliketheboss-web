@@ -10,11 +10,9 @@ restaurant:
   chef: "Masaji Iwahashi"
   cuisine: "Japanese"
   style: "Wagyu"
-  awards: []
 cover: "./images/ginza-shabu-shabu-koubai/cover.jpg | โต๊ะชาบูเนื้อ Akaushi จัดวางพร้อมหม้อทองแดง ซอส และผัก ร้าน Ginza Shabu-Shabu Koubai กรุงเทพฯ"
-billBand: "฿฿"
 bill: "~1,000 Baht /pax"
-tag: ""
+billBand: "฿฿"
 visit: Oct-2025
 hashtags: [บอสพาชิม, eatliketheboss, GinzaShabuShabuKoubai, Bangkok, Akaushi]
 publishedAt: 2026-11-07

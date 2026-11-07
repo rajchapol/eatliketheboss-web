@@ -3,18 +3,15 @@ language: th
 series: review
 title: "บอสพาชิม:Sushi Niwa (Bangkok,Thailand)"
 slug: sushi-niwa
-tagline: ""
 city: bangkok
 restaurant:
   name: "Sushi Niwa"
-  chef: ""
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-niwa/cover.jpg | ปูหิมะแกะเนื้อเสิร์ฟพร้อมมะนาวและกิ่งใบสีเขียวในจานสีขาว ร้าน Sushi Niwa กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "~4999++ THB"
 tag: "AD"
+bill: "~4999++ THB"
+billBand: "฿฿฿"
 visit: Oct-2024
 hashtags: [บอสพาชิม, eatliketheboss, SushiNiwa, Bangkok]
 publishedAt: 2026-11-07

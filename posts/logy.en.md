@@ -13,8 +13,6 @@ restaurant:
   style: "Innovative"
   awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants"]
 cover: "./images/logy/cover.jpg | Fresh green peas, green cream, a purple borage flower and white and pale green granita on a cream plate, logy, Taipei"
-tag: ""
-bill: ""
 billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, logy, Taipei, Asias50Best, MichelinGuideTaiwan, Florilege, Taiwan, FineDining, 台北]

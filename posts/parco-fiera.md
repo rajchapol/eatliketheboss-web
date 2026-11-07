@@ -3,17 +3,14 @@ language: th
 series: review
 title: "บอสพาชิม in Hokkaido : Parco Fiera แฮม อุมามิ และอาหารอิตาลี (Inaho,Sapporo)"
 slug: parco-fiera
-tagline: ""
 city: sapporo
 restaurant:
   name: "Parco Fiera"
   chef: "Daisuke Nakajo"
   cuisine: "Italian"
-  awards: []
 cover: "./images/parco-fiera/cover.jpg | หอยนางรมกับพิวเร่หน่อไม้ฝรั่งและโฟมชีสกอร์กอนโซลาบนจานชามสีขาว ร้าน Parco Fiera เมืองซัปโปโร"
-billBand: "฿฿฿"
 bill: "~20,000 yen"
-tag: ""
+billBand: "฿฿฿"
 visit: Apr-2024
 hashtags: [บอสพาชิม, eatliketheboss, ParcoFiera, Sapporo, Hokkaido, Japan]
 publishedAt: 2026-11-07

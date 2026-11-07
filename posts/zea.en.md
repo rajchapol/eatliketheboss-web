@@ -16,8 +16,6 @@ cover: "./images/zea/cover.jpg | Crisp fried fish on a corn tortilla with green 
 gallery:
   - "./images/zea/tray.jpg | A wooden tray of Taiwanese produce: cactus paddles, leafy greens, an orange and small bowls of ingredients, ZEA, Taipei | The tray of Taiwanese produce used tonight"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, ZEA, Taipei, LatinAmericanCuisine, MichelinGuideTaiwan, Taiwan, FineDining, TasteOfLatin, 台北]
 publishedAt: 2026-11-05

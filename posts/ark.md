@@ -3,18 +3,15 @@ language: th
 series: review
 title: "บอสพาชิม : Ark ขั้นกว่าของZero waste (Copenhagen, Denmark)"
 slug: ark
-tagline: ""
 city: copenhagen
 restaurant:
   name: "Ark"
-  chef: ""
   cuisine: "Modern"
   style: "Plant-Based"
   awards: ["MICHELIN Green Star"]
 cover: "./images/ark/cover.jpg | ห้องอาหารของร้าน Ark โคเปนเฮเกน โต๊ะไม้กับโคมไฟ"
-billBand: "฿฿฿฿"
 bill: "~1985 DKK (with pairing)"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Oct-2023
 hashtags: [บอสพาชิม, eatliketheboss, Ark, Copenhagen]
 publishedAt: 2026-11-05

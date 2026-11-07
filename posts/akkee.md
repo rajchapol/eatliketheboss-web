@@ -5,7 +5,12 @@ title: "บอสพาชิม in Nonthaburi: AKKEE (อัคคี) - สำ
 slug: akkee
 tagline: "สำรับเมืองนักปราชญ์"
 city: nonthaburi
-cityNew: {"nameEn": "Nonthaburi", "nameTh": "นนทบุรี", "country": "ไทย", "region": "th", "fact": "Ko Kret, the island just off Pak Kret, was not always an island: a shortcut canal dug in 1722 to speed boats to Ayutthaya widened over time until the river cut it off."}
+cityNew:
+  nameEn: "Nonthaburi"
+  nameTh: "นนทบุรี"
+  country: "ไทย"
+  region: th
+  fact: "Ko Kret, the island just off Pak Kret, was not always an island: a shortcut canal dug in 1722 to speed boats to Ayutthaya widened over time until the river cut it off."
 restaurant:
   name: "AKKEE"
   chef: "Sittikorn \"Au\" Chantop"
@@ -13,9 +18,9 @@ restaurant:
   style: "Isan"
   awards: ["MICHELIN Young Chef Award 2025 (Chef Au)"]
 cover: "./images/akkee/cover.jpg | อู๋ต่ออ่อนแกงสีเขียวโรยตัวต่อและผักชีลาว ร้านอัคคี นนทบุรี"
-billBand: "฿฿฿"
-bill: "AD"
 tag: "AD"
+bill: "AD"
+billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, AKKEE, Nonthaburi]
 publishedAt: 2026-11-05

@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Bangkok: ก้าวต่อไปของR Haan ไทย รสไทยสู่มิติใหม่ในเวทีโลก"
 slug: r-haan
-tagline: ""
 city: bangkok
 restaurant:
   name: "R-Haan"
@@ -12,9 +11,9 @@ restaurant:
   style: "Royal"
   awards: ["MICHELIN 2★"]
 cover: "./images/r-haan/cover.jpg | ขนมคำเล็ก 9 ชิ้นบนถาดหินสีดำ แต่ละชิ้นแทนรสชาติทั้ง 9 ของเมนูฉลองปีที่ 9 ร้าน R-Haan กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: "6999 THB ++"
 tag: "AD"
+bill: "6999 THB ++"
+billBand: "฿฿฿฿"
 visit: Aug-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, RHAAN, Bangkok, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-05

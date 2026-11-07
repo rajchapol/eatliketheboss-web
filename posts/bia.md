@@ -12,9 +12,8 @@ restaurant:
   style: "Contemporary"
   awards: ["Tabelog Award Silver"]
 cover: "./images/bia/cover.jpg | ผัดไทยเส้นอัลเดนเต้โปะกุ้งหวานและหน่อไม้บนจานแล็กเกอร์สีส้มแดง ร้าน Bia เมืองโตเกียว"
-billBand: "฿฿฿฿"
 bill: "40,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, Bia, Tokyo, Roppongi, ThaiCuisine, อาหารไทย, ThaiJapanese, TabelogAward, FineDining]
 publishedAt: 2026-11-05

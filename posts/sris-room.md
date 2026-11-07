@@ -3,17 +3,13 @@ language: th
 series: review
 title: "บอสพาชิม : Sri’s Room ห้องของศรี Your Eastern saloon next door (Bangkok, Thailand)"
 slug: sris-room
-tagline: ""
 city: bangkok
 restaurant:
   name: "Sri's Room"
-  chef: ""
   cuisine: "Thai"
-  awards: []
 cover: "./images/sris-room/cover.jpg | ข้าวหยำพริกไข่ปูกับเนื้อปูและมะเขือม่วง ร้าน Sri's Room กรุงเทพฯ"
-billBand: "฿฿"
 bill: "800 THB/pax"
-tag: ""
+billBand: "฿฿"
 visit: Oct-2025
 hashtags: [บอสพาชิม, eatliketheboss, SrisRoom, Bangkok]
 publishedAt: 2026-11-07

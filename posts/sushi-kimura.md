@@ -10,11 +10,9 @@ restaurant:
   chef: "Koji Kimura"
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-kimura/cover.jpg | ซูชิมากุโระรมควันสีชมพูอ่อนบนถาดไม้ลงรักสีแดงเข้ม ร้าน Sushi Kimura โตเกียว"
-billBand: "฿฿฿฿"
 bill: "ราว 50,000 เยน จองตรง"
-tag: ""
+billBand: "฿฿฿฿"
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, SushiKimura, Tokyo, Omakase, AgedSushi, Sushi, Tabelog, michelinguide, FineDining]
 publishedAt: 2026-11-05
