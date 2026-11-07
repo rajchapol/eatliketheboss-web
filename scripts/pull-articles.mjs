@@ -13,6 +13,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { basename, dirname, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
+import { fitOf } from './image-spec.mjs';
 import { makeAwards } from '../src/lib/awards.mjs';
 const AWARDS = makeAwards(JSON.parse(readFileSync(new URL('../src/data/awards.json', import.meta.url), 'utf8')));
 import { execFileSync } from 'node:child_process';
@@ -25,7 +26,7 @@ const force = args.includes('--force'); // also overwrite files that are newer t
 const only = args.find((a) => !a.startsWith('--'));
 const client = createClient({ projectId: process.env.SANITY_PROJECT_ID || 'ohviqc5c', dataset: process.env.SANITY_DATASET || 'production', apiVersion: '2025-01-01', useCdn: false });
 
-const IMG = '{alt, caption, "url": asset->url, "file": asset->originalFilename, "sha1": asset->sha1hash}';
+const IMG = '{alt, caption, crop, hotspot, "url": asset->url, "file": asset->originalFilename, "sha1": asset->sha1hash}';
 const articles = await client.fetch(`*[_type == "article" && defined(slug.current) && !(_id in path("drafts.**"))]{
   _id, _updatedAt, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
   restaurant{..., "sameAs": sameAs->slug.current}, cover${IMG}, gallery[]${IMG}, body, quote,
@@ -110,7 +111,7 @@ for (const a of articles) {
     if (same(slotPath, im)) return slotPath;
     return (im.sha1 && old?.hashes.get(im.sha1)) || (im.file && old?.paths.get(im.file)) || im.url;
   };
-  const line = (im, extra = [], slot) => (im?.url ? [where(im, slot), im.alt || '', ...extra].join(' | ').replace(/\s\|\s$/, '') : undefined);
+  const line = (im, extra = [], slot) => (im?.url ? [where(im, slot), im.alt || '', ...fitOf(im), ...extra].join(' | ').replace(/\s\|\s$/, '') : undefined);
 
   // Body: plain paragraphs and "> " quotes are all the file format holds.
   const blocks = a.body || [];

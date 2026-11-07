@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+
+## 7 Nov 2026 (evening) · Photo crops: originals + focus/zoom (branch `photo-crop`)
+- Why: the Boss saw photos too close / too far / off-centre (Sushi Jin, Hachinana). Every photo was pre-cropped to 3:2 and downsized to 816–1224 px before upload, so the site's crop/hotspot support (`imgUrl()`) had nothing to work with.
+- `scripts/image-spec.mjs`: image lines take `| focus=x,y | zoom=z` → Sanity `crop` + `hotspot`; `fitOf()` turns them back for `pull-articles.mjs`.
+- `post-article.mjs`: cover / gallery / dish lines use it; warns "รูปเล็กไป" for photos under 1600 px long side (also in `--dry`).
+- `npm run crop-preview -- posts/<slug>.md` → `posts/_preview/<slug>.jpg` (gitignored): whole photo with the 3:2 window + the result.
+- Studio to-do "Small photos (under 1000 px)" (45 Thai articles today).
+- Posting handoff section 0 explains it. Open: posting team re-uploads originals for recent posts if they still have them.
+
 ## Session 2026-11-07 · duplicate Copenhagen
 - Cause (my rule from 5 Nov): new cities must use the bare English slug, and the check only looked at the slug. `denmark-copenhagen` (photo, motif, no articles) already existed; the Kadeau post made `city-copenhagen` (now 4 articles). Fix: `post-article.mjs` looks up an existing city with the same English name (public dataset, also in `--dry`) and stops with its slug; Studio warns on a second city with the same English name; the build logs `[cities] "X" twice`. `denmark-copenhagen` left the legacy list.
 - Merge tool: `scripts/merge-cities.mjs` + Actions → Merge duplicate cities (from / into ids, dry first): moves articles, fills photo / motif / position / aliases on the kept city, deletes the other. Redirect `/city/denmark-copenhagen/` → `/city/copenhagen/` added.

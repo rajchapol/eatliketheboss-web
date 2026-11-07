@@ -25,7 +25,7 @@ restaurant:
   style: "Sushi"        # ไม่บังคับ: ประเภทย่อยในหมวดนั้น ดูรายการใน src/data/cuisines.json (เช่น Kaiseki, Cantonese, Isan, Basque)
   awards: ["MICHELIN 2★"]
   # sameAs: old-slug     # ไม่บังคับ: slug ของรีวิวครั้งก่อน ถ้าร้านเปลี่ยนชื่อ (ชื่อเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว)
-cover: "./images/restaurant-name/cover.jpg | ห้องอาหารของร้าน X ที่โตเกียว"
+cover: "./images/restaurant-name/cover.jpg | ห้องอาหารของร้าน X ที่โตเกียว"   # รูปต้นฉบับ ไม่ต้องครอป · ต่อท้ายได้: | focus=0.5,0.4 | zoom=1.2 (ดู npm run crop-preview)
 # gallery:               # ไม่บังคับ: รูปบรรยากาศ / เชฟ แสดงก่อนรายการจาน (รูป | alt | คำบรรยาย)
 #   - "./images/restaurant-name/room.jpg | ห้องอาหารวิวแม่น้ำ ร้าน X | ห้องอาหารชั้น 56"
 #   - "./images/restaurant-name/chef.jpg | เชฟ Y ในครัวเปิด ร้าน X | เชฟ Y"
@@ -53,5 +53,5 @@ image: ./images/restaurant-name/01.jpg | บรรยายจานจริง
 สิ่งที่อยู่บนจาน. ความหมายของวัตถุดิบหรือศัพท์. รสชาติ.
 
 ### ชื่อจานที่ 2 (ชื่อเดิม) 🕶️
-image: ./images/restaurant-name/02.jpg | บรรยายจานจริง
-ใส่ 🕶️ ท้ายชื่อจานที่บอสถอดแว่นชิม (ไม่เกิน 2 จาน)
+image: ./images/restaurant-name/02.jpg | บรรยายจานจริง | focus=0.45,0.55 | zoom=1.3
+ใส่ 🕶️ ท้ายชื่อจานที่บอสถอดแว่นชิม (ไม่เกิน 2 จาน) · focus=x,y (0–1) = จุดที่จานอยู่ · zoom = ครอปเข้า (ไม่ใส่ก็ได้)

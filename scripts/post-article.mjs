@@ -11,6 +11,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, resolve, basename, relative } from 'node:path';
 import { makeAwards } from '../src/lib/awards.mjs';
+import { parseImageSpec, cropAndHotspot } from './image-spec.mjs';
 import { createClient } from '@sanity/client';
 import { parse as parseYaml } from 'yaml';
 
@@ -37,8 +38,8 @@ function parse(text) {
     const name = head.replace(/🕶️|\[glasses-off\]/g, '').trim();
     let image;
     const lines = rest.filter((l) => {
-      const im = l.match(/^image:\s*(.+?)\s*\|\s*(.+)$/);
-      if (im) { image = { path: im[1], alt: im[2] }; return false; }
+      const im = l.match(/^image:\s*(.+?\|.+)$/);
+      if (im) { image = im[1].trim(); return false; }
       return true;
     });
     return { name, glassesOff, image, description: lines.join('\n').trim() };
@@ -55,13 +56,23 @@ const bodyBlocks = paragraphs.map((p) => (p.startsWith('> ') ? block(p.replace(/
 if (!dry && !get('SANITY_PROJECT_ID')) throw new Error('ไม่มี SANITY_PROJECT_ID ใน .env');
 const client = dry ? null : createClient({ projectId: get('SANITY_PROJECT_ID'), dataset: get('SANITY_DATASET') || 'production', apiVersion: '2025-01-01', token: get('SANITY_WRITE_TOKEN'), useCdn: false });
 
+// Photos: send the original (long side 2000 px or more, not cropped). The site crops to 3:2 around "focus" (see scripts/image-spec.mjs).
+const smallPhotos = [];
+const sharp = await import('sharp').then((m) => m.default).catch(() => null); // size check only
 async function upload(spec) {
   if (!spec) return undefined;
-  const [p, alt] = typeof spec === 'string' ? spec.split('|').map((s) => s.trim()) : [spec.path, spec.alt];
-  if (dry) return { _type: 'image', asset: { _ref: `(upload ${p})` }, alt };
+  const { path: p, alt, focus, zoom } = typeof spec === 'string' ? parseImageSpec(spec) : { path: spec.path, alt: spec.alt };
+  const fit = cropAndHotspot(focus, zoom);
+  if (sharp && !p.startsWith('http')) {
+    try {
+      const { width = 0, height = 0 } = await sharp(resolve(base, p)).metadata();
+      if (Math.max(width, height) < 1600) smallPhotos.push(`${p} (${width}×${height}${Math.abs(width / height - 1.5) < 0.01 ? ', already cropped to 3:2' : ''})`);
+    } catch {}
+  }
+  if (dry) return { _type: 'image', asset: { _ref: `(upload ${p})` }, alt, ...fit };
   const buf = p.startsWith('http') ? Buffer.from(await (await fetch(p)).arrayBuffer()) : readFileSync(resolve(base, p));
   const asset = await client.assets.upload('image', buf, { filename: basename(p) });
-  return { _type: 'image', asset: { _type: 'reference', _ref: asset._id }, alt };
+  return { _type: 'image', asset: { _type: 'reference', _ref: asset._id }, alt, ...fit };
 }
 
 // ---- Checks that keep Studio data tidy (also in --dry) ----
@@ -134,8 +145,8 @@ const doc = {
   tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover),
   // gallery: ["./images/<slug>/room.jpg | alt text | caption (optional)", …] → ambience / chef photos before the dishes
   gallery: fm.gallery ? await Promise.all([].concat(fm.gallery).map(async (g) => {
-    const [path, alt, caption] = String(g).split('|').map((x) => x.trim());
-    const im = await upload(`${path} | ${alt || ''}`);
+    const { caption } = parseImageSpec(g);
+    const im = await upload(String(g));
     return { ...im, _key: key(), ...(caption ? { caption } : {}) };
   })) : undefined,
   // restaurant.sameAs: <slug of the earlier review> links visits when the restaurant's name changed
@@ -149,7 +160,11 @@ const doc = {
 };
 
 if (doc.dishes.filter((d) => d.glassesOff).length > 2) throw new Error('ถอดแว่นชิมได้มากสุด 2 จาน');
-if (dry) { console.log(JSON.stringify(doc, null, 2)); process.exit(0); }
+// Photos that will look soft on the site (shown up to ~1500 px wide on sharp screens)
+function warnSmall() {
+  if (smallPhotos.length) console.warn(`⚠︎ รูปเล็กไป ${smallPhotos.length} รูป — ส่งไฟล์ต้นฉบับ (ด้านยาว 2000px ขึ้นไป ไม่ต้องครอปเอง เว็บครอป 3:2 ให้ ใช้ focus= / zoom= กำหนดจุด · ดู npm run crop-preview):\n  ${smallPhotos.join('\n  ')}`);
+}
+if (dry) { console.log(JSON.stringify(doc, null, 2)); warnSmall(); process.exit(0); }
 if (!get('SANITY_WRITE_TOKEN')) throw new Error('ไม่มี SANITY_WRITE_TOKEN ใน .env');
 // ---- Writing to Sanity ----------------------------------------------------------------------------------
 // New article → create it. Existing article → never overwrite what the Boss changed in Studio:
@@ -222,3 +237,5 @@ if (!existing) {
 }
 if (await client.getDocument(`drafts.${id}`)) console.warn(`⚠︎ มีฉบับร่างค้างใน Studio (drafts.${id}) ถ้ากด Publish ฉบับร่างนั้น จะทับสิ่งที่ลงจากไฟล์นี้ · ทิ้งร่าง (Discard changes) ถ้าไม่ต้องการ`);
 console.log(`✓ โพสต์แล้ว: ${id} — เว็บจะอัปเดตเองภายในไม่กี่นาที (Cloudflare build)`);
+
+warnSmall();
