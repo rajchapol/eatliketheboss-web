@@ -4,6 +4,9 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## Session 2026-11-07 · Restaurant finder with many cities
+- 26 cities made the city chips three rows deep. Now: "ทุกเมือง" + the 6 cities with most restaurants as chips (with counts), and a list of every city grouped by country (`#city-all`, optgroups in region order); both stay in sync (`setCity`). Phones: chips one sideways row, the list full width, cuisine / award / price / glasses folded under "ตัวกรองเพิ่มเติม" with a badge counting filters in use. CSS block "Restaurant finder" at the end of `site.css` (class `.finder-cities`; `.city-row` is taken by the Destinations list).
+
 ## Session 2026-11-06 (midday) · Studio fit 2: awards list, menus, to-dos
 - **Awards**: free text had drifted ("Black Pearl 3 เพชร" vs "Diamond", years in brackets or not). Now `src/data/awards.json` (guide → full award names) + `src/lib/awards.mjs` (`parse` "Tatler Best 20 2026 (Taiwan)" ⇄ `{award, year, note}`, `label`, old spellings mapped). Studio: awards = array of `award` objects (dropdown + year + note). Post files keep one line per award; `post-article.mjs` errors on unknown awards and sends objects; `pull-articles.mjs` writes labels back. Site normalises both forms (`content.ts`), so nothing breaks before the data is migrated. **After merge: Actions → Migrate awards (dry, then real)** turns the 76 articles' text awards into objects. Restaurants page: new "รางวัล" filter grouped by guide (`data-awards` on cards).
 - **Studio menus**: Recently posted / Recently changed (7 days); Restaurants → Repeat visits / All A–Z (async list grouped by name + city, like `restaurantKey()`); article rows show language · city · Visit · band · cuisine · style · tag; city rows show ★ featured, Picks count, "no photo".

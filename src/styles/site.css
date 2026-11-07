@@ -622,3 +622,23 @@ html.translated-ltr font{vertical-align:inherit!important}
 .idx-row .idx-series,.idx-row .idx-date,.idx-title>span+span{font-size:15px!important}
 
 .prose,.dish-desc{font-family:"ELB Body","Noto Serif Thai",serif}
+
+/* Restaurant finder: quick city chips (busiest cities) + a list of every city grouped by country.
+   Phones: chips scroll sideways in one row; cuisine / award / price / glasses fold under "ตัวกรองเพิ่มเติม". */
+.finder-cities{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}
+.finder-cities [data-group="city"]{flex:1 1 auto;min-width:0}
+.chip-n{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:var(--r-pill);background:rgba(11,83,87,.1);color:#0b5357;font-size:13px;line-height:1}
+.chip-n[hidden]{display:none}
+.chip[aria-pressed="true"] .chip-n{background:rgba(253,234,192,.22);color:#fdeac0}
+.city-more select{height:44px;min-width:230px;padding:0 40px 0 18px;border:1px solid rgba(11,83,87,.4);border-radius:var(--r-pill);background:#fff;font-family:'Ekkamai New',sans-serif;font-size:16px;color:#1a2632}
+.more-toggle{display:none}
+@container elb (max-width: 720px){
+  .finder-cities{flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+  .finder-cities [data-group="city"]{width:100%}
+  .city-more select{width:100%;min-width:0}
+  .more-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border:1px solid rgba(11,83,87,.4);border-radius:var(--r-pill);background:#fff;color:#0b5357;font-family:'Ekkamai New',sans-serif;font-size:15px;cursor:pointer}
+  .more-toggle .chev{transition:transform .2s}.more-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .more-filters:not(.open){display:none!important}
+  .more-filters{flex-wrap:nowrap!important}
+  #glasses{white-space:normal!important;height:auto!important;min-height:44px;padding-top:8px!important;padding-bottom:8px!important;text-align:left}
+}
