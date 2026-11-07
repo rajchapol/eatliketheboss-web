@@ -11,7 +11,7 @@ restaurant:
   area: "Neihu (內湖)"
   cuisine: "Modern"
   style: "Innovative"
-  awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants (Restaurants)"]
+  awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants"]
 cover: "./images/logy/cover.jpg | Fresh green peas, green cream, a purple borage flower and white and pale green granita on a cream plate, logy, Taipei"
 billBand: "฿฿฿"
 visit: Apr-2026

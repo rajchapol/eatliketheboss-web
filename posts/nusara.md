@@ -9,7 +9,7 @@ restaurant:
   chef: "เชฟต้น ธิติฏฐ์ ทัศนาขจร"
   cuisine: "Thai"
   style: "Contemporary"
-  awards: ["MICHELIN 1★", "Asia's 50 Best Restaurants (Restaurants)"]
+  awards: ["MICHELIN 1★", "Asia's 50 Best Restaurants"]
 cover: "./images/nusara/cover.jpg | ขวดแชมเปญ Krug และแก้วบนโต๊ะดาดฟ้าร้าน Nusara กรุงเทพฯ ยามเย็น"
 tag: "AD"
 billBand: "฿฿฿฿"
