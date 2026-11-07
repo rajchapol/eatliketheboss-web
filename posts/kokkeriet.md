@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Kokkeriet (Copenhagen,Denmark)"
 slug: kokkeriet
-tagline: ""
 city: copenhagen
 restaurant:
   name: "Kokkeriet"
-  chef: ""
   cuisine: "Nordic"
   style: "Danish"
   awards: ["MICHELIN 1★"]
 cover: "./images/kokkeriet/cover.jpg | อาคารโรงงานเก่าที่สีสันสดใสใกล้ร้าน Kokkeriet โคเปนเฮเกน"
-billBand: "฿฿฿"
 bill: "~1000 DKK"
-tag: ""
+billBand: "฿฿฿"
 visit: Jul-2022
 hashtags: [บอสพาชิม, eatliketheboss, Kokkeriet, Copenhagen]
 publishedAt: 2026-11-05

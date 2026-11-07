@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Kontrast อาหารนอร์ดิกพลังล้น"
 slug: kontrast
-tagline: ""
 city: norway-oslo
 restaurant:
   name: "Kontrast"
   chef: "Mikael Svensson"
   cuisine: "Nordic"
   style: "Norwegian"
-  awards: []
 cover: "./images/kontrast/cover.jpg | ไข่แดงแช่น้ำบีทรูทบนคัสตาร์ดไทม์ในถ้วยสีน้ำเงินเทา ร้าน Kontrast ออสโล"
-billBand: "฿฿฿"
 bill: "~2300 NOK (included 4 glass of wine)"
-tag: ""
+billBand: "฿฿฿"
 visit: Jul-2019
 hashtags: [บอสพาชิม, eatliketheboss, Kontrast, Oslo]
 publishedAt: 2026-11-05

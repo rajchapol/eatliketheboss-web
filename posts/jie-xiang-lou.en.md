@@ -14,8 +14,6 @@ restaurant:
   style: "Zhejiang"
   awards: ["MICHELIN 2★"]
 cover: "./images/jie-xiang-lou/cover.jpg | Triangular slices of foie gras terrine in an amber rice-wine sauce, garnished with small white flowers, on a white porcelain plate, Jie Xiang Lou, Hangzhou"
-tag: ""
-bill: ""
 billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, JieXiangLou, 解香楼, Hangzhou, 杭州, MichelinGuide, JiangnanCuisine, ChineseCuisine, FineDining]

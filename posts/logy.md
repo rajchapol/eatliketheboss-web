@@ -16,7 +16,7 @@ restaurant:
   area: "เน่ยหู (內湖)"
   cuisine: "Modern"
   style: "Innovative"
-  awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants"]
+  awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants (Restaurants)"]
 cover: "./images/logy/cover.jpg | ถั่วลันเตาเขียวสด ครีมสีเขียว ดอกโบราจสีม่วง กรานิต้าสีขาวและสีเขียวอ่อน บนจานสีครีม ร้าน logy ไทเป"
 billBand: "฿฿฿"
 visit: Apr-2026

@@ -13,8 +13,6 @@ restaurant:
   awards: ["MICHELIN 1★"]
 cover: "./images/kiyama/cover.jpg | ข้าวหน้าปลาข้าวสารกับไข่แดงดิบบนชามเท้าสูงสีขาว ร้าน Kiyama เกียวโต"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, Kiyama, Kyoto, Japan, Kaiseki]
 publishedAt: 2026-11-06

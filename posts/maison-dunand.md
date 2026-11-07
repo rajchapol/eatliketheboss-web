@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Maison Dunand อ้อมกอดแห่ง French alp"
 slug: maison-dunand
-tagline: ""
 city: bangkok
 restaurant:
   name: "Maison Dunand"
   chef: "Arnaud Dunand Sauthier"
   cuisine: "French"
   style: "Contemporary"
-  awards: []
 cover: "./images/maison-dunand/cover.jpg | เนื้อนกพิราบย่างกับซอสเข้มและผักบัตเตอร์นัท ร้าน Maison Dunand กรุงเทพ"
-billBand: "฿฿฿"
 bill: "~4900++ baht"
-tag: ""
+billBand: "฿฿฿"
 visit: Sep-2023
 hashtags: [บอสพาชิม, eatliketheboss, MaisonDunand, Bangkok]
 publishedAt: 2026-11-05

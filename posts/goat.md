@@ -12,9 +12,9 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN 1★", "MICHELIN Green Star"]
 cover: "./images/goat/cover.jpg | ปลาเก๋านึ่งราดซอสโรยคาเวียร์และถั่วกรอบบนจานเซรามิก ร้าน Goat กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "AD"
 tag: "AD"
+bill: "AD"
+billBand: "฿฿฿"
 visit: Mar-2026
 hashtags: [บอสพาชิม, eatliketheboss, GoatBangkok, Bangkok]
 publishedAt: 2026-11-07

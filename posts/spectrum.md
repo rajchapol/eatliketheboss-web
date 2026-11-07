@@ -3,9 +3,13 @@ language: th
 series: review
 title: "Librije’s Zusje ร้านอาหารดัชซ์ มิชลินสองดาว ใน Waldorf Astoria"
 slug: spectrum
-tagline: ""
 city: amsterdam
-cityNew: {"nameEn": "Amsterdam", "nameTh": "อัมสเตอร์ดัม", "country": "เนเธอร์แลนด์", "region": "europe", "fact": "Amsterdam's Royal Palace on Dam Square stands on 13,659 wooden piles, driven through soft fen and clay down to firm sand about 11 metres below."}
+cityNew:
+  nameEn: "Amsterdam"
+  nameTh: "อัมสเตอร์ดัม"
+  country: "เนเธอร์แลนด์"
+  region: europe
+  fact: "Amsterdam's Royal Palace on Dam Square stands on 13,659 wooden piles, driven through soft fen and clay down to firm sand about 11 metres below."
 restaurant:
   name: "Spectrum (Librije's Zusje)"
   chef: "Sidney Schutte"
@@ -14,22 +18,21 @@ restaurant:
   awards: ["MICHELIN 2★"]
 cover: "./images/spectrum/cover.jpg | ของว่างคำเล็กในกล่องเซรามิกสีดำฝาเปิดวางบนโต๊ะผ้าขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
 gallery:
-  - "./images/spectrum/01.jpg | ของว่างทรงหอสูงซ้อนชั้นสีดำท็อปด้วยสมุนไพรและของกรอบสีส้ม ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/02.jpg | ของว่างคำเล็กในกล่องเซรามิกสีดำฝาเปิดวางบนโต๊ะผ้าขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/03.jpg | ของว่างชิ้นเล็กในถ้วยกลมเล็กวางกลางโต๊ะผ้าขาวข้างแก้วไวน์แดง ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/04.jpg | ตะกร้าขนมปัง เนย และเห็ดหูหนูขาวใต้โดมแก้วบนโต๊ะอาหาร ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/05.jpg | ซุปเขียวเข้มในถ้วยเล็กกลางจานขาวใบใหญ่ ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/06.jpg | อาหารราดซอสแดงสดบนจานขาวใบใหญ่ ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/07.jpg | อาหารชิ้นยาวราดซอสสีเหลืองส้มบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/08.jpg | เนื้อชิ้นพอดีคำกับผักเขียวและซอสแดงบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/09.jpg | ปาเต้ชิ้นยาวบนซอสเขียวโรยกลีบดอกไม้สีม่วงบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/10.jpg | ถ้วยดำทรงลึกใส่ของหวานสีขาวโรยผงเข้ม ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/11.jpg | ของหวานโรยเส้นสีส้มบนจานดำทรงกว้าง ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/12.jpg | ของหวานโรยครีมและผลไม้บนจานกลมสีขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-  - "./images/spectrum/13.jpg | ขนมคำเล็กหลากชนิดบนถาดไม้ข้างโหลทรงกลมสีเขียวอ่อน ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
-billBand: "฿฿฿"
+  - ./images/spectrum/01.jpg | ของว่างทรงหอสูงซ้อนชั้นสีดำท็อปด้วยสมุนไพรและของกรอบสีส้ม ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/cover.jpg | ของว่างคำเล็กในกล่องเซรามิกสีดำฝาเปิดวางบนโต๊ะผ้าขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/03.jpg | ของว่างชิ้นเล็กในถ้วยกลมเล็กวางกลางโต๊ะผ้าขาวข้างแก้วไวน์แดง ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/04.jpg | ตะกร้าขนมปัง เนย และเห็ดหูหนูขาวใต้โดมแก้วบนโต๊ะอาหาร ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/05.jpg | ซุปเขียวเข้มในถ้วยเล็กกลางจานขาวใบใหญ่ ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/06.jpg | อาหารราดซอสแดงสดบนจานขาวใบใหญ่ ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/07.jpg | อาหารชิ้นยาวราดซอสสีเหลืองส้มบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/08.jpg | เนื้อชิ้นพอดีคำกับผักเขียวและซอสแดงบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/09.jpg | ปาเต้ชิ้นยาวบนซอสเขียวโรยกลีบดอกไม้สีม่วงบนจานขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/10.jpg | ถ้วยดำทรงลึกใส่ของหวานสีขาวโรยผงเข้ม ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/11.jpg | ของหวานโรยเส้นสีส้มบนจานดำทรงกว้าง ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/12.jpg | ของหวานโรยครีมและผลไม้บนจานกลมสีขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
+  - ./images/spectrum/13.jpg | ขนมคำเล็กหลากชนิดบนถาดไม้ข้างโหลทรงกลมสีเขียวอ่อน ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม
 bill: "~ below 200 Eur per head not included Wine"
-tag: ""
+billBand: "฿฿฿"
 visit: Feb-2017
 hashtags: [บอสพาชิม, eatliketheboss, Spectrum, LibrijesZusje, Amsterdam]
 publishedAt: 2026-11-05
@@ -43,3 +46,7 @@ seoDescription: "บอสพาชิมเยือน Librije’s Zusje ใ�
 เราก้าวเท้าเขามายังตึกไม่เล็กไม่ใหญ่ของ Waldorf astoria เครือโรงแรมระดับตำนาน ก่อนจะถูก บริกรที่รอต้อนรับตั้งแต่ก้าวแรกที่ย่างเท้าเขามาในอาคารนำทางไปยังร้านอาหารที่ต้องเดินลงจากล็อบบี้ไปชั้นนึง หลังเก็บโค้ทของเราให้เรียบร้อยแล้วบริกรนำคณะของเราไปยังโต๊ะ บนโต๊ะมีเห็ดหูหนูขาวตั้งอยู่ซึ่งน่าแปลกใจว่าทำไม (มีเฉลยในตอนท้ายครับ) ขนมปังและเนยทำเองจากนมวัวและนมแพะ ซึ่งอร่อยแสงออกปาก ไม่คาวแต่นุ่มมันและหอมมาก พวกเราเนื่องจากมาเป็นกรุ๊ปเกินสี่คนจึงต้องสั่งเทสเมนูคอร์สของทางร้าน ซึ่งปกติมาร้านแบบนี้ส่วนใหญ่คนที่มาก็จะสั่งเซทเทสเมนูเกือบหมดอยู่แล้วครับ  ก่อนจะข้ามไปยังไวน์ลิสของที่นี้ด้วยความรวดเร็ว ไวน์ลิสที่นี้ หนา กว่าเมนูราว 100เท่า(เมนูมีสองหน้าแต่ไวน์ลิสมี ราวเกือบสามร้อยหน้ากระดาษเอห้า) มีตั้งแต่ไวน์แดงจากอิสราเอล ยันลาฟิต(Chateau Lafite Rothchild) ขวดแม็กนั่ม แต่ราคาไวน์จะถือว่าค่อนข้างสูงและบวกอยู่เยอะทีเดียวครับถือว่าเป็นปกติในร้านระดับนี้ครับ แต่อย่างไรก็ตามการตั้งราคามักจะมีช่องว่างและไวน์ราคาดีๆในลิสอยู่เสมอแต่ถ้าขี้เกียจ Sommelier ที่นี้มีความรู้สูงมาก และสามารถแนะนำไวน์หรือเครื่องดื่มอื่นๆได้เป็นอย่างดี กลุ่มของเราสรุปลงตัวได้ที่ไวน์เบอร์กันดีขวดนึงราคาไม่แพงมากและมีคุณภาพสมเหตุผล แต่ที่แน่ๆไม่ใ่ช่1929 ponsot (มุขคนดื่มไวน์ หากไม่เข้าใจข้ามไปได้อย่าถือสา) การบริการที่นี้สุดยอดตามมาตรฐานร้านอาหารระดับนี้อาหารทุกจากของเรา ถูกนำมาเสริฟและอธิบายโดย  Maître d' ที่สุดแสนจะมีมิตร โดยก่อนหน้านั้นเขาทำงานร้านอาหารมิชลินสามดาวชื่อดังแห่งเซี่ยงไฮ้อย่าง UltraViolet
 
 ในเมนูนั้นจะมีอะไรบ้างมาดูกันเลยครับเรียกว่าเราเกือบคลานกันออกจากร้านเพราะเชฟจัดเต็มมาก โดยเราใช้เวลาในมื้อนี้ถึงเกือบห้าชั่วโมงเลยทีเดียว
+
+## ศิลปะแห่งรสชาติในมื้อนี้
+
+

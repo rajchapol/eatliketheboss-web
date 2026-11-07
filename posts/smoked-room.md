@@ -13,8 +13,6 @@ restaurant:
   awards: ["MICHELIN 2★"]
 cover: "./images/smoked-room/cover.jpg | ไข่ตุ๋นข้าวโพดหวานโปะอูนิและดอกไม้สีม่วงในถ้วยทอง ร้าน Smoked Room มาดริด"
 billBand: "฿฿฿฿"
-bill: ""
-tag: ""
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, SmokedRoom, Madrid, DaniGarcia, FireOmakase, MichelinGuide, FineDining, Spain]
 publishedAt: 2026-11-05

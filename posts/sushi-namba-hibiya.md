@@ -10,11 +10,9 @@ restaurant:
   chef: "Hidefumi Namba"
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-namba-hibiya/cover.jpg | ซูชิอูนิสีส้มทองในชามเซรามิกขอบกว้างมีซอสด้านล่าง ร้าน Sushi Namba Hibiya โตเกียว"
-billBand: "฿฿฿"
 bill: "30,000 กว่าเยน (คอร์สนิกิริล้วน ไม่มี Tsumami)"
-tag: ""
+billBand: "฿฿฿"
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, SushiNamba, Tokyo, Hibiya, Omakase, Sushi, Edomae, TabelogAward, FineDining]
 publishedAt: 2026-11-05

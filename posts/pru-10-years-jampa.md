@@ -12,9 +12,8 @@ restaurant:
   style: "Farm-to-Table"
   awards: ["MICHELIN 1★", "MICHELIN Green Star"]
 cover: "./images/pru-10-years-jampa/cover.jpg | ฟาร์มออร์แกนิกที่มีค้างไม้และแปลงผักเรียงเป็นแถวในหมู่บ้านพรุจำปา ใกล้ Jampa Hideaway ภูเก็ต"
-billBand: "฿฿฿"
-bill: ""
 tag: "Event"
+billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, JampaHideaway, Phuket, 10PRU, PRU, JAMPA, ROYD, HEH, FarmToTable]
 publishedAt: 2026-11-05

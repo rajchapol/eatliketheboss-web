@@ -3,17 +3,13 @@ language: th
 series: review
 title: "Lung King Heen ร้านอาหารจีนมิชลินสตาร์สามดาวในตำนาน (Hong kong, China) 3* 50best"
 slug: lung-king-heen
-tagline: ""
 city: hong-kong
 restaurant:
   name: "Lung King Heen"
-  chef: ""
   cuisine: "Chinese"
   awards: ["MICHELIN 3★"]
 cover: "./images/lung-king-heen/cover.jpg | หมูแดงบาร์บีคิวที่ Lung King Heen ฮ่องกง"
 billBand: "฿฿฿"
-bill: ""
-tag: ""
 visit: Jul-2018
 hashtags: [บอสพาชิม, eatliketheboss, LungKingHeen, HongKong]
 publishedAt: 2026-11-05

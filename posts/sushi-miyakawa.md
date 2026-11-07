@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Sapporo Ep:2 Sushi Miyakawa only 3 Michelin star Sushi in Hokkaido(Sapporo,Japan)"
 slug: sushi-miyakawa
-tagline: ""
 city: sapporo
 restaurant:
   name: "Sushi Miyakawa"
@@ -12,9 +11,8 @@ restaurant:
   style: "Sushi"
   awards: ["MICHELIN 3★"]
 cover: "./images/sushi-miyakawa/cover.jpg | ปูต้มเสิร์ฟเย็นราดซอสไข่ปูสีส้มบนจานสีเทาเข้ม ร้าน Sushi Miyakawa เมืองซัปโปโร"
-billBand: "฿฿฿"
 bill: "~25000 Yen"
-tag: ""
+billBand: "฿฿฿"
 visit: Dec-2019
 hashtags: [บอสพาชิม, eatliketheboss, SushiMiyakawa, Sapporo, Japan]
 publishedAt: 2026-11-05

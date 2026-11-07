@@ -13,10 +13,8 @@ restaurant:
   awards: ["MICHELIN Selected"]
 cover: "./images/liana/cover.jpg | เนื้อไก่กินีเคียงคัมควอทและมะเขือม่วง บนซอส Jus แดงเข้ม ร้าน Liana กรุงเทพฯ"
 gallery:
-  - "./images/liana/g1.jpg | แขกรับเชิญคู่กับเชฟในครัวเปิดของร้าน Liana ในค่ำคืน Champagne Brice กรุงเทพฯ"
-  - "./images/liana/g2.jpg | ฉลาก Champagne Brice Blanc de Noirs 2019 Brut Nature Grand Cru จาก Bouzy ในงาน Liana กรุงเทพฯ"
-billBand: ""
-bill: ""
+  - ./images/liana/g1.jpg | แขกรับเชิญคู่กับเชฟในครัวเปิดของร้าน Liana ในค่ำคืน Champagne Brice กรุงเทพฯ
+  - ./images/liana/g2.jpg | ฉลาก Champagne Brice Blanc de Noirs 2019 Brut Nature Grand Cru จาก Bouzy ในงาน Liana กรุงเทพฯ
 tag: "Event"
 visit: Nov-2026
 hashtags: [บอสพาชิม, eatliketheboss, LianaBangkok, Bangkok, ChampagneBrice, Bouzy, ChampagneDinner, FineDining]

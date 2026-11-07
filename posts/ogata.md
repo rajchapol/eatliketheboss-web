@@ -3,7 +3,6 @@ language: th
 series: review
 title: "Ogata Honten (Kyoto, Japan)"
 slug: ogata
-tagline: ""
 city: kyoto
 restaurant:
   name: "Ogata Honten"
@@ -12,9 +11,8 @@ restaurant:
   style: "Kaiseki"
   awards: ["MICHELIN 2★"]
 cover: "./images/ogata/cover.jpg | อุนิวางบนสาหร่ายในจานลายสีสันสดใส ร้าน Ogata Honten เมืองเกียวโต"
-billBand: "฿฿฿฿"
 bill: "~60000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2023
 hashtags: [บอสพาชิม, eatliketheboss, Ogata, Kyoto, Kaiseki]
 publishedAt: 2026-11-05

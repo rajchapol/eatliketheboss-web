@@ -3,18 +3,15 @@ language: th
 series: review
 title: "Blue by Alain Ducasse เมนูซีซันที่ดีที่สุดที่เคยกิน"
 slug: blue-by-alain-ducasse
-tagline: ""
 city: bangkok
 restaurant:
   name: "Blue by Alain Ducasse"
-  chef: ""
   cuisine: "French"
   style: "Contemporary"
-  awards: []
 cover: "./images/blue-by-alain-ducasse/cover.jpg | ปลาเทอร์บอตคอนฟีกับบีทรูทและซอสสีแดงเข้มบนจานขอบทอง ร้าน Blue by Alain Ducasse กรุงเทพ"
-billBand: "฿฿฿฿"
-bill: "~7500++ THB (+ wine 4900++)"
 tag: "AD"
+bill: "~7500++ THB (+ wine 4900++)"
+billBand: "฿฿฿฿"
 visit: Oct-2023
 hashtags: [บอสพาชิม, eatliketheboss, BlueByAlainDucasse, Bangkok]
 publishedAt: 2026-11-05

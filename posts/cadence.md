@@ -3,18 +3,15 @@ language: th
 series: review
 title: "บอสพาชิม : Cadence จังหวะแห่งอาหาร (Bangkok,Thailand)"
 slug: cadence
-tagline: ""
 city: bangkok
 restaurant:
   name: "Cadence by Dan Bark"
   chef: "Dan Bark"
   cuisine: "Modern"
   style: "Contemporary"
-  awards: []
 cover: "./images/cadence/cover.jpg | ทูน่าทาร์ทาร์ปรุงมิโซะกับคาเวียร์และแผ่นชีสกรอบบนจานสีดำ ร้าน Cadence by Dan Bark กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: ""
 tag: "AD"
+billBand: "฿฿฿฿"
 visit: Mar-2025
 hashtags: [บอสพาชิม, eatliketheboss, CadencebyDanBark, Bangkok]
 publishedAt: 2026-11-07

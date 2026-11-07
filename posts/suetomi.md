@@ -12,9 +12,8 @@ restaurant:
   style: "Kaiseki"
   awards: ["Tabelog Award Silver"]
 cover: "./images/suetomi/cover.jpg | ตะพาบย่างบนจานลายครามพร้อมมะนาวซูดาจิผ่าครึ่ง ร้าน Suetomi เมืองโตเกียว"
-billBand: "฿฿฿฿"
 bill: "55,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jun-2026
 hashtags: [บอสพาชิม, eatliketheboss, Suetomi, Tokyo, Aoyama, Kaiseki, ไคเซกิ, JapaneseCuisine, TabelogAward, FineDining]
 publishedAt: 2026-11-05

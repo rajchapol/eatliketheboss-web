@@ -5,17 +5,21 @@ title: "บอสพาชิม in Kanazawa: Sushi Jin (大工町 鮨人) - ร
 slug: sushi-jin
 tagline: "ร็อคเกอร์ซูชิแห่งคานาซาว่า"
 city: kanazawa
-cityNew: {"nameEn": "Kanazawa", "nameTh": "คานาซาว่า", "country": "ญี่ปุ่น", "region": "asia", "lat": 36.56, "lng": 136.65, "fact": "Kanazawa produces about 99% of all the gold leaf made in Japan, the paper-thin sheets used to gild temples, lacquerware and even food."}
+cityNew:
+  nameEn: "Kanazawa"
+  nameTh: "คานาซาว่า"
+  country: "ญี่ปุ่น"
+  region: asia
+  lat: 36.56
+  lng: 136.65
+  fact: "Kanazawa produces about 99% of all the gold leaf made in Japan, the paper-thin sheets used to gild temples, lacquerware and even food."
 restaurant:
   name: "Sushi Jin"
   chef: "Izumi Kimura (木村泉美)"
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-jin/cover.jpg | หอยนางรมท้องถิ่นใต้เจลลี่ดาชิกับพริกหยวกสับในถ้วยแก้ว ร้าน Sushi Jin เมืองคานาซาว่า"
 billBand: "฿฿฿฿"
-bill: ""
-tag: ""
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, SushiJin, Kanazawa, Ishikawa, Hokuriku, Japan]
 publishedAt: 2026-11-07

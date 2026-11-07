@@ -3,18 +3,14 @@ language: th
 series: review
 title: "บอสพาชิม : Hotaru Omakase โอมากาเสะ ราคาดีขยี้ตา (Bangkok, Thailand)"
 slug: hotaru
-tagline: ""
 city: bangkok
 restaurant:
   name: "Hotaru Omakase"
-  chef: ""
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/hotaru/cover.jpg | ไข่ตุ๋นชาวันมูชิในถ้วยเซรามิกครีม มีกุ้งเทมปุระชิ้นยาววางพาดปากถ้วย ร้าน Hotaru Omakase กรุงเทพ"
-billBand: "฿฿฿"
-bill: ""
 tag: "AD"
+billBand: "฿฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, HotaruOmakase, Hotaru119, Hotaru119Omakase, Omakase, Sushi, JapaneseFood, OmakaseBangkok, FineDining, Bangkok]
 publishedAt: 2026-11-07

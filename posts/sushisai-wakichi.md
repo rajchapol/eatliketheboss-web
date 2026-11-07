@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Hokkaido : Sushisai Wakichi (Sapporo,Japan)"
 slug: sushisai-wakichi
-tagline: ""
 city: sapporo
 restaurant:
   name: "Sushisai Wakichi"
@@ -12,9 +11,8 @@ restaurant:
   style: "Sushi"
   awards: ["MICHELIN 2★"]
 cover: "./images/sushisai-wakichi/cover.jpg | คินเมไดย่างถ่านเสิร์ฟกับไดกอนโอโรชิและซอสพอนซึในจานเซรามิก ร้าน Sushisai Wakichi เมืองซัปโปโร"
-billBand: "฿฿฿฿"
 bill: "~36,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2024
 hashtags: [บอสพาชิม, eatliketheboss, SushisaiWakichi, Sapporo, Hokkaido, Japan]
 publishedAt: 2026-11-05
@@ -22,7 +20,6 @@ seoTitle: "Sushisai Wakichi ซัปโปโร ซูชิโอมากา
 seoDescription: "บอสพาชิมไปนั่งเคาน์เตอร์แปดที่นั่งของ Sushisai Wakichi ย่านมารุยามะโคเอ็น ซัปโปโร โอมากาเสะที่เชฟทามุระเล่าเรื่องวัตถุดิบเป็นภาษาอังกฤษ"
 ---
 Wakichi เป็นร้าน Sushi Omakase อีกร้านที่อยากแนะนำใน Hokkaidoครับ Wakichi เป็นร้านที่จองไม่ยากมากนัก ราคาไม่สูงมากนักในยุคสมัยนี้ราว 36,000เยนและมีคุณภาพที่ดีเหมาะสมกับราคาครับ Wakichi เคยได้รับ Michelin Star 2ดาว ในการจัดอันดับครั้งล่าสุดของ Hokkaido และ ได้คะแนน4.3 ดาว ใน Tabelog สูงเป็นอันดับสามใน Sapporo นี้คงเป็นอีกสาเหตุที่ไม่ควรพลาดร้านนี้ครับ ในบรรดาร้านSushi ระดับสูงใน Hokkaido Tamura san นับเป็นเชฟที่พูดอังงกฤษได้มากที่สุดคนนึง ทำให้บรรยากาศในการรับประทานอาหารที่นี้ค่อนข้างสบายๆ อบอุ่นภายในร้านเล็กๆ 8ที่นั่งบริเวณ Maruyama koen แห่งนี้ สำหรับลูกค้าต่างชาตินั้น ทางร้านมีสมุดภาพแนะนำวัตถุดิบต่างๆด้วยที่จะทำให้ชาวต่างชาติที่ไม่ใช่สายลึกสามารถเพลิดเพลินกับร้านนี้ได้ด้วย Sushi ของ Tamura San นั้นทำมาได้ดีตามมารตราฐานร้าน ข้าวที่ใช้ผสมน้ำส้มสายชูแดง ตัวข้าวค่อนข้างแข็งและแฉะในตอนต้น ซึ่งจะค่อยๆดีขึ้นเมื่อคอร์สผ่านไป ที่ประทับใจเป็นพิเศษเห็นจะเป็นบรรดา Tsumami ที่มีลายเซ็นเฉพาะตัว อย่างจานไข่ตุ๋นใส่หอยนางรมและปูKoubako ที่ยังประทับใจจนถึงตอนนี้
-
 
 ## ศิลปะแห่งรสชาติในมื้อนี้
 

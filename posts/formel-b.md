@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม Scandinavia Trip EP:3 Formel B (Copenhagen,Denmark)"
 slug: formel-b
-tagline: ""
 city: copenhagen
 restaurant:
   name: "Formel B"
@@ -12,9 +11,8 @@ restaurant:
   style: "Danish"
   awards: ["MICHELIN 1★"]
 cover: "./images/formel-b/cover.jpg | หน้าร้าน Formel B ในตึกอิฐสีชมพูของโคเปนเฮเกน ยามเย็น"
-billBand: "฿฿฿"
 bill: "~1000 DKK"
-tag: ""
+billBand: "฿฿฿"
 visit: Jul-2022
 hashtags: [บอสพาชิม, eatliketheboss, FormelB, Copenhagen]
 publishedAt: 2026-11-05

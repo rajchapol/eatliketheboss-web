@@ -3,17 +3,14 @@ language: th
 series: review
 title: "บอสพาชิม : Thevar (Singapore)"
 slug: thevar
-tagline: ""
 city: singapore
 restaurant:
   name: "Thevar"
-  chef: ""
   cuisine: "Other"
   awards: ["MICHELIN 1★"]
 cover: "./images/thevar/cover.jpg | เป๋าฮื้อเสิร์ฟในน้ำซุปใสเข้มข้นบนจานชามสีเทา ร้าน Thevar สิงคโปร์"
-billBand: "฿฿฿฿"
 bill: "~298++ SGD ต่อคน"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Jun-2024
 hashtags: [บอสพาชิม, eatliketheboss, Thevar, Singapore]
 publishedAt: 2026-11-05

@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Hokkaido EP:4 Sushi Ikko ยอดซูชิแห่งแดนเหนือ(hokkaido,Japan)"
 slug: sushi-ikko
-tagline: ""
 city: sapporo
 restaurant:
   name: "Sushi Ikko"
@@ -12,9 +11,8 @@ restaurant:
   style: "Sushi"
   awards: ["MICHELIN 2★"]
 cover: "./images/sushi-ikko/cover.jpg | ซูชิมากุโระห่อสาหร่ายย่างราดซอสสาหร่ายบนจานแก้วลายนูน ร้าน Sushi Ikko เมืองซัปโปโร"
-billBand: "฿฿฿฿"
 bill: "~40,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Dec-2019
 hashtags: [บอสพาชิม, eatliketheboss, SushiIkko, Sapporo, Hokkaido, Japan]
 publishedAt: 2026-11-05

@@ -12,9 +12,8 @@ restaurant:
   style: "Contemporary"
   awards: ["MICHELIN 1★ (Le Du)"]
 cover: "./images/belen-x-le-du/cover.jpg | หอยเชลล์ย่างโรยเส้นทอดกรอบบนซอสกะทิแชมเปญในจานเซรามิกสีเข้ม จากงาน 4 Hands Belén x Le Du กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: ""
 tag: "Event"
+billBand: "฿฿฿฿"
 visit: Jun-2026
 hashtags: [บอสพาชิม, eatliketheboss, BelenXLeDu, LeDu, Belen, Bangkok, FourHands, FineDining]
 publishedAt: 2026-11-07

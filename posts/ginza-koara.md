@@ -10,11 +10,8 @@ restaurant:
   chef: "Hideaki Monoe"
   cuisine: "Japanese"
   style: "Unagi"
-  awards: []
 cover: "./images/ginza-koara/cover.jpg | ซูชิกดปลาไหลทาซอสเงาวางคู่เมียวกะดองสีชมพูบนจานเซรามิกขอบหยัก ร้าน Ginza Koara โตเกียว"
 billBand: "฿฿"
-bill: ""
-tag: ""
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, GinzaKoara, Tokyo, Ginza, Unagi, Kaiseki, JapaneseCuisine, FineDining, 銀座虎あら]
 publishedAt: 2026-11-05

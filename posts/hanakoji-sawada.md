@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม in Sapporo EP:3 Hanakoji Sawada Kappoมิชลินสตาร์สามดาวร้านเดียวในฮอกไกโด(Sapporo,Japan)"
 slug: hanakoji-sawada
-tagline: ""
 city: sapporo
 restaurant:
   name: "Hanakoji Sawada"
@@ -12,9 +11,8 @@ restaurant:
   style: "Kappo"
   awards: ["MICHELIN 3★"]
 cover: "./images/hanakoji-sawada/cover.jpg | มะเขือม่วงย่างสอดไส้มิโซะท็อปอูนิในชามเซรามิกสีเขียว ร้าน Hanakoji Sawada เมืองซัปโปโร"
-billBand: "฿฿฿"
 bill: "~17,000 Yen"
-tag: ""
+billBand: "฿฿฿"
 visit: Dec-2019
 hashtags: [บอสพาชิม, eatliketheboss, HanakojiSawada, Sapporo, Japan]
 publishedAt: 2026-11-05

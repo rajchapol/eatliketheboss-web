@@ -3,17 +3,14 @@ language: th
 series: review
 title: "Suhring"
 slug: suhring-2018
-tagline: ""
 city: bangkok
 restaurant:
   name: "Suhring"
-  chef: ""
   cuisine: "Other"
   awards: ["MICHELIN 1★"]
 cover: "./images/suhring-2018/cover.jpg | เนื้อเป็ดอบหั่นเสิร์ฟกับทรัฟเฟิลและผักบนจานขาว ร้าน Suhring กรุงเทพ"
-billBand: "฿฿฿"
 bill: "~4000++ THB"
-tag: ""
+billBand: "฿฿฿"
 visit: Oct-2018
 hashtags: [บอสพาชิม, eatliketheboss, Suhring, Bangkok]
 publishedAt: 2026-11-05

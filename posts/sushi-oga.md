@@ -3,19 +3,23 @@ language: th
 series: review
 title: "บอสพาชิม in Osaka : Sushi Ooga ดาวรุ่งแห่งKansai (Sakai,japan)"
 slug: sushi-oga
-tagline: ""
 city: sakai
-cityNew: {"nameEn": "Sakai", "nameTh": "ซาไก", "country": "ญี่ปุ่น", "region": "asia", "lat": 34.57, "lng": 135.48, "fact": "Sakai is home to the Daisen Kofun, a keyhole-shaped tomb mound roughly 486 metres long that is said to be the largest burial mound in the world."}
+cityNew:
+  nameEn: "Sakai"
+  nameTh: "ซาไก"
+  country: "ญี่ปุ่น"
+  region: asia
+  lat: 34.57
+  lng: 135.48
+  fact: "Sakai is home to the Daisen Kofun, a keyhole-shaped tomb mound roughly 486 metres long that is said to be the largest burial mound in the world."
 restaurant:
   name: "Sushi Oga"
   chef: "Shinichiro Oga"
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-oga/cover.jpg | ซูชิอูนิแบรนด์ Daizen พันสาหร่ายย่างบนจานสีขาว ร้าน Sushi Oga เมืองซาไก"
-billBand: "฿฿฿฿"
 bill: "~50,000 yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Apr-2024
 hashtags: [บอสพาชิม, eatliketheboss, SushiOga, Sakai, Osaka, Kansai, Japan]
 publishedAt: 2026-11-07

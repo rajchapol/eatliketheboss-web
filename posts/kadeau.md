@@ -3,19 +3,21 @@ language: th
 series: review
 title: "บอสพาชิม: Kadeau ร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย"
 slug: kadeau
-tagline: ""
 city: copenhagen
-cityNew: {"nameEn": "Copenhagen", "nameTh": "โคเปนเฮเกน", "country": "เดนมาร์ก", "region": "europe", "fact": "Copenhagen's Round Tower has no staircase, only a spiral ramp, and in 1716 Peter the Great rode up it on horseback while his wife Catherine reportedly followed in a carriage."}
+cityNew:
+  nameEn: "Copenhagen"
+  nameTh: "โคเปนเฮเกน"
+  country: "เดนมาร์ก"
+  region: europe
+  fact: "Copenhagen's Round Tower has no staircase, only a spiral ramp, and in 1716 Peter the Great rode up it on horseback while his wife Catherine reportedly followed in a carriage."
 restaurant:
   name: "Kadeau"
-  chef: ""
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN 2★", "MICHELIN Green Star"]
 cover: "./images/kadeau/cover.jpg | เมนูเล่มสีดำของร้าน Kadeau วางบนโต๊ะไม้ โคเปนเฮเกน"
-billBand: "฿฿฿฿"
 bill: "~5100 DKK"
-tag: ""
+billBand: "฿฿฿฿"
 visit: Oct-2023
 hashtags: [บอสพาชิม, eatliketheboss, Kadeau, Copenhagen]
 publishedAt: 2026-11-05

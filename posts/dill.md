@@ -3,19 +3,21 @@ language: th
 series: review
 title: "Dill อดีตร้านมิชลินสตาร์ร้านเดียวในไอซแลนด์"
 slug: dill
-tagline: ""
 city: reykjavik
-cityNew: {"nameEn": "Reykjavik", "nameTh": "เรคยาวิก", "country": "ไอซ์แลนด์", "region": "europe", "fact": "Reykjavik means 'smoky bay', a name said to come from steam rising off hot springs. By the Book of Settlement, Ingólfr Arnarson settled where his thrown high-seat pillars washed ashore."}
+cityNew:
+  nameEn: "Reykjavik"
+  nameTh: "เรคยาวิก"
+  country: "ไอซ์แลนด์"
+  region: europe
+  fact: "Reykjavik means 'smoky bay', a name said to come from steam rising off hot springs. By the Book of Settlement, Ingólfr Arnarson settled where his thrown high-seat pillars washed ashore."
 restaurant:
   name: "Dill"
-  chef: ""
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN Plate 2019"]
 cover: "./images/dill/cover.jpg | เนื้อหมูย่างชิ้นยาวราดซอสเขียวโลเวจบนจานขาว ร้าน Dill เรคยาวิก"
-billBand: "฿฿฿"
 bill: "~20,000 Isk (included 3 glasses of beer and champagne )"
-tag: ""
+billBand: "฿฿฿"
 visit: Aug-2019
 hashtags: [บอสพาชิม, eatliketheboss, Dill, Reykjavik]
 publishedAt: 2026-11-05

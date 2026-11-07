@@ -10,11 +10,10 @@ restaurant:
   chef: "เชฟแท็ป ศุภสิทธิ์ ก๊กผล"
   cuisine: "Thai"
   style: "Contemporary"
-  awards: []
 cover: "./images/machri/cover.jpg | ไข่ตุ๋นในเปลือกไข่ทรงกลมสีครีม ประดับดอกไม้เล็กๆ วางบนถ้วยเบญจรงค์ ร้าน MACHRI กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "AD"
 tag: "AD"
+bill: "AD"
+billBand: "฿฿฿"
 visit: Sep-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, MACHRI, Bangkok, michelinguide, michelinstar, tatlerdining, bestchefaward]
 publishedAt: 2026-11-05

@@ -10,11 +10,10 @@ restaurant:
   chef: "Ebbe"
   cuisine: "Nordic"
   style: "New Nordic"
-  awards: []
 cover: "./images/ebbe/cover.jpg | บีทรูทหมักแบล็กเคอร์แรนต์ ประดับผิวแบล็กเลมอนบนจานสีขาวเทา ร้าน EBBE กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: "5,500++ THB"
 tag: "AD"
+bill: "5,500++ THB"
+billBand: "฿฿฿"
 visit: Mar-2026
 hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, EBBE, Bangkok]
 publishedAt: 2026-11-05

@@ -3,18 +3,16 @@ language: th
 series: review
 title: "บอสพาชิม : Chai Jia Chai (蔡家菜) เปิดตำนาน “Manchu Han Imperial Feast” โต๊ะจีนจักรพรรดิและจิตวิญญาณแห่งไต้หวัน (Bangkok, Thailand)"
 slug: chai-jia-chai
-tagline: ""
 city: bangkok
 restaurant:
   name: "Chai Jia Chai"
   chef: "Tsai Shih Wei"
   cuisine: "Chinese"
   style: "Cantonese"
-  awards: []
 cover: "./images/chai-jia-chai/cover.jpg | ข้าวต้มกุ้งล็อบสเตอร์สีน้ำเงินในชามขาว น้ำซุปสีส้มโรยคาเวียร์ ร้าน Chai Jia Chai กรุงเทพฯ"
-billBand: "฿฿฿฿"
-bill: "~8800+ 3000 pairing"
 tag: "AD"
+bill: "~8800+ 3000 pairing"
+billBand: "฿฿฿฿"
 visit: Jan-2026
 hashtags: [บอสพาชิม, eatliketheboss, ChaiJiaChai, Bangkok, ChineseFineDining, ManchuHanImperialFeast]
 publishedAt: 2026-11-07

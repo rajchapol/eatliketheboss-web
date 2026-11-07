@@ -3,18 +3,15 @@ language: th
 series: review
 title: "บอสพาชิม: Blue Elephant Bangkok Sathorn Thai Heritage Cuisine"
 slug: blue-elephant
-tagline: ""
 city: bangkok
 restaurant:
   name: "Blue Elephant"
   chef: "มาสเตอร์เชฟนูรอ โซ๊ะมณี สเต็ปเป้"
   cuisine: "Thai"
   style: "Contemporary"
-  awards: []
 cover: "./images/blue-elephant/cover.jpg | ตับห่านฝรั่งเศสซอสมะขามเพชรบูรณ์เสิร์ฟกับมะม่วงน้ำดอกไม้ ร้าน Blue Elephant สาทร กรุงเทพฯ"
-billBand: "฿฿฿"
-bill: ""
 tag: "AD"
+billBand: "฿฿฿"
 visit: Jun-2026
 hashtags: [บอสพาชิม, eatliketheboss, BlueElephant, Bangkok, Sathorn, ThaiHeritage, FineDining]
 publishedAt: 2026-11-07

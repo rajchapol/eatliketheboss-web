@@ -3,7 +3,6 @@ language: th
 series: review
 title: "บอสพาชิม:The Soul of Nyonya: เมื่อ \"รสมือแม่\" กลายเป็นมรดกโลก"
 slug: auntie-gaik-lean
-tagline: ""
 city: bangkok
 restaurant:
   name: "Auntie Gaik Lean's Old School Eatery"
@@ -13,17 +12,16 @@ restaurant:
   awards: ["MICHELIN 1★"]
 cover: "./images/auntie-gaik-lean/cover.jpg | ปลาในแกงส้มสีส้มแดงโรยถั่วฝักยาวและผักซอยบนจานขาว งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
 gallery:
-  - "./images/auntie-gaik-lean/g1.jpg | โต๊ะอาหารปูผ้าบาติกริมหน้าต่างบานใหญ่ งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g2.jpg | เมนูงาน Women in Gastronomy 2026 วางบนโต๊ะ งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g3.jpg | ห่อใบตองและยำเส้นบนจานหินสีเทาเข้ม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g4.jpg | ผักใบเขียวเข้มคลุกเครื่องปรุงในจานหินทรงกลมข้างเส้นผัด งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g5.jpg | แกงไก่สีส้มในชามขาวโรยสมุนไพร งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g6.jpg | มะเขือยาวย่างราดซัมบัลสีแดงข้างผักสลัดบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g7.jpg | กุ้งย่างสีเข้มกองสูงท็อปแครอทแกะสลักบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-  - "./images/auntie-gaik-lean/g8.jpg | ขนมกะทิในชามดำสีเข้ม มีมันม่วงและกล้วย งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok"
-billBand: "฿฿฿"
-bill: ""
+  - ./images/auntie-gaik-lean/g1.jpg | โต๊ะอาหารปูผ้าบาติกริมหน้าต่างบานใหญ่ งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g2.jpg | เมนูงาน Women in Gastronomy 2026 วางบนโต๊ะ งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g3.jpg | ห่อใบตองและยำเส้นบนจานหินสีเทาเข้ม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g4.jpg | ผักใบเขียวเข้มคลุกเครื่องปรุงในจานหินทรงกลมข้างเส้นผัด งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g5.jpg | แกงไก่สีส้มในชามขาวโรยสมุนไพร งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g6.jpg | มะเขือยาวย่างราดซัมบัลสีแดงข้างผักสลัดบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g7.jpg | กุ้งย่างสีเข้มกองสูงท็อปแครอทแกะสลักบนจานลายคราม งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
+  - ./images/auntie-gaik-lean/g8.jpg | ขนมกะทิในชามดำสีเข้ม มีมันม่วงและกล้วย งาน Women in Gastronomy ห้องอาหาร Bai Yun โรงแรม Banyan Tree Bangkok
 tag: "Event"
+billBand: "฿฿฿"
 visit: Mar-2026
 hashtags: [บอสพาชิม, eatliketheboss, AuntieGaikLean, BaiYun, BanyanTreeBangkok, Bangkok]
 publishedAt: 2026-11-05

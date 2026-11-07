@@ -14,8 +14,6 @@ restaurant:
   awards: ["MICHELIN 1★", "Tatler Best 20 2026 (Taiwan)"]
 cover: "./images/t-plus-t/cover.jpg | Creamy pale soup with abalone, golden tofu skin and fine strands of herbs, in a white porcelain bowl, T+T, Taipei"
 billBand: "฿฿"
-bill: ""
-tag: ""
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, TplusT, Taipei, ModernAsian, MichelinGuideTaiwan, Taiwan, FineDining, WinePairing, 台北]
 publishedAt: 2026-11-05

@@ -10,11 +10,9 @@ restaurant:
   chef: "Kazunori Maeiwa"
   cuisine: "Japanese"
   style: "Sushi"
-  awards: []
 cover: "./images/sushi-akira/cover.jpg | ปลาคินเมไดย่างหั่นชิ้นกับมัสตาร์ดวางบนจานกระเบื้องขาวลายดอกไม้ ร้าน Sushi Akira โตเกียว"
-billBand: "฿฿฿฿"
 bill: "49,000 Yen"
-tag: ""
+billBand: "฿฿฿฿"
 visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, SushiAkira, Tokyo, Omakase, Sushi, Edomae, Tabelog, TabelogAward, FineDining]
 publishedAt: 2026-11-05
