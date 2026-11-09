@@ -168,7 +168,7 @@ img{max-width:100%;height:auto}
 .wrap{max-width:1200px;margin:0 auto;padding-left:32px;padding-right:32px}
 @container elb (max-width: 720px){.wrap{padding-left:20px;padding-right:20px}
 .hdr{display:grid!important;grid-template-columns:auto 1fr;padding-top:12px!important;padding-bottom:0!important;gap:8px 12px!important}
-.hdr .logo img{width:104px!important}
+.hdr .logo img{width:132px!important}
 .hdr{grid-template-columns:max-content minmax(0,1fr)!important}.hdr .logo{flex-shrink:0;grid-row:1}
 /* phone menu: five icon tabs that always fit (no sideways scrolling, nothing cut off) */
 .hdr .main-nav{grid-column:1/-1;grid-row:2;justify-self:stretch;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin:2px -8px 12px;padding:4px;border-radius:var(--r-md);background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(212,179,114,.35)}
@@ -179,7 +179,7 @@ img{max-width:100%;height:auto}
 .site-footer .foot-col{gap:0!important}
 .site-footer .foot-col a{padding:9px 0}
 }
-@container elb (max-width: 380px){.hdr .logo img{width:84px!important}}
+@container elb (max-width: 380px){.hdr .logo img{width:112px!important}}
 .ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#e8dfcf;color:#4a5560;font-family:'Ekkamai New',sans-serif;font-size:13px}
 .ph-dark{background:#073b3e;color:rgba(255,255,255,.92)}
 .cover{display:block;width:100%;height:100%;object-fit:cover}
@@ -343,7 +343,7 @@ img{max-width:100%;height:auto}
 .mini-bar{position:fixed;left:0;right:0;top:0;z-index:45;transform:translateY(-100%);visibility:hidden;transition:transform .4s cubic-bezier(.2,.7,.2,1),visibility 0s linear .4s;background:linear-gradient(120deg,rgba(7,59,62,.82),rgba(11,83,87,.78));-webkit-backdrop-filter:blur(14px) saturate(1.3);backdrop-filter:blur(14px) saturate(1.3);font-family:'Ekkamai New',sans-serif}
 .mini-bar.is-shown{transform:none;visibility:visible;transition:transform .4s cubic-bezier(.2,.7,.2,1);box-shadow:0 1px 0 rgba(212,179,114,.5),0 12px 30px rgba(7,59,62,.25)}
 .mini-in{display:flex;align-items:center;gap:24px;min-height:58px}
-.mini-logo img{display:block;width:62px;height:auto;filter:drop-shadow(0 0 10px rgba(253,234,192,.35))}
+.mini-logo img{display:block;width:96px;height:auto}
 .mini-nav{display:flex;gap:4px;white-space:nowrap}
 .mini-nav a{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border-radius:var(--r-pill);color:#fff;font-size:15px;transition:background-color .25s,color .25s}.mini-nav a:hover{background:rgba(255,255,255,.08);color:#fdeac0}.mini-nav a[aria-current]{background:rgba(212,179,114,.2);color:#fdeac0;box-shadow:inset 0 0 0 1px rgba(212,179,114,.65)}
 /* phone: the same five icon tabs as the header, full width (the bar lives outside the .elb-page container, so a media query) */
@@ -614,12 +614,12 @@ html.translated-ltr font{vertical-align:inherit!important}
 /* ---------- Brand marks on photos (brand chat, 6 Nov 2026) ----------
    Small and quiet: they must never pull attention from the food. Code overlays, never burned into photos.
    Bottom-left, because the posted photos carry the Boss's faint watermark bottom-right.
-   Slider: gold ELB Roundel on a 38% deep-teal disc. The Index thumbnails: the Boss's gold signature (script wordmark). */
+   Slider: gold "the B" monogram (Logo Kit 2026) on a 38% deep-teal disc. The Index thumbnails: the 2026 wordmark "Eat Like the BOSS" in flat foil gold (brand chat, 9 Nov 2026). */
 .slide-photo,.idx-thumb{position:relative}
 .slide-photo::after{content:"";position:absolute;z-index:2;left:14px;bottom:14px;width:clamp(34px,8%,46px);aspect-ratio:1;border-radius:50%;
   background:rgba(7,59,62,.38) url(/img/brand/elb-stamp.svg) center/86% no-repeat;opacity:.92;pointer-events:none}
 .idx-thumb::after{content:"";position:absolute;z-index:2;inset:0;pointer-events:none;
-  background:url(/img/brand/elb-signature.svg) left 5px bottom 5px/46px auto no-repeat,radial-gradient(70% 60% at 0% 100%,rgba(16,24,30,.42),rgba(16,24,30,0) 70%)}
+  background:url(/img/brand/elb-signature.svg) left 6px bottom 6px/56px auto no-repeat,radial-gradient(70% 60% at 0% 100%,rgba(16,24,30,.42),rgba(16,24,30,0) 70%)}
 .idx-thumb:has(.ph)::after{display:none}
 @media print{.slide-photo::after,.idx-thumb::after{display:none}}
 
