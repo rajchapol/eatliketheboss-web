@@ -59,13 +59,17 @@ const client = dry ? null : createClient({ projectId: get('SANITY_PROJECT_ID'), 
 // Photos: send the original (long side 2000 px or more, not cropped). The site crops to 3:2 around "focus" (see scripts/image-spec.mjs).
 const smallPhotos = [];
 const sharp = await import('sharp').then((m) => m.default).catch(() => null); // size check only
-async function upload(spec) {
+// Cover = landscape only (the Boss, 10 Nov 2026): it is the card, slider and share photo, always shown 3:2.
+const coverProblems = [];
+async function upload(spec, { cover = false } = {}) {
   if (!spec) return undefined;
   const { path: p, alt, focus, zoom } = typeof spec === 'string' ? parseImageSpec(spec) : { path: spec.path, alt: spec.alt };
   const fit = cropAndHotspot(focus, zoom);
   if (sharp && !p.startsWith('http')) {
     try {
-      const { width = 0, height = 0 } = await sharp(resolve(base, p)).metadata();
+      const m = await sharp(resolve(base, p)).metadata();
+      const [width, height] = (m.orientation || 1) >= 5 ? [m.height || 0, m.width || 0] : [m.width || 0, m.height || 0];
+      if (cover && width < height * 1.25) coverProblems.push(`${p} (${width}×${height})`);
       if (Math.max(width, height) < 1600) smallPhotos.push(`${p} (${width}×${height}${Math.abs(width / height - 1.5) < 0.01 ? ', already cropped to 3:2' : ''})`);
     } catch {}
   }
@@ -142,7 +146,7 @@ const doc = {
   _id: id, _type: 'article', language: lang,
   ...(lang !== 'th' ? { translationOf: { _type: 'reference', _ref: `article-${slug}` } } : {}),
   series: fm.series || 'review', episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
-  tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover),
+  tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover, { cover: true }),
   // gallery: ["./images/<slug>/room.jpg | alt text | caption (optional)", …] → ambience / chef photos before the dishes
   gallery: fm.gallery ? await Promise.all([].concat(fm.gallery).map(async (g) => {
     const { caption } = parseImageSpec(g);
@@ -164,6 +168,7 @@ if (doc.dishes.filter((d) => d.glassesOff).length > 2) throw new Error('ถอ�
 function warnSmall() {
   if (smallPhotos.length) console.warn(`⚠︎ รูปเล็กไป ${smallPhotos.length} รูป — ส่งไฟล์ต้นฉบับ (ด้านยาว 2000px ขึ้นไป ไม่ต้องครอปเอง เว็บครอป 3:2 ให้ ใช้ focus= / zoom= กำหนดจุด · ดู npm run crop-preview):\n  ${smallPhotos.join('\n  ')}`);
 }
+if (coverProblems.length) throw new Error(`ปกต้องเป็นรูปแนวนอน (กว้างกว่าสูง อย่างน้อย 5:4) เพราะใช้เป็นรูปการ์ด สไลด์ และรูปแชร์ที่แสดง 3:2 เสมอ · รูปแนวตั้งใส่เป็นรูปจานหรือแกลเลอรีได้ เว็บโชว์ 4:5 ให้: ${coverProblems.join(', ')}`);
 if (dry) { console.log(JSON.stringify(doc, null, 2)); warnSmall(); process.exit(0); }
 if (!get('SANITY_WRITE_TOKEN')) throw new Error('ไม่มี SANITY_WRITE_TOKEN ใน .env');
 // ---- Writing to Sanity ----------------------------------------------------------------------------------

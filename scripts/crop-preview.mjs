@@ -24,7 +24,9 @@ for (const [kind, raw] of specs) {
   if (!path || path.startsWith('http')) continue;
   const src = sharp(resolve(base, path)).rotate();
   const { width: w, height: h } = await src.clone().metadata().then(async (m) => (m.orientation >= 5 ? { width: m.height, height: m.width } : m));
-  const win = siteWindow(w, h, focus, zoom);
+  // Cover: always 3:2. Dishes / gallery: the photo's own shape (landscape 3:2 or 4:3, portrait 4:5), like photoFrame() on the site.
+  const ratio = kind === 'cover' ? 1.5 : w / h < 1 ? 0.8 : w / h < 1.42 ? 4 / 3 : 1.5;
+  const win = siteWindow(w, h, focus, zoom, ratio);
   const s = Math.min(W / w, H / h), tw = Math.round(w * s), th = Math.round(h * s);
   const small1 = await src.clone().resize(tw, th).toBuffer();
   const r = { left: Math.round(win.left * s), top: Math.round(win.top * s) };
@@ -32,9 +34,9 @@ for (const [kind, raw] of specs) {
   const shade = Buffer.from(`<svg width="${tw}" height="${th}"><rect width="${tw}" height="${th}" fill="black" fill-opacity=".55"/></svg>`);
   const frame = Buffer.from(`<svg width="${tw}" height="${th}"><rect x="${r.left + 1.5}" y="${r.top + 1.5}" width="${r.width - 3}" height="${r.height - 3}" fill="none" stroke="#ffd34d" stroke-width="3"/></svg>`);
   const dimmed = await sharp(small1).composite([{ input: shade }, { input: await sharp(small1).extract(r).toBuffer(), left: r.left, top: r.top }, { input: frame }]).png().toBuffer();
-  const shown = await src.clone().extract(win).resize(W, H).toBuffer();
+  const shown = await src.clone().extract(win).resize(W, H, { fit: 'contain', background: '#1c1c1c' }).toBuffer();
   const small = Math.max(w, h) < 1600;
-  const label = `${kind} · ${basename(path)} · ${w}×${h}${focus ? ` · focus=${focus.join(',')}` : ''}${zoom ? ` · zoom=${zoom}` : ''}${small ? ' · TOO SMALL' : ''}`;
+  const label = `${kind} · ${basename(path)} · ${w}×${h} · ${ratio === 1.5 ? '3:2' : ratio === 0.8 ? '4:5' : '4:3'}${kind === 'cover' && w < h * 1.25 ? ' · COVER MUST BE LANDSCAPE' : ''}${focus ? ` · focus=${focus.join(',')}` : ''}${zoom ? ` · zoom=${zoom}` : ''}${small ? ' · TOO SMALL' : ''}`;
   tiles.push({ dimmed, tw, th, shown, label, small });
 }
 if (!tiles.length) { console.error('ไม่เจอรูปในไฟล์ (local paths only)'); process.exit(1); }
@@ -44,7 +46,7 @@ const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 const comps = tiles.flatMap((t, i) => {
   const y = PAD + i * rowH;
   return [
-    { input: Buffer.from(`<svg width="${sheetW}" height="${LABEL}"><text x="${PAD}" y="22" font-family="sans-serif" font-size="16" fill="${t.small ? '#ff6b6b' : '#eee'}">${esc(t.label)}</text></svg>`), left: 0, top: y },
+    { input: Buffer.from(`<svg width="${sheetW}" height="${LABEL}"><text x="${PAD}" y="22" font-family="sans-serif" font-size="16" fill="${t.small || t.label.includes('MUST') ? '#ff6b6b' : '#eee'}">${esc(t.label)}</text></svg>`), left: 0, top: y },
     { input: t.dimmed, left: PAD + Math.round((W - t.tw) / 2), top: y + LABEL + Math.round((H - t.th) / 2) },
     { input: t.shown, left: PAD * 2 + W, top: y + LABEL },
   ];
@@ -52,4 +54,4 @@ const comps = tiles.flatMap((t, i) => {
 const out = resolve('posts/_preview', `${basename(file, '.md')}.jpg`);
 mkdirSync(dirname(out), { recursive: true });
 await sharp({ create: { width: sheetW, height: sheetH, channels: 3, background: '#1c1c1c' } }).composite(comps).jpeg({ quality: 82 }).toFile(out);
-console.log(`✓ ${out} — ${tiles.length} รูป · ซ้าย = รูปเต็ม (กรอบเหลือง = ส่วนที่เว็บโชว์) · ขวา = ที่เว็บโชว์ 3:2${tiles.some((t) => t.small) ? ` · ⚠︎ ${tiles.filter((t) => t.small).length} รูปเล็กไป` : ''}`);
+console.log(`✓ ${out} — ${tiles.length} รูป · ซ้าย = รูปเต็ม (กรอบเหลือง = ส่วนที่เว็บโชว์) · ขวา = ที่เว็บโชว์ (ปก 3:2 · จาน/แกลเลอรีตามรูป)${tiles.some((t) => t.small) ? ` · ⚠︎ ${tiles.filter((t) => t.small).length} รูปเล็กไป` : ''}`);

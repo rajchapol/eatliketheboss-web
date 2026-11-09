@@ -116,7 +116,14 @@ export const article = defineType({
         defineField({ name: 'awards', title: 'Awards · รางวัล (ตรวจจากแหล่งจริงแล้ว)', description: 'กด Add item → เลือกรางวัลจากรายการ (จัดตามสถาบัน) · ใส่ปีถ้ามี · หมายเหตุสั้นๆ เช่น ชื่อเชฟ หรือประเทศ · ลากเพื่อเรียงลำดับ · รางวัลจริงที่ยังไม่มีในรายการ: ขอฝ่ายเว็บเพิ่มใน src/data/awards.json',
           type: 'array', of: [defineArrayMember({ type: 'award' })] }),
       ] }),
-    photo('cover', 'ภาพปก (แนวนอน 3:2 — ทุกรูปอาหารในเว็บแสดง 3:2)', 'main'),
+    defineField({ ...photo('cover', 'Cover · ภาพปก (landscape only · แนวนอนเท่านั้น)', 'main'),
+      description: 'ใช้เป็นรูปการ์ด สไลด์หน้าแรก และรูปแชร์ แสดง 3:2 เสมอ · รูปแนวตั้งใส่เป็นรูปจานหรือแกลเลอรี (เว็บโชว์ 4:5 ให้เต็มรูป)',
+      validation: (r) => r.custom(async (v: any, ctx: any) => {
+        const ref = v?.asset?._ref; if (!ref) return true;
+        const d = await ctx.getClient({ apiVersion: '2024-01-01' }).fetch('*[_id == $id][0].metadata.dimensions', { id: ref });
+        const w = (d?.width || 3) * (1 - (v.crop?.left || 0) - (v.crop?.right || 0)), h = (d?.height || 2) * (1 - (v.crop?.top || 0) - (v.crop?.bottom || 0));
+        return w >= h * 1.25 || 'ปกต้องเป็นรูปแนวนอน · Cover must be landscape';
+      }).warning() }), // warning, not error: two older articles (numata-sou, yong-fu) must stay editable until their cover is swapped
     defineField({ name: 'gallery', title: 'Gallery (optional) · ภาพบรรยากาศร้าน / เชฟ', description: 'แสดงต่อจากบทนำ ก่อนรายการจาน · 1–6 รูป แนวนอนดีที่สุด · ใส่คำบรรยายสั้นๆ ได้ เช่น "ห้องอาหารชั้น 56" หรือชื่อเชฟ', type: 'array', group: 'main',
       of: [defineArrayMember({ type: 'image', options: { hotspot: true }, fields: [altField, defineField({ name: 'caption', title: 'Caption (optional) · คำบรรยายใต้ภาพ', type: 'string' })] })],
       validation: (r) => r.max(6) }),
