@@ -4,7 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
-
+## 9 Nov 2026 · New logo 2026 "Eat Like the BOSS" on the site (brand chat, branch `brand/logo-2026`)
+- The Boss chose a new logo (the old hand-script read "Ross", "the" was tiny, "Gastronomy Bloggers" unreadable, the social profile picture was hard to read): script "Eat Like the" + BOSS in capitals (Bodoni Moda), metallic foil gold. Full kit (SVG outlined + PNG, every colour, metallic): Drive › 2026 Brand Kit › logos › EatLikeTheBoss-LogoKit-2026; rules: Brand Identity Manual V4 § 18.
+- Header + compact bar: `public/img/logo-2026.webp` (stacked, foil) replaces `logo-gold.webp`; widths 220 px desktop, 132/112 px phone, 96 px compact bar; the gold glow filter is gone (foil carries its own light). Old `logo-gold.*` files stay (unused) for old links.
+- Share images: `og.ts` + `seo.ts` use `public/img/logo-2026.png`; `og-default.jpg` repainted with the new logo.
+- Favicon / apple-touch: "the B" monogram on teal (`favicon.png`, `favicon-512.png`, `apple-touch-icon.png`); `monogram.webp` (home + About) = new foil monogram.
+- Photo marks: slider stamp `elb-stamp.svg` = the B monogram; Index thumbnails `elb-signature.svg` = flat-foil wordmark (56 px).
+- Post covers come from the writing skill (v2.76 uses the new foil wordmark); nothing to change here.
 
 ## 9 Nov 2026 · SEO pass + Google Search Console (branch `seo-pass`)
 - Audit of all 129 live articles against `docs/SEO.md` (meta title ≤ 60, description 120–155, English slug, alt on every photo, date, city): only Les Amis was off (description 157 → 155, `posts/les-amis.md`). "ดาวมิชลิน" in descriptions is fine (the no-stars rule is about the Boss's own ratings).

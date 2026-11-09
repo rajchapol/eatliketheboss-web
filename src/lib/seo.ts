@@ -22,7 +22,7 @@ export const organization = () => ({
   name: SITE.shortName,
   alternateName: 'บอสพาชิม',
   url: SITE.url,
-  logo: abs('/img/logo-gold.png'),
+  logo: abs('/img/logo-2026.png'),
   sameAs: [SITE.facebook, SITE.instagram],
 });
 

@@ -11,7 +11,7 @@ import { imgUrl, visitLabel } from './content';
 
 const ROOT = process.cwd();
 const FONTS = ['NotoSerifThai-Regular.ttf', 'NotoSerifThai-SemiBold.ttf', 'CormorantGaramond-MediumItalic.ttf'].map((f) => join(ROOT, 'src/og/fonts', f));
-const LOGO = `data:image/png;base64,${readFileSync(join(ROOT, 'public/img/logo-gold.png')).toString('base64')}`;
+const LOGO = `data:image/png;base64,${readFileSync(join(ROOT, 'public/img/logo-2026.png')).toString('base64')}`;
 
 // SARA AM (ำ) mis-positions with this font in resvg: write it as NIKHAHIT + (tone mark) + SARA AA, which looks the same.
 const thaiFix = (s: string) => s.replace(/([\u0E48-\u0E4B]?)\u0E33/g, '\u0E4D$1\u0E32');
@@ -95,7 +95,7 @@ export async function renderOg(a: Article): Promise<Buffer> {
   ${cover ? `<image href="${cover}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>` : ''}
   <rect width="1200" height="630" fill="url(#bottom)"/>
   <rect width="1200" height="630" fill="url(#top)"/>
-  <image href="${LOGO}" x="${600 - 78}" y="22" width="156" height="139"/>
+  <image href="${LOGO}" x="${600 - 115}" y="28" width="230" height="123"/>
   ${noLabel ? `<text x="600" y="${y}" text-anchor="middle" font-family="Cormorant Garamond Medium" font-style="italic" font-size="30" fill="#fdeac0" letter-spacing="1">${noLabel}</text>
   <rect x="540" y="${y + 14}" width="120" height="1.5" fill="url(#gold)"/>` : ''}
   ${nameSvg}
