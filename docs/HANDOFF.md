@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+
+## 10 Nov 2026 · Photos as shot + full-screen viewer (branch `design-photos`)
+- The Boss shoots full frame in landscape, 4:3 and portrait; forcing 3:2 everywhere made the posting team decide crops. New rule: cards / covers / slider / awards / share images 3:2; inside articles dishes and gallery keep their shape (3:2 · 4:3 · portrait 4:5) via `photoFrame()` (uses the asset's dimensions + Studio crop, no new fields).
+- Portrait dish: desktop = narrower photo beside the text; phone = full width, capped at 72svh so the dish name stays in view. Gallery = one row of equal height (flex-grow by aspect ratio); phones / 4+ photos swipe sideways.
+- `Lightbox.astro`: tap / Enter on any `img[data-full]` (cover, dishes, gallery) → `<dialog>` with the uncropped photo (`fullUrl()`), swipe or ← →, Esc / ✕ / tap outside closes; right-click and drag blocked.
+- Cover edge to edge on phones (same 3:2).
+- Cover must be landscape (≥ 5:4): `post-article.mjs` error, Studio warning + to-do "Cover not landscape" (numata-sou, yong-fu today). `crop-preview` uses the new frames.
+- Live data today: 1583 article photos are 3:2 (pre-cropped), 4 portrait (Small Dinner Club ×3, Nawa ×1); the change shows once originals are posted.
+
 ## 9 Nov 2026 · New logo 2026 "Eat Like the BOSS" on the site (brand chat, branch `brand/logo-2026`)
 - The Boss chose a new logo (the old hand-script read "Ross", "the" was tiny, "Gastronomy Bloggers" unreadable, the social profile picture was hard to read): script "Eat Like the" + BOSS in capitals (Bodoni Moda), metallic foil gold. Full kit (SVG outlined + PNG, every colour, metallic): Drive › 2026 Brand Kit › logos › EatLikeTheBoss-LogoKit-2026; rules: Brand Identity Manual V4 § 18.
 - Header + compact bar: `public/img/logo-2026.webp` (stacked, foil) replaces `logo-gold.webp`; widths 220 px desktop, 132/112 px phone, 96 px compact bar; the gold glow filter is gone (foil carries its own light). Old `logo-gold.*` files stay (unused) for old links.

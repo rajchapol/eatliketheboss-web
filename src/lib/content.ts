@@ -183,6 +183,21 @@ export function imgUrl(i: Img | undefined, w: number, h?: number) {
     return `${i.url}?w=${w}${h ? `&h=${h}&fit=crop` : ''}&auto=format&q=80`; // URL without dimensions: centre crop
   }
 }
+/**
+ * Frame for a photo inside an article, from the photo itself (the Boss, 10 Nov 2026): landscape 3:2 (or 4:3 when shot
+ * that way), portrait 4:5. Covers, cards and share images stay 3:2. `r` = height ÷ width for imgUrl/srcset.
+ */
+export function photoFrame(i: Img | undefined): { ar: '3/2' | '4/3' | '4/5'; r: number; portrait: boolean } {
+  const w = (i?.width || 3) * (1 - (i?.crop?.left || 0) - (i?.crop?.right || 0));
+  const h = (i?.height || 2) * (1 - (i?.crop?.top || 0) - (i?.crop?.bottom || 0));
+  const x = w / h;
+  if (x < 1) return { ar: '4/5', r: 1.25, portrait: true };
+  if (x < 1.42) return { ar: '4/3', r: 0.75, portrait: false };
+  return { ar: '3/2', r: 0.6667, portrait: false };
+}
+/** The whole photo, uncropped, for the full-screen viewer. */
+export const fullUrl = (i: Img | undefined, w = 2000) => (i?.url ? (i.url.includes('cdn.sanity.io') ? `${i.url}?w=${w}&fit=max&auto=format&q=82` : i.url) : undefined);
+
 export function srcset(i: Img | undefined, widths: number[], ratio?: number) {
   if (!i?.url || !i.url.includes('cdn.sanity.io')) return undefined;
   return widths.map((w) => `${imgUrl(i, w, ratio ? Math.round(w * ratio) : undefined)} ${w}w`).join(', ');

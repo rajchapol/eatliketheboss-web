@@ -8,7 +8,8 @@ import Photo from '../components/Photo.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import ShareBar from '../components/ShareBar.astro';
 import { SERIES } from '../lib/config';
-import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, capsuleUrl } from '../lib/content';
+import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, capsuleUrl, photoFrame } from '../lib/content';
+import Lightbox from '../components/Lightbox.astro';
 import { articleLd, breadcrumbs } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
 import { t, formatDate, cuisineText } from '../lib/i18n';
@@ -118,7 +119,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       </div>
     </div>
 
-    {a.cover && <div class="wrap" style="padding-top:40px"><div class="rl parallax" style={`aspect-ratio:3/2;max-height:760px;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 30px 60px -20px rgba(11,83,87,.35)`}><Photo img={a.cover} label={t(L, 'coverLabel')} ratio={0.6667} eager sizes="(max-width: 1200px) 100vw, 1140px" widths={[640, 960, 1280, 1920]} /></div></div>}
+    {a.cover && <div class="wrap cover-wrap" style="padding-top:40px"><div class="rl parallax cover-frame" style={`aspect-ratio:3/2;max-height:760px;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 30px 60px -20px rgba(11,83,87,.35)`}><Photo img={a.cover} label={t(L, 'coverLabel')} ratio={0.6667} zoom eager sizes="(max-width: 1200px) 100vw, 1140px" widths={[640, 960, 1280, 1920]} /></div></div>}
 
     <div class="wrap" style="padding-top:64px;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
       <div class="prose" style="flex:999 1 560px;min-width:0" set:html={a.bodyHtml} />
@@ -142,13 +143,14 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
 
     {a.gallery && a.gallery.length > 0 && (
       <section aria-label={t(L, 'gallery')} class="wrap" style="padding-top:64px">
+        {/* Every photo keeps its own shape (3:2 · 4:3 · 4:5); one row, same height, swipe sideways when it overflows. */}
         <div class={`gallery g${Math.min(a.gallery.length, 3)}`}>
-          {a.gallery.map((g, i) => (
-            <figure class="gal-item" data-reveal>
-              <div class="rc gal-photo"><Photo img={g} label={g.caption || t(L, 'gallery')} ratio={0.6667} widths={[480, 800, 1200, 1600]} sizes={a.gallery!.length === 1 ? '(max-width: 1200px) 100vw, 1140px' : '(max-width: 720px) 85vw, 560px'} /></div>
+          {a.gallery.map((g, i) => { const f = photoFrame(g); return (
+            <figure class={`gal-item${f.portrait ? ' is-portrait' : ''}`} data-reveal style={`--ar:${f.ar}`}>
+              <div class="rc gal-photo" style={`aspect-ratio:${f.ar}`}><Photo img={g} label={g.caption || t(L, 'gallery')} ratio={f.r} zoom widths={[480, 800, 1200, 1600]} sizes={a.gallery!.length === 1 ? '(max-width: 1200px) 100vw, 1140px' : '(max-width: 720px) 85vw, 560px'} /></div>
               {g.caption && <figcaption>{g.caption}</figcaption>}
             </figure>
-          ))}
+          ); })}
         </div>
       </section>
     )}
@@ -172,8 +174,8 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
           <article id={`dish-${i + 1}`} aria-label={d.name} class="go-band band-fan on-dark spot" style="margin:56px 0;padding:48px;border-radius:var(--r-lg);color:#fff;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 24px 56px rgba(0,0,0,.25)">
             <div class="dish-row">
               {d.image?.url && (
-              <figure style="flex:7 1 480px;min-width:0;margin:0;position:relative">
-                <div class="dish-photo-dark" style="aspect-ratio:3/2;background:#073b3e"><Photo img={d.image} label={t(L, 'dishPhoto', { n: roman(i) })} ratio={0.6667} dark sizes="(max-width: 720px) 100vw, 680px" widths={[480, 800, 1200, 1600]} /></div>
+              <figure class={`dish-fig${photoFrame(d.image).portrait ? ' is-portrait' : ''}`} style="flex:7 1 480px;min-width:0;margin:0;position:relative">
+                <div class="dish-photo-dark" style={`aspect-ratio:${photoFrame(d.image).ar};background:#073b3e`}><Photo img={d.image} label={t(L, 'dishPhoto', { n: roman(i) })} ratio={photoFrame(d.image).r} zoom dark sizes="(max-width: 720px) 100vw, 680px" widths={[480, 800, 1200, 1600]} /></div>
                 <span class="badge badge-dark fx-pulse" style="position:absolute;left:14px;top:14px;padding:8px 14px;font-size:13px;letter-spacing:.12em"><Icon name="glasses" size={16} />GLASSES OFF</span>
               </figure>
               )}
@@ -191,8 +193,8 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
             <div class={i % 2 && d.image?.url ? 'dish-row flip' : 'dish-row'}>
               {/* No photo for this dish: text only (no "[ภาพจาน]" placeholder on the live site). */}
               {d.image?.url && (
-              <figure class="dish-fig" style="flex:7 1 480px;min-width:0">
-                <div class="dish-photo" style="aspect-ratio:3/2;background:#e8dfcf"><Photo img={d.image} label={t(L, 'dishPhoto', { n: roman(i) })} ratio={0.6667} sizes="(max-width: 720px) 100vw, 680px" widths={[480, 800, 1200, 1600]} /></div>
+              <figure class={`dish-fig${photoFrame(d.image).portrait ? ' is-portrait' : ''}`} style="flex:7 1 480px;min-width:0">
+                <div class="dish-photo" style={`aspect-ratio:${photoFrame(d.image).ar};background:#e8dfcf`}><Photo img={d.image} label={t(L, 'dishPhoto', { n: roman(i) })} ratio={photoFrame(d.image).r} zoom sizes="(max-width: 720px) 100vw, 680px" widths={[480, 800, 1200, 1600]} /></div>
               </figure>
               )}
               <div style={`flex:5 1 320px;min-width:0;display:flex;flex-direction:column;gap:14px${d.image?.url ? '' : ';max-width:760px;margin:0 auto'}`}>
@@ -232,4 +234,5 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       let raf = 0; const upd = () => { raf = 0; const r = art.getBoundingClientRect(); const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight))); bar.style.transform = `scaleX(${p})`; };
       addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(upd); }, { passive: true }); upd(); })();
   </script>
+<Lightbox lang={L} />
 </Base>

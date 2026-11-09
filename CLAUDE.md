@@ -26,7 +26,7 @@ You never need to touch `src/` to post.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.
 - Copy protection (deterrent only): AI-training crawlers blocked in `public/robots.txt`; photos can't be right-clicked/dragged/long-pressed; copied text (80+ chars) gets a credit + link (`Effects.astro`); footer rights notice; photo copyright in JSON-LD (`seo.ts`).
-- Every food photo (covers, dishes, cards, awards) shows at 3:2 landscape. Rounded corners: pills for controls, `--r-md`/`--r-lg` for cards and photos (`site.css` tokens).
+- Photos (the Boss, 10 Nov 2026): cards, covers, home slider, awards and share images show at 3:2; the cover must be a landscape photo (`post-article.mjs` errors, Studio warns). Inside an article, dish and gallery photos keep their own shape: landscape 3:2 / 4:3, portrait 4:5 (`photoFrame()` in `content.ts`); tapping any article photo opens the uncropped photo full screen (`src/components/Lightbox.astro`). Rounded corners: pills for controls, `--r-md`/`--r-lg` for cards and photos (`site.css` tokens).
 - City motif patterns are decoration only: no "ลายประจำเมือง" text labels.
 - Brand source: the "Eat Like The Boss" design system README (Website — A3★ Lagoon Gold).
 

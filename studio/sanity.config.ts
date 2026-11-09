@@ -113,6 +113,9 @@ export default defineConfig({
               S.listItem().id('todo-city-photo').title('Cities without a photo · เมืองที่ยังไม่มีรูป').icon(ImageIcon).child(
                 S.documentList().id('todo-city-photo').apiVersion(API).schemaType('city').title('Cities without a photo · เมืองที่ยังไม่มีรูป')
                   .filter('_type == "city" && !defined(cover.asset) && count(*[_type == "article" && city._ref == ^._id]) > 0')),
+              S.listItem().id('todo-cover-portrait').title('Cover not landscape · ปกไม่ใช่แนวนอน').icon(ImageIcon).child(
+                S.documentList().id('todo-cover-portrait').apiVersion(API).schemaType('article').title('Cover not landscape · ปกไม่ใช่แนวนอน')
+                  .filter('_type == "article" && !defined(translationOf) && !(_id in path("drafts.**")) && cover.asset->metadata.dimensions.aspectRatio < 1.25')),
               S.listItem().id('todo-small-photos').title('Small photos (under 1000 px) · รูปเล็กไป').icon(ImageIcon).child(
                 S.documentList().id('todo-small-photos').apiVersion(API).schemaType('article').title('Small photos (under 1000 px) · รูปเล็กไป')
                   .filter('_type == "article" && !defined(translationOf) && !(_id in path("drafts.**")) && ((cover.asset->metadata.dimensions.width < 1000 && cover.asset->metadata.dimensions.height < 1000) || count(dishes[image.asset->metadata.dimensions.width < 1000 && image.asset->metadata.dimensions.height < 1000]) > 0)')
