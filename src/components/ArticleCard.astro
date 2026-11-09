@@ -30,7 +30,7 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
     <span class="fx-zoom" style="position:absolute;inset:0;display:block"><Photo img={a.cover} label="ภาพปก" ratio={0.6667} widths={[400, 600, 900]} sizes="(max-width: 720px) 100vw, 360px" /></span>
     <span style="position:absolute;left:12px;top:12px;right:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:flex-start">
       <span class="badge badge-light"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${s.dot}`}></span>{seriesName}</span>
-      {a.tag && <span class="badge badge-light" style="color:#6e3f08;font-weight:700"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}
+      {a.tag && <span class="badge badge-light" style="color:#6e3f08;font-weight:700"><Icon name={a.tag.startsWith('AD') ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}
       {glasses && <span class="badge badge-dark go-badge" style="margin-left:auto"><img src="/img/brand/go-mark.svg" alt="" width="20" height="20" />{t(L, 'glassesOff')}</span>}
     </span>
     <span style="position:absolute;left:0;right:0;bottom:0;padding:36px 16px 10px;background:linear-gradient(180deg,rgba(7,59,62,0) 0%,rgba(7,59,62,.82) 100%);display:flex;justify-content:space-between;align-items:baseline;gap:12px">

@@ -21,7 +21,7 @@ You never need to touch `src/` to post.
 
 ## Brand rules that the code enforces or relies on
 - No stars, no scores, no `reviewRating` in JSON-LD. Impressions come through writing and the 🕶️ glasses-off dish (max 2 per meal).
-- The Boss's Bill = an approximate **price band** (฿฿ / ฿฿฿ / ฿฿฿฿), never the real amount, and never whether a meal was invited or paid. Special event meals carry an `Event` pill; paid posts `AD`. Band = Studio "The Boss's Bill" (Bill tab), else worked out from the hidden real price (`priceBandFromBill()` in `content.ts`: <3,000 / <8,000 / 8,000+ THB).
+- The Boss's Bill = an approximate **price band** (฿฿ / ฿฿฿ / ฿฿฿฿), never the real amount. Special event meals carry an `Event` pill; invited meals `AD` (the Boss, 7 Nov 2026: AD = ได้รับเชิญ, still show the band); both = `AD · Event`. Band = Studio "The Boss's Bill" (Bill tab), else worked out from the hidden real price (`priceBandFromBill()` in `content.ts`: <3,000 / <8,000 / 8,000+ THB).
 - Boss's Pairing is retired (3 Nov 2026). Don't add it back.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.

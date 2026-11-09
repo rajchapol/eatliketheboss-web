@@ -31,7 +31,7 @@ cover: "./images/restaurant-name/cover.jpg | ห้องอาหารขอ�
 #   - "./images/restaurant-name/chef.jpg | เชฟ Y ในครัวเปิด ร้าน X | เชฟ Y"
 billBand: "฿฿฿"        # The Boss's Bill บนเว็บ: ฿฿ (<3,000 บาท) | ฿฿฿ (3,000–7,999) | ฿฿฿฿ (8,000+) · เว้นว่าง = คำนวณจาก bill
 bill: "6,999 THB++"     # ราคาจริง (ไม่แสดงบนเว็บ) · ไม่บังคับ
-tag: ""                 # "" ปกติ | Event = มื้ออีเวนต์/มื้อพิเศษ | AD = โพสต์ที่ได้รับค่าจ้าง
+tag: ""                 # "" ปกติ | Event = มื้ออีเวนต์/มื้อพิเศษ | AD = มื้อที่ได้รับเชิญ | "AD · Event" = ได้รับเชิญ + อีเวนต์
 visit: Oct-2026           # เดือนที่ไปกินจริง — เว็บเรียงเลข No. ตามนี้ (เก่าสุด = 001)
 hashtags: [บอสพาชิม, eatliketheboss, RestaurantName, Tokyo]
 publishedAt: 2026-11-03

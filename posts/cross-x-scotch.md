@@ -15,7 +15,7 @@ gallery:
   - ./images/cross-x-scotch/g1.jpg | ขวดแก้วสองขวดบรรจุรังนกแท้ Scotch Gold Selection และ Royal Supreme วางข้างแจกันดอกคาร์เนชันสีชมพู
   - ./images/cross-x-scotch/g2.jpg | เมนูกระดาษพิมพ์ชื่องาน Scotch x Cross พร้อมบัตรชื่อแขกวางบนเสื่อรองจานลายทอง
 billBand: ""
-tag: "AD"
+tag: "AD · Event"
 visit: Apr-2024
 hashtags: [บอสพาชิม, eatliketheboss, Cross, Scotch, Bangkok, รังนกแท้]
 publishedAt: 2026-11-09

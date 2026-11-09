@@ -76,7 +76,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
             <section aria-label={t(L, 'atGlance')} class="glance rc">
               <p class="glance-head">{t(L, 'atGlance')}</p>
               <dl class="glance-grid">
-                <div><dt><Icon name="bill" size={15} />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag === 'AD' ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
+                <div><dt><Icon name="bill" size={15} />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag.startsWith('AD') ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
                 <div><dt><Icon name="cuisine" size={15} />{t(L, 'cuisine')}</dt><dd>{cuisineText(a.restaurant, L) || '—'}</dd></div>
                 {a.restaurant?.awards?.length ? <div><dt><Icon name="award" size={15} />{t(L, 'awards')}</dt><dd>{a.restaurant.awards.join(' · ')}</dd></div> : null}
                 {a.city && <div><dt><Icon name="pin" size={15} />{t(L, 'cityArea')}</dt><dd>{a.city.nameEn}{a.restaurant?.area && ` — ${a.restaurant.area}`}</dd></div>}
