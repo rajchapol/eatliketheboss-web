@@ -37,7 +37,7 @@ const changes = (v: Article, prev?: Article) => {
   return out;
 };
 const name = r.name;
-const title = `${name} ${city?.nameEn ?? ''} — ${st.capsuleTitle} ${visits.length} ครั้ง`;
+const title = `${name}${city ? ` ${city.nameEn}` : ''} รีวิว ${visits.length} ครั้ง (${span})`; // short for Google; the long capsule line stays on the page
 const desc = `บอสกลับไป ${name}${city ? ` ${city.nameTh}` : ''} มาแล้ว ${visits.length} ครั้ง (${span}) ย้อนดูทุกมื้อ จานที่กลับมา และสิ่งที่เปลี่ยนไป ในไทม์แคปซูลของบอสพาชิม · Eat Like The Boss`;
 const url = capsuleUrl(visits)!;
 const ld = [

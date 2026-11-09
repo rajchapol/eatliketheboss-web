@@ -282,6 +282,7 @@ export const settings = defineType({
     defineField({ name: 'instagram', title: 'Instagram link', type: 'url', group: 'footer' }),
     defineField({ name: 'siteDescription', title: 'Site description (Google) · คำอธิบายเว็บใน Google', description: '120–155 ตัวอักษร', type: 'text', rows: 2, validation: (r) => r.max(160).warning('ยาวเกิน Google จะตัด'), group: 'footer' }),
     defineField({ name: 'ogImage', title: 'Share image · รูปตอนแชร์ลิงก์ (1200×630)', description: 'บทความมีรูปแชร์ของตัวเองอัตโนมัติ (รูปปก + โลโก้ + ชื่อร้าน) · เว้นว่าง = รูปมาตรฐานของแบรนด์', type: 'image', group: 'footer' }),
+    defineField({ name: 'googleSiteVerification', title: 'Google Search Console code · โค้ดยืนยันเว็บกับ Google', description: 'Search Console → เพิ่มพร็อพเพอร์ตี → URL prefix https://eatlikeboss.com/ → วิธี "แท็ก HTML" → วางทั้งแท็ก <meta …> หรือเฉพาะค่าใน content ก็ได้ · Publish แล้วรอเว็บ build ~3 นาที ก่อนกด Verify', type: 'string', group: 'footer' }),
     defineField({ name: 'cfAnalyticsToken', title: 'Cloudflare Web Analytics token', description: 'Cloudflare → Web Analytics → คัดลอกค่า token ใน snippet · เว้นว่าง = ไม่เก็บสถิติ', type: 'string', group: 'footer' }),
   ],
   preview: { prepare: () => ({ title: 'Site settings · ตั้งค่าเว็บ / ข้อความทุกหน้า' }) },

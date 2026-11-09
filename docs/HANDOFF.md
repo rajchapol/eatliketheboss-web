@@ -5,6 +5,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+
+## 9 Nov 2026 · SEO pass + Google Search Console (branch `seo-pass`)
+- Audit of all 129 live articles against `docs/SEO.md` (meta title ≤ 60, description 120–155, English slug, alt on every photo, date, city): only Les Amis was off (description 157 → 155, `posts/les-amis.md`). "ดาวมิชลิน" in descriptions is fine (the no-stars rule is about the Boss's own ratings).
+- Crawl of all 172 sitemap pages: no broken internal links, no duplicate titles, one h1 each, empty `alt` only on decorative images (logo, line art, go-mark icon).
+- Fixed: 50 pages had the brand twice in `<title>` ("… | บอสพาชิม — บอสพาชิม"); `Base.astro` now trims it. `/review/` was "บอสพาชิม — บอสพาชิม" → "รีวิวร้านอาหาร Fine Dining ทั้งหมด". Time-capsule pages had 100+ char titles → "Cross Bangkok รีวิว 3 ครั้ง (2022–2024)".
+- New Studio field "Google Search Console code" (settings, ติดต่อ & SEO) → `google-site-verification` meta.
+- Live speed (9 Nov): Lighthouse phone 88–98, Cloudflare RUM 540 ms load, LCP good 98%. Web Analytics runs automatically; the Studio token stays empty.
+
 ## 7 Nov 2026 (evening) · Photo crops: originals + focus/zoom (branch `photo-crop`)
 - Why: the Boss saw photos too close / too far / off-centre (Sushi Jin, Hachinana). Every photo was pre-cropped to 3:2 and downsized to 816–1224 px before upload, so the site's crop/hotspot support (`imgUrl()`) had nothing to work with.
 - `scripts/image-spec.mjs`: image lines take `| focus=x,y | zoom=z` → Sanity `crop` + `hotspot`; `fitOf()` turns them back for `pull-articles.mjs`.

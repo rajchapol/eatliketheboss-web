@@ -98,6 +98,7 @@ export interface Settings {
   contactEmail: string;
   ogImageUrl?: string;
   cfAnalyticsToken?: string; // Cloudflare Web Analytics site token (public); empty = no analytics
+  googleSiteVerification?: string; // Google Search Console HTML-tag code (public); empty = no tag
   web3formsKey?: string; // contact form → Boss's email (web3forms.com access key, public by design)
   // Texts that used to be fixed in the code (defaults in src/data/settings.json)
   homeSearchPlaceholder: string;
