@@ -29,10 +29,15 @@ const { title, description = SITE.description, image = '/img/og-default.jpg', la
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;
 const alternates = Astro.props.alternates ?? [{ lang, href: path }];
-const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${title} — ${t(lang, 'titleSuffix')}`;
+// The site name is added here, so a title that already ends with it (old Meta titles: "… | บอสพาชิม") is trimmed first.
+const bareTitle = title.replace(/\s*[|·—–-]\s*(บอสพาชิม|Eat Like The Boss)\s*$/i, '').trim();
+const fullTitle = path === '/' ? `${SITE.name} — รีวิว Fine Dining แบบจริงใจ` : `${bareTitle} — ${t(lang, 'titleSuffix')}`;
 // Share image is always 1200×630: article covers are cropped in imgUrl(); the Sanity share image is cropped here.
 const settingsOg = (await getSettings()).ogImageUrl;
 const cfToken = ((await getSettings()).cfAnalyticsToken || '').trim();
+// Google Search Console: the HTML-tag code (content="…"), or the whole <meta> tag pasted in Studio.
+const gscRaw = String((await getSettings()).googleSiteVerification || '').trim();
+const gsc = (gscRaw.match(/content=["']([^"']+)/)?.[1] || gscRaw).replace(/[^\w-]/g, '');
 const ogImage = new URL(image === '/img/og-default.jpg' && settingsOg ? `${settingsOg}?w=1200&h=630&fit=crop&auto=format` : image, SITE.url).href;
 // Keep meta descriptions within ~155 characters (cut at a space when possible).
 const metaDescription = description.length <= 158 ? description : (() => { const cut = description.slice(0, 152); const sp = cut.lastIndexOf(' '); return (sp > 100 ? cut.slice(0, sp) : cut).trim() + '…'; })();
@@ -47,6 +52,7 @@ const metaDescription = description.length <= 158 ? description : (() => { const
   <meta name="description" content={metaDescription} />
   <link rel="canonical" href={canonical} />
   {noindex ? <meta name="robots" content="noindex,follow" /> : <meta name="robots" content="max-image-preview:large, noai, noimageai" />}
+  {gsc && <meta name="google-site-verification" content={gsc} />}
   <meta name="copyright" content="© Eat Like The Boss (บอสพาชิม). All rights reserved." />
   {alternates.length > 1 && alternates.map((a) => <link rel="alternate" hreflang={HREFLANG[a.lang]} href={new URL(a.href, SITE.url).href} />)}
   {alternates.length > 1 && <link rel="alternate" hreflang="x-default" href={new URL((alternates.find((a) => a.lang === DEFAULT_LOCALE) ?? alternates[0]).href, SITE.url).href} />}

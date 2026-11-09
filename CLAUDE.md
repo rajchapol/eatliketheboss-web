@@ -71,7 +71,9 @@ Meta title ≤ 60 chars, description 120–155, slug in English, alt text on eve
 - Files ↔ Sanity: `scripts/pull-articles.mjs` (Actions → Pull articles from Sanity) writes what is live back into `posts/*.md` and opens a `[sanity-sync]` PR; `post-article.yml` skips those merges. Run it before editing a post file the Boss may have changed in Studio.
 - `.github/workflows/check.yml` builds every branch / PR (sample + live content + Studio schema). No preview deploys (the Boss chose not to use Cloudflare previews).
 - Studio: `.github/workflows/deploy-studio.yml` deploys it when `studio/**` changes on main (secret `SANITY_DEPLOY_TOKEN`); by hand: `cd studio && npm ci && npx sanity login && npx sanity deploy`.
-- Cloudflare Web Analytics: paste the site token in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO (empty = off).
+- Cloudflare Web Analytics: already on automatically for eatlikeboss.com (Cloudflare dashboard → Web Analytics). Leave the Studio token field empty, or visits count twice.
+- Google Search Console: URL-prefix property, HTML-tag method; the code goes in Sanity → ตั้งค่าเว็บ → ติดต่อ & SEO → "Google Search Console code" (`<meta name="google-site-verification">` in `Base.astro`). Sitemap: `https://eatlikeboss.com/sitemap-index.xml`.
+- `<title>`: `Base.astro` adds " — บอสพาชิม" / " — Eat Like The Boss" and trims it off a Meta title that already ends with it.
 
 ## Commands
 `npm run dev` (local preview) · `npm run build` · `npm run post -- <file>` · `node scripts/seed-sanity.mjs` (one-time cities).
