@@ -1,0 +1,41 @@
+# Data fix: deletes one article (every language, published + draft) by slug — scripts/delete-article.mjs.
+# Manual only: Actions → Delete article → Run workflow with the slug. Leave "Dry run" ticked first.
+# Also delete posts/<slug>.md from the repo so it is not re-posted. Uses the secret SANITY_WRITE_TOKEN.
+name: Delete article
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: 'Article slug (e.g. cross-premium)'
+        required: true
+        type: string
+      dry:
+        description: 'Dry run only (print, change nothing)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: post-article
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    env:
+      SANITY_PROJECT_ID: ohviqc5c
+      SANITY_DATASET: production
+      SANITY_WRITE_TOKEN: ${{ secrets.SANITY_WRITE_TOKEN }}
+      SLUG: ${{ inputs.slug }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          check-latest: true
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Show what would change
+        run: node scripts/delete-article.mjs --slug "$SLUG" --dry
+      - name: Apply
+        if: inputs.dry == false
+        run: node scripts/delete-article.mjs --slug "$SLUG"
