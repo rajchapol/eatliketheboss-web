@@ -12,7 +12,7 @@ restaurant:
   cuisine: "Thai"
   style: "Contemporary"
   awards: ["MICHELIN Selected"]
-cover: "./images/tharn/cover.jpg | เป็ดรมควันฟางหนังกรอบวางบนซอสน้ำปลาหวานสีน้ำตาลเข้ม ร้านธาร (Tharn) กรุงเทพฯ"
+cover: "./images/tharn/cover.jpg | เป็ดรมควันฟางหนังกรอบวางบนซอสน้ำปลาหวานสีน้ำตาลเข้ม ร้านธาร (Tharn) กรุงเทพฯ | focus=0.5,0.55 | zoom=1.4"
 tag: "AD"
 bill: "2,990 THB++"
 billBand: "฿฿฿"
