@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Thai"
   style: "Contemporary"
   awards: ["Tabelog Award Silver"]
-cover: "./images/bia/cover.jpg | ผัดไทยเส้นอัลเดนเต้โปะกุ้งหวานและหน่อไม้บนจานแล็กเกอร์สีส้มแดง ร้าน Bia เมืองโตเกียว"
+cover: "./images/bia/cover.jpg | ผัดไทยเส้นอัลเดนเต้โปะกุ้งหวานและหน่อไม้บนจานแล็กเกอร์สีส้มแดง ร้าน Bia เมืองโตเกียว | focus=0.5,0.58 | zoom=1.3"
 bill: "40,000 Yen"
 billBand: "฿฿฿฿"
 visit: May-2026
