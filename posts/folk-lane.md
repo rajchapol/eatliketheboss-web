@@ -9,7 +9,7 @@ restaurant:
   name: "Folk Lane by Toby's"
   cuisine: "Modern"
   style: "Fusion"
-cover: "./images/folk-lane/cover.jpg | มัทฉะเฟรนช์โทสต์กรอบราดซอสเขียวและไอศกรีมโรยผงชาเขียว ร้าน Folk Lane by Toby's กรุงเทพฯ"
+cover: "./images/folk-lane/cover.jpg | มัทฉะเฟรนช์โทสต์กรอบราดซอสเขียวและไอศกรีมโรยผงชาเขียว ร้าน Folk Lane by Toby's กรุงเทพฯ | focus=0.5,0.45 | zoom=1.3"
 gallery:
   - ./images/folk-lane/g1.jpg | เมนูอาหารปกสีฟ้าโลโก้ Folk Lane วางบนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ
   - ./images/folk-lane/g2.jpg | กาแฟดำและลาเต้ลายใบไม้ในถ้วยสีแดง บนโต๊ะหินขัด ร้าน Folk Lane by Toby's กรุงเทพฯ
