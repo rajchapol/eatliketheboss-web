@@ -12,7 +12,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
-cover: "./images/restaurant-a/cover.jpg | Grilled octopus, shellfish, yellow tomato, saffron butter and green shoots in a white petal-shaped porcelain bowl, Restaurant A, Taipei"
+cover: "./images/restaurant-a/cover.jpg | Green tart topped with white foam, beside a beef-wrapped bite on a metal skewer garnished with a purple flower, on a white porcelain stand, Restaurant A, Taipei | focus=0.5,0.55 | zoom=1.2"
 billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [EatLikeTheBoss, eatliketheboss, RestaurantA, Taipei, AlainHuang, MichelinGuideTaiwan, FrenchCuisine, Taiwan, FineDining, 台北]

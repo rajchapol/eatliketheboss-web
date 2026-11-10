@@ -17,7 +17,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
-cover: "./images/restaurant-a/cover.jpg | หนวดหมึกยักษ์ย่าง หอย มะเขือเทศสีเหลือง เนยแซฟฟรอน และยอดผักสีเขียว ในชามกระเบื้องสีขาวทรงกลีบดอก ร้าน Restaurant A ไทเป"
+cover: "./images/restaurant-a/cover.jpg | ทาร์ตสีเขียวท็อปโฟมสีขาว คู่กับคำเนื้อห่อเสียบไม้โลหะแต่งดอกไม้สีม่วง บนแท่นกระเบื้องสีขาว ร้าน Restaurant A ไทเป | focus=0.5,0.55 | zoom=1.2"
 billBand: "฿฿฿"
 visit: Apr-2026
 hashtags: [บอสพาชิม, eatliketheboss, RestaurantA, Taipei, AlainHuang, MichelinGuideTaiwan, FrenchCuisine, Taiwan, FineDining, 台北]
