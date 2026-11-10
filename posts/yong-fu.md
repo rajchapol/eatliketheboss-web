@@ -13,7 +13,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Zhejiang"
   awards: ["MICHELIN 1★", "Black Pearl 3 Diamond"]
-cover: "./images/yong-fu/cover.jpg | ปูดองหนิงโปหั่นชิ้นในซอสสีเข้ม โรยพริกและต้นหอม ในชามลายครามขอบน้ำเงิน ร้าน Yong Fu เซี่ยงไฮ้"
+cover: "./images/yong-fu/cover.jpg | หอยเชลล์ทอดใต้แผ่นกรอบรูปเปลือกหอย ราดซอสเต้าเจี้ยว มีหน่อไม้ดองวงสีเขียวรอบจาน ร้าน Yong Fu เซี่ยงไฮ้"
 tag: "AD"
 billBand: "฿฿฿฿"
 visit: Oct-2026
