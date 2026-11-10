@@ -673,3 +673,21 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
   .cover-wrap{padding-left:0!important;padding-right:0!important}
   .cover-frame{border-radius:0!important;box-shadow:none!important}
 }
+
+/* ── Reading layout (the Boss, 10 Nov 2026) ─────────────────────────────
+   Thai body text: ~60–70 characters a line, generous leading, no lone word on the last line,
+   bold from drafts in teal, facts box stays beside the text while reading on desktop. */
+.prose{max-width:690px;text-wrap:pretty;overflow-wrap:break-word;font-feature-settings:"kern" 1;font-variant-numeric:lining-nums}
+.prose p{margin:0 0 1.45em}
+.prose strong,.prose b{font-weight:600;color:#0b5357}
+.prose a{color:#0b5357;border-bottom:1px solid #c39e5c}
+.prose>p:last-child{margin-bottom:0}
+.dish-desc{text-wrap:pretty;max-width:62ch}
+@container elb (min-width: 1000px){
+  .prose{font-size:19px;line-height:1.85}
+  .at-table{position:sticky;top:96px}
+}
+@container elb (max-width: 720px){
+  .prose{font-size:17.5px;line-height:1.85}
+  .prose p{margin-bottom:1.35em}
+}

@@ -124,7 +124,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
     <div class="wrap" style="padding-top:64px;display:flex;flex-wrap:wrap;gap:48px 64px;align-items:flex-start">
       <div class="prose" style="flex:999 1 560px;min-width:0" set:html={a.bodyHtml} />
       {a.restaurant && (
-        <aside aria-label={t(L, 'restaurantInfo')} class="rc" style="flex:1 1 300px;min-width:0;background:#fbf7ef;padding:8px 24px 20px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);font-family:'Ekkamai New',sans-serif;font-size:15px">
+        <aside aria-label={t(L, 'restaurantInfo')} class="rc at-table" style="flex:1 1 300px;min-width:0;background:#fbf7ef;padding:8px 24px 20px;box-shadow:0 0 0 1px rgba(212,179,114,.55),0 14px 32px rgba(195,158,92,.22);font-family:'Ekkamai New',sans-serif;font-size:15px">
           <p style="margin:16px 0 4px;font-size:12px;letter-spacing:.24em;color:#0b5357">{t(L, 'atTable')}</p>
           <dl style="margin:0">
             {a.restaurant.chef && <><dt style="padding-top:12px;color:#3d4955">{t(L, 'chef')}</dt><dd style={`${fact};padding-top:2px;font-weight:700`}>{a.restaurant.chef}</dd></>}
