@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Modern"
   style: "Innovative"
   awards: ["MICHELIN 3★"]
-cover: "./images/taian-table/cover.jpg | เอแคลร์เครื่องเทศสอดไส้มูสฟัวกราส์ ท็อปถั่วพิสตาชิโอ ใบชิโสะม่วง และแผ่นช็อกโกแลต บนฐานเซรามิกสีขาว ร้าน Taian Table เซี่ยงไฮ้"
+cover: "./images/taian-table/cover.jpg | เอแคลร์เครื่องเทศสอดไส้มูสฟัวกราส์ ท็อปถั่วพิสตาชิโอ ใบชิโสะม่วง และแผ่นช็อกโกแลต บนฐานเซรามิกสีขาว ร้าน Taian Table เซี่ยงไฮ้ | focus=0.5,0.42 | zoom=1.4"
 bill: "2888 CNY / Pax"
 billBand: "฿฿฿฿"
 visit: Jan-2026
