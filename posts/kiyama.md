@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 1★"]
-cover: "./images/kiyama/cover.jpg | ข้าวหน้าปลาข้าวสารกับไข่แดงดิบบนชามเท้าสูงสีขาว ร้าน Kiyama เกียวโต"
+cover: "./images/kiyama/cover.jpg | ข้าวหน้าปลาข้าวสารกับไข่แดงดิบบนชามเท้าสูงสีขาว ร้าน Kiyama เกียวโต | focus=0.5,0.42 | zoom=1.25"
 billBand: "฿฿฿"
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, Kiyama, Kyoto, Japan, Kaiseki]
