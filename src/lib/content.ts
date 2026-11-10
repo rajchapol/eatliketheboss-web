@@ -1,5 +1,6 @@
 // One place that loads content. Uses the live Sanity project (ID is public, not a secret).
 // Set SANITY_PROJECT_ID=sample to build from the sample content in src/data/seed.ts.
+import { keepNamesTogether } from './thai-names';
 import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
@@ -32,7 +33,17 @@ const readMinutes = (html: string, dishes: { description: string }[], lang = 'th
 // The Facebook post opens a glasses-off dish with 🕶️ "จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม"; the page already shows that line.
 // Control characters pasted from Google Docs (vertical tab, zero-width space…) show as boxes; turn them into spaces.
 const stripCtrl = (s: string) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u200B\uFEFF]+/g, ' ');
-const cleanDish = (s: string) => stripCtrl(s).replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
+/**
+ * Article body as it reads on the site (10 Nov 2026):
+ * - "**words**" left over from IG / Google Doc drafts → bold (17 articles showed the stars)
+ * - the IG hand-over line ("🍽️ ศิลปะแห่งรสชาติในมื้อนี้:" — a short emoji-led line ending in ":") is dropped: the menu heading does that job
+ */
+const tidyBody = (html: string) => stripCtrl(html)
+  .replace(/\*\*(?!\s)([^*<]{1,200}?)(?<!\s)\*\*/g, '<strong>$1</strong>')
+  .replace(/\*\*/g, '') // an unpaired "**" left in a draft
+  .replace(/<p>\s*(?:\p{Extended_Pictographic}|\uFE0F|\s)+[^<]{0,60}[:：]\s*<\/p>/gu, '');
+const boldStars = (s: string) => s.replace(/\*\*(?!\s)([^*]{1,200}?)(?<!\s)\*\*/g, '$1');
+const cleanDish = (s: string) => boldStars(stripCtrl(s)).replace(/^\s*(?:🕶️|🕶)?\s*["“]?จานนี้อร่อยจนบอสต้องขอถอดแว่นชิม["”]?\s*/u, '');
 
 const IMG = `{..., asset->{url, metadata{dimensions}}}`;
 const CITY = `{"slug": slug.current, nameEn, nameTh, country, region, motif, intro, featured, "pickIds": picks[]._ref, location, aliases, cover${IMG}}`;
@@ -100,8 +111,8 @@ const withPriceBand = (a: Article): Article => {
 /** All published articles in every language, newest visit first, numbered by visit order. */
 export function getAllArticles(): Promise<Article[]> {
   // Sample content gets the same clean-up as Sanity content (stray control characters, repeated glasses-off quote).
-  const tidy = (a: Article): Article => ({ ...a, bodyHtml: stripCtrl(a.bodyHtml), dishes: a.dishes.map((d) => ({ ...d, name: stripCtrl(d.name), description: cleanDish(d.description || '') })) });
-  if (!client) return Promise.resolve(linkRestaurants(numberByVisit([...seed.articles].map(tidy).map(withPriceBand))));
+  const tidy = (a: Article): Article => ({ ...a, bodyHtml: tidyBody(a.bodyHtml), dishes: a.dishes.map((d) => ({ ...d, name: stripCtrl(d.name), description: cleanDish(d.description || '') })) });
+  if (!client) return Promise.resolve(keepNamesTogether(linkRestaurants(numberByVisit([...seed.articles].map(tidy).map(withPriceBand)))));
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
@@ -115,7 +126,7 @@ export function getAllArticles(): Promise<Article[]> {
     )
     .then((rows: any[]) =>
       rows.map((r): Article => {
-        const bodyHtml = r.body ? stripCtrl(toHTML(r.body)) : '';
+        const bodyHtml = r.body ? tidyBody(toHTML(r.body)) : '';
         const dishes = (r.dishes || []).map((d: any) => ({ name: stripCtrl(d.name || ''), description: cleanDish(d.description || ''), glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
         return {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
@@ -130,7 +141,8 @@ export function getAllArticles(): Promise<Article[]> {
     )
     .then((list: Article[]) => list.map(withPriceBand))
     .then(numberByVisit)
-    .then(linkRestaurants));
+    .then(linkRestaurants)
+    .then(keepNamesTogether));
 }
 
 export async function getArticles(lang: Locale = DEFAULT_LOCALE) {

@@ -27,6 +27,7 @@ export interface City {
 export interface Dish {
   name: string;
   description: string;
+  descriptionHtml?: string; // description with Thai names kept on one line (thai-names.ts)
   glassesOff?: boolean;
   image?: Img;
 }
