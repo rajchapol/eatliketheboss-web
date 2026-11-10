@@ -10,7 +10,7 @@ restaurant:
   chef: "Kazunori Maeiwa"
   cuisine: "Japanese"
   style: "Sushi"
-cover: "./images/sushi-akira/cover.jpg | ปลาคินเมไดย่างหั่นชิ้นกับมัสตาร์ดวางบนจานกระเบื้องขาวลายดอกไม้ ร้าน Sushi Akira โตเกียว"
+cover: "./images/sushi-akira/cover.jpg | ปลาคินเมไดย่างหั่นชิ้นกับมัสตาร์ดวางบนจานกระเบื้องขาวลายดอกไม้ ร้าน Sushi Akira โตเกียว | focus=0.45,0.45 | zoom=1.35"
 bill: "49,000 Yen"
 billBand: "฿฿฿฿"
 visit: May-2026
