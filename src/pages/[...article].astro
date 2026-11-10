@@ -184,7 +184,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
                 <h3 style="margin:0;font-size:clamp(24px,3.6cqi,30px);font-weight:600;line-height:1.4;color:#fff">{d.name}</h3>
                 <p style="margin:0;font-size:clamp(19px,2.6cqi,22px);line-height:1.6;color:#fdeac0">{tx('glassesQuote', st.articleGlassesQuote)}</p>
                 <span aria-hidden="true" style="width:64px;height:2px;border-radius:2px;background:linear-gradient(90deg,#c39e5c,#fdeac0)"></span>
-                <p class="dish-desc" style="margin:0;font-size:17px;line-height:1.9;font-weight:400;color:#fff">{d.description}</p>
+                <p class="dish-desc" style="margin:0;font-size:17px;line-height:1.9;font-weight:400;color:#fff" set:html={d.descriptionHtml ?? d.description} />
               </div>
             </div>
           </article>
@@ -200,7 +200,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
               <div style={`flex:5 1 320px;min-width:0;display:flex;flex-direction:column;gap:14px${d.image?.url ? '' : ';max-width:760px;margin:0 auto'}`}>
                 <span style="display:flex;align-items:center;gap:16px"><span class="bronze-grad" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:56px;line-height:.9">{roman(i)}.</span><span aria-hidden="true" style="flex:1;height:1px;background:linear-gradient(90deg,#c39e5c,rgba(195,158,92,0))"></span></span>
                 <h3 style="margin:0;font-size:clamp(22px,3.2cqi,27px);font-weight:600;line-height:1.45">{d.name}</h3>
-                <p class="dish-desc" style="margin:0;font-size:17px;line-height:1.9;font-weight:400;color:#25313d">{d.description}</p>
+                <p class="dish-desc" style="margin:0;font-size:17px;line-height:1.9;font-weight:400;color:#25313d" set:html={d.descriptionHtml ?? d.description} />
               </div>
             </div>
           </article>
