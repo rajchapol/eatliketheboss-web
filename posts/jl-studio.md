@@ -15,7 +15,7 @@ restaurant:
   cuisine: "Other"
   style: "Singaporean"
   awards: ["MICHELIN 3★"]
-cover: "./images/jl-studio/cover.jpg | ปลาเก๋าแดงสุกแบบโรเซ่ท็อปหน่อไม้ฝานบาง บนซอสข้าวหอมมะลิสีขาว ข้างพิวเรพริกเขียว ร้าน JL Studio ไถจง"
+cover: "./images/jl-studio/cover.jpg | ปลาเก๋าแดงสุกแบบโรเซ่ท็อปหน่อไม้ฝานบาง บนซอสข้าวหอมมะลิสีขาว ข้างพิวเรพริกเขียว ร้าน JL Studio ไถจง | focus=0.5,0.54 | zoom=1.36"
 bill: "~5880 TWD"
 billBand: "฿฿฿"
 visit: Feb-2024
