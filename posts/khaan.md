@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Thai"
   style: "Contemporary"
   awards: ["Tatler Asia's Best 100 2025"]
-cover: "./images/khaan/cover.jpg | ซุปใสแกงหงษาในชามเซรามิกทรงคลื่น มีคอหมูย่างรมควันและผักเคียง ร้าน Khaan กรุงเทพฯ"
+cover: "./images/khaan/cover.jpg | ซุปใสแกงหงษาในชามเซรามิกทรงคลื่น มีคอหมูย่างรมควันและผักเคียง ร้าน Khaan กรุงเทพฯ | focus=0.5,0.55 | zoom=1.2"
 tag: "AD"
 billBand: "฿฿฿"
 visit: Oct-2026
