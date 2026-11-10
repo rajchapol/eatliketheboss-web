@@ -11,7 +11,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 1★"]
-cover: "./images/higashichaya-nakamura/cover.jpg | ซุปปลาหินในชามดำ โรยต้นหอมซอยและส้มเขียวฝาน ร้าน Higashichaya Nakamura เมืองโอซาก้า"
+cover: "./images/higashichaya-nakamura/cover.jpg | ซุปปลาหินในชามดำ โรยต้นหอมซอยและส้มเขียวฝาน ร้าน Higashichaya Nakamura เมืองโอซาก้า | focus=0.52,0.45 | zoom=1.25"
 bill: "฿฿฿"
 billBand: "฿฿฿"
 visit: Aug-2026
