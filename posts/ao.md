@@ -10,7 +10,7 @@ restaurant:
   chef: "Koji Minemura"
   cuisine: "Japanese"
   style: "Innovative"
-cover: "./images/ao/cover.jpg | เฟเดลินีเย็นโปะอูนิสีส้มบนจานเซรามิกสีฟ้าอ่อนทรงอิสระ ร้าน Ao โตเกียว"
+cover: "./images/ao/cover.jpg | เฟเดลินีเย็นโปะอูนิสีส้มบนจานเซรามิกสีฟ้าอ่อนทรงอิสระ ร้าน Ao โตเกียว | focus=0.5,0.6 | zoom=1.4"
 bill: "50,000 Yen"
 billBand: "฿฿฿฿"
 visit: Jun-2026
