@@ -10,7 +10,7 @@ restaurant:
   chef: "Koji Kimura"
   cuisine: "Japanese"
   style: "Sushi"
-cover: "./images/sushi-kimura/cover.jpg | ซูชิมากุโระรมควันสีชมพูอ่อนบนถาดไม้ลงรักสีแดงเข้ม ร้าน Sushi Kimura โตเกียว"
+cover: "./images/sushi-kimura/cover.jpg | ซูชิมากุโระรมควันสีชมพูอ่อนบนถาดไม้ลงรักสีแดงเข้ม ร้าน Sushi Kimura โตเกียว | focus=0.45,0.55 | zoom=1.53"
 bill: "ราว 50,000 เยน จองตรง"
 billBand: "฿฿฿฿"
 visit: May-2026
