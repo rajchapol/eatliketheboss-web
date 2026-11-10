@@ -10,7 +10,7 @@ restaurant:
   chef: "Yannick Hollenstein"
   cuisine: "Other"
   awards: ["MICHELIN Selected"]
-cover: "./images/omemo/cover.jpg | เนื้อวากิวเทนเดอร์ลอยน์กับแครอทย่างและพอมม์ซูเฟล่บนจานขาว ร้าน OMEMO ภูเก็ต"
+cover: "./images/omemo/cover.jpg | เนื้อวากิวเทนเดอร์ลอยน์กับแครอทย่างและพอมม์ซูเฟล่บนจานขาว ร้าน OMEMO ภูเก็ต | focus=0.5,0.55 | zoom=1.4"
 billBand: "฿฿฿"
 visit: Oct-2026
 hashtags: [บอสพาชิม, eatliketheboss, OMEMO, Phuket, SwissCuisine, MichelinGuideThailand, FineDining, ภูเก็ต, VibesOfNature, SwissFineDining]
