@@ -10,7 +10,7 @@ restaurant:
   chef: "Luca"
   cuisine: "Other"
   style: "Peranakan"
-cover: "./images/baba-lee/cover.jpg | อาคาร Baba Mansion ประดับไฟสีเหลืองยามค่ำคืน ที่ตั้งของร้าน Baba Lee ย่านเมืองเก่าภูเก็ต"
+cover: "./images/baba-lee/cover.jpg | เนื้อปลากะพงโรยกระเทียมต้นทอดกรอบบนซอสเข้ม เคียงซัมบัลสีแดง ร้าน Baba Lee ภูเก็ต"
 tag: "Event"
 billBand: "฿฿฿"
 visit: Apr-2026
