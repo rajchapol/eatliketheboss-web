@@ -11,7 +11,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["Tabelog Award Silver"]
-cover: "./images/ginza-oishi/cover.jpg | หน่อไม้ฝรั่งเขียวห่อเป็นทรงชาร์ล็อตต์ราดซอสส้มวางกลางจานขาว โรยเกล็ดไข่และผักสมุนไพร ร้าน Ginza Oishi เมืองโตเกียว"
+cover: "./images/ginza-oishi/cover.jpg | หน่อไม้ฝรั่งเขียวห่อเป็นทรงชาร์ล็อตต์ราดซอสส้มวางกลางจานขาว โรยเกล็ดไข่และผักสมุนไพร ร้าน Ginza Oishi เมืองโตเกียว | focus=0.5,0.62 | zoom=1.4"
 bill: "31,900 Yen"
 billBand: "฿฿฿"
 visit: May-2026
