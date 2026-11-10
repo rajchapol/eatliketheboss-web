@@ -691,3 +691,6 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
   .prose{font-size:17.5px;line-height:1.85}
   .prose p{margin-bottom:1.35em}
 }
+
+/* Thai names kept on one line (src/lib/thai-names.ts) */
+.nb{white-space:nowrap}
