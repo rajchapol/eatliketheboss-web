@@ -10,7 +10,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 3★"]
-cover: "./images/les-amis/cover.jpg | ไข่ดาวน้ำคลุมซอสวอเตอร์เครสสีเขียวสด ข้างคาเวียร์ Oscietra บนจานขอบเงิน ร้าน Les Amis สิงคโปร์"
+cover: "./images/les-amis/cover.jpg | พนักงานรินซอสอิมัลชันน้ำมันมะกอกลงบนแลงกูสทีนห่อซูกินีท็อปคาเวียร์ ร้าน Les Amis สิงคโปร์"
 bill: "550 SGD++"
 billBand: "฿฿฿฿"
 visit: Feb-2026
