@@ -10,7 +10,7 @@ restaurant:
   chef: "เชฟแท็ป ศุภสิทธิ์ ก๊กผล"
   cuisine: "Thai"
   style: "Contemporary"
-cover: "./images/machri/cover.jpg | ไข่ตุ๋นในเปลือกไข่ทรงกลมสีครีม ประดับดอกไม้เล็กๆ วางบนถ้วยเบญจรงค์ ร้าน MACHRI กรุงเทพฯ"
+cover: "./images/machri/cover.jpg | ไข่ตุ๋นในเปลือกไข่ทรงกลมสีครีม ประดับดอกไม้เล็กๆ วางบนถ้วยเบญจรงค์ ร้าน MACHRI กรุงเทพฯ | focus=0.5,0.45 | zoom=1.3"
 tag: "AD"
 bill: "AD"
 billBand: "฿฿฿"
