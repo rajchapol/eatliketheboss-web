@@ -9,7 +9,7 @@ restaurant:
   name: "Izakaya Hachinana"
   originalName: "居酒屋はちなな"
   cuisine: "Japanese"
-cover: "./images/hachinana/cover.jpg | ซาชิมิรวมบนจานลายคราม มีโอโทโร่ หมึกอาโอริอิกะ กุ้งชิโรเอบิใส และดอกชิโสะสีม่วง ร้าน Izakaya Hachinana เมืองคานาซาว่า"
+cover: "./images/hachinana/cover.jpg | ซาชิมิรวมบนจานลายคราม มีโอโทโร่ หมึกอาโอริอิกะ กุ้งชิโรเอบิใส และดอกชิโสะสีม่วง ร้าน Izakaya Hachinana เมืองคานาซาว่า | focus=0.5,0.45 | zoom=1.2"
 billBand: "฿฿฿"
 visit: Jul-2026
 hashtags: [บอสพาชิม, eatliketheboss, IzakayaHachinana, Kanazawa, Hokuriku, Ishikawa, Noto, Izakaya]
