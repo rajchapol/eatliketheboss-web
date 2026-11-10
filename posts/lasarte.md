@@ -16,7 +16,7 @@ restaurant:
   cuisine: "Spanish"
   style: "Contemporary"
   awards: ["MICHELIN 3★"]
-cover: "./images/lasarte/cover.jpg | มิลเฟยปลาไหลรมควัน ฟัวกราส์ และแอปเปิ้ลเขียว ร้าน Lasarte บาร์เซโลนา"
+cover: "./images/lasarte/cover.jpg | มิลเฟยปลาไหลรมควัน ฟัวกราส์ และแอปเปิ้ลเขียว ร้าน Lasarte บาร์เซโลนา | focus=0.49,0.47 | zoom=1.16"
 billBand: "฿฿฿฿"
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, Lasarte, Barcelona]
