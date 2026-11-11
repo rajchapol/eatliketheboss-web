@@ -8,7 +8,7 @@ restaurant:
   name: "Suhring"
   cuisine: "Other"
   awards: ["MICHELIN 1★"]
-cover: "./images/suhring-2018/cover.jpg | เนื้อเป็ดอบหั่นเสิร์ฟกับทรัฟเฟิลและผักบนจานขาว ร้าน Suhring กรุงเทพ"
+cover: "./images/suhring-2018/cover.jpg | เนื้อเป็ดอบหั่นเสิร์ฟกับทรัฟเฟิลและผักบนจานขาว ร้าน Suhring กรุงเทพ | focus=0.6,0.4 | zoom=1.25"
 bill: "~4000++ THB"
 billBand: "฿฿฿"
 visit: Oct-2018
