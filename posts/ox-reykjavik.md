@@ -10,7 +10,7 @@ restaurant:
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN Plate 2019", "Nordic White Guide Global Master Level"]
-cover: "./images/ox-reykjavik/cover.jpg | ขนมชั้นสีเขียวซ้อนบนจานเทาล้อมด้วยซอสเขียว ร้าน Ox เรคยาวิก"
+cover: "./images/ox-reykjavik/cover.jpg | ขนมชั้นสีเขียวซ้อนบนจานเทาล้อมด้วยซอสเขียว ร้าน Ox เรคยาวิก | focus=0.5,0.4 | zoom=1.25"
 billBand: "฿฿฿"
 visit: Aug-2019
 hashtags: [บอสพาชิม, eatliketheboss, Ox, Reykjavik]
