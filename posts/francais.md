@@ -15,7 +15,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 1★"]
-cover: "./images/francais/cover.jpg | รูบาร์บหลายแบบกับซอร์เบต์สีชมพูบนจานเขียวเทา ร้าน Francais แฟรงก์เฟิร์ต"
+cover: "./images/francais/cover.jpg | รูบาร์บหลายแบบกับซอร์เบต์สีชมพูบนจานเขียวเทา ร้าน Francais แฟรงก์เฟิร์ต | focus=0.5,0.4 | zoom=1.25"
 billBand: "฿฿฿"
 visit: Apr-2019
 hashtags: [บอสพาชิม, eatliketheboss, Francais, Frankfurt]
