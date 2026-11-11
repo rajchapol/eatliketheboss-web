@@ -9,7 +9,7 @@ restaurant:
   chef: "Mikael Svensson"
   cuisine: "Nordic"
   style: "Norwegian"
-cover: "./images/kontrast/cover.jpg | ไข่แดงแช่น้ำบีทรูทบนคัสตาร์ดไทม์ในถ้วยสีน้ำเงินเทา ร้าน Kontrast ออสโล"
+cover: "./images/kontrast/cover.jpg | ไข่แดงแช่น้ำบีทรูทบนคัสตาร์ดไทม์ในถ้วยสีน้ำเงินเทา ร้าน Kontrast ออสโล | focus=0.5,0.4 | zoom=1.25"
 bill: "~2300 NOK (included 4 glass of wine)"
 billBand: "฿฿฿"
 visit: Jul-2019
