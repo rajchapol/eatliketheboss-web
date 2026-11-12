@@ -6,7 +6,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale } from './config';
+import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale, type SeriesKey } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -98,8 +98,7 @@ function numberByVisit(all: Article[]): Article[] {
 export const numLabel = (a: Pick<Article, 'series' | 'no' | 'episode'>) =>
   isReview(a) ? `No. ${String(a.no).padStart(3, '0')}` : `Ep.${a.episode ?? 1}`;
 /** Small overline above the number: "TASTING NOTES" for reviews, the series name otherwise. */
-export const numKicker = (a: Pick<Article, 'series'>) =>
-  a.series === 'history' ? 'MEALS THAT CHANGED THE WORLD' : a.series === 'drinks' ? 'THE BOSS POURS' : 'TASTING NOTES';
+export const numKicker = (a: Pick<Article, 'series'>) => (SERIES[(a.series || 'review') as SeriesKey]?.en ?? 'Tasting Notes').toUpperCase();
 
 /**
  * Price band from a written price (Studio "ราคาจริง", not shown on the site): the first amount converted to THB

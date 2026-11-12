@@ -11,6 +11,8 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 - Share heading for non-review series: Studio field `articleShareTitleHistory` (default "ชอบเรื่องนี้? แชร์ให้เพื่อน"; other languages `shareStory` in `i18n.ts`). Reviews keep `articleShareTitle`.
 - Article body without a side card (history, no restaurant) gets `.body-solo`: same readable measure, centred, a little larger on wide screens. Reviews unchanged.
 - Studio schema changed (new settings field) → `deploy-studio.yml` runs on merge.
+- Menu (the Boss: "series must be separate and the menu clearer"): the Notes tab is now a button that opens a series menu (popover, positioned under the button by a small script in `NavLinks.astro`; phones get a near-full-width sheet). Each series shows its Thai + English name, colour dot and count; a series with no articles shows "เร็วๆ นี้". The current series is marked (`series` prop: page → `Base` → header / compact bar). Desktop label "Tasting Notes" → "Notes".
+- Series identity: `SERIES` now has `en` (English name) and `ink` (text shade of the dot colour). Article overline/badge use the series colour; มื้ออาหารเปลี่ยนโลก gets `.hist-mast` (big italic "Ep.1", English + Thai series name, tiffany rule) instead of the Tasting Notes line.
 
 ## 11 Nov 2026 · Sushi Iwai (Bangkok) prepared, not published (branch `web-sushi-iwai`)
 - `posts/sushi-iwai.md` from the Doc tab "final" (0 red marks): AD + billBand ฿฿฿, visit Nov-2026, publishedAt 2026-11-12, 🕶️ = Shun-no Warayaki (cover = its plate). Merge only after the FB/IG post goes out and the Boss approves; `--dry` exits 0.

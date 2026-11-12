@@ -4,14 +4,14 @@
 // (Safari) a container becomes the anchor for position:fixed children, so the bar would scroll away.
 import NavLinks from './NavLinks.astro';
 import type { Locale } from '../lib/config';
-interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale }
-const { active = 'home', lang } = Astro.props;
+interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; series?: string }
+const { active = 'home', lang, series } = Astro.props;
 ---
 <div class="mini-bar" data-minibar inert aria-hidden="true">
   <div class="wrap mini-in">
     <a href="/" class="mini-logo" translate="no" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-2026.webp" alt="" width="400" height="213" /></a>
     <nav aria-label={lang === "th" ? "เมนูหลัก (แถบย่อ)" : "Main menu (compact)"} class="mini-nav">
-      <NavLinks active={active} lang={lang} />
+      <NavLinks active={active} lang={lang} menuId="series-menu-m" series={series} />
     </nav>
   </div>
 </div>
