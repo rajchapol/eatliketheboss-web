@@ -249,6 +249,7 @@ export const settings = defineType({
     txt('articleMenuTitle', 'Dishes heading · หัวข้อส่วนรายการจาน', 'article'),
     txt('articleGlassesQuote', 'Glasses-off line · ประโยคบนจานถอดแว่นชิม', 'article'),
     txt('articleShareTitle', 'Share heading · ข้อความเหนือปุ่มแชร์', 'article'),
+    txt('articleShareTitleHistory', 'Share heading, history · ข้อความเหนือปุ่มแชร์ (มื้ออาหารเปลี่ยนโลก)', 'article'),
     // ค้นหาร้าน
     txt('finderTitle', 'Restaurants title · หัวข้อหน้าค้นหาร้าน', 'finder'),
     para('finderIntro', 'Restaurants intro · คำอธิบายหน้าค้นหาร้าน', 'finder'),

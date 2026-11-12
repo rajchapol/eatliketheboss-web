@@ -2,7 +2,7 @@
 // Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances every 5 s (pauses on touch/hover).
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { articleUrl, visitIso, visitLabel, getSettings } from '../lib/content';
+import { articleUrl, visitIso, visitLabel, getSettings, numLabel, numKicker } from '../lib/content';
 import type { Article } from '../lib/types';
 interface Props { slides: Article[] }
 const { slides } = Astro.props;
@@ -22,7 +22,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <Photo img={a.cover} label="ภาพปก 3:2" ratio={0.6667} eager={i === 0} widths={[640, 960, 1280, 1600]} sizes="(max-width: 720px) 100vw, 680px" />
           </a>
           <div class="slide-text">
-            <p class="overline" style="letter-spacing:.2em">TASTING NOTES <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span></p>
+            <p class="overline" style="letter-spacing:.2em">{numKicker(a)} <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">{numLabel(a)}</span></p>
             <h2 class="ink-grad" style="margin:0;font-weight:600;font-size:clamp(30px,4.6cqi,44px);line-height:1.25"><a href={articleUrl(a)} translate={a.restaurant?.name ? "no" : undefined}>{a.restaurant?.name ?? a.title}</a>{a.restaurant?.originalName && <span style="display:block;font-size:.5em;font-weight:400;-webkit-text-fill-color:#3d4955">{a.restaurant.originalName}</span>}</h2>
             {a.tagline && <p style="margin:0;font-size:21px;line-height:1.6"><span class="mark">{a.tagline}</span></p>}
             <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">

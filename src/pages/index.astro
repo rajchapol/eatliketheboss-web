@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
 import { SITE, SERIES } from '../lib/config';
 import HeroSlider from '../components/HeroSlider.astro';
-import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings, groupByRestaurant, dishUrl, visitIso, visitLabel, visitYear, citiesByCount, restaurantKey } from '../lib/content';
+import { getArticles, getCities, articleUrl, glassesOffDishes, getSettings, groupByRestaurant, dishUrl, visitIso, visitLabel, visitYear, citiesByCount, restaurantKey, numLabel } from '../lib/content';
 import { organization, website } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
 
@@ -67,7 +67,7 @@ const quickCities = settings.homeCitySlugs?.length
     )}
     {index.map((a, i) => (
       <a href={articleUrl(a)} class="idx-row fx-row" hidden={i >= INDEX_FIRST} data-idx-row>
-        <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">No. {String(a.no).padStart(3, '0')}</span>
+        <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">{numLabel(a)}</span>
         <span class="idx-thumb"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[192, 288]} sizes="96px" /></span>
         <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}{a.series === 'review' && returnNo(a) > 1 && <span class="band-pill" style="margin-left:8px;padding:1px 10px;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:400;vertical-align:3px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">กลับไปครั้งที่ {returnNo(a)}</span>}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
         <span class="idx-series" style="display:inline-flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${SERIES[a.series].dot}`}></span>{SERIES[a.series].th}</span>

@@ -4,7 +4,7 @@
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
 import { AWARDS, SERIES } from '../lib/config';
-import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings } from '../lib/content';
+import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings, numLabel, numKicker } from '../lib/content';
 import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
 import { t, cuisineText } from '../lib/i18n';
@@ -34,8 +34,8 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
       {glasses && <span class="badge badge-dark go-badge" style="margin-left:auto"><img src="/img/brand/go-mark.svg" alt="" width="20" height="20" />{t(L, 'glassesOff')}</span>}
     </span>
     <span style="position:absolute;left:0;right:0;bottom:0;padding:36px 16px 10px;background:linear-gradient(180deg,rgba(7,59,62,0) 0%,rgba(7,59,62,.82) 100%);display:flex;justify-content:space-between;align-items:baseline;gap:12px">
-      <span style="font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.18em;color:#fdeac0">{repeat ? t(L, 'reviewedTimes', { n: all.length }) : 'TASTING NOTES'}</span>
-      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;color:#fdeac0">No. {String(a.no).padStart(3, '0')}</span>
+      <span style="font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.18em;color:#fdeac0">{repeat ? t(L, 'reviewedTimes', { n: all.length }) : numKicker(a)}</span>
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;color:#fdeac0">{numLabel(a)}</span>
     </span>
   </span>
   <span style="padding:18px 20px 16px;display:flex;flex-direction:column;gap:8px">
