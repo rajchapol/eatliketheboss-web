@@ -159,9 +159,9 @@ a.chip:hover{background:#0b5357;color:#fdeac0}
 a.ls-opt:hover{background:rgba(11,83,87,.08)}.ls-opt[aria-current]{background:#0b5357;color:#fdeac0;font-weight:700}
 /* main menu: icon + label tabs; the page you are on is a gold-edged pill */
 .main-nav{display:flex;flex-wrap:wrap;gap:6px;font-size:16px}
-.main-nav a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:var(--r-pill);color:#fff;letter-spacing:.01em;transition:background-color .25s,color .25s}
-.main-nav a:hover{background:rgba(255,255,255,.08);color:#fdeac0}
-.main-nav a[aria-current]{background:rgba(212,179,114,.2);color:#fdeac0;box-shadow:inset 0 0 0 1px rgba(212,179,114,.65)}
+.main-nav>:is(a,.nav-series){display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:var(--r-pill);color:#fff;letter-spacing:.01em;transition:background-color .25s,color .25s}
+.main-nav>:is(a,.nav-series):hover{background:rgba(255,255,255,.08);color:#fdeac0}
+.main-nav>:is(a,.nav-series)[aria-current]{background:rgba(212,179,114,.2);color:#fdeac0;box-shadow:inset 0 0 0 1px rgba(212,179,114,.65)}
 .nav-ico{flex:0 0 auto;color:#d4b372}
 *,*::before,*::after{box-sizing:border-box}
 img{max-width:100%;height:auto}
@@ -172,8 +172,8 @@ img{max-width:100%;height:auto}
 .hdr{grid-template-columns:max-content minmax(0,1fr)!important}.hdr .logo{flex-shrink:0;grid-row:1}
 /* phone menu: five icon tabs that always fit (no sideways scrolling, nothing cut off) */
 .hdr .main-nav{grid-column:1/-1;grid-row:2;justify-self:stretch;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin:2px -8px 12px;padding:4px;border-radius:var(--r-md);background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(212,179,114,.35)}
-.hdr .main-nav a{flex-direction:column;justify-content:center;gap:5px;min-height:60px;padding:6px 0;border-radius:calc(var(--r-md) - 4px);font-size:clamp(11.5px,3.5cqi,13px);line-height:1.2;text-align:center;white-space:nowrap;letter-spacing:-.01em;box-shadow:none}
-.hdr .main-nav a[aria-current]{box-shadow:none}
+.hdr .main-nav>:is(a,.nav-series){flex-direction:column;justify-content:center;gap:5px;min-height:60px;padding:6px 0;border-radius:calc(var(--r-md) - 4px);font-size:clamp(11.5px,3.5cqi,13px);line-height:1.2;text-align:center;white-space:nowrap;letter-spacing:-.01em;box-shadow:none}
+.hdr .main-nav>:is(a,.nav-series)[aria-current]{box-shadow:none}
 .hdr .main-nav .nav-ico{width:20px!important;height:20px!important}
 .hdr .nav-full,.hdr .nav-sub{display:none}.hdr .nav-short{display:inline}
 .site-footer .foot-col{gap:0!important}
@@ -345,9 +345,9 @@ img{max-width:100%;height:auto}
 .mini-in{display:flex;align-items:center;gap:24px;min-height:58px}
 .mini-logo img{display:block;width:96px;height:auto}
 .mini-nav{display:flex;gap:4px;white-space:nowrap}
-.mini-nav a{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border-radius:var(--r-pill);color:#fff;font-size:15px;transition:background-color .25s,color .25s}.mini-nav a:hover{background:rgba(255,255,255,.08);color:#fdeac0}.mini-nav a[aria-current]{background:rgba(212,179,114,.2);color:#fdeac0;box-shadow:inset 0 0 0 1px rgba(212,179,114,.65)}
+.mini-nav>:is(a,.nav-series){display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border-radius:var(--r-pill);color:#fff;font-size:15px;transition:background-color .25s,color .25s}.mini-nav>:is(a,.nav-series):hover{background:rgba(255,255,255,.08);color:#fdeac0}.mini-nav>:is(a,.nav-series)[aria-current]{background:rgba(212,179,114,.2);color:#fdeac0;box-shadow:inset 0 0 0 1px rgba(212,179,114,.65)}
 /* phone: the same five icon tabs as the header, full width (the bar lives outside the .elb-page container, so a media query) */
-@media (max-width: 720px){.mini-bar .wrap{padding-left:8px;padding-right:8px}.mini-in{min-height:0;padding:4px 0}.mini-bar .mini-logo{display:none}.mini-nav{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;white-space:normal}.mini-nav a{flex-direction:column;justify-content:center;gap:3px;min-height:50px;padding:4px 2px;border-radius:var(--r-sm);font-size:12px;line-height:1.2;text-align:center;white-space:nowrap;letter-spacing:-.01em;box-shadow:none}.mini-nav a[aria-current]{box-shadow:none}.mini-nav .nav-full{display:none}.mini-nav .nav-short{display:inline}}
+@media (max-width: 720px){.mini-bar .wrap{padding-left:8px;padding-right:8px}.mini-in{min-height:0;padding:4px 0}.mini-bar .mini-logo{display:none}.mini-nav{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;white-space:normal}.mini-nav>:is(a,.nav-series){flex-direction:column;justify-content:center;gap:3px;min-height:50px;padding:4px 2px;border-radius:var(--r-sm);font-size:12px;line-height:1.2;text-align:center;white-space:nowrap;letter-spacing:-.01em;box-shadow:none}.mini-nav>:is(a,.nav-series)[aria-current]{box-shadow:none}.mini-nav .nav-full{display:none}.mini-nav .nav-short{display:inline}}
 @media (prefers-reduced-motion: reduce){.mini-bar{transition:none}}
 
 /* Slider: slow Ken Burns on the active photo, text arrives in steps */
@@ -700,3 +700,30 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .body-solo{justify-content:center}
 .body-solo>.prose{flex:0 1 760px;margin-inline:auto}
 @media (min-width:1100px){.body-solo>.prose{font-size:19.5px}}
+
+/* Notes = series menu (13 Nov 2026). The button looks like the other tabs; the menu opens under it. */
+.nav-series{appearance:none;border:0;background:none;font:inherit;cursor:pointer}
+.nav-caret{margin-left:4px;font-size:.7em;opacity:.7}
+.series-pop{position:fixed;inset:auto;margin:0;padding:10px;border:0;border-radius:var(--r-lg);background:#fbf7ef;color:#1a2632;
+  box-shadow:0 0 0 1px rgba(212,179,114,.6),0 24px 48px -12px rgba(7,59,62,.45);font-family:'Ekkamai New',sans-serif;text-align:left;white-space:normal}
+.series-pop::backdrop{background:rgba(7,30,32,.25)}
+.series-pop-h{margin:4px 8px 8px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#6e3f08}
+.series-pop a,.series-pop .sp-soon{display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px;border-radius:var(--r-md);color:inherit;text-decoration:none}
+.series-pop a:hover,.series-pop a:focus-visible{background:#f1e9da}
+.series-pop a[aria-current]{background:#efe5d2;box-shadow:inset 3px 0 0 var(--sdot)}
+.series-pop .sp-soon{opacity:.55}
+.sp-dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--sdot)}
+.sp-txt{flex:1;display:flex;flex-direction:column;line-height:1.3}
+.sp-th{font-size:16px;font-weight:600}
+.sp-en{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#3d4955}
+.sp-n{flex:0 0 auto;font-size:12px;color:#6e3f08}
+.series-pop .sp-all{min-height:44px;margin-top:4px;justify-content:center;gap:6px;font-size:14px;color:#0b5357;border-top:1px solid rgba(212,179,114,.45);border-radius:0 0 var(--r-md) var(--r-md)}
+
+/* มื้ออาหารเปลี่ยนโลก masthead (13 Nov 2026): series = its own colour and label, not "Tasting Notes No." */
+.hist-mast{display:flex;align-items:center;gap:20px;padding-bottom:16px;border-bottom:1px solid var(--sdot)}
+.hist-ep{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(56px,9cqi,84px);line-height:.9;color:var(--sink)}
+.hist-ep-l{font-size:.42em;margin-right:4px;vertical-align:.9em;color:#6e3f08}
+.hist-names{display:flex;flex-direction:column;gap:4px}
+.hist-en{font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--sink)}
+.hist-th{font-size:20px;font-weight:600;color:#1a2632;border-bottom:1px solid transparent;align-self:flex-start}
+.hist-th:hover{border-bottom-color:var(--sdot)}

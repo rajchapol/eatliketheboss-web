@@ -21,9 +21,10 @@ export const HREFLANG: Record<Locale, string> = { th: 'th', en: 'en', ja: 'ja', 
 export const localePrefix = (l: Locale) => (l === DEFAULT_LOCALE ? '' : `/${l}`);
 
 export const SERIES = {
-  review: { th: 'บอสพาชิม', dot: '#0b5357', path: 'review' },
-  history: { th: 'มื้ออาหารเปลี่ยนโลก', dot: '#0abab5', path: 'history' },
-  drinks: { th: 'บอสพาดื่ม', dot: '#c39e5c', path: 'drinks' },
+  // en = the series' English name (menu, overline above the number); ink = a darker shade of dot for text on cream.
+  review: { th: 'บอสพาชิม', en: 'Tasting Notes', dot: '#0b5357', ink: '#0b5357', path: 'review' },
+  history: { th: 'มื้ออาหารเปลี่ยนโลก', en: 'Meals That Changed the World', dot: '#0abab5', ink: '#077a76', path: 'history' },
+  drinks: { th: 'บอสพาดื่ม', en: 'The Boss Pours', dot: '#c39e5c', ink: '#6e3f08', path: 'drinks' },
 } as const;
 export type SeriesKey = keyof typeof SERIES;
 

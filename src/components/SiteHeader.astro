@@ -1,15 +1,15 @@
 ---
 import type { Locale } from '../lib/config';
 import NavLinks from './NavLinks.astro';
-interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[] }
-const { active = 'home', lang } = Astro.props;
+interface Props { active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home'; lang: Locale; alternates: { lang: Locale; href: string }[]; series?: string }
+const { active = 'home', lang, series } = Astro.props;
 // The language switcher is not here: only articles are translated, so it sits in the article (LangSwitch.astro).
 ---
 <header class="site-header" style="color:#fff;font-family:'Ekkamai New',sans-serif;box-shadow:0 10px 28px rgba(195,158,92,.28)">
   <div class="wrap hdr" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px">
     <a href="/" class="logo" translate="no" aria-label={lang === "th" ? "Eat Like The Boss — หน้าแรก" : "Eat Like The Boss — Home"}><img src="/img/logo-2026.webp" alt="Eat Like The Boss" width="400" height="213" style="display:block;width:220px;height:auto" /></a>
     <nav aria-label={lang === "th" ? "เมนูหลัก" : "Main menu"} class="main-nav">
-      <NavLinks active={active} lang={lang} />
+      <NavLinks active={active} lang={lang} menuId="series-menu-h" series={series} />
     </nav>
   </div>
   <div class="goldrule"></div>

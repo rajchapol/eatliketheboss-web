@@ -17,6 +17,7 @@ interface Props {
   alternates?: { lang: Locale; href: string }[]; // same page in other languages (incl. this one)
   jsonLd?: object[];
   active?: 'finder' | 'destinations' | 'articles' | 'awards' | 'about' | 'home';
+  series?: string; // highlights that series in the Notes menu
   type?: 'website' | 'article';
   noindex?: boolean;
   published?: string; // ISO date → article:published_time
@@ -25,7 +26,7 @@ interface Props {
   dark?: boolean;
 }
 const { title, description = SITE.description, image = '/img/og-default.jpg', lang = DEFAULT_LOCALE,
-  jsonLd = [], active, type = 'website', noindex = false, lineart = true, dark = false, published, modified } = Astro.props;
+  jsonLd = [], active, type = 'website', noindex = false, lineart = true, dark = false, published, modified, series } = Astro.props;
 const path = Astro.url.pathname;
 const canonical = new URL(path, SITE.url).href;
 const alternates = Astro.props.alternates ?? [{ lang, href: path }];
@@ -82,11 +83,11 @@ const metaDescription = description.length <= 158 ? description : (() => { const
 </head>
 <body>
   <div class={`elb-page ${dark ? 'on-dark' : ''}`} style={dark ? 'background:#073b3e;color:#fff' : undefined}>
-    <SiteHeader active={active} lang={lang} alternates={alternates} />
+    <SiteHeader active={active} lang={lang} alternates={alternates} series={series} />
     <slot />
     <SiteFooter lineart={lineart} lang={lang} />
   </div>
-  <MiniBar active={active} lang={lang} />
+  <MiniBar active={active} lang={lang} series={series} />
   {type === 'article' && <div class="read-progress" aria-hidden="true"><span data-progress></span></div>}
   <Effects lang={lang} />
   <a href="#top" class="to-top" data-to-top aria-label={t(lang, 'toTop')} hidden><svg class="ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></a>
