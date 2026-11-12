@@ -91,7 +91,7 @@ export const NAV_ITEMS = [
 ] as const;
 export const NAV_LABELS: Record<Locale, Record<'finder' | 'destinations' | 'articles' | 'awards' | 'about', string>> = {
   th: { finder: 'ค้นหาร้าน', destinations: 'จุดหมาย', articles: 'บทความ', awards: 'Glasses Off Awards', about: 'เกี่ยวกับบอส' },
-  en: { finder: 'Restaurants', destinations: 'Destinations', articles: 'Tasting Notes', awards: 'Glasses Off Awards', about: 'About the Boss' },
+  en: { finder: 'Restaurants', destinations: 'Destinations', articles: 'Notes', awards: 'Glasses Off Awards', about: 'About the Boss' },
   ja: { finder: 'レストラン', destinations: '目的地', articles: '記事', awards: 'Glasses Off Awards', about: 'ボスについて' },
   zh: { finder: '餐厅', destinations: '目的地', articles: '文章', awards: 'Glasses Off Awards', about: '关于 Boss' },
 };

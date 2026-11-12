@@ -1,14 +1,44 @@
 ---
 // The five main-menu links (icon + label), shared by the header and the compact bar.
+// "Notes" is a button that opens a small menu of the series (บอสพาชิม · มื้ออาหารเปลี่ยนโลก · บอสพาดื่ม) —
+// the Boss, 13 Nov 2026: series must be clearly separate in the menu.
 import Icon from './Icon.astro';
 import { NAV_LABELS, NAV_ITEMS, NAV_SHORT } from '../lib/i18n';
-import type { Locale } from '../lib/config';
-interface Props { active?: string; lang: Locale }
-const { active, lang } = Astro.props;
+import { SERIES, localePrefix, type Locale, type SeriesKey } from '../lib/config';
+import { getArticles } from '../lib/content';
+interface Props { active?: string; lang: Locale; menuId?: string; series?: string }
+const { active, lang, menuId = 'series-menu', series: current } = Astro.props;
 const EN = NAV_LABELS.en;
 const SUB = lang === 'en' ? undefined : { ...NAV_LABELS[lang], ...(lang === 'th' ? { awards: 'รางวัลถอดแว่น' } : {}) };
+const all = await getArticles('th');
+const counts = Object.fromEntries((Object.keys(SERIES) as SeriesKey[]).map((k) => [k, all.filter((a) => (a.series || 'review') === k).length]));
+const unit: Record<SeriesKey, string> = { review: 'รีวิว', history: 'ตอน', drinks: 'บทความ' };
 ---
-{NAV_ITEMS.map(([key, href, icon]) => (
+{NAV_ITEMS.map(([key, href, icon]) => key === 'articles' ? (
+  <button type="button" class="nav-series" popovertarget={menuId} aria-haspopup="menu" aria-current={key === active ? 'page' : undefined}>
+    <Icon name={icon} size={18} class="nav-ico" />
+    <span class="nav-txt">
+      <span class="nav-en" lang="en" translate="no"><span class="nav-full">{EN[key]}</span><span class="nav-short">{NAV_SHORT[key]}</span><span class="nav-caret" aria-hidden="true">▾</span></span>
+      {SUB && SUB[key] !== EN[key] && <span class="nav-sub" lang={lang}>{SUB[key]}</span>}
+    </span>
+  </button>
+  <div id={menuId} popover class="series-pop" role="menu" aria-label="ซีรีส์">
+    <p class="series-pop-h" lang="en" translate="no">Series</p>
+    {(Object.keys(SERIES) as SeriesKey[]).map((k) => {
+      const s = SERIES[k]; const n = counts[k];
+      return n ? (
+        <a role="menuitem" href={`${localePrefix(lang)}/${s.path}/`} aria-current={current === k ? 'page' : undefined} style={`--sdot:${s.dot}`}>
+          <span class="sp-dot" aria-hidden="true"></span>
+          <span class="sp-txt"><span class="sp-th">{s.th}</span><span class="sp-en" lang="en" translate="no">{s.en}</span></span>
+          <span class="sp-n">{n} {unit[k]}</span>
+        </a>
+      ) : (
+        <span class="sp-soon" style={`--sdot:${s.dot}`}><span class="sp-dot" aria-hidden="true"></span><span class="sp-txt"><span class="sp-th">{s.th}</span><span class="sp-en" lang="en" translate="no">{s.en}</span></span><span class="sp-n">เร็วๆ นี้</span></span>
+      );
+    })}
+    <a role="menuitem" class="sp-all" href="/#notes">บทความล่าสุดทุกซีรีส์ <Icon name="arrow" size={14} /></a>
+  </div>
+) : (
   <a href={href} aria-current={key === active ? 'page' : undefined}>
     <Icon name={icon} size={18} class="nav-ico" />
     <span class="nav-txt">
@@ -16,3 +46,16 @@ const SUB = lang === 'en' ? undefined : { ...NAV_LABELS[lang], ...(lang === 'th'
       {SUB && SUB[key] !== EN[key] && <span class="nav-sub" lang={lang}>{SUB[key]}</span>}
     </span>
   </a>))}
+<script>
+  // Place the series menu under the button that opened it (header or compact bar); phones get a full-width sheet.
+  document.querySelectorAll<HTMLElement>('.series-pop').forEach((pop) => {
+    pop.addEventListener('toggle', (e) => {
+      if ((e as ToggleEvent).newState !== 'open') return;
+      const btn = document.querySelector<HTMLElement>(`[popovertarget="${pop.id}"]`); if (!btn) return;
+      const r = btn.getBoundingClientRect(); const w = Math.min(360, window.innerWidth - 24);
+      pop.style.top = `${Math.round(r.bottom + 8)}px`;
+      pop.style.left = `${Math.round(Math.max(12, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 12)))}px`;
+      pop.style.width = `${w}px`;
+    });
+  });
+</script>
