@@ -5,6 +5,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+## 13 Nov 2026 · Series numbering, share line, centred text (branch `history-ep`)
+- Tasting Notes No. now counts **reviews only** (`numberByVisit()` in `content.ts`). มื้ออาหารเปลี่ยนโลก and บอสพาดื่ม get `no = 0` and show "Ep.N" (Studio `episode`, else order by publish date within the series). History Ep.1 had taken No. 124 and pushed every later review up one; the top review is No. 123 again.
+- Labels go through `numLabel(a)` / `numKicker(a)` (cards, slider, home index, city list, article header). History kicker: "MEALS THAT CHANGED THE WORLD Ep.1"; the series badge no longer repeats "Ep.".
+- Share heading for non-review series: Studio field `articleShareTitleHistory` (default "ชอบเรื่องนี้? แชร์ให้เพื่อน"; other languages `shareStory` in `i18n.ts`). Reviews keep `articleShareTitle`.
+- Article body without a side card (history, no restaurant) gets `.body-solo`: same readable measure, centred, a little larger on wide screens. Reviews unchanged.
+- Studio schema changed (new settings field) → `deploy-studio.yml` runs on merge.
+
 ## 11 Nov 2026 · Sushi Iwai (Bangkok) prepared, not published (branch `web-sushi-iwai`)
 - `posts/sushi-iwai.md` from the Doc tab "final" (0 red marks): AD + billBand ฿฿฿, visit Nov-2026, publishedAt 2026-11-12, 🕶️ = Shun-no Warayaki (cover = its plate). Merge only after the FB/IG post goes out and the Boss approves; `--dry` exits 0.
 - Photos are the staged 1225 px previews (the post check warns "too small"); swap in full-size originals from Drive Thailand/sushi iwai before merging. Amadai = L1020051. `crop-preview` crashes on focus x != 0.5 for a 1225 px 3:2 frame (window overruns by 1 px), so focus x is 0.5.

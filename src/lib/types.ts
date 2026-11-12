@@ -109,6 +109,7 @@ export interface Settings {
   articleMenuTitle: string;
   articleGlassesQuote: string;
   articleShareTitle: string;
+  articleShareTitleHistory: string;
   destinationsTitle: string;
   mapTitle: string;
   contactTitle: string;

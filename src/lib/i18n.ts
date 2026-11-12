@@ -27,6 +27,7 @@ const T = {
   recommend: { th: 'แนะนำร้านให้บอส', en: 'Recommend a restaurant', ja: 'お店を推薦する', zh: '推荐餐厅' },
   copyLink: { th: 'คัดลอกลิงก์', en: 'Copy link', ja: 'リンクをコピー', zh: '复制链接' },
   moreShare: { th: 'แชร์อื่นๆ', en: 'More', ja: 'その他', zh: '更多' },
+  shareStory: { th: 'ชอบเรื่องนี้? แชร์ให้เพื่อน', en: 'Enjoyed this story? Share it', ja: 'この物語をシェア', zh: '分享这个故事' },
   shareThis: { th: 'ชอบร้านนี้? แชร์ให้เพื่อน', en: 'Enjoyed this? Share it', ja: 'この記事をシェア', zh: '分享这篇点评' },
   copied: { th: 'คัดลอกลิงก์แล้ว', en: 'Link copied', ja: 'リンクをコピーしました', zh: '链接已复制' },
   coverLabel: { th: 'ภาพเปิด', en: 'Cover photo', ja: 'カバー写真', zh: '封面图片' },

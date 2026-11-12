@@ -71,14 +71,35 @@ const visitKey = (a: Article) => {
   return `${ym}|${a.publishedAt || ''}|${a.slug}`;
 };
 /**
- * Tasting Notes No. = order of the visit (oldest meal = No. 001), counted on the original (Thai) articles.
+ * Tasting Notes No. = order of the visit (oldest meal = No. 001), counted on the original (Thai) reviews only.
  * Translations share the number of their original. Lists come back newest visit first.
+ * Other series (มื้ออาหารเปลี่ยนโลก, บอสพาดื่ม) are not restaurant visits: no Tasting Notes number (no = 0); they show
+ * "Ep.N" instead (Studio "episode", else their order by publish date within the series). 13 Nov 2026: history Ep.1
+ * had taken No. 124 and pushed every later review up one.
  */
+const isReview = (a: Pick<Article, 'series'>) => !a.series || a.series === 'review';
 function numberByVisit(all: Article[]): Article[] {
-  const originals = all.filter((a) => a.id === a.baseId).sort((a, b) => visitKey(a).localeCompare(visitKey(b)));
-  const noOf = new Map(originals.map((a, i) => [a.baseId, i + 1]));
-  return all.map((a) => ({ ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 })).sort((a, b) => b.no - a.no || a.language.localeCompare(b.language));
+  const originals = all.filter((a) => a.id === a.baseId);
+  const counted = originals.filter(isReview).sort((a, b) => visitKey(a).localeCompare(visitKey(b)));
+  const noOf = new Map(counted.map((a, i) => [a.baseId, i + 1]));
+  const epOf = new Map<string, number>();
+  for (const series of new Set(originals.filter((a) => !isReview(a)).map((a) => a.series))) {
+    originals.filter((a) => a.series === series)
+      .sort((a, b) => (a.publishedAt || '').localeCompare(b.publishedAt || '') || a.slug.localeCompare(b.slug))
+      .forEach((a, i) => epOf.set(a.baseId, a.episode ?? i + 1));
+  }
+  const keyOf = new Map(originals.map((a) => [a.baseId, visitKey(a)]));
+  return all
+    .map((a) => (isReview(a) ? { ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 } : { ...a, no: 0, episode: a.episode ?? epOf.get(a.baseId) ?? 1 }))
+    .sort((a, b) => (keyOf.get(b.baseId) ?? visitKey(b)).localeCompare(keyOf.get(a.baseId) ?? visitKey(a)) || a.language.localeCompare(b.language));
 }
+
+/** "No. 007" for reviews, "Ep.1" for the other series. */
+export const numLabel = (a: Pick<Article, 'series' | 'no' | 'episode'>) =>
+  isReview(a) ? `No. ${String(a.no).padStart(3, '0')}` : `Ep.${a.episode ?? 1}`;
+/** Small overline above the number: "TASTING NOTES" for reviews, the series name otherwise. */
+export const numKicker = (a: Pick<Article, 'series'>) =>
+  a.series === 'history' ? 'MEALS THAT CHANGED THE WORLD' : a.series === 'drinks' ? 'THE BOSS POURS' : 'TASTING NOTES';
 
 /**
  * Price band from a written price (Studio "ราคาจริง", not shown on the site): the first amount converted to THB

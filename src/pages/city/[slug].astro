@@ -7,7 +7,7 @@ import Photo from '../../components/Photo.astro';
 import CityCover from '../../components/CityCover.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { motifOf } from '../../lib/config';
-import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl } from '../../lib/content';
+import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl, numLabel } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
 
@@ -94,7 +94,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
             <span class="cr-side" style="flex:0 0 auto;display:flex;align-items:center;gap:12px 20px">
               {a.billBand && <span class="band-pill"><Icon name="bill" size={13} />{a.billBand}</span>}
               {a.tag && <span class="tag-pill"><Icon name={a.tag.startsWith('AD') ? 'megaphone' : 'calendar'} size={12} />{a.tag}</span>}
-              <span style="min-width:72px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6e3f08;text-align:right">No. {String(a.no).padStart(3, '0')}</span>
+              <span style="min-width:72px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#6e3f08;text-align:right">{numLabel(a)}</span>
             </span>
           </div>
         ))}
