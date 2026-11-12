@@ -42,6 +42,9 @@ input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid 
 .rule{height:2px;border:0;margin:0;background:linear-gradient(90deg,#0b5357 0%,#0abab5 50%,#d4b372 100%)}
 .goldrule{height:3px;background:linear-gradient(90deg,#6e3f08 0%,#c39e5c 25%,#fdeac0 50%,#c39e5c 75%,#6e3f08 100%)}
 .ink-grad{color:#0b5357;background:linear-gradient(90deg,#1a2632 0%,#0b5357 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+/* Gradient text is painted only inside the box: stacked Thai marks (มื้, ปู่, ฎ) poke out of a tight line-height and were cut
+   off ("มื้ออาหาร" showed as "มืออาหาร", 13 Nov 2026). Extra paint room above/below, cancelled by negative margins. */
+.ink-grad{padding-top:.22em;padding-bottom:.08em;margin-top:-.22em!important} /* every inline style here has top margin 0 */
 .gold-grad{color:#d4b372;background:linear-gradient(135deg,#d4b372 0%,#fdeac0 50%,#c39e5c 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .bronze-grad{color:#926633;background:linear-gradient(135deg,#6e3f08 0%,#c39e5c 55%,#926633 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .mark{background:linear-gradient(transparent 62%,rgba(212,179,114,0.45) 62%)}

@@ -5,6 +5,9 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+## 13 Nov 2026 · Thai tone marks cut off in gradient titles (branch `fix-thai-marks`)
+- `.ink-grad` paints text through `background-clip:text`, which only paints inside the box; with line-height 1.25 the stacked mark of "มื้" sat above it, so "มื้ออาหารเปลี่ยนโลก" read "มืออาหาร…". Fix: `.ink-grad{padding-top:.22em;padding-bottom:.08em;margin-top:-.22em!important}` (all inline styles on these titles use top margin 0). Applies to every gradient title.
+
 ## 13 Nov 2026 · Series numbering, share line, centred text (branch `history-ep`)
 - Tasting Notes No. now counts **reviews only** (`numberByVisit()` in `content.ts`). มื้ออาหารเปลี่ยนโลก and บอสพาดื่ม get `no = 0` and show "Ep.N" (Studio `episode`, else order by publish date within the series). History Ep.1 had taken No. 124 and pushed every later review up one; the top review is No. 123 again.
 - Labels go through `numLabel(a)` / `numKicker(a)` (cards, slider, home index, city list, article header). History kicker: "MEALS THAT CHANGED THE WORLD Ep.1"; the series badge no longer repeats "Ep.".
