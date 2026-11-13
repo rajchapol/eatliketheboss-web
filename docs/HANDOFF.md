@@ -5,6 +5,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+## 13 Nov 2026 · มื้ออาหารเปลี่ยนโลก Ep.1–20 on the web (posts only, pushed to main)
+- 20 history posts live at `/history/<slug>/` (`posts/*.md`, `series: history`, `episode: N`; slugs = English event + year, e.g. `nixon-peking-duck-banquet-1972`). Source: the Boss's Docs in the series folder (single tab each); Docs were never edited.
+- Covers: the design team's landscape 3:2 covers (1800×1200, title text baked in) from Drive "_มื้ออาหารเปลี่ยนโลก - History covers" → "ปก cover แนวนอน 3x2", used as delivered as `posts/images/<slug>/cover-3x2.jpg` (Ep.1–5 old covers replaced). Folder also has Ep.21–25 ready.
+- Image credits required by `เครดิตภาพ - credits Ep01-25.txt` (CC BY / KOGL) go as the last body paragraph ("ภาพปก: …"): Ep.9 and Ep.15; Ep.22 "should credit" when it is posted.
+- Body rules used: Boss's wording and bold kept, no headings, decorative emoji removed, trailing hashtag lines → frontmatter, stray reference numbers removed. Thai typos fixed only after the Boss approved the list (13 Nov); Ep.13 duplicated paragraph removed.
+
 ## 13 Nov 2026 · Thai-name logo is now the main logo (branch `brand/thai-main-logo`, brand role)
 - The Boss chose the 2026 logo with the Thai page name **บอสพาชิม** as the main logo; the IG/FB profile picture is now Profile TH. Brand Identity Manual V5 §5, the Design System (Logo 2026) and the writing skill's brand-core are updated.
 - Added ready SVGs in `public/img/brand/logo-th/` (not wired into any page yet): `crest-th-*` (horizontal), `stacked-th-*` (stacked), `profile-th-teal-gold.svg` (round). Thai is Noto Serif Thai, outlined.
