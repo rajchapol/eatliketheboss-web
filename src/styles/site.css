@@ -149,6 +149,8 @@ a.chip:hover{background:#0b5357;color:#fdeac0}
 /* header (desktop): logo on the left; the language row sits small above the menu on the right */
 .hdr{display:grid!important;grid-template-columns:auto 1fr;align-items:center}
 .hdr .logo{grid-row:1}
+/* main logo with the Thai name (the Boss, 13 Nov 2026): wide headers show the crest; phones keep the wordmark (the Thai line would be too small) */
+.hdr .logo img{display:block}.hdr .logo-crest{width:340px;height:auto}.hdr .logo-word{display:none!important}
 .hdr .main-nav{grid-column:2;grid-row:1;justify-self:end;align-self:center}
 /* menu labels: English name, the page language's name small underneath; phones show the short English name */
 .nav-txt{display:flex;flex-direction:column;line-height:1.15}
@@ -183,6 +185,7 @@ img{max-width:100%;height:auto}
 .site-footer .foot-col a{padding:9px 0}
 }
 @container elb (max-width: 380px){.hdr .logo img{width:112px!important}}
+@container elb (max-width: 1240px){.hdr .logo-crest{display:none!important}.hdr .logo-word{display:block!important}}
 .ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:#e8dfcf;color:#4a5560;font-family:'Ekkamai New',sans-serif;font-size:13px}
 .ph-dark{background:#073b3e;color:rgba(255,255,255,.92)}
 .cover{display:block;width:100%;height:100%;object-fit:cover}

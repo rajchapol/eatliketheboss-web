@@ -5,6 +5,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+
+## Session 2026-11-13 · main logo with the Thai name
+- Brand hand-off (13 Nov): the Thai-name logo is the main logo. Header (`SiteHeader.astro`) now holds two images: `.logo-crest` (`/img/brand/logo-th/crest-th-foil-flat.svg`, 340 px, Thai line ~16 px high) and `.logo-word` (old wordmark). CSS after `.hdr .logo` in `site.css`: the crest shows only when the `elb` container is wider than 1240 px; below that (and on phones, compact bar) the wordmark stays. 1240 is measured: at 1240 and narrower the crest + 5 menu tabs wrap the menu to two rows.
+- `public/img/og-default.jpg`: same picture, logo swapped for stacked-th (old logo painted out with the background gradient). Sanity settings `ogImage` is empty, so this file is what shares use.
+- About: the round badge shows `profile-th-teal-gold.svg` (the IG/FB profile logo) instead of the monogram. Favicon unchanged (Monogram).
+
 ## 13 Nov 2026 · มื้ออาหารเปลี่ยนโลก Ep.1–20 on the web (posts only, pushed to main)
 - 20 history posts live at `/history/<slug>/` (`posts/*.md`, `series: history`, `episode: N`; slugs = English event + year, e.g. `nixon-peking-duck-banquet-1972`). Source: the Boss's Docs in the series folder (single tab each); Docs were never edited.
 - Covers: the design team's landscape 3:2 covers (1800×1200, title text baked in) from Drive "_มื้ออาหารเปลี่ยนโลก - History covers" → "ปก cover แนวนอน 3x2", used as delivered as `posts/images/<slug>/cover-3x2.jpg` (Ep.1–5 old covers replaced). Folder also has Ep.21–25 ready.
