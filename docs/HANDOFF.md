@@ -5,6 +5,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ---
 
 
+## 13 Nov 2026 · Thai-name logo is now the main logo (branch `brand/thai-main-logo`, brand role)
+- The Boss chose the 2026 logo with the Thai page name **บอสพาชิม** as the main logo; the IG/FB profile picture is now Profile TH. Brand Identity Manual V5 §5, the Design System (Logo 2026) and the writing skill's brand-core are updated.
+- Added ready SVGs in `public/img/brand/logo-th/` (not wired into any page yet): `crest-th-*` (horizontal), `stacked-th-*` (stacked), `profile-th-teal-gold.svg` (round). Thai is Noto Serif Thai, outlined.
+- Open for the web role (see `docs/handoff/03-web-design.md` §0): desktop header → `crest-th-foil-flat.svg` if it reads at the header height; keep the wordmark on phones and the compact bar; `og-default` / About can use stacked-th; favicon stays the Monogram. Show the Boss before merging.
+
 ## 13 Nov 2026 · Thai tone marks cut off in gradient titles (branch `fix-thai-marks`)
 - `.ink-grad` paints text through `background-clip:text`, which only paints inside the box; with line-height 1.25 the stacked mark of "มื้" sat above it, so "มื้ออาหารเปลี่ยนโลก" read "มืออาหาร…". Fix: `.ink-grad{padding-top:.22em;padding-bottom:.08em;margin-top:-.22em!important}` (all inline styles on these titles use top margin 0). Applies to every gradient title.
 
