@@ -54,6 +54,7 @@ const T = {
   seriesHistory: { th: 'มื้ออาหารเปลี่ยนโลก', en: 'Meals that changed the world', ja: '世界を変えた食事', zh: '改变世界的一餐' },
   seriesDrinks: { th: 'บอสพาดื่ม', en: 'Drinks with the Boss', ja: 'ボスと一杯', zh: '与 Boss 小酌' },
   readNotes: { th: 'อ่าน Tasting Notes', en: 'Read the Tasting Notes', ja: 'テイスティングノートを読む', zh: '阅读品鉴笔记' },
+  readStory: { th: 'อ่านเรื่องนี้', en: 'Read the story', ja: '記事を読む', zh: '阅读全文' },
   reviewedTimes: { th: 'รีวิว {n} ครั้ง', en: 'Reviewed {n} times', ja: '{n}回レビュー', zh: '点评 {n} 次' },
   thisVisit: { th: 'ครั้งนี้', en: 'This visit', ja: '今回', zh: '本次' },
   review: { th: 'บอสพาชิม', en: 'Eat Like The Boss', ja: 'Eat Like The Boss', zh: 'Eat Like The Boss' },

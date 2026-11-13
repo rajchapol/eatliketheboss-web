@@ -4,6 +4,8 @@
 // What "flexible" means:
 // - case, spaces, punctuation and accents don't matter ("Hong Kong" = "hongkong", "Café" = "cafe")
 // - Thai tone marks and similar marks don't matter ("เซียงไฮ" finds "เซี่ยงไฮ้")
+// - Thai spellings of foreign names that sound the same match: long/short vowels (ู/ุ, ี/ิ, ื/ึ), a final ะ,
+//   and consonants with the same sound (ซ/ส/ศ/ษ, ท/ธ/ฑ, น/ณ, พ/ภ …): "ฟูกูโอกะ" finds "ฟุกุโอกะ", "สุชิ" finds "ซูชิ"
 // - Thai and English names are the same thing ("เซี่ยงไฮ้" finds Shanghai, "ญี่ปุ่น" finds Japanese), see GROUPS
 // - several words must all match, in any order ("เซี่ยงไฮ้ ติ่มซำ")
 // - one typo is forgiven in longer words ("shangai" finds Shanghai)
@@ -18,8 +20,13 @@ export function norm(s: string): string {
     .replace(/[̀-ͯ]/g, '') // Latin accents
     .replace(/[็-๎]/g, '') // Thai: ็ ่ ้ ๊ ๋ ์ ํ ๎
     .replace(/ฯ/g, '')
-    .replace(/[^\p{L}\p{N}]+/gu, '');
+    .replace(/[^\p{L}\p{N}]+/gu, '')
+    .replace(/ะ/g, '') // "เกียวโตะ" = "เกียวโต"
+    .replace(/[ูีื]/g, (c) => THAI_SHORT[c]) // long/short vowel: "ฟูกูโอกะ" = "ฟุกุโอกะ"
+    .replace(/[ศษซธฑฒณฬฎฏภฆฌ]/g, (c) => THAI_SOUND[c]); // same sound: "ศูชิ"/"สุชิ" = "ซูชิ", "ภูเก็ต" stays findable as "พูเก็ต"
 }
+const THAI_SHORT: Record<string, string> = { 'ู': 'ุ', 'ี': 'ิ', 'ื': 'ึ' };
+const THAI_SOUND: Record<string, string> = { 'ศ': 'ส', 'ษ': 'ส', 'ซ': 'ส', 'ธ': 'ท', 'ฑ': 'ท', 'ฒ': 'ท', 'ณ': 'น', 'ฬ': 'ล', 'ฎ': 'ด', 'ฏ': 'ต', 'ภ': 'พ', 'ฆ': 'ค', 'ฌ': 'ช' };
 
 /** Each line: names that mean the same thing. Matching any one finds all of them. */
 const GROUPS: string[][] = [
