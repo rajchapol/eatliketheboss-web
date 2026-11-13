@@ -5,7 +5,7 @@ episode: 2
 title: "\"ปาร์ตี้ที่แพงที่สุดในประวัติศาสตร์\" หรือ งานเลี้ยงของปีศาจ"
 slug: persepolis-2500-year-celebration-1971
 tagline: "The Devil's Feast — งานฉลอง 2,500 ปีที่เพอร์ซีโพลิส"
-cover: "./images/persepolis-2500-year-celebration-1971/cover-gala.jpg | ภาพประกอบงานเลี้ยงอาหารค่ำในกระโจมหรูที่เพอร์ซีโพลิส ปี 1971 ราชวงศ์และประมุขนั่งรอบโต๊ะยาว กลางโต๊ะมีนกยูงทั้งตัว ไวน์แดงและแชมเปญ ใต้แชนเดอเลียร์คริสตัล มีบริกรชุดม่วงยืนรอบห้อง"
+cover: "./images/persepolis-2500-year-celebration-1971/cover-3x2.jpg | ปกมื้ออาหารเปลี่ยนโลก Ep.2 ภาพถ่ายขาวดำเสาหินโบราณสี่ต้นของเพอร์ซีโพลิสตั้งอยู่กลางลานหิมะ มีภูเขาเป็นฉากหลัง พร้อมตัวอักษร Persepolis"
 hashtags: [บอสพาชิม, eatliketheboss, มื้ออาหารเปลี่ยนโลก, Persepolis, MaximsDeParis, LafiteRothschild1945, Iran]
 publishedAt: 2026-11-13
 seoTitle: "Persepolis 1971 งานเลี้ยงที่แพงที่สุดในประวัติศาสตร์"
