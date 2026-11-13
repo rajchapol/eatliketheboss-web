@@ -19,7 +19,7 @@ const seriesName = t(L, a.series === 'history' ? 'seriesHistory' : a.series === 
 const st = await getSettings();
 // Series other than reviews (history, drinks): the year in the slug ("…-1671") as the kicker, the tagline under the title.
 const story = !!a.series && a.series !== 'review';
-const storyYear = story ? a.slug.match(/-(\d{4})$/)?.[1] : undefined;
+const storyYear = story ? a.slug.match(/-(\d{4}s?)$/)?.[1] : undefined;
 const y0 = visitIso(all[all.length - 1]).slice(0, 4), y1 = visitIso(all[0]).slice(0, 4);
 // Finder search text: names, chef, city and every dish name from every visit.
 // Prepared by src/lib/search.ts: Thai/English synonyms added, tone marks and spaces removed.

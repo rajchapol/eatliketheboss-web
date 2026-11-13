@@ -8,8 +8,8 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ## Session 2026-11-13 · finder spelling, series pages
 - Finder (`src/lib/search.ts` `norm()`): Thai spellings of foreign names that sound the same now match: long/short vowels (ู/ุ ี/ิ ื/ึ), ะ dropped, and same-sound consonants folded (ซศษ→ส, ธฑฒ→ท, ณ→น, ฬ→ล, ฎ→ด, ฏ→ต, ภ→พ, ฆ→ค, ฌ→ช). Applied to both the card text and the query, so "ฟูกูโอกะ" finds "ฟุกุโอกะ", "สุชิ" finds "ซูชิ", "คิตะกาวะ" finds "คิตากาวะ". Tone marks and spaces were already ignored.
-- Series pages (`[series]/index.astro`): history/drinks list newest episode first (reviews unchanged) and show "N ตอน · ตอนใหม่อยู่บนสุด" + a "เริ่มอ่านจาก Ep.1" button in the series ink colour.
-- `ArticleCard.astro` for non-review series: kicker = the year at the end of the slug (`…-1671`), the tagline under the title, and the footer says "อ่านเรื่องนี้" (`readStory` in `i18n.ts`) instead of "อ่าน Tasting Notes". Keep history slugs ending in the year for this.
+- Series pages (`[series]/index.astro`): history/drinks list in episode order, Ep.1 first (the Boss: "เรียงตอน"; reviews unchanged), and show "N ตอน · เรียงจาก Ep.1" + an "อ่านตอนล่าสุด Ep.N" button in the series ink colour.
+- `ArticleCard.astro` for non-review series: kicker = the year at the end of the slug (`…-1671`, `…-1780s`), the tagline under the title, and the footer says "อ่านเรื่องนี้" (`readStory` in `i18n.ts`) instead of "อ่าน Tasting Notes". Keep history slugs ending in the year for this.
 
 ## Session 2026-11-13 · main logo with the Thai name
 - Brand hand-off (13 Nov): the Thai-name logo is the main logo. Header (`SiteHeader.astro`) now holds two images: `.logo-crest` (`/img/brand/logo-th/crest-th-foil-flat.svg`, 340 px, Thai line ~16 px high) and `.logo-word` (old wordmark). CSS after `.hdr .logo` in `site.css`: the crest shows only when the `elb` container is wider than 1240 px; below that (and on phones, compact bar) the wordmark stays. 1240 is measured: at 1240 and narrower the crest + 5 menu tabs wrap the menu to two rows.
