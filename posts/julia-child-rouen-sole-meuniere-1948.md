@@ -5,7 +5,7 @@ episode: 1
 title: "ปาฏิหาริย์แห่งรูอ็อง: จานปลาเปลี่ยนโลกของ จูเลีย ไชลด์ และการปฏิวัติวัฒนธรรมการกินในอเมริกา"
 slug: julia-child-rouen-sole-meuniere-1948
 tagline: "The Rouen Epiphany — การตื่นรู้ที่รูอ็อง"
-cover: "./images/julia-child-rouen-sole-meuniere-1948/cover.jpg | ภาพประกอบสามช่อง จูเลีย ไชลด์ กับพอล สามี ทาน Sole Meunière และหอยนางรมที่ร้าน La Couronne เมืองรูอ็อง ปี 1948, จูเลียในชุดเชฟ Le Cordon Bleu ปารีส และจูเลียทำอาหารด้วยหม้อทองแดงในรายการ The French Chef ปี 1963"
+cover: "./images/julia-child-rouen-sole-meuniere-1948/cover-3x2.jpg | ปกมื้ออาหารเปลี่ยนโลก Ep.1 ภาพวาดมหาวิหารรูอ็องของโกลด โมเนต์ โทนฟ้าชมพูแบบอิมเพรสชันนิสม์ พร้อมตัวอักษร Sole Meunière"
 hashtags: [บอสพาชิม, eatliketheboss, มื้ออาหารเปลี่ยนโลก, JuliaChild, SoleMeuniere, LaCouronne, Rouen]
 publishedAt: 2026-11-13
 seoTitle: "Julia Child กับ Sole Meunière ที่ Rouen 1948"
