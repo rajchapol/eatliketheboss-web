@@ -5,7 +5,7 @@ episode: 3
 title: "\"Dîner des Trois Empereurs\": The Last Supper of Old Europe"
 slug: diner-des-trois-empereurs-1867
 tagline: "อาหารค่ำของสามจักรพรรดิ ณ Café Anglais ปารีส"
-cover: "./images/diner-des-trois-empereurs-1867/cover-dinner.jpg | ภาพประกอบดินเนอร์สามจักรพรรดิที่ Café Anglais ปารีส ปี 1867 พระเจ้าวิลเฮล์มที่ 1 ซาร์อเล็กซานเดอร์ที่ 2 ซาเรวิช และบิสมาร์ก นั่งรอบโต๊ะกลมที่มีกุ้งมังกรและแชมเปญ เชฟชุดขาวยืนถือจานอยู่ด้านขวา"
+cover: "./images/diner-des-trois-empereurs-1867/cover-3x2.jpg | ปกมื้ออาหารเปลี่ยนโลก Ep.3 ภาพถ่ายขาวดำอาคารหัวมุมของร้าน Café Anglais ในปารีส มีชื่อร้านบนผนังและต้นไม้ด้านหน้า พร้อมตัวอักษร Trois Empereurs"
 hashtags: [บอสพาชิม, eatliketheboss, มื้ออาหารเปลี่ยนโลก, DinerDesTroisEmpereurs, CafeAnglais, Dugléré, CristalChampagne, Paris]
 publishedAt: 2026-11-13
 seoTitle: "Dîner des Trois Empereurs 1867 ดินเนอร์สามจักรพรรดิ"
