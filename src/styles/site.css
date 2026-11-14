@@ -733,3 +733,15 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .hist-en{font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--sink)}
 .hist-th{font-size:20px;font-weight:600;color:#1a2632;border-bottom:1px solid transparent;align-self:flex-start}
 .hist-th:hover{border-bottom-color:var(--sdot)}
+
+/* Home: one strip per series other than reviews (the Boss, 14 Nov 2026) — 4 newest episodes; scrolls sideways on phones */
+.strip-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding-top:28px}
+.strip-card{display:flex;flex-direction:column;gap:10px;min-width:0;color:inherit}
+.strip-photo{display:block;aspect-ratio:3/2;border-radius:var(--r-md);overflow:hidden;background:#e8dfcf;box-shadow:0 0 0 1px rgba(212,179,114,.45)}
+.strip-photo img{transition:transform .6s ease}.strip-card:hover .strip-photo img{transform:scale(1.04)}
+.strip-ep{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1;color:var(--sink)}
+.strip-title{font-size:17px;font-weight:600;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.strip-card:hover .strip-title{color:var(--sink)}
+@container elb (max-width: 900px){.strip-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container elb (max-width: 560px){.strip-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:16px;margin:0 -20px;padding:24px 20px 4px;scroll-padding-inline:20px}.strip-row::-webkit-scrollbar{display:none}.strip-card{flex:0 0 72%;scroll-snap-align:start}}
+@media (prefers-reduced-motion: reduce){.strip-photo img{transition:none}}
