@@ -7,6 +7,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-14 · home: Boss Index = reviews only, series strip
+- The Boss: the Boss Index lists reviews only; other series get their own strip. `index.astro`: `index` = `series === 'review'` (the "ดูบันทึกก่อนหน้า" counts use it too). New `strips`: one section per non-review series that has articles (history now, drinks when it starts), 4 newest episodes (highest `episode`), "ดูทั้ง N ตอน" → `/<path>/`, colours from `SERIES` (`--sdot`/`--sink`). CSS `.strip-*` at the end of `site.css`: 4 columns, 2 under 900 px, sideways scroll under 560 px.
+
 ## Session 2026-11-14 · design polish: corners, hero shadow, paragraph spacing
 - The Boss: rounded corners looked odd. Radius tokens tightened (`site.css` :root): `--r-sm` 12→10, `--r-md` 20→14, `--r-lg` 28→18; pills unchanged. Everything that used the tokens follows (cards, photos, finder panel, header tab tray; inner radii stay concentric).
 - Home slider: the photo shadow (0 30px 60px) was cut off square by the `.slides` scroller (40 px bottom padding), which looked like a pale box behind the photo. Shadow now fits inside the padding.

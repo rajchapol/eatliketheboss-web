@@ -17,7 +17,13 @@ const slides = (featured ? [featured, ...latest.filter((a) => restaurantKey(a) !
 // The Index: every article is in the HTML (search engines see them all); the latest 10 show first and
 // "ดูทั้งหมด" opens the rest in place, 20 at a time. Without JS the row links to /review/ instead.
 const INDEX_FIRST = 10, INDEX_STEP = 20;
-const index = articles; // newest visit first; No. 001 is the oldest
+// Reviews only (the Boss, 14 Nov 2026): other series get their own strip below, so 20 episodes posted on one day don't push the reviews off the list.
+const index = articles.filter((a) => a.series === 'review'); // newest visit first; No. 001 is the oldest
+// One strip per other series that has articles: newest episodes first, 4 cards.
+const strips = (Object.keys(SERIES) as (keyof typeof SERIES)[]).filter((k) => k !== 'review').map((k) => {
+  const all = articles.filter((a) => a.series === k).sort((a, b) => (b.episode ?? 0) - (a.episode ?? 0));
+  return { key: k, s: SERIES[k], total: all.length, items: all.slice(0, 4) };
+}).filter((x) => x.total > 0);
 // Repeat visit marker in The Index: 2 = second time at this restaurant (counted by visit order).
 const returnNo = (a: (typeof articles)[number]) => { const vs = articles.filter((x) => restaurantKey(x) === restaurantKey(a)); return vs.length - vs.indexOf(a); };
 // Glasses Off band: this year's dishes (by visit); before the first one of the year, the latest year that has any.
@@ -74,16 +80,38 @@ const quickCities = settings.homeCitySlugs?.length
         <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
-    {articles.length > INDEX_FIRST && (
+    {index.length > INDEX_FIRST && (
       <div class="idx-more-wrap" data-idx-more data-first={INDEX_FIRST} data-step={INDEX_STEP}>
         <a href="/review/" class="idx-more fx-arrow" data-idx-link>
-          <span>ดูบันทึกก่อนหน้าอีก {articles.length - INDEX_FIRST} เรื่อง · No. {[...new Set([articles[articles.length - 1].no, articles[INDEX_FIRST].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
+          <span>ดูบันทึกก่อนหน้าอีก {index.length - INDEX_FIRST} เรื่อง · No. {[...new Set([index[index.length - 1].no, index[INDEX_FIRST].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
           <Icon name="arrow" size={16} />
         </a>
         <button type="button" class="idx-more idx-toggle" data-idx-btn hidden aria-controls="notes" aria-expanded="false"><span data-idx-label></span><Icon name="down" size={16} /></button>
       </div>
     )}
   </section>
+
+  {strips.map(({ key, s, total, items }) => (
+    <section aria-labelledby={`strip-${key}`} class="wrap series-strip" style={`--sdot:${s.dot};--sink:${s.ink};padding-bottom:96px`}>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 16px;padding-bottom:16px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span lang="en" translate="no" style="display:flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--sink)"><span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--sdot)"></span>{s.en}</span>
+          <h2 id={`strip-${key}`} style="margin:0;font-size:clamp(28px,4.4cqi,40px);font-weight:600;line-height:1.3;color:var(--sink)">{s.th}</h2>
+        </div>
+        <a href={`/${s.path}/`} class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้ง {total} ตอน<Icon name="arrow" size={16} /></a>
+      </div>
+      <div class="rule fx-draw" style="background:linear-gradient(90deg,var(--sink),rgba(195,158,92,.4))"></div>
+      <div class="strip-row">
+        {items.map((a) => (
+          <a href={articleUrl(a)} class="strip-card fx-row">
+            <span class="strip-photo"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[360, 540, 720]} sizes="(max-width: 720px) 72vw, 280px" /></span>
+            <span class="strip-ep" translate="no">Ep.{a.episode}</span>
+            <span class="strip-title">{a.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
 
   <section aria-label="สโลแกน" class="wrap" style="padding-bottom:104px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
     <div class="divider" aria-hidden="true" style="margin-bottom:24px;width:100%"><span></span><svg viewBox="0 0 40 16" width="40" height="16"><path d="M20 1l7 7-7 7-7-7z" fill="none" stroke="#c39e5c" stroke-width="1.2"/><circle cx="20" cy="8" r="2" fill="#c39e5c"/><path d="M2 8h8M30 8h8" stroke="#c39e5c" stroke-width="1.2"/></svg><span></span></div>
