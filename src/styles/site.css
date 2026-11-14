@@ -26,7 +26,7 @@
 
 /* ---------- base ---------- */
 /* Corner radius: small controls are pills, cards and photos are softly rounded. */
-:root{--r-sm:12px;--r-md:20px;--r-lg:28px;--r-pill:999px;--ink:#1a2632;--ink-2:#3d4955;--teal:#0b5357;--teal-deep:#073b3e;--gold:#c39e5c;--gold-light:#fdeac0;--paper:#f4ece0;--card:#fbf7ef}
+:root{--r-sm:10px;--r-md:14px;--r-lg:18px;--r-pill:999px;--ink:#1a2632;--ink-2:#3d4955;--teal:#0b5357;--teal-deep:#073b3e;--gold:#c39e5c;--gold-light:#fdeac0;--paper:#f4ece0;--card:#fbf7ef}
 body{margin:0;background:#f4ece0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 html{scroll-padding-top:72px} /* anchors / keyboard focus stay clear of the compact bar */
 [id^="dish-"]{scroll-margin-top:16px} /* + html scroll-padding-top 72px = clear of the dish menu */
@@ -224,7 +224,7 @@ img{max-width:100%;height:auto}
 .slides{display:grid;grid-auto-flow:column;grid-auto-columns:100%;column-gap:80px;padding-bottom:40px;margin-bottom:-40px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .slides::-webkit-scrollbar{display:none}
 .slide{scroll-snap-align:start;scroll-snap-stop:always;min-width:0;display:flex;flex-wrap:wrap;gap:32px 56px;align-items:center}
-.slide-photo{flex:7 1 480px;min-width:0;display:block;aspect-ratio:3/2;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 30px 60px -20px rgba(11,83,87,.4)}
+.slide-photo{flex:7 1 480px;min-width:0;display:block;aspect-ratio:3/2;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 0 0 1px rgba(212,179,114,.5),0 18px 32px -16px rgba(11,83,87,.4)} /* shadow stays inside .slides' 40px bottom padding: a bigger one was cut off square by the scroller */
 .slide-text{flex:5 1 320px;min-width:0;display:flex;flex-direction:column;gap:18px}
 .slider-bar{display:flex;align-items:center;gap:16px;margin-top:32px}
 .slider-dots{display:flex;gap:14px;flex:1} /* 24px between dot centres: touch-target spacing */
@@ -639,7 +639,7 @@ html.translated-ltr font{vertical-align:inherit!important}
 .course-nav a{white-space:normal!important;max-width:220px!important;line-height:1.3}
 .course-nav .cn-name{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 /* Small Ekkamai text on light grounds: a touch darker and firmer (Ekkamai Regular is thin at 13–15px) */
-.idx-row [style*="Ekkamai"],.rc dt,.slide-text .badge{color:#2c3844!important;-webkit-text-stroke:.2px currentColor}
+.idx-row [style*="Ekkamai"],.rc dt,.slide-text .badge:not(.badge-dark){color:#2c3844!important;-webkit-text-stroke:.2px currentColor}
 .idx-row .idx-series,.idx-row .idx-date,.idx-title>span+span{font-size:15px!important}
 
 .prose,.dish-desc{font-family:"ELB Body","Noto Serif Thai",serif}

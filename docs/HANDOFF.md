@@ -6,6 +6,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-14 · design polish: corners, hero shadow, paragraph spacing
+- The Boss: rounded corners looked odd. Radius tokens tightened (`site.css` :root): `--r-sm` 12→10, `--r-md` 20→14, `--r-lg` 28→18; pills unchanged. Everything that used the tokens follows (cards, photos, finder panel, header tab tray; inner radii stay concentric).
+- Home slider: the photo shadow (0 30px 60px) was cut off square by the `.slides` scroller (40 px bottom padding), which looked like a pale box behind the photo. Shadow now fits inside the padding.
+- Home slider: the dark "ถอดแว่นชิม" badge had dark text (a rule for `.slide-text .badge` forced #2c3844) → empty dark pill. Rule now skips `.badge-dark`.
+- Body text (`tidyBody()` in `content.ts`): line breaks inside a paragraph become separate paragraphs, so posts pasted with single line breaks (Sushi Iwai) get paragraph spacing.
+- Not changed: phone article cover stays edge to edge (earlier deliberate choice).
+
 ## Session 2026-11-13 · finder spelling, series pages
 - Finder (`src/lib/search.ts` `norm()`): Thai spellings of foreign names that sound the same now match: long/short vowels (ู/ุ ี/ิ ื/ึ), ะ dropped, and same-sound consonants folded (ซศษ→ส, ธฑฒ→ท, ณ→น, ฬ→ล, ฎ→ด, ฏ→ต, ภ→พ, ฆ→ค, ฌ→ช). Applied to both the card text and the query, so "ฟูกูโอกะ" finds "ฟุกุโอกะ", "สุชิ" finds "ซูชิ", "คิตะกาวะ" finds "คิตากาวะ". Tone marks and spaces were already ignored.
 - Series pages (`[series]/index.astro`): history/drinks list in episode order, Ep.1 first (the Boss: "เรียงตอน"; reviews unchanged), and show "N ตอน · เรียงจาก Ep.1" + an "อ่านตอนล่าสุด Ep.N" button in the series ink colour.
