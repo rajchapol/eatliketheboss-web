@@ -36,9 +36,11 @@ const stripCtrl = (s: string) => s.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u0
 /**
  * Article body as it reads on the site (10 Nov 2026):
  * - "**words**" left over from IG / Google Doc drafts → bold (17 articles showed the stars)
+ * - a line break inside a paragraph (drafts pasted with single line breaks, e.g. Sushi Iwai) → its own paragraph, so the text gets paragraph spacing
  * - the IG hand-over line ("🍽️ ศิลปะแห่งรสชาติในมื้อนี้:" — a short emoji-led line ending in ":") is dropped: the menu heading does that job
  */
 const tidyBody = (html: string) => stripCtrl(html)
+  .replace(/<p>([\s\S]*?)<\/p>/g, (_, inner: string) => inner.split(/<br\s*\/?>/).map((t) => t.trim()).filter(Boolean).map((t) => `<p>${t}</p>`).join(''))
   .replace(/\*\*(?!\s)([^*<]{1,200}?)(?<!\s)\*\*/g, '<strong>$1</strong>')
   .replace(/\*\*/g, '') // an unpaired "**" left in a draft
   .replace(/<p>\s*(?:\p{Extended_Pictographic}|\uFE0F|\s)+[^<]{0,60}[:：]\s*<\/p>/gu, '');
