@@ -745,3 +745,21 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 @container elb (max-width: 900px){.strip-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @container elb (max-width: 560px){.strip-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:16px;margin:0 -20px;padding:24px 20px 4px;scroll-padding-inline:20px}.strip-row::-webkit-scrollbar{display:none}.strip-card{flex:0 0 72%;scroll-snap-align:start}}
 @media (prefers-reduced-motion: reduce){.strip-photo img{transition:none}}
+
+/* ── Magazine touches (the Boss, 16 Nov 2026: "more character", quiet luxury, no page transitions) ──
+   One signature device used everywhere: the issue number set huge in outlined Cormorant italic, like a
+   magazine cover line. Decoration only (aria-hidden); text stays where it was. */
+.outline-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;line-height:.8;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.2px rgba(195,158,92,.75);font-variant-numeric:lining-nums;pointer-events:none;user-select:none}
+@supports not (-webkit-text-stroke:1px #000){.outline-num{color:rgba(195,158,92,.18)}}
+/* home slider: behind the text column, top right */
+.slide-text{position:relative;isolation:isolate}
+.slide-num{position:absolute;right:-8px;top:-34px;z-index:-1;font-size:clamp(110px,15cqi,190px);opacity:.5}
+/* article masthead: right of the 880px column on wide screens only */
+.mast{position:relative}
+.mast-num{display:none}
+@container elb (min-width: 1180px){.mast-num{display:block;position:absolute;left:calc(100% + 40px);top:-6px;font-size:190px;opacity:.85}}
+/* lead paragraph: the first paragraph reads as the stand-first */
+.prose>p:first-child{font-size:1.16em;line-height:1.85;color:#1a2632}
+/* end mark after the last paragraph of the article text */
+.prose>p:last-child::after{content:"";display:inline-block;width:.5em;height:.5em;margin-left:.45em;transform:rotate(45deg) translateY(-.08em);background:linear-gradient(135deg,#c39e5c,#fdeac0);vertical-align:middle}
+@container elb (max-width: 720px){.slide-num{display:none}} /* phones: the photo sits right above, the numeral only crowded it */
