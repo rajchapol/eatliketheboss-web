@@ -831,3 +831,19 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .aw-roman{position:absolute;right:16px;top:12px;z-index:1;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:40px;line-height:1;color:#fdeac0;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .aw-photo .go-mark{z-index:1}
 .aw-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;gap:6px;padding:18px 20px 20px;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.55)}
+
+/* "In This Issue" as a checkerboard (the Boss, 16 Nov 2026: soft gold numerals on cream were hard to read):
+   cells alternate deep-teal and cream gradients; numerals are solid gradients that contrast with their cell */
+.toc-list{gap:0;border-radius:var(--r-md);overflow:hidden;box-shadow:0 0 0 1px rgba(195,158,92,.45);margin-top:18px}
+.toc-list>li{border-bottom:0}
+.toc-list>li+li .toc-item{border-left:0}
+.toc-list>li .toc-item{background:linear-gradient(150deg,#fdf8ee 0%,#efe3cc 100%)}
+.toc-list>li:nth-child(odd) .toc-item{background:linear-gradient(150deg,#0e6b6f 0%,#073b3e 100%);color:#fff}
+.toc-list>li:nth-child(odd) .toc-en{color:#fdeac0}
+.toc-list>li:nth-child(odd) .toc-meta{color:rgba(255,255,255,.85)}
+.toc-list>li .toc-no{background:linear-gradient(180deg,#0b5357,#0e8a8c)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.toc-list>li:nth-child(odd) .toc-no{background:linear-gradient(180deg,#fdeac0,#c39e5c)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.toc-list>li .toc-item:hover{filter:brightness(1.06)}
+.toc-list>li .toc-item:hover .toc-no{background:linear-gradient(180deg,#0b5357,#0e8a8c)!important;-webkit-background-clip:text!important;background-clip:text!important}
+.toc-list>li:nth-child(odd) .toc-item:hover .toc-no{background:linear-gradient(180deg,#fff7e6,#d4b372)!important;-webkit-background-clip:text!important;background-clip:text!important}
+@container elb (max-width: 720px){.toc-list{border-radius:var(--r-md)}}
