@@ -86,12 +86,18 @@ export function articleLd(a: Article) {
       '@type': 'Review',
       name: a.title,
       reviewBody: a.seoDescription || a.tagline,
+      // every name the restaurant is searched by (original script, Thai spelling, aliases) so Google ties
+      // "<name> review" / "<ชื่อไทย> รีวิว" searches to this page
+      keywords: [a.restaurant.name, a.restaurant.originalName, ...(a.restaurant.aliases || [])].filter(Boolean).flatMap((n) => [`${n} review`, `${n} รีวิว`]).join(', '),
       itemReviewed: {
         '@type': 'Restaurant',
         name: a.restaurant.name,
+        alternateName: [a.restaurant.originalName, ...(a.restaurant.aliases || [])].filter(Boolean),
+        image,
         servesCuisine: a.restaurant.style ? [a.restaurant.cuisine, a.restaurant.style] : a.restaurant.cuisine,
-        priceRange: a.restaurant.priceBand,
-        address: a.city ? { '@type': 'PostalAddress', addressLocality: a.city.nameEn, streetAddress: a.restaurant.area } : undefined,
+        priceRange: a.billBand || a.restaurant.priceBand,
+        address: a.city ? { '@type': 'PostalAddress', addressLocality: a.city.nameEn, addressRegion: a.city.nameTh, streetAddress: a.restaurant.area, addressCountry: a.city.country } : undefined,
+        ...(a.restaurant.chef ? { employee: { '@type': 'Person', name: a.restaurant.chef, jobTitle: 'Chef' } } : {}),
         award: a.restaurant.awards,
       },
     };
