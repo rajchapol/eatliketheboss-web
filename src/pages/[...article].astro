@@ -41,8 +41,21 @@ const crumbs = [
   { name: t(L, 'home'), href: '/' },
   { name: L === 'th' ? s.th : t(L, 'review'), href: `/${s.path}/` },
   ...(a.city ? [{ name: a.city.nameEn, href: `/city/${a.city.slug}/` }] : []),
-  { name, href: articleUrl(a) },
+  // "<restaurant> รีวิว" in the last crumb: Google shows it in the result's breadcrumb trail
+  { name: a.series === 'review' ? `${name} ${t(L, 'reviewWord')}` : name, href: articleUrl(a) },
 ];
+// Page title: people search "<restaurant> รีวิว" / "<restaurant> review", so a review's title always carries the
+// restaurant name followed by the review word, near the front (the Boss, 16 Nov 2026). Meta titles written
+// without it get it added after the name.
+const REVIEW_RE = /รีวิว|review|レビュー|点评|評論/i;
+const pageTitle = (() => {
+  const rw = t(L, 'reviewWord');
+  const auto = a.series === 'review' ? `${name}${a.city ? ` ${a.city.nameEn}` : ''} ${rw}` : name;
+  const st = a.seoTitle?.trim();
+  if (!st) return auto;
+  if (a.series !== 'review' || REVIEW_RE.test(st)) return st;
+  return st.toLowerCase().startsWith(name.toLowerCase()) ? `${st.slice(0, name.length)} ${rw}${st.slice(name.length)}` : `${name} ${rw} · ${st}`;
+})();
 const cityName = a.city ? ` ${L === 'th' ? a.city.nameTh : a.city.nameEn}` : '';
 const autoDesc = a.series === 'review'
   ? `${a.tagline ? a.tagline + ' — ' : ''}${t(L, 'autoDesc', { name, city: cityName })}`
@@ -52,7 +65,7 @@ const band = a.billBand;
 const bill = [band, a.tag].filter(Boolean).join(' · ') || '—'; // The Boss's Bill = price band (+ Event / AD); the real price is never shown
 const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.35)";
 ---
-<Base title={a.seoTitle || (a.series === 'review' ? `${name}${a.city ? ` ${a.city.nameEn}` : ''} ${t(L, 'reviewWord')}` : name)} description={description}
+<Base title={pageTitle} description={description}
   image={`/og/${articleUrl(a).replace(/^\/|\/$/g, '')}.jpg?v=2`} /* bump ?v= when the share-image design changes: LINE and Facebook cache previews by URL */ lang={L} alternates={alternates} type="article" active="articles" series={a.series || 'review'}
   published={a.publishedAt} modified={a.updatedAt}
   jsonLd={[articleLd(a), breadcrumbs(crumbs)]}>

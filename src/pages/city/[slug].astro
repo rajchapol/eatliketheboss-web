@@ -36,7 +36,7 @@ const hasIntro = Boolean(c.intro && !c.intro.startsWith('['));
 const desc = `รวมร้าน Fine Dining ใน${c.nameTh} (${c.nameEn}) ที่บอสไปชิมมาแล้ว ${restaurants.length} ร้าน พร้อม The Boss's Bill`;
 const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:44px;padding:0 18px;white-space:nowrap;border:1px solid rgba(11,83,87,.35);background:#fff;color:#1a2632;font-family:'Ekkamai New',sans-serif;font-size:15px";
 ---
-<Base title={`ร้าน Fine Dining ใน${c.nameTh} ${c.nameEn}`} description={desc} active="destinations"
+<Base title={`รีวิวร้าน Fine Dining ${c.nameTh} (${c.nameEn})`} description={desc} active="destinations"
   jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: 'จุดหมาย', href: '/destinations/' }, { name: c.nameEn, href: `/city/${c.slug}/` }])]}>
   <section aria-labelledby="city" class="on-dark" style="position:relative;min-height:500px;display:flex;align-items:flex-end;background:#0b5357">
     <div style="position:absolute;inset:0"><CityCover city={c} label={`ภาพเต็มความกว้าง: ${c.nameEn}`} dark eager sizes="100vw" widths={[800, 1280, 1920]} /></div>

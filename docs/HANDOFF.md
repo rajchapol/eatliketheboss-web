@@ -12,6 +12,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-16 · SEO: "<restaurant> รีวิว" searches
+- The Boss: searching a restaurant name + review should find our page. Changes:
+  - `[...article].astro` `pageTitle`: a review's `<title>` always has the restaurant name followed by "รีวิว" (Review / レビュー / 点评 by language) near the front. A Meta title written without it gets it added after the name ("Sushi Iwai รีวิว กรุงเทพฯ …"); one that already says รีวิว/review is left alone.
+  - Last breadcrumb (page + JSON-LD) = "<name> รีวิว", shown by Google in the result's breadcrumb.
+  - Review JSON-LD (`seo.ts`): `keywords` (each name × review/รีวิว), Restaurant gets `alternateName` (original name + Studio search aliases), `image`, price band, region/country, chef.
+  - City page title: "รีวิวร้าน Fine Dining <ชื่อไทย> (<English>)".
+- For posting: keep filling **Original name** and **Search aliases** (Thai spelling, other spellings) in Studio — they now feed Google directly.
+
 ## Session 2026-11-16 · bug sweep
 - Series menu (`NavLinks.astro`) linked to `/en/review/`, `/en/history/` on translated articles: those pages don't exist (listing pages are Thai only) → links are now always `/<series path>/`.
 - Glasses Off Awards: the year chips didn't wrap and pushed the phone page 450 px sideways → `flex-wrap`.
