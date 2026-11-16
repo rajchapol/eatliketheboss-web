@@ -27,6 +27,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
   - Review JSON-LD (`seo.ts`): `keywords` (each name × review/รีวิว), Restaurant gets `alternateName` (original name + Studio search aliases), `image`, price band, region/country, chef.
   - City page title: "รีวิวร้าน Fine Dining <ชื่อไทย> (<English>)".
 - For posting: keep filling **Original name** and **Search aliases** (Thai spelling, other spellings) in Studio — they now feed Google directly.
+## Session 2026-11-16 · Studio made easier
+- The Boss picked: a home summary, auto-fill, and a preview inside Studio.
+- `studio/components/HomeTool.tsx` — first tool "Home · หน้าแรก" (`tools` in `sanity.config.ts`): counts (reviews, history, drinks, cities), to-do counters (same filters as the To do list), 8 latest changes (click to open), buttons for new review / episode / drinks article.
+- Templates (`schema.templates`): `article-review`, `article-history`, `article-drinks` — series, language th, today's date; history/drinks get the next Ep. number (max + 1).
+- `studio/components/ArticlePreview.tsx` — every article opens with tabs "Edit · แก้ไข" and "Preview · ดูหน้าตา" (`defaultDocumentNode`): card mock (cover cropped centre, kicker, name, tagline, pills), Google result mock (meta title + " — บอสพาชิม", URL, description), pre-publish checklist (cover landscape, alt text, ≤2 glasses-off, Visit, price band, SEO lengths).
+- `seoInput()` in `CharCount.tsx`: the char counter plus a "ร่างให้" button on Meta title (restaurant + city + รีวิว + style) and Meta description (tagline — intro, cut to 155).
+- Series labels in Studio match the site (`SERIES`): Tasting Notes · Meals That Changed the World · The Boss Pours. Ep. field shows for every non-review series; the history list is ordered by Ep.
+- Deploys itself on merge (`deploy-studio.yml`). Not tested logged-in here (no Studio login in this workspace): check Home and Preview once after deploy.
 
 ## Session 2026-11-16 · bug sweep
 - Series menu (`NavLinks.astro`) linked to `/en/review/`, `/en/history/` on translated articles: those pages don't exist (listing pages are Thai only) → links are now always `/<series path>/`.
