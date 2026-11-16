@@ -2,6 +2,11 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './schemas';
 import { OpenOnSiteAction, SafeDeleteAction } from './components/actions';
+import { HomeTool } from './components/HomeTool';
+import { ArticlePreview } from './components/ArticlePreview';
+import { HomeIcon } from '@sanity/icons/Home';
+import { EyeOpenIcon } from '@sanity/icons/EyeOpen';
+import { EditIcon as FormIcon } from '@sanity/icons/Edit';
 import { DocumentsIcon } from '@sanity/icons/Documents';
 import { PinIcon } from '@sanity/icons/Pin';
 import { TranslateIcon } from '@sanity/icons/Translate';
@@ -29,6 +34,10 @@ export default defineConfig({
   dataset: 'production',
   plugins: [
     structureTool({
+      // every article opens with two tabs: the form and "Preview · ดูหน้าตา" (card, Google result, checklist)
+      defaultDocumentNode: (S, { schemaType }) => schemaType === 'article'
+        ? S.document().views([S.view.form().icon(FormIcon).title('Edit · แก้ไข'), S.view.component(ArticlePreview).icon(EyeOpenIcon).title('Preview · ดูหน้าตา')])
+        : S.document(),
       structure: (S, context) => {
         const API = '2025-01-01';
         const client = context.getClient({ apiVersion: API });
@@ -69,9 +78,9 @@ export default defineConfig({
             S.list().id('articles-th-menu').title('Articles (Thai) · บทความภาษาไทย').items([
               item('th-all', 'All, newest first · ทั้งหมด', TH),
               S.divider(),
-              item('th-review', 'Eat Like The Boss · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
-              item('th-history', 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`),
-              item('th-drinks', 'Drink Like The Boss · บอสพาดื่ม', `${TH} && series == "drinks"`),
+              item('th-review', 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
+              S.listItem().id('th-history').title('Meals That Changed the World · มื้ออาหารเปลี่ยนโลก').schemaType('article').child(list('th-history', 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`).defaultOrdering([{ field: 'episode', direction: 'asc' }])),
+              item('th-drinks', 'The Boss Pours · บอสพาดื่ม', `${TH} && series == "drinks"`),
               S.divider(),
               S.listItem().id('th-by-city').title('By city · แยกตามเมือง').icon(PinIcon).child(
                 S.documentTypeList('city').title('Choose a city · เลือกเมือง').apiVersion(API)
@@ -144,7 +153,21 @@ export default defineConfig({
       return out;
     },
   },
+  // Studio home first (counts, to-do, latest changes, buttons for a new review / episode)
+  tools: (prev) => [{ name: 'home', title: 'Home · หน้าแรก', icon: HomeIcon, component: HomeTool }, ...prev],
   schema: {
     types: schemaTypes,
+    // "New review / New episode / New drinks article": series set, today's date, and the next Ep. number filled in
+    templates: (prev) => [
+      ...prev,
+      { id: 'article-review', title: 'Review · รีวิวร้านใหม่', schemaType: 'article', value: () => ({ series: 'review', language: 'th', publishedAt: new Date().toISOString().slice(0, 10) }) },
+      ...(['history', 'drinks'] as const).map((series) => ({
+        id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
+        value: async (_p: unknown, ctx: any) => {
+          const max = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('math::max(*[_type == "article" && !defined(translationOf) && series == $series].episode)', { series });
+          return { series, language: 'th', episode: (max || 0) + 1, publishedAt: new Date().toISOString().slice(0, 10) };
+        },
+      })),
+    ],
   },
 });
