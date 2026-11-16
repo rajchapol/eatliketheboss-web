@@ -15,8 +15,9 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ## Session 2026-11-16 · SEO: "<restaurant> รีวิว" searches
 - The Boss: searching a restaurant name + review should find our page. Changes:
-  - `[...article].astro` `pageTitle`: a review's `<title>` always has the restaurant name followed by "รีวิว" (Review / レビュー / 点评 by language) near the front. A Meta title written without it gets it added after the name ("Sushi Iwai รีวิว กรุงเทพฯ …"); one that already says รีวิว/review is left alone.
-  - Last breadcrumb (page + JSON-LD) = "<name> รีวิว", shown by Google in the result's breadcrumb.
+  - `[...article].astro` `pageTitle`: a review's `<title>` starts "รีวิว <restaurant>" (Review / レビュー / 点评 by language), read as a headline: "รีวิว Sushi Iwai: กรุงเทพฯ โอมากาเสะสุขุมวิท 22 — บอสพาชิม" (the Boss chose review word first). A Meta title that already says รีวิว/review is left alone.
+  - Last breadcrumb (page + JSON-LD) = "รีวิว <name>".
+  - `.colophon`: a visible sign-off line under a review, "บอสพาชิมรีวิว Sushi Iwai · กรุงเทพมหานคร · Visit Nov 2026" (the Boss asked about hiding keywords in the footer: hidden text is against Google's rules, so it is a visible magazine-style line instead).
   - Review JSON-LD (`seo.ts`): `keywords` (each name × review/รีวิว), Restaurant gets `alternateName` (original name + Studio search aliases), `image`, price band, region/country, chef.
   - City page title: "รีวิวร้าน Fine Dining <ชื่อไทย> (<English>)".
 - For posting: keep filling **Original name** and **Search aliases** (Thai spelling, other spellings) in Studio — they now feed Google directly.
