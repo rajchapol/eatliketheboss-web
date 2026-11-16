@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { TranslationsPanel, LANGS } from '../components/TranslationsPanel';
-import { charCount } from '../components/CharCount';
+import { charCount, seoInput } from '../components/CharCount';
 // Tab icons: one import per icon (the root entry no longer exports them in @sanity/icons v5).
 import { HomeIcon } from '@sanity/icons/Home';
 import { DocumentTextIcon } from '@sanity/icons/DocumentText';
@@ -79,10 +79,10 @@ export const article = defineType({
         return dup ? 'บทความนี้มีคำแปลภาษานี้อยู่แล้ว เปิดอันเดิมแก้แทนได้ (ดูรายการด้านล่าง)' : true;
       }) }),
     defineField({ name: 'series', title: 'Series · ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
-      options: { list: [{ title: 'Eat Like The Boss · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'Drink Like The Boss · บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
+      options: { list: [{ title: 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
       validation: (r) => r.required() }),
     defineField({ name: 'no', title: 'Tasting Notes No. (retired)', description: 'เว็บนับเลขให้อัตโนมัติตามวัน Visit', type: 'number', hidden: true }),
-    defineField({ name: 'episode', title: 'Ep.', type: 'number', group: 'main', hidden: ({ document }) => document?.series !== 'history' }),
+    defineField({ name: 'episode', title: 'Ep.', description: 'สร้างจากปุ่ม "ตอนใหม่" ระบบใส่เลขตอนถัดไปให้เอง', type: 'number', group: 'main', hidden: ({ document }) => (document?.series || 'review') === 'review' }),
     defineField({ name: 'title', title: 'Title · ชื่อบทความเต็ม', description: 'เช่น บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรย (ไม่ต้องใส่อีโมจิ)', type: 'string', group: 'main', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug · ส่วนท้าย URL', description: 'ภาษาอังกฤษตัวเล็ก คั่นด้วย - เช่น sezanne — ตั้งแล้วห้ามเปลี่ยน', type: 'slug', group: 'main',
       options: { source: (doc: any) => doc.restaurant?.name || doc.title, maxLength: 80,
@@ -149,9 +149,9 @@ export const article = defineType({
       validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }).custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องใส่ Visit' : true)) }),
     defineField({ name: 'hashtags', title: 'Hashtags · แฮชแท็ก (ไม่ต้องใส่ #, ไม่เกิน 10)', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' }, group: 'meta', validation: (r) => r.max(10) }),
     defineField({ name: 'publishedAt', title: 'Publish date · วันที่เผยแพร่', type: 'date', group: 'meta', initialValue: () => new Date().toISOString().slice(0, 10), validation: (r) => r.required() }),
-    defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', components: { input: charCount(0, 60) }, validation: (r) => r.max(60) }),
+    defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', components: { input: seoInput('title', 0, 60) }, validation: (r) => r.max(60) }),
     defineField({ name: 'seoDescription', title: 'Meta description', description: '120–155 ตัวอักษร ในน้ำเสียงบอส ห้ามมีดาวหรือคะแนน', type: 'text', rows: 3, group: 'seo',
-      components: { input: charCount(120, 155) as any }, validation: (r) => r.min(120).max(155).warning('ควรยาว 120–155 ตัวอักษร') }),
+      components: { input: seoInput('description', 120, 155) as any }, validation: (r) => r.min(120).max(155).warning('ควรยาว 120–155 ตัวอักษร') }),
   ],
   orderings: [{ title: 'Newest · ใหม่สุด', name: 'newest', by: [{ field: 'publishedAt', direction: 'desc' }] }],
   preview: { select: { title: 'title', name: 'restaurant.name', series: 'series', ep: 'episode', visit: 'visit', lang: 'language', city: 'city.nameEn', media: 'cover', band: 'billBand', cu: 'restaurant.cuisine', st: 'restaurant.style', tag: 'tag' },
