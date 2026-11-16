@@ -13,6 +13,20 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-16 · awards cards, Thai labels, history order
+- Glasses Off cards (home + awards page): photo fills a 4:5 card, name + restaurant sit on a soft gradient with text shadow (the Boss: the dark name panel pulled the eye from the food). CSS `.aw-card`, `.aw-photo`, `.aw-cap`, `.aw-roman` (roman numeral now top right). Awards page: city moved from the corner badge into the caption line.
+- Thai with the English: "จานถอดแว่นชิมแห่งปี" under the Glasses Off Awards heading (home + awards page); button "ดูจานถอดแว่นชิมทั้งหมด · Glasses Off Awards".
+- `/history/` (and other series pages): newest episode first again (the Boss, after trying Ep.1 first), "N ตอน · ตอนล่าสุดอยู่บนสุด" + "เริ่มอ่านจาก Ep.1".
+
+## Session 2026-11-16 · SEO: "<restaurant> รีวิว" searches
+- The Boss: searching a restaurant name + review should find our page. Changes:
+  - `[...article].astro` `pageTitle`: a review's `<title>` starts "รีวิว <restaurant>" (Review / レビュー / 点评 by language), read as a headline: "รีวิว Sushi Iwai: กรุงเทพฯ โอมากาเสะสุขุมวิท 22 — บอสพาชิม" (the Boss chose review word first). A Meta title that already says รีวิว/review is left alone.
+  - Last breadcrumb (page + JSON-LD) = "รีวิว <name>".
+  - `.colophon`: a visible sign-off line under a review, "บอสพาชิมรีวิว Sushi Iwai · กรุงเทพมหานคร · Visit Nov 2026" (the Boss asked about hiding keywords in the footer: hidden text is against Google's rules, so it is a visible magazine-style line instead).
+  - Review JSON-LD (`seo.ts`): `keywords` (each name × review/รีวิว), Restaurant gets `alternateName` (original name + Studio search aliases), `image`, price band, region/country, chef.
+  - City page title: "รีวิวร้าน Fine Dining <ชื่อไทย> (<English>)".
+- For posting: keep filling **Original name** and **Search aliases** (Thai spelling, other spellings) in Studio — they now feed Google directly.
 ## Session 2026-11-16 · Studio made easier
 - The Boss picked: a home summary, auto-fill, and a preview inside Studio.
 - `studio/components/HomeTool.tsx` — first tool "Home · หน้าแรก" (`tools` in `sanity.config.ts`): counts (reviews, history, drinks, cities), to-do counters (same filters as the To do list), 8 latest changes (click to open), buttons for new review / episode / drinks article.

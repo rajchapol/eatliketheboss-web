@@ -41,8 +41,23 @@ const crumbs = [
   { name: t(L, 'home'), href: '/' },
   { name: L === 'th' ? s.th : t(L, 'review'), href: `/${s.path}/` },
   ...(a.city ? [{ name: a.city.nameEn, href: `/city/${a.city.slug}/` }] : []),
-  { name, href: articleUrl(a) },
+  // "รีวิว <restaurant>" in the last crumb: Google shows it in the result's breadcrumb trail
+  { name: a.series === 'review' ? `${t(L, 'reviewWord')} ${name}` : name, href: articleUrl(a) },
 ];
+// Page title: people search "<restaurant> รีวิว" / "รีวิว <restaurant>", so a review's title always starts with the
+// review word and the restaurant name, read like a magazine headline: "รีวิว Sushi Iwai: โอมากาเสะสุขุมวิท 22"
+// (the Boss, 16 Nov 2026: "รีวิว แล้วชื่อร้าน"). A Meta title that already says รีวิว/review is left as written.
+const REVIEW_RE = /รีวิว|review|レビュー|点评|評論/i;
+const pageTitle = (() => {
+  const rw = t(L, 'reviewWord');
+  const cityLabel = a.city ? (L === 'th' ? a.city.nameTh : a.city.nameEn) : '';
+  const auto = a.series === 'review' ? `${rw} ${name}${cityLabel ? ` ${cityLabel}` : ''}` : name;
+  const st = a.seoTitle?.trim();
+  if (!st) return auto;
+  if (a.series !== 'review' || REVIEW_RE.test(st)) return st;
+  const rest = st.toLowerCase().startsWith(name.toLowerCase()) ? st.slice(name.length).replace(/^[\s:–—-]+/, '') : st;
+  return rest ? `${rw} ${name}: ${rest}` : `${rw} ${name}`;
+})();
 const cityName = a.city ? ` ${L === 'th' ? a.city.nameTh : a.city.nameEn}` : '';
 const autoDesc = a.series === 'review'
   ? `${a.tagline ? a.tagline + ' — ' : ''}${t(L, 'autoDesc', { name, city: cityName })}`
@@ -52,7 +67,7 @@ const band = a.billBand;
 const bill = [band, a.tag].filter(Boolean).join(' · ') || '—'; // The Boss's Bill = price band (+ Event / AD); the real price is never shown
 const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.35)";
 ---
-<Base title={a.seoTitle || (a.series === 'review' ? `${name}${a.city ? ` ${a.city.nameEn}` : ''} ${t(L, 'reviewWord')}` : name)} description={description}
+<Base title={pageTitle} description={description}
   image={`/og/${articleUrl(a).replace(/^\/|\/$/g, '')}.jpg?v=2`} /* bump ?v= when the share-image design changes: LINE and Facebook cache previews by URL */ lang={L} alternates={alternates} type="article" active="articles" series={a.series || 'review'}
   published={a.publishedAt} modified={a.updatedAt}
   jsonLd={[articleLd(a), breadcrumbs(crumbs)]}>
@@ -223,6 +238,13 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       {a.series === 'review' && <div style="display:flex;align-items:baseline;gap:12px;font-size:18px"><span>The Boss's Bill</span><span aria-hidden="true" style="flex:1;border-bottom:1px dotted #926633"></span><strong>{bill}</strong></div>}
       {a.hashtags.length > 0 && <p style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px;font-size:14px">{a.hashtags.map((h) => <span class="badge" style="font-size:13px;border:1px solid rgba(11,83,87,.35);color:#0b5357">#{h}</span>)}</p>}
     </section>
+    {a.series === 'review' && (
+      /* Colophon, as a magazine closes a feature: the review word + restaurant in plain view (the Boss, 16 Nov 2026) */
+      <p class="colophon">
+        <span class="colophon-mark" aria-hidden="true"></span>
+        <span>{L === 'th' ? 'บอสพาชิมรีวิว' : `${t(L, 'reviewWord')} ·`} <span translate="no">{name}</span>{a.city && <> · {L === 'th' ? a.city.nameTh : a.city.nameEn}</>}{a.visit && <> · <span translate="no">Visit {visitLabel(a).replace("-", " ")}</span></>}</span>
+      </p>
+    )}
     <div style="max-width:720px;margin:28px auto 0;padding:0 32px"><ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} heading={a.series && a.series !== 'review' ? (L === 'th' ? st.articleShareTitleHistory || t(L, 'shareStory') : t(L, 'shareStory')) : L === 'th' ? st.articleShareTitle : true} /></div>
   </article>
 
