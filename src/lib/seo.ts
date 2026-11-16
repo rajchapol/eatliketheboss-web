@@ -55,12 +55,6 @@ export const website = () => ({
   potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: abs('/restaurants/?q={search_term_string}') }, 'query-input': 'required name=search_term_string' },
 });
 
-/** FAQ shown on the About page; the same text goes into FAQPage JSON-LD (must match what is visible). */
-export const faqLd = (items: { q: string; a: string }[]) => ({
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: items.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })),
-});
 
 export const breadcrumbs = (items: { name: string; href: string }[]) => ({
   '@context': 'https://schema.org',
