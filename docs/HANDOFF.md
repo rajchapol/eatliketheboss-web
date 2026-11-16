@@ -8,6 +8,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-16 · magazine touches (quiet luxury)
+- The Boss: the design felt flat; chose "magazine" style, quiet luxury (no page transitions). Signature device `.outline-num` (end of `site.css`): the issue number set huge in outlined Cormorant italic, decoration only (aria-hidden).
+  - Home slider (`HeroSlider.astro`): `.slide-num` behind the text column (reviews: No. 001-style, other series: episode); hidden on phones (crowded the photo).
+  - Review masthead (`[...article].astro`): `.mast-num` right of the 880 px column, only when the `elb` container is ≥1180 px; reviews only (history has its own Ep masthead).
+- Article text: the first paragraph is a larger stand-first; a small gold diamond end mark follows the last paragraph.
+- Tried and dropped: an outlined course count beside the menu heading (repeated the "15 courses" text).
+- Pull quotes: the component exists (`a.quote`) but no article has a quote yet (0 of 143), so it never shows.
+
 ## Session 2026-11-14 · home: Boss Index = reviews only, series strip
 - The Boss: the Boss Index lists reviews only; other series get their own strip. `index.astro`: `index` = `series === 'review'` (the "ดูบันทึกก่อนหน้า" counts use it too). New `strips`: one section per non-review series that has articles (history now, drinks when it starts), 4 newest episodes (highest `episode`), "ดูทั้ง N ตอน" → `/<path>/`, colours from `SERIES` (`--sdot`/`--sink`). CSS `.strip-*` at the end of `site.css`: 4 columns, 2 under 900 px, sideways scroll under 560 px.
 
