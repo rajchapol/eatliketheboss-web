@@ -7,12 +7,12 @@ import { romanAt as roman } from '../lib/roman';
 const s = await getSettings();
 // Logo timeline (the Boss, 16 Nov 2026): the page's profile pictures on Facebook over the years.
 const logos = [
-  { y: '2017', m: 'Feb', img: '2017-first', t: 'เปิดเพจ', d: 'รูปโปรไฟล์แรกเป็นภาพรวมจานจากมื้อ Fine Dining' },
-  { y: '2018', m: 'Aug', img: '2018-bosspachim', t: 'บอสพาชิม', d: 'ชื่อไทยตัวขาวบนพื้นกรมท่า' },
-  { y: '2021', m: 'Mar', img: '2021-eatlikeboss', t: 'Eat Like The BOSS', d: 'ชื่ออังกฤษคู่ชื่อไทย BOSS สีส้ม' },
-  { y: '2021', m: 'Jun', img: '2021-support-local', t: '#supportyour\u200Blocalrestaurant', d: 'ฉบับชวนอุดหนุนร้านอาหาร' },
-  { y: '2024', m: 'Mar', img: '2024-gastronomy-bloggers', t: 'Gastronomy Bloggers', d: 'ลายมือทองบนพื้นเขียว' },
-  { y: '2026', m: 'Nov', img: '2026-roundel', t: 'Eat Like the BOSS', d: 'ตราวงกลมทองพร้อมชื่อบอสพาชิม และโลโก้หลักชื่อไทยบนเว็บ' },
+  { y: '2017', m: 'Feb', img: '2017-first', t: 'เปิดเพจ', d: 'เริ่มต้นด้วยภาพอาหาร' },
+  { y: '2018', m: 'Aug', img: '2018-bosspachim', t: 'บอสพาชิม', d: 'โลโก้แรก ชื่อภาษาไทย' },
+  { y: '2021', m: 'Mar', img: '2021-eatlikeboss', t: 'Eat Like The BOSS', d: 'เพิ่มชื่อภาษาอังกฤษ' },
+  { y: '2021', m: 'Jun', img: '2021-support-local', t: '#supportyour\u200Blocalrestaurant', d: 'ชวนกันอุดหนุนร้านอาหาร' },
+  { y: '2024', m: 'Mar', img: '2024-gastronomy-bloggers', t: 'Gastronomy Bloggers', d: 'ตัวอักษรลายมือสีทอง' },
+  { y: '2026', m: 'Nov', img: '2026-roundel', t: 'Eat Like the BOSS', d: 'ตราวงกลมสีทอง โลโก้ปัจจุบัน' },
 ];
 ---
 <Base title="เกี่ยวกับบอส" description={s.aboutShortBio} active="about" jsonLd={[{ '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: person() }]}>
@@ -57,7 +57,7 @@ const logos = [
     </section>
 
     <section aria-labelledby="logos" style="padding-bottom:96px">
-      <h2 id="logos" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">The story so far <span style="font-family:inherit;font-style:normal;font-size:.5em;color:#6e3f08;white-space:nowrap">เส้นทางโลโก้</span></h2>
+      <h2 id="logos" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">Logo History <span style="font-family:inherit;font-style:normal;font-size:.5em;color:#6e3f08;white-space:nowrap">โลโก้แต่ละยุค</span></h2>
       <div class="rule"></div>
       <ol class="logo-tl">
         {logos.map((x) => (

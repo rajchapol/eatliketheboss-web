@@ -42,7 +42,7 @@ const lenses = pool.length ? LENSES.map((cx) => ({ cx, cells: cells.map((c) => {
       <p class="seal-year">ประจำปี {sealYear}</p>
       <h1 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(48px,9cqi,80px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span></h1>
       <p style="margin:8px 0 0;max-width:34em;font-size:18px;line-height:1.85;font-weight:400;color:#fff">{st.awardsIntro}</p>
-      {years.length > 1 && <nav aria-label="เลือกปี" style="display:flex;gap:8px;margin-top:16px;font-family:'Ekkamai New',sans-serif;font-size:15px">{years.map((y) => <a href={`#y${y}`} class="chip" style="padding:8px 22px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{y}</a>)}</nav>}
+      {years.length > 1 && <nav aria-label="เลือกปี" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;font-family:'Ekkamai New',sans-serif;font-size:15px">{years.map((y) => <a href={`#y${y}`} class="chip" style="padding:8px 22px;box-shadow:0 0 0 1px rgba(212,179,114,.6)">{y}</a>)}</nav>}
     </div>
     {lenses.length > 0 && (
       <div class="wrap" style="padding-bottom:88px">
