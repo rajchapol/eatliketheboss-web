@@ -2,11 +2,22 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../lib/config';
 import { getSettings } from '../lib/content';
-import { person } from '../lib/seo';
+import { person, faqLd } from '../lib/seo';
 import { romanAt as roman } from '../lib/roman';
 const s = await getSettings();
+// FAQ (the Boss, 16 Nov 2026): plain answers about the brand so search engines and AI assistants describe
+// บอสพาชิม / Eat Like The Boss correctly. Visible on the page and repeated in FAQPage JSON-LD.
+const faq = [
+  { q: 'บอสพาชิม คือใคร', a: 'บอสพาชิม หรือ Eat Like The Boss คือเพจและเว็บไซต์รีวิวร้านอาหาร Fine Dining ของบอส ผู้อยู่ในวงการ Hospitality และ F&B มากว่า 15 ปี และเป็น Tatler Best Asia-Pacific panelist เขียนรีวิวมาตั้งแต่ปี 2017 ทั้งร้านในไทยและทั่วโลก' },
+  { q: 'บอสพาชิม กับ Eat Like The Boss คืออันเดียวกันไหม', a: 'อันเดียวกันครับ บอสพาชิม คือชื่อภาษาไทย Eat Like The Boss คือชื่อภาษาอังกฤษ ทั้งเว็บไซต์ eatlikeboss.com, Facebook และ Instagram @eatliketheboss เป็นของบอสพาชิม' },
+  { q: 'บอสให้ดาวหรือให้คะแนนร้านไหม', a: 'ไม่ให้ดาวและไม่ให้คะแนน ความเห็นทั้งหมดอยู่ในตัวรีวิว จานที่อร่อยจนบอสต้องถอดแว่นชิมจะได้ป้าย Glasses Off ไม่เกิน 2 จานต่อมื้อ และรวมไว้ในหน้า Glasses Off Awards' },
+  { q: "The Boss's Bill คืออะไร", a: "ระดับราคาโดยประมาณต่อคน ไม่ใช่ราคาจริง: ฿฿ ต่ำกว่า 3,000 บาท · ฿฿฿ 3,000–7,999 บาท · ฿฿฿฿ 8,000 บาทขึ้นไป" },
+  { q: 'ป้าย AD และ Event หมายถึงอะไร', a: 'AD คือมื้อที่บอสได้รับเชิญ Event คือมื้อพิเศษหรืองานอีเวนต์ ถ้าเป็นทั้งสองอย่างจะขึ้น AD · Event ทุกมื้อยังแสดงระดับราคาเหมือนรีวิวอื่น' },
+  { q: 'บนเว็บมีซีรีส์อะไรบ้าง', a: 'บอสพาชิม (Tasting Notes) รีวิวร้านอาหาร · มื้ออาหารเปลี่ยนโลก (Meals That Changed the World) เรื่องเล่าประวัติศาสตร์ผ่านมื้ออาหาร · บอสพาดื่ม (The Boss Pours) เรื่องเครื่องดื่ม' },
+  { q: 'What is Eat Like The Boss?', a: 'Eat Like The Boss (บอสพาชิม) is a Thai fine dining review site and page by the Boss, a reviewer with 15+ years in hospitality and F&B and a Tatler Best Asia-Pacific panelist. Honest, in-depth reviews of restaurants in Thailand and around the world since 2017, with no stars or scores.' },
+];
 ---
-<Base title="เกี่ยวกับบอส" description={s.aboutShortBio} active="about" jsonLd={[{ '@context': 'https://schema.org', '@type': 'AboutPage', mainEntity: person() }]}>
+<Base title="เกี่ยวกับบอส" description={s.aboutShortBio} active="about" jsonLd={[{ '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: person() }, faqLd(faq)]}>
   <main class="wrap">
     <section aria-labelledby="ab" style="display:flex;flex-wrap:wrap;gap:48px 72px;padding-top:96px;padding-bottom:72px;align-items:center">
       <div style="flex:0 0 280px;width:280px;height:280px;border-radius:50%;background:#fbf7ef;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(212,179,114,.6),0 18px 40px rgba(195,158,92,.3)">
@@ -53,6 +64,18 @@ const s = await getSettings();
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 48px">
         {[['บอสพาชิม', '/review/', s.seriesText.review], ['มื้ออาหารเปลี่ยนโลก', '/history/', s.seriesText.history], ['บอสพาดื่ม', '/drinks/', s.seriesText.drinks]].map(([t, h, d]) => (
           <a href={h} class="fx-row" style="padding:28px 0;border-bottom:1px solid rgba(195,158,92,.35);display:flex;flex-direction:column;gap:8px"><h3 style="margin:0;font-size:22px;font-weight:600;color:#0b5357">{t}</h3><p style="margin:0;font-size:16px;line-height:1.8;font-weight:400">{d}</p></a>
+        ))}
+      </div>
+    </section>
+    <section aria-labelledby="faq" style="padding-bottom:96px">
+      <h2 id="faq" class="ink-grad gold-lift" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:48px;line-height:1">Questions <span style="font-family:inherit;font-style:normal;font-size:.5em;color:#6e3f08">คำถามที่พบบ่อย</span></h2>
+      <div class="rule"></div>
+      <div class="faq">
+        {faq.map((x) => (
+          <details class="faq-item" lang={/[ก-๙]/.test(x.q) ? 'th' : 'en'}>
+            <summary>{x.q}</summary>
+            <p>{x.a}</p>
+          </details>
         ))}
       </div>
     </section>
