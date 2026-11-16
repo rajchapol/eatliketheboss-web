@@ -5,7 +5,7 @@ export const SITE = {
   shortName: 'Eat Like The Boss',
   tagline: 'สัมผัสศิลปะแห่งรสชาติ และประสบการณ์การกินอย่างเหนือระดับ ในแบบฉบับของบอส',
   description:
-    'รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี',
+    'บอสพาชิม (Eat Like The Boss) รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี',
   facebook: 'https://www.facebook.com/eatliketheboss',
   instagram: 'https://www.instagram.com/eatliketheboss/',
   contactEmail: 'eatlikethebossth@gmail.com',

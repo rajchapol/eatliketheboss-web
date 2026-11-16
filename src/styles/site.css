@@ -749,15 +749,16 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 /* ── Magazine touches (the Boss, 16 Nov 2026: "more character", quiet luxury, no page transitions) ──
    One signature device used everywhere: the issue number set huge in outlined Cormorant italic, like a
    magazine cover line. Decoration only (aria-hidden); text stays where it was. */
-.outline-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;line-height:.8;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.2px rgba(195,158,92,.75);font-variant-numeric:lining-nums;pointer-events:none;user-select:none}
-@supports not (-webkit-text-stroke:1px #000){.outline-num{color:rgba(195,158,92,.18)}}
+.outline-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;line-height:.8;letter-spacing:-.02em;color:rgba(195,158,92,.26);font-variant-numeric:lining-nums;pointer-events:none;user-select:none}
+/* soft filled numeral that fades downward, like a shadow on the paper (the Boss, 16 Nov 2026: outlines looked odd) */
+@supports (-webkit-background-clip:text) or (background-clip:text){.outline-num{color:transparent;background:linear-gradient(180deg,rgba(195,158,92,.42) 0%,rgba(195,158,92,.12) 100%);-webkit-background-clip:text;background-clip:text;padding-right:.08em}}
 /* home slider: behind the text column, top right */
 .slide-text{position:relative;isolation:isolate}
-.slide-num{position:absolute;right:-8px;top:-34px;z-index:-1;font-size:clamp(110px,15cqi,190px);opacity:.5}
+.slide-num{position:absolute;right:-8px;top:-34px;z-index:-1;font-size:clamp(110px,15cqi,190px)}
 /* article masthead: right of the 880px column on wide screens only */
 .mast{position:relative}
 .mast-num{display:none}
-@container elb (min-width: 1180px){.mast-num{display:block;position:absolute;left:calc(100% + 40px);top:-6px;font-size:190px;opacity:.85}}
+@container elb (min-width: 1180px){.mast-num{display:block;position:absolute;left:calc(100% + 40px);top:-6px;font-size:190px}}
 /* lead paragraph: the first paragraph reads as the stand-first */
 .prose>p:first-child{font-size:1.16em;line-height:1.85;color:#1a2632}
 /* end mark after the last paragraph of the article text */
@@ -773,8 +774,8 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .toc-list>li+li .toc-item{border-left:1px solid rgba(195,158,92,.4)}
 .toc-item{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:14px;row-gap:2px;padding:22px 18px 20px;height:100%;color:inherit;transition:background-color .3s ease}
 .toc-item:hover{background:rgba(251,247,239,.9)}
-.toc-no{grid-row:1/4;font-size:64px;align-self:center;transition:-webkit-text-stroke-color .3s ease}
-.toc-item:hover .toc-no{-webkit-text-stroke-color:#0b5357}
+.toc-no{grid-row:1/4;font-size:64px;align-self:center}
+.toc-no{background:linear-gradient(180deg,rgba(195,158,92,.75),rgba(195,158,92,.3))!important;-webkit-background-clip:text!important;background-clip:text!important}.toc-item:hover .toc-no{background:linear-gradient(180deg,#0b5357,rgba(11,83,87,.45))!important;-webkit-background-clip:text!important;background-clip:text!important}
 .toc-en{font-family:'Ekkamai New',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6e3f08}
 .toc-title{font-size:18px;font-weight:600;line-height:1.35}
 .toc-meta{font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955}
@@ -790,7 +791,7 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .city-stats>div:last-child{border-right:0;padding-right:0}
 .city-stats dt{font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fdeac0}
 .city-stats dd{margin:0}
-.city-stats .outline-num{font-size:clamp(48px,7cqi,72px);-webkit-text-stroke:1.2px #d4b372}
+.city-stats .outline-num{font-size:clamp(48px,7cqi,72px);background:linear-gradient(180deg,#fdeac0 0%,#d4b372 100%)!important;-webkit-background-clip:text!important;background-clip:text!important} /* data on the dark cover: solid gold, not a shadow */
 .city-band{font-family:'Ekkamai New',sans-serif;font-size:28px;line-height:1.6;color:#fdeac0;letter-spacing:.04em}
 .city-fact{max-width:1000px;margin:0 auto;padding-top:64px;display:grid;grid-template-columns:180px 1fr;gap:20px 40px;align-items:start}
 .city-fact-k{display:flex;flex-direction:column;gap:12px;padding-top:8px;border-top:1px solid #c39e5c;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#6e3f08}
@@ -798,4 +799,19 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .city-fact-t{margin:0;position:relative;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,3.4cqi,32px);line-height:1.5;color:#1a2632}
 .city-fact-t::first-letter{float:left;margin:.06em .1em 0 0;font-size:3.1em;line-height:.8;color:#c39e5c;font-style:normal}
 @container elb (max-width: 720px){.city-fact{grid-template-columns:1fr;padding-top:48px}.city-fact-k{flex-direction:row;align-items:center}.city-fact-k>span:first-child{margin-top:0}.city-stats>div{padding-right:24px}.city-stats{gap:12px 24px}}
-.pick-n{display:flex;flex-direction:column;gap:8px}.pick-n>.outline-num{font-size:64px;margin-left:-4px}
+.pick-n{display:flex;flex-direction:column;gap:8px}.pick-n>.outline-num{font-size:64px;margin-left:-4px;background:linear-gradient(180deg,rgba(195,158,92,.7),rgba(195,158,92,.2))!important;-webkit-background-clip:text!important;background-clip:text!important}
+
+/* About: logo timeline (the Boss, 16 Nov 2026) — Facebook profile pictures over the years on a gold line */
+.logo-tl{list-style:none;margin:0;padding:40px 0 0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px;position:relative}
+.logo-tl::before{content:"";position:absolute;left:0;right:0;top:118px;height:1px;background:linear-gradient(90deg,rgba(195,158,92,0),#c39e5c 8%,#c39e5c 92%,rgba(195,158,92,0))}
+.logo-node{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.logo-year{font-size:58px;height:56px}
+.logo-dot{width:11px;height:11px;margin:8px 0 14px;border-radius:50%;background:#fbf7ef;box-shadow:0 0 0 2px #c39e5c;position:relative;z-index:1}
+.logo-img{width:100%;max-width:150px;height:auto;aspect-ratio:1;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px rgba(212,179,114,.7),0 0 0 6px #f4ece2,0 0 0 7px rgba(212,179,114,.35),0 14px 30px rgba(11,83,87,.18);transition:transform .4s ease}
+.logo-node:hover .logo-img{transform:translateY(-4px) scale(1.03)}
+.logo-when{margin-top:10px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6e3f08}
+.logo-t{font-size:16px;font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+.logo-d{font-family:'Ekkamai New',sans-serif;font-size:13px;line-height:1.55;color:#3d4955}
+.logo-node:last-child .logo-img{box-shadow:0 0 0 2px #c39e5c,0 0 0 7px #f4ece2,0 0 0 8px #c39e5c,0 18px 36px rgba(11,83,87,.25)}
+@container elb (max-width: 900px){.logo-tl{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:20px;margin:0 -20px;padding:32px 20px 8px;scroll-padding-inline:20px}.logo-tl::-webkit-scrollbar{display:none}.logo-node{flex:0 0 46%;scroll-snap-align:start}.logo-tl::before{left:20px;right:auto;width:calc(46% * 6 + 100px);top:110px}}
+@media (prefers-reduced-motion: reduce){.logo-img{transition:none}}

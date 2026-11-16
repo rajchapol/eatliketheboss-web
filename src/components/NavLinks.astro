@@ -4,7 +4,7 @@
 // the Boss, 13 Nov 2026: series must be clearly separate in the menu.
 import Icon from './Icon.astro';
 import { NAV_LABELS, NAV_ITEMS, NAV_SHORT } from '../lib/i18n';
-import { SERIES, localePrefix, type Locale, type SeriesKey } from '../lib/config';
+import { SERIES, type Locale, type SeriesKey } from '../lib/config';
 import { getArticles } from '../lib/content';
 interface Props { active?: string; lang: Locale; menuId?: string; series?: string }
 const { active, lang, menuId = 'series-menu', series: current } = Astro.props;
@@ -27,7 +27,7 @@ const unit: Record<SeriesKey, string> = { review: 'รีวิว', history: '�
     {(Object.keys(SERIES) as SeriesKey[]).map((k) => {
       const s = SERIES[k]; const n = counts[k];
       return n ? (
-        <a role="menuitem" href={`${localePrefix(lang)}/${s.path}/`} aria-current={current === k ? 'page' : undefined} style={`--sdot:${s.dot}`}>
+        <a role="menuitem" href={`/${s.path}/`} aria-current={current === k ? 'page' : undefined} style={`--sdot:${s.dot}`}>
           <span class="sp-dot" aria-hidden="true"></span>
           <span class="sp-txt"><span class="sp-th">{s.th}</span><span class="sp-en" lang="en" translate="no">{s.en}</span></span>
           <span class="sp-n">{n} {unit[k]}</span>

@@ -10,6 +10,23 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+
+## Session 2026-11-16 · bug sweep
+- Series menu (`NavLinks.astro`) linked to `/en/review/`, `/en/history/` on translated articles: those pages don't exist (listing pages are Thai only) → links are now always `/<series path>/`.
+- Glasses Off Awards: the year chips didn't wrap and pushed the phone page 450 px sideways → `flex-wrap`.
+- Swept with a headless browser at 1440 and 390 px (home, lists, cities, awards, about, contact, history, articles, llms.txt, rss): no console errors, no broken images, no other 404s; every internal link in `dist/` checked.
+
+## Session 2026-11-16 · numerals as soft shadows, SEO / AI-answer groundwork
+- The Boss: outlined numerals looked odd → `.outline-num` is now a solid numeral filled with a gold gradient (42% → 12%), like a shadow on the paper. TOC and picks numbers a bit stronger; city stats on the dark cover use solid gold (#fdeac0 → #d4b372) because they are data.
+- SEO / AI answer engines (brand names บอสพาชิม, Eat Like The Boss, Eat Like the BOSS…):
+  - `seo.ts`: `BRAND_NAMES`; Organization (alternateName list, description th+en, foundingDate 2017, founder, knowsAbout), Person (jobTitle, knowsAbout, worksFor, no employer named), WebSite (alternateName, SearchAction → `/restaurants/?q=`), new `faqLd()`.
+  - About: page type ProfilePage. (A 7-question FAQ was tried and removed: the Boss found it too much. The same facts live in `/llms.txt` and the Organization JSON-LD.)
+  - About: "Logo History / โลโก้แต่ละยุค" timeline — the page's Facebook profile pictures (album "Profile pictures"): Feb 2017 first photo, Aug 2018 บอสพาชิม, Mar 2021 Eat Like The BOSS, Jun 2021 #supportyourlocalrestaurant, Mar 2024 Gastronomy Bloggers, Nov 2026 roundel. Images `public/img/brand/history/*.webp` (480 px, from the album); list `logos` in `about.astro`; CSS `.logo-tl` (6 columns, sideways scroll under 900 px).
+  - `/llms.txt` (`src/pages/llms.txt.ts`): plain-text guide for AI assistants built from live content at each deploy (key facts, main pages, cities, latest 40 reviews, every other-series episode).
+  - `robots.txt`: AI search/answer bots that cite (OAI-SearchBot, ChatGPT-User, PerplexityBot, Perplexity-User, Claude-SearchBot, Claude-User, DuckAssistBot) explicitly allowed; training crawlers still blocked.
+  - `SITE.description` starts with "บอสพาชิม (Eat Like The Boss)".
+
 ## Session 2026-11-16 · home contents page, city feature opener
 - Home (`index.astro`): "In This Issue / ในฉบับนี้" contents block right after the slider (`toc`: Index, one line per series strip, Glasses Off Awards `#awards`, Destinations, The Boss), each with an outlined number 01–05 and a count; the same numbers appear as `.sec-kicker` lines above each section ("01 — The Index"). Phones: one row per entry. CSS `.toc*`, `.sec-kicker` at the end of `site.css`.
 - City page (`city/[slug].astro`): hero shows outlined numbers instead of pills (restaurants, glasses-off dishes, first visit year) + The Boss's Bill range (lowest–highest band); "Did you know?" is a standfirst with a gold initial and the city motif; Boss's Picks are numbered 01–03. CSS `.city-stats`, `.city-fact*`, `.pick-n`.
