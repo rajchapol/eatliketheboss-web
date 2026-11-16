@@ -14,6 +14,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-16 · "In This Issue" checkerboard
+- The Boss: soft gold numerals on cream were hard to read → contents cells alternate deep-teal and cream gradients (odd = teal with gold numerals and light text, even = cream with teal numerals), inside one rounded frame. CSS block "In This Issue as a checkerboard" at the end of `site.css` (overrides the earlier `.toc*` rules).
+
 ## Session 2026-11-16 · awards cards, Thai labels, history order
 - Glasses Off cards (home + awards page): photo fills a 4:5 card, name + restaurant sit on a soft gradient with text shadow (the Boss: the dark name panel pulled the eye from the food). CSS `.aw-card`, `.aw-photo`, `.aw-cap`, `.aw-roman` (roman numeral now top right). Awards page: city moved from the corner badge into the caption line.
 - Thai with the English: "จานถอดแว่นชิมแห่งปี" under the Glasses Off Awards heading (home + awards page); button "ดูจานถอดแว่นชิมทั้งหมด · Glasses Off Awards".
