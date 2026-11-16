@@ -763,3 +763,39 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 /* end mark after the last paragraph of the article text */
 .prose>p:last-child::after{content:"";display:inline-block;width:.5em;height:.5em;margin-left:.45em;transform:rotate(45deg) translateY(-.08em);background:linear-gradient(135deg,#c39e5c,#fdeac0);vertical-align:middle}
 @container elb (max-width: 720px){.slide-num{display:none}} /* phones: the photo sits right above, the numeral only crowded it */
+
+/* Home "In this issue" contents + numbered section kickers (the Boss, 16 Nov 2026) */
+.toc-head{display:flex;align-items:baseline;gap:16px;padding-bottom:14px;border-bottom:1px solid #0b5357}
+.toc-head>span:first-child{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(30px,4.4cqi,40px);line-height:1;color:#0b5357}
+.toc-th{font-family:'Ekkamai New',sans-serif;font-size:14px;letter-spacing:.08em;color:#6e3f08}
+.toc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.toc-list>li{border-bottom:1px solid rgba(195,158,92,.4)}
+.toc-list>li+li .toc-item{border-left:1px solid rgba(195,158,92,.4)}
+.toc-item{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto auto;column-gap:14px;row-gap:2px;padding:22px 18px 20px;height:100%;color:inherit;transition:background-color .3s ease}
+.toc-item:hover{background:rgba(251,247,239,.9)}
+.toc-no{grid-row:1/4;font-size:64px;align-self:center;transition:-webkit-text-stroke-color .3s ease}
+.toc-item:hover .toc-no{-webkit-text-stroke-color:#0b5357}
+.toc-en{font-family:'Ekkamai New',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#6e3f08}
+.toc-title{font-size:18px;font-weight:600;line-height:1.35}
+.toc-meta{font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955}
+@container elb (max-width: 720px){.toc-list{grid-template-columns:1fr}.toc-list>li .toc-item{border-left:0!important}.toc-no{font-size:44px;min-width:56px}.toc-item{padding:14px 4px;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto}.toc-en{grid-column:2;grid-row:1}.toc-title{grid-column:2;grid-row:2}.toc-meta{grid-column:3;grid-row:1/3;align-self:center;text-align:right}.toc-no{grid-row:1/3}}
+.sec-kicker{margin:0 0 10px;display:flex;align-items:center;gap:12px;font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#6e3f08}
+.sec-kicker>span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;letter-spacing:0;color:#c39e5c}
+.sec-kicker>span::after{content:"";display:inline-block;width:28px;height:1px;margin-left:12px;vertical-align:middle;background:#c39e5c}
+.on-dark-k{color:#fdeac0}
+
+/* City page as the opening spread of a magazine feature (the Boss, 16 Nov 2026) */
+.city-stats{margin:10px 0 0;display:flex;flex-wrap:wrap;gap:12px 40px}
+.city-stats>div{display:flex;flex-direction:column-reverse;gap:6px;padding-right:40px;border-right:1px solid rgba(212,179,114,.45)}
+.city-stats>div:last-child{border-right:0;padding-right:0}
+.city-stats dt{font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fdeac0}
+.city-stats dd{margin:0}
+.city-stats .outline-num{font-size:clamp(48px,7cqi,72px);-webkit-text-stroke:1.2px #d4b372}
+.city-band{font-family:'Ekkamai New',sans-serif;font-size:28px;line-height:1.6;color:#fdeac0;letter-spacing:.04em}
+.city-fact{max-width:1000px;margin:0 auto;padding-top:64px;display:grid;grid-template-columns:180px 1fr;gap:20px 40px;align-items:start}
+.city-fact-k{display:flex;flex-direction:column;gap:12px;padding-top:8px;border-top:1px solid #c39e5c;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#6e3f08}
+.city-fact-k>span:first-child{margin-top:8px}
+.city-fact-t{margin:0;position:relative;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(24px,3.4cqi,32px);line-height:1.5;color:#1a2632}
+.city-fact-t::first-letter{float:left;margin:.06em .1em 0 0;font-size:3.1em;line-height:.8;color:#c39e5c;font-style:normal}
+@container elb (max-width: 720px){.city-fact{grid-template-columns:1fr;padding-top:48px}.city-fact-k{flex-direction:row;align-items:center}.city-fact-k>span:first-child{margin-top:0}.city-stats>div{padding-right:24px}.city-stats{gap:12px 24px}}
+.pick-n{display:flex;flex-direction:column;gap:8px}.pick-n>.outline-num{font-size:64px;margin-left:-4px}
