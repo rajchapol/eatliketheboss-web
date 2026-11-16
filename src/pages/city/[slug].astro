@@ -7,7 +7,7 @@ import Photo from '../../components/Photo.astro';
 import CityCover from '../../components/CityCover.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import { motifOf } from '../../lib/config';
-import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, capsuleUrl, numLabel } from '../../lib/content';
+import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, visitYear, capsuleUrl, numLabel } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
 
@@ -22,6 +22,15 @@ const glassesCount = list.reduce((n, a) => n + a.dishes.filter((d) => d.glassesO
 const picks = cityPicks(c, list);
 const cuisineOf = (a: (typeof list)[number]) => a.restaurant?.cuisine ?? 'Other';
 const groups = [...new Set(restaurants.map((r) => cuisineOf(r.latest)))].map((cu) => ({ name: cu, rows: restaurants.filter((r) => cuisineOf(r.latest) === cu) }));
+// Feature-opener numbers (the Boss, 16 Nov 2026: city page like the opening spread of a magazine feature)
+const bands = [...new Set(restaurants.map((r) => r.latest.billBand).filter(Boolean) as string[])].sort((x, y) => x.length - y.length);
+const bandRange = bands.length ? (bands.length > 1 ? `${bands[0]}–${bands[bands.length - 1]}` : bands[0]) : '';
+const since = list.length ? list.map((a) => visitYear(a)).sort()[0] : '';
+const stats = [
+  { n: String(restaurants.length), label: 'ร้าน' },
+  ...(glassesCount ? [{ n: String(glassesCount), label: 'จานถอดแว่นชิม' }] : []),
+  ...(since ? [{ n: since, label: 'ชิมครั้งแรก' }] : []),
+];
 const hasIntro = Boolean(c.intro && !c.intro.startsWith('['));
 // The city field is now a short English "Did you know?" fact (the Boss, 5 Nov 2026), so Google gets the Thai summary instead.
 const desc = `รวมร้าน Fine Dining ใน${c.nameTh} (${c.nameEn}) ที่บอสไปชิมมาแล้ว ${restaurants.length} ร้าน พร้อม The Boss's Bill`;
@@ -40,18 +49,18 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
         <span style="font-size:clamp(26px,4cqi,36px);font-weight:400">{c.nameTh}</span>
         <span aria-hidden="true" class={motif.cls} style="width:52px;height:52px;border-radius:50%;background-color:#073b3e;box-shadow:0 0 0 1px #d4b372,0 0 18px rgba(253,234,192,.35)"></span>
       </h1>
-      <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
-        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff;font-size:14px"><Icon name="cuisine" size={16} style="color:#d4b372" />{restaurants.length} ร้าน</span>
-        <span class="badge" style="background:rgba(255,255,255,.14);color:#fff;font-size:14px"><Icon name="glasses" size={16} style="color:#d4b372" />{glassesCount} จานถอดแว่นชิม</span>
-      </p>
+      <dl class="city-stats">
+        {stats.map((x) => <div><dt>{x.label}</dt><dd class="outline-num" translate="no">{x.n}</dd></div>)}
+        {bandRange && <div><dt>The Boss's Bill</dt><dd class="city-band" translate="no">{bandRange}</dd></div>}
+      </dl>
     </div>
   </section>
   <div aria-hidden="true" class={motif.cls} style="height:28px;background-color:#073b3e;box-shadow:inset 0 -1px 0 #c39e5c"></div>
 
   {hasIntro && (
-    <aside class="wrap" lang="en" aria-label="Did you know?" style="padding-top:56px;margin:0 auto;max-width:880px">
-      <p style="margin:0 0 8px;font-family:'Ekkamai New',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#8a6d3b">Did you know?</p>
-      <p style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(21px,3cqi,25px);line-height:1.6;color:#1a2632">{c.intro}</p>
+    <aside class="wrap city-fact" lang="en" aria-label="Did you know?">
+      <div class="city-fact-k"><span aria-hidden="true" class={motif.cls} style="width:44px;height:44px;border-radius:50%;background-color:#073b3e;box-shadow:0 0 0 1px #d4b372"></span><span>Did you know?</span></div>
+      <p class="city-fact-t">{c.intro}</p>
     </aside>
   )}
 
@@ -59,7 +68,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
     <section aria-labelledby="pk" class="wrap" style="padding-top:72px">
       <h2 id="pk" class="ink-grad" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:clamp(36px,6cqi,48px);line-height:1.1">Boss's Picks in {c.nameEn}</h2>
       <div class="rule"></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:32px">{picks.map((a) => <ArticleCard a={a} visits={visitsOf(a, list)} />)}</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:32px">{picks.map((a, i) => <div class="pick-n"><span class="outline-num" aria-hidden="true" translate="no">{String(i + 1).padStart(2, '0')}</span><ArticleCard a={a} visits={visitsOf(a, list)} /></div>)}</div>
     </section>
   )}
 

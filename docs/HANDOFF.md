@@ -9,6 +9,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-16 · home contents page, city feature opener
+- Home (`index.astro`): "In This Issue / ในฉบับนี้" contents block right after the slider (`toc`: Index, one line per series strip, Glasses Off Awards `#awards`, Destinations, The Boss), each with an outlined number 01–05 and a count; the same numbers appear as `.sec-kicker` lines above each section ("01 — The Index"). Phones: one row per entry. CSS `.toc*`, `.sec-kicker` at the end of `site.css`.
+- City page (`city/[slug].astro`): hero shows outlined numbers instead of pills (restaurants, glasses-off dishes, first visit year) + The Boss's Bill range (lowest–highest band); "Did you know?" is a standfirst with a gold initial and the city motif; Boss's Picks are numbered 01–03. CSS `.city-stats`, `.city-fact*`, `.pick-n`.
+- Dropped: a country kicker in the hero (Cormorant has no Thai, and it repeated the breadcrumb).
+
 ## Session 2026-11-16 · magazine touches (quiet luxury)
 - The Boss: the design felt flat; chose "magazine" style, quiet luxury (no page transitions). Signature device `.outline-num` (end of `site.css`): the issue number set huge in outlined Cormorant italic, decoration only (aria-hidden).
   - Home slider (`HeroSlider.astro`): `.slide-num` behind the text column (reviews: No. 001-style, other series: episode); hidden on phones (crowded the photo).
