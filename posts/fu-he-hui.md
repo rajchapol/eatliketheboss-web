@@ -12,7 +12,6 @@ restaurant:
   cuisine: "Chinese"
   style: "Vegetarian"
   awards: ["MICHELIN 2★", "Black Pearl 2 Diamond", "Asia's 50 Best Restaurants"]
-quote: "Fu He Hui ถือเป็นPinnacle ของอาหารมังสวิรัติในฝั่งโลกตะวันออกอย่างแท้จริง"
 cover: "./images/fu-he-hui/cover.jpg | ซุปเห็ดสีน้ำตาลใสมีไอร้อนลอยขึ้น เห็ดไมตาเกะกองกลางชาม โรยต้นหอมซอย ในจานเซรามิกสีเทาเข้ม ร้าน Fu He Hui เซี่ยงไฮ้"
 bill: "988CNY+298CNY(Tea pairing)"
 billBand: "฿฿฿"
@@ -21,6 +20,7 @@ hashtags: [บอสพาชิม, eatliketheboss, Gastronomy, FineDining, FuH
 publishedAt: 2026-11-03
 seoTitle: "Fu He Hui เซี่ยงไฮ้ รีวิว Fine Dining มังสวิรัติ"
 seoDescription: "Fu He Hui (福和慧) ร้านอาหารมังสวิรัติจีนบนถนน Yuyuan Road เซี่ยงไฮ้ ไม่พึ่งเนื้อสัตว์เทียม เชิดชูพืชผัก เห็ดป่า และวัตถุดิบตามฤดูกาล ผ่านปรัชญาเซน"
+quote: "Fu He Hui ถือเป็น Pinnacle ของอาหารมังสวิรัติในฝั่งโลกตะวันออกอย่างแท้จริง"
 ---
 Fu He Hui หรือ 福和慧  แปลตรงตัวได้ว่า ความสุข ความกลมเกลียว และความหลักแหลม ร้านนี้ถือเป็นการปฏิวัติและยกระดับอาหารมังสวิรัติจีนอย่างแท้จริง โดยปฏิเสธการใช้ "เนื้อสัตว์เทียม" ที่ทำจากแป้งหรือถั่วเหลืองซึ่งเป็นธรรมเนียมดั้งเดิมของอาหารเจ
 
