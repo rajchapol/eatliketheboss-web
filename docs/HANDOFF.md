@@ -15,6 +15,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-17 · finder: suggestions under the search box
+- The Boss: typing a correct restaurant name "barely showed anything". Matching worked; the results simply started ~1,400 px down, below the fold, so nothing seemed to happen.
+- `restaurants.astro`: a suggestion list under the search box (`#q-sug`, combobox/listbox ARIA): up to 6 matches with thumbnail and city, names starting with the words first, then names containing them, then other matches (chef, dish, city…); ↑/↓/Enter/Esc work; "ดูผลทั้งหมด N ร้าน ↓" (and Enter with nothing selected) scrolls to the results. Respects the other filters.
+- Arriving with `?q=` (the home-page search box) scrolls straight to the results.
+- `ArticleCard.astro`: `data-place` (city English name) for the suggestion line. `#filters` overflow is visible so the list can hang below the box. CSS `.q-*` at the end of `site.css`.
+
 ## Session 2026-11-16 · "In This Issue" checkerboard
 - The Boss: soft gold numerals on cream were hard to read → contents cells alternate deep-teal and cream gradients (odd = teal with gold numerals and light text, even = cream with teal numerals), inside one rounded frame. CSS block "In This Issue as a checkerboard" at the end of `site.css` (overrides the earlier `.toc*` rules).
 
