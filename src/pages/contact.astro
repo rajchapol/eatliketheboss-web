@@ -39,7 +39,7 @@ const label = "display:flex;flex-direction:column;gap:8px;font-family:'Ekkamai N
         <legend style="padding:0;margin-bottom:10px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955">เรื่องที่ติดต่อ</legend>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           {topics.map(([v, t], i) => (
-            <label class="topic"><input type="radio" name="topic" value={t} data-topic={v} checked={i === 0} /><span>{t}</span></label>
+            <label class="topic"><input type="radio" name="topic" value={t} data-topic={v} checked={i === 0} /><span><Icon name={v === 'recommend' ? 'recommend' : v === 'work' ? 'collab' : 'letter'} size={20} />{t}</span></label>
           ))}
         </div>
       </fieldset>

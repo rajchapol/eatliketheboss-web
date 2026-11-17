@@ -7,7 +7,7 @@ import LangSwitch from '../components/LangSwitch.astro';
 import Photo from '../components/Photo.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import ShareBar from '../components/ShareBar.astro';
-import { SERIES } from '../lib/config';
+import { SERIES, cuisineIcon } from '../lib/config';
 import { getAllArticles, articleUrl, translationsOf, imgUrl, visitsOf, restaurantKey, visitIso, visitLabel, capsuleUrl, photoFrame, numLabel, numKicker } from '../lib/content';
 import Lightbox from '../components/Lightbox.astro';
 import { articleLd, breadcrumbs } from '../lib/seo';
@@ -116,7 +116,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
               <p class="glance-head">{t(L, 'atGlance')}</p>
               <dl class="glance-grid">
                 <div><dt><Icon name="bill" size={15} />The Boss's Bill</dt><dd class="bill-dd"><span class="band">{band ?? '—'}</span>{a.tag && <span class="tag-pill"><Icon name={a.tag.startsWith('AD') ? 'megaphone' : 'calendar'} size={13} />{a.tag}</span>}</dd></div>
-                <div><dt><Icon name="cuisine" size={15} />{t(L, 'cuisine')}</dt><dd>{cuisineText(a.restaurant, L) || '—'}</dd></div>
+                <div><dt><Icon name={cuisineIcon(a.restaurant?.cuisine)} size={18} />{t(L, 'cuisine')}</dt><dd>{cuisineText(a.restaurant, L) || '—'}</dd></div>
                 {a.restaurant?.awards?.length ? <div><dt><Icon name="award" size={15} />{t(L, 'awards')}</dt><dd>{a.restaurant.awards.join(' · ')}</dd></div> : null}
                 {a.city && <div><dt><Icon name="pin" size={15} />{t(L, 'cityArea')}</dt><dd>{a.city.nameEn}{a.restaurant?.area && ` — ${a.restaurant.area}`}</dd></div>}
               </dl>

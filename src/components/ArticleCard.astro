@@ -3,7 +3,7 @@
 // to show "รีวิว N ครั้ง" and a link to each visit.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { AWARDS, SERIES } from '../lib/config';
+import { AWARDS, SERIES, cuisineIcon } from '../lib/config';
 import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings, numLabel, numKicker } from '../lib/content';
 import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
@@ -48,7 +48,7 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
     {story && a.tagline && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;line-height:1.5;color:#3d4955">{a.tagline}</span>}
     {a.restaurant && (
       <span style="display:flex;flex-wrap:wrap;gap:6px 16px;font-family:'Ekkamai New',sans-serif;font-size:13px;color:#3d4955">
-        {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="cuisine" size={16} style="color:#0b5357" />{cuisineText(a.restaurant, L)}</span>}
+        {a.restaurant.cuisine && <span style="display:inline-flex;align-items:center;gap:6px"><Icon name={cuisineIcon(a.restaurant.cuisine)} size={18} style="color:#0b5357" />{cuisineText(a.restaurant, L)}</span>}
         {a.restaurant.awards?.length ? <span style="display:inline-flex;align-items:center;gap:6px"><Icon name="award" size={16} style="color:#0b5357" />{a.restaurant.awards.join(', ')}</span> : null}
         {a.billBand && <span class="band-pill" title="The Boss's Bill (ระดับราคาโดยประมาณ)"><Icon name="bill" size={13} />{a.billBand}</span>}
       </span>

@@ -18,6 +18,10 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## 2026-11-17 · Brand: signature icons (28, 1.0 line)
+- `public/img/brand/icons/*.svg`: cuisine ×9 (keys = cuisines.json), meta ×7, features ×12; currentColor, stroke 1.0 (the Boss's choice). Not wired yet: usage map in 03-web-design §0; preview `docs/handoff/signature-icons-preview.jpg`.
+
 ## 2026-11-17 · Old reviews batch A/B/C — 20 old reviews published (the Boss approved)
 - Posted: geranium, jungsik-seoul (new city seoul), mingles, mezzaluna-2018/2021, sushi-saito-hong-kong, canvas-2018, khao, savelberg, elements-2019/2021/2023, pru-2020/2024, gaggan-2018 (visit Nov-2018 per EXIF, the Boss), gaggan-anand-2019, gaggan-at-louis-vuitton-2024, chefs-table-lebua, juksunchae (AD), r-haan-2019.
 - The Boss's calls: Thai typo fixes applied; taglines written by Claude from his own text; prices already in the old body text stay; PRU 2020 dish headings written from the text are OK; near-line price bands as proposed (Saito per person ฿฿฿฿, LV lunch ฿฿฿). Unsure photos were matched against his old Pantip (profile 732782) / Facebook posts: image comes before its dish text on Pantip.
