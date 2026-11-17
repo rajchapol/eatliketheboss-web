@@ -2,14 +2,15 @@
  "slug": "ta-vie",
  "candidates": [
   {
-   "th": "จานนี้ดูเหมือนไม่มีอะไรแต่มันเทพมาก",
-   "en": "This dish looks like nothing, yet it is divine.",
-   "from": "Japanese winter turnip salad"
+   "th": "ประสบการณ์ในวันนี้ผมต้องบอกว่าในแง่เทคนิคและความละเอียดอ่อนแล้ว Ta Vie อยู่ในระดับโลกจริงๆ",
+   "en": "After today's experience I have to say that in technique and subtlety, Ta Vie is truly world-class.",
+   "from": "intro"
   },
   {
-   "th": "นี่น่าจะเป็นหอยปีกนกที่อร่อยที่สุดที่ผมเคยทานจานนึงเลยครับ",
-   "en": "This may well be one of the most delicious torigai dishes I have ever eaten.",
-   "from": "Japanese winter turnip salad"
+   "th": "แต่เหนือสิ่งอื่นใดคือฝีมือการปรุงอาหารอันสุดยอดของเชฟ Hideaki Sato ซอสทุกตัวในวันนั้นประทับใจผมมากๆ มีความซับซ้อนมีมิติแต่ทว่ากลมกล่อมและสมดุลมากๆ",
+   "en": "But above all it is the superb cooking of Chef Hideaki Sato. Every sauce that day impressed me enormously: complex and multidimensional yet rounded and very balanced.",
+   "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

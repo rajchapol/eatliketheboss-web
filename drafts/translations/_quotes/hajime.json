@@ -1,15 +1,1 @@
-{
- "slug": "hajime",
- "candidates": [
-  {
-   "th": "อาหารของเชฟ Hajime Yoneda ไม่ได้นำเสนออย่างตรงไปตรงมา แต่นำเสนอแนวคิดเบื้องหลังโดยการสนทนาเป็นภาษาอาหารระหว่างเรากับโลกผ่านตัวเชฟ",
-   "en": "Chef Hajime Yoneda's food is not presented directly; it presents the idea behind it, through a conversation in the language of food between us and the world, by way of the chef.",
-   "from": "intro"
-  },
-  {
-   "th": "เชฟจะออกมาขอบคุณลูกค้าพร้อมส่งลูกค้าทุกโต๊ะด้วยตัวเองซึ่งเป็นภาพที่เราหาได้ยากยิ่งจากเชฟชื่อดังเช่นนี้",
-   "en": "The chef comes out himself to thank guests and see off every table, a sight that is very rarely seen from a famous chef like this.",
-   "from": "intro"
-  }
- ]
-}
+{"slug": "hajime", "candidates": [{"th": "ไม่ต้องสงสัยเลยว่าHajimeในโอซาก้าเป็นหนึ่งในร้านอาหารฝรั่งเศสที่ดีที่สุดในญี่ปุ่นหรืออาจจะในโลกเลยก็ว่าได้", "en": "Without a doubt, Hajime in Osaka is one of the best French restaurants in Japan, perhaps even in the world.", "from": "intro"}, {"th": "อาหารของฮาจิเมะสำหรับผมไม่ได้เหมาะกับคนทุกคน โดยส่วนตัวคิดว่าอาหารของฮาจิเมะเป็นอาหารที่งดงามมากๆ แต่ต้องตีความและทำความเข้าใจพอสมควรเสมือนภาพวาด abstract", "en": "For me, Hajime's food is not for everyone. Personally, I think it is very beautiful, but it needs a fair amount of interpretation and understanding, like an abstract painting.", "from": "intro"}], "weak": false}

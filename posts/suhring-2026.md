@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Modern"
   style: "Contemporary"
   awards: ["MICHELIN 3★"]
+quote: "ถ้าเทียบกับร้านสามดาวในต่างประเทศ ราคานี้ยังถือว่าถูก Sühring รอบนี้จึงเป็นสามดาวที่ผมว่าสมราคา"
 cover: "./images/suhring-2026/cover.jpg | กุ้งหวานบนทาร์ตเปลือกกุ้งในซอสพีชสีส้ม ร้าน Sühring กรุงเทพ | focus=0.5,0.5"
 billBand: "฿฿฿฿"
 bill: "9,800 THB++"

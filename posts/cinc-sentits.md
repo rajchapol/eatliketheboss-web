@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Spanish"
   style: "Catalan"
   awards: ["MICHELIN 2★"]
+quote: "เสน่ห์อีกอย่างของที่นี่คือการ์ดเมนูที่วางมาพร้อมทุกจาน แต่ละใบเล่าที่มาของวัตถุดิบและเรื่องราวของครอบครัวเชฟ"
 cover: "./images/cinc-sentits/cover.jpg | Teardrop Peas ถั่วลันเตาในซอสถั่วกับปลิงทะเลจิ๋ว ร้าน Cinc Sentits บาร์เซโลนา"
 billBand: "฿฿฿฿"
 visit: Dec-2025

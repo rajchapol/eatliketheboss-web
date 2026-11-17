@@ -10,6 +10,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 3★"]
+quote: "ทุกจานกลมกล่อม ยอดเยี่ยมเพอร์เฟ็กต์แม้จะวัดด้วยมาตรฐานระดับสูงที่สุด"
 cover: "./images/les-amis-2020/cover.jpg | พนักงานรินซอสลงบนแลงกูสทีนห่อซูกินีท็อปคาเวียร์ ร้าน Les Amis สิงคโปร์"
 bill: "670 SGD"
 billBand: "฿฿฿฿"

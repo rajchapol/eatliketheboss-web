@@ -7,9 +7,10 @@
    "from": "intro"
   },
   {
-   "th": "จานนี้ขี้โกง กินละยังลืมไม่ได้ เป็นจานเป็ดที่สุดยอดทั้งวัตถุดิบและการปรุงครับ",
-   "en": "This dish is cheating. I ate it and still can't forget it. A superb duck dish in both ingredient and cooking.",
-   "from": "Nanatani Kyoto duck"
+   "th": "ประสบการณ์ที่นี่นั้นยากจะลืมเลื่อนและอยากกลับมาอีกครั้งอย่างแน่นอน",
+   "en": "The experience here is hard to forget, and we will certainly want to return.",
+   "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

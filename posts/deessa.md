@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Spanish"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "ผมว่านี่คือร้านที่คุ้มค่าแก่การเดินทางมาสัมผัสสักครั้งเมื่อมาถึงมาดริดครับ"
 cover: "./images/deessa/cover.jpg | ซุปบีทรูทเย็นกับไอศกรีมคีเฟอร์และแซลมอนในชามเปลือกหอยสีมุก ร้าน Deessa มาดริด"
 billBand: "฿฿฿฿"
 visit: Dec-2025

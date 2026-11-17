@@ -2,14 +2,15 @@
  "slug": "suhring-2026",
  "candidates": [
   {
-   "th": "Sühring รอบนี้จึงเป็นสามดาวที่ผมว่าสมราคา",
-   "en": "This time Sühring is a three-star restaurant I think is worth its price.",
-   "from": "intro"
+   "th": "ถ้าเทียบกับร้านสามดาวในต่างประเทศ ราคานี้ยังถือว่าถูก Sühring รอบนี้จึงเป็นสามดาวที่ผมว่าสมราคา",
+   "en": "Compared with three-star restaurants abroad, this price is still cheap. This time Sühring is a three-star restaurant I think is worth its price.",
+   "from": "closing"
   },
   {
-   "th": "คำถามที่ผมพกมาด้วยในวันนั้นจึงมีข้อเดียว ว่าดาวดวงที่สามเปลี่ยนอะไรไปบ้างครับ",
-   "en": "So the question I carried with me that day was a single one: what has the third star changed?",
+   "th": "บริการทั้งหมดมีความเป็นมืออาชีพสมกับดาวดวงที่สาม",
+   "en": "All of the service is professional, worthy of a third star.",
    "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

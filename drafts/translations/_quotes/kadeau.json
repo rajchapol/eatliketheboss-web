@@ -2,14 +2,15 @@
  "slug": "kadeau",
  "candidates": [
   {
-   "th": "แซลม่อนรมควันที่อร่อยที่สุดในโลกก็คงไม่เกินจริงกับอาหารจานนี้ ส่วนเนื้อด้านในที่แทบจะละลายในปากนั้นยังคงตราตรึงถึงวันนี้",
-   "en": "To call it the best smoked salmon in the world would not be an exaggeration for this dish. The inner flesh, which almost melts in the mouth, still lingers in my memory today.",
-   "from": "Signature"
-  },
-  {
    "th": "เป็นอีกหนึ่งร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย",
    "en": "Another restaurant that has everything except the final Michelin star.",
    "from": "intro"
+  },
+  {
+   "th": "ต้องยอมรับว่านี่เป็นหนึ่งในร้านอาหารที่ราคาสูงสุดในโลก แต่เมนูที่เสิร์ฟก็เยอะมากๆและให้วัตถุดิบที่ดีจริงๆโดยเฉพาะซีฟู้ดต่างๆ",
+   "en": "I must admit this is one of the most expensive restaurants in the world, but the menu served is very generous and uses truly good ingredients, especially the seafood.",
+   "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

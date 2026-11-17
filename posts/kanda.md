@@ -9,6 +9,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 3★"]
+quote: "Kanda ถือเป็นร้านที่ได้มิชลินสตาร์สามดาวมาตลอดตั้งแต่ michelin guide เข้ามาในญี่ปุ่น ทำให้ผมคิดว่าร้านนี้ต้องมีอะไรดี"
 cover: "./images/kanda/cover.jpg | เนื้อมิยาซากิวากิวทอดวางคู่ผักอ่อนและสาหร่ายบนจานเซรามิกลายเขียว ร้าน Nihonryori Kanda เมืองโตเกียว"
 bill: "~30,000 Yen up"
 billBand: "฿฿฿"

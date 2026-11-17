@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN 3★"]
+quote: "อย่าเข้าใจผิด Maaemo ยังแสดงถึงอาหารที่ยอดเยี่ยมแต่ประสบการณ์โดยรวมที่ได้รับจาก Maaemo 1.0 ทำให้ผมคาดหวังมากกว่านี้กับ Norway Finest Restaurant"
 cover: "./images/maaemo/cover.jpg | คาเวียร์คู่พิวเร่ดอกกะหล่ำสีน้ำตาลอ่อนในน้ำซุปเนื้อ ก้นชามเซรามิกสีครีมขอบหนา ร้าน Maaemo ออสโล"
 bill: "~5200 Nok /pax"
 billBand: "฿฿฿฿"

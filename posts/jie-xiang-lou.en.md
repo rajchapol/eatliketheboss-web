@@ -13,6 +13,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Zhejiang"
   awards: ["MICHELIN 2★"]
+quote: "It sounds simple, but for me it is a definition of creative cooking that strikes just the right balance."
 cover: "./images/jie-xiang-lou/cover.jpg | Triangular slices of foie gras terrine in an amber rice-wine sauce, garnished with small white flowers, on a white porcelain plate, Jie Xiang Lou, Hangzhou"
 billBand: "฿฿฿"
 visit: Oct-2026

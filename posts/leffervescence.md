@@ -11,6 +11,7 @@ restaurant:
   cuisine: "French"
   style: "Japanese-influenced"
   awards: ["MICHELIN 3★", "MICHELIN Green Star"]
+quote: "L’Effervescence เป็นหนึ่งในมื้ออาหารที่ผมกินและมีความสุขไปทั้งวัน"
 cover: "./images/leffervescence/cover.jpg | อกเป็ดย่างเนื้อสีชมพูกับซอสพอร์ตไวน์สีเข้มและผักภูเขา บนจานสีขาว ร้าน L'Effervescence โตเกียว"
 bill: "~65000 yen"
 billBand: "฿฿฿฿"
@@ -19,7 +20,6 @@ hashtags: [บอสพาชิม, eatliketheboss, LEffervescence, Tokyo]
 publishedAt: 2026-11-05
 seoTitle: "L'Effervescence โตเกียว รีวิว Fine Dining 3 ดาวมิชลิน"
 seoDescription: "L'Effervescence ร้านฝรั่งเศส 3 ดาวมิชลินของเชฟ Shinobu Namae โตเกียว บริการไร้ที่ติ ผักญี่ปุ่นชั้นยอด ไฮไลท์คือเป็ดนานาทานิย่างไม้โอ๊คที่ยังลืมไม่ได้"
-quote: "L’Effervescence เป็นหนึ่งในมื้ออาหารที่ผมกินและมีความสุขไปทั้งวัน"
 ---
 ร้านนี้เป็นร้านที่ผมและคุณเอประทับใจมากครับ แม้เราจะมากันในวันฝนตกหนักจนต้องใช้แท็กซี่  แต่ประสบการณ์ที่นี่นั้นยากจะลืมเลื่อนและอยากกลับมาอีกครั้งอย่างแน่นอน
 

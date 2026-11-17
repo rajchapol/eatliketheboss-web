@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Spanish"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "ส่วนตัวผมว่าที่นี่เป็นร้านที่ชูเรื่องการย่างและกลิ่นควัน แต่ไม่ได้เสิร์ฟมาแบบตรงๆ กลับผสมผสานและนำเสนอในรูปแบบที่ Innovative"
 cover: "./images/smoked-room/cover.jpg | ไข่ตุ๋นข้าวโพดหวานโปะอูนิและดอกไม้สีม่วงในถ้วยทอง ร้าน Smoked Room มาดริด"
 billBand: "฿฿฿฿"
 visit: Dec-2025

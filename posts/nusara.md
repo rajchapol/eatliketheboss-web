@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Thai"
   style: "Contemporary"
   awards: ["MICHELIN 1★", "Asia's 50 Best Restaurants"]
+quote: "การเดินทาง (Journey) และ Experience ตลอดมื้ออาหารที่นี่ถือว่าดีที่สุดแห่งหนึ่งในไทย"
 cover: "./images/nusara/cover.jpg | ขวดแชมเปญ Krug และแก้วบนโต๊ะดาดฟ้าร้าน Nusara กรุงเทพฯ ยามเย็น"
 tag: "AD"
 billBand: "฿฿฿฿"

@@ -12,6 +12,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 3★"]
+quote: "รสชาติเข้มข้นที่แม้แต่คนทั่วไปก็คงเพลินไปกับมื้ออาหารได้อย่างไม่ยาก"
 cover: "./images/ishikawa/cover.jpg | ปลาหมึกยาริอิกะย่างหั่นชิ้นในจานเซรามิกเนื้อหยาบสีเทา ร้าน Kagurazaka Ishikawa โตเกียว"
 bill: "~57000 Yen"
 billBand: "฿฿฿฿"

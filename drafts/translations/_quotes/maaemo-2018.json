@@ -7,9 +7,10 @@
    "from": "intro"
   },
   {
-   "th": "อาหารมื้อนี้ถือเป็นหนึ่งในประสบการณ์ที่สุดยอดของผม มาตรฐานของอาหารทุกจานอยู่ในระดับที่สูงมาก",
-   "en": "This meal was one of my finest experiences. The standard of every dish is very high.",
-   "from": "intro"
+   "th": "โดยสรุป อาหารมื้อนี้ถือเป็นหนึ่งในประสบการณ์ที่สุดยอดของผม มาตรฐานของอาหารทุกจานอยู่ในระดับที่สูงมาก",
+   "en": "In summary, this meal was one of my finest experiences. The standard of every dish is very high.",
+   "from": "intro (summary)"
   }
- ]
+ ],
+ "weak": false
 }

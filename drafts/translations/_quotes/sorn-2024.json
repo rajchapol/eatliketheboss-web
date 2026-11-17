@@ -2,14 +2,15 @@
  "slug": "sorn-2024",
  "candidates": [
   {
-   "th": "Sorn เป็นร้านอาหารไทยที่ดีที่สุดในโลกอย่างไม่ต้องสงสัย",
-   "en": "Sorn is without doubt the best Thai restaurant in the world.",
+   "th": "แม้ราคาจะสูง แต่ศรณ์เป็นร้านอาหารไทยที่มาตรฐานสูงสุด และสิ่งที่ทีมงานรังสรรค์ขึ้นนั้นคุ้มค่าทุกบาททุกสตางค์",
+   "en": "Although the price is high, Sorn is the Thai restaurant with the highest standards, and what the team creates is worth every baht and every satang.",
    "from": "intro"
   },
   {
-   "th": "มื้อหลังรีโนเวทเรียกได้ว่าสุดยอดมากๆ และสร้างความประทับใจไม่รู้ลืม",
-   "en": "The meal after the renovation was simply superb, and made an unforgettable impression.",
+   "th": "ส่วนตัวผมว่าอาหารหลังการปิดปรับปรุงนั้นยกระดับขึ้นและมีมิติกว่าเดิมมาก มื้อหลังรีโนเวทเรียกได้ว่าสุดยอดมากๆ และสร้างความประทับใจไม่รู้ลืม",
+   "en": "Personally I think the food after the renovation closure is more elevated and has far more dimension than before. The meal after the renovation was simply superb, and made an unforgettable impression.",
    "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

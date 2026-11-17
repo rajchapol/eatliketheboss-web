@@ -17,6 +17,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "ความขาวนี้ตัดกับอาหารนานาสีสันที่เป็นแก่นของเชฟได้อย่างดีเยี่ยม"
 cover: "./images/restaurant-a/cover.jpg | ทาร์ตสีเขียวท็อปโฟมสีขาว คู่กับคำเนื้อห่อเสียบไม้โลหะแต่งดอกไม้สีม่วง บนแท่นกระเบื้องสีขาว ร้าน Restaurant A ไทเป | focus=0.5,0.55 | zoom=1.2"
 billBand: "฿฿฿"
 visit: Apr-2026

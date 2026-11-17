@@ -2,14 +2,15 @@
  "slug": "jl-studio",
  "candidates": [
   {
-   "th": "จานที่ประทับใจที่สุดในวันนี้ signature ของเชฟอย่างซิกเนเจอร์ข้าวมันไก่ ที่ไม่มีไก่",
-   "en": "The most impressive dish of the day: the chef's signature, the chicken rice without the chicken.",
-   "from": "Daily Fish | Bamboo Shoot | Jasmine Rice (市場鮮魚 | 竹筍 | 茉莉香米) 🕶️"
+   "th": "JL Studio ก็สร้างความประทับใจให้ผมกับแนวคิดที่สนุกสนานตลอดทั้งมื้อรวมถึงทุกคนที่มาลองอย่างแน่นอนครับ",
+   "en": "JL Studio impressed me with a playful concept running through the whole meal, and it will surely impress everyone who comes to try it.",
+   "from": "closing"
   },
   {
-   "th": "JL Studio ก็สร้างความประทับใจให้ผมกับแนวคิดที่สนุกสนานตลอดทั้งมื้อ",
-   "en": "JL Studio impressed me with a playful concept running through the whole meal.",
+   "th": "อย่างแรกที่อยากชื่นชมผมรู้สึกถึงความตั้งใจของทีมบริกรตั้งแต่ก่อนมาหรือกลับไปแล้วที่ใส่ใจเป็นอย่างดี",
+   "en": "The first thing I want to praise is the evident dedication of the service team, from before I arrived to after I left.",
    "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

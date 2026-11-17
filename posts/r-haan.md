@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Thai"
   style: "Royal"
   awards: ["MICHELIN 2★"]
+quote: "ส่วนตัวบอสขอยกให้เป็นความกลมกล่อมที่แสดงออกถึง Culinary Maturity ของเชฟชุมพลได้ยอดเยี่ยมที่สุดเท่าที่เคยทานมาครับ"
 cover: "./images/r-haan/cover.jpg | ขนมคำเล็ก 9 ชิ้นบนถาดหินสีดำ แต่ละชิ้นแทนรสชาติทั้ง 9 ของเมนูฉลองปีที่ 9 ร้าน R-Haan กรุงเทพฯ"
 tag: "AD"
 bill: "6999 THB ++"

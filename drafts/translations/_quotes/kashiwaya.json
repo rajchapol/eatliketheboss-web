@@ -1,1 +1,16 @@
-{"slug":"kashiwaya","candidates":[{"th":"การบริการของคาชิวายะเรียกได้ว่าเกือบเพอร์เฟค","en":"Service at Kashiwaya is almost perfect.","from":"intro"},{"th":"อร่อยจนผมต้องขอแพคส่วนที่เหลือกลับบ้านด้วยเลยครับ","en":"It was so good that I had to ask them to pack the rest to take home.","from":"Rice"}]}
+{
+ "slug": "kashiwaya",
+ "candidates": [
+  {
+   "th": "การบริการของคาชิวายะเรียกได้ว่าเกือบเพอร์เฟค บริกรหญิงสองท่านที่ดูแลผมนั้นมีความใส่ใจในรายละเอียดและมาตรฐานเซอร์วิสที่สูงมาก",
+   "en": "Service at Kashiwaya is almost perfect. The two waitresses who looked after me were attentive to detail, with a very high standard of service.",
+   "from": "intro"
+  },
+  {
+   "th": "หากเป็นไปได้และมีเวลาในช่วงกลางวัน มื้อเที่ยงก็เป็นตัวเลือกที่คุ้มค่ากว่ามากครับ",
+   "en": "If you can, and have time at midday, lunch is far better value.",
+   "from": "intro"
+  }
+ ],
+ "weak": false
+}

@@ -1,15 +1,1 @@
-{
- "slug": "cinc-sentits",
- "candidates": [
-  {
-   "th": "คำนี้มีกลิ่นกระเทียมและพาร์สลีย์นำ แต่รสหวานเจี๊ยบ ปลิงจิ๋วเนื้อกรุบๆ ดีมากๆ",
-   "en": "In this bite garlic and parsley lead, yet the sweetness is intense. The tiny sea cucumbers are crunchy and very good.",
-   "from": "Teardrop Peas 🕶️"
-  },
-  {
-   "th": "ตัวปลาเท็กซ์เจอร์ดีมาก นุ่ม มัน ละลาย ไม่คาว มีความเด้งนิดๆ",
-   "en": "The fish has a very good texture, tender, rich and melting, not fishy, with a slight springiness.",
-   "from": "Sea Bass"
-  }
- ]
-}
+{"slug": "cinc-sentits", "candidates": [{"th": "เสน่ห์อีกอย่างของที่นี่คือการ์ดเมนูที่วางมาพร้อมทุกจาน แต่ละใบเล่าที่มาของวัตถุดิบและเรื่องราวของครอบครัวเชฟ", "en": "Another charm of the place is the menu card that comes with every dish, each telling the origin of the ingredients and the story of the chef's family.", "from": "intro"}, {"th": "ผักในคอร์สมาจากฟาร์มออร์แกนิกสามแห่งในคาตาลัน ส่วนปลากะพงก็เลือกมาจากชายฝั่งแอตแลนติกน้ำเย็น ทำให้กินไปอ่านไปได้เข้าใจตัวตนของเชฟไปด้วยครับ", "en": "The vegetables in the course come from three organic farms in Catalonia, and the sea bass was chosen from the cold Atlantic coast, so as you eat you read, and come to understand the chef himself.", "from": "intro"}], "weak": true}

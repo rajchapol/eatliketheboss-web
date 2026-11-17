@@ -1,15 +1,1 @@
-{
- "slug": "deessa",
- "candidates": [
-  {
-   "th": "ส่วนอาหาร ผมว่าแม้หน้าตาจะดูเรียบง่าย แต่รสชาติเซอร์ไพรส์และสนุก",
-   "en": "As for the food, although it looks simple, the flavours are surprising and fun.",
-   "from": "intro"
-  },
-  {
-   "th": "ผมว่านี่คือร้านที่คุ้มค่าแก่การเดินทางมาสัมผัสสักครั้งเมื่อมาถึงมาดริดครับ",
-   "en": "I think this is a restaurant worth travelling for, once, when you come to Madrid.",
-   "from": "intro"
-  }
- ]
-}
+{"slug": "deessa", "candidates": [{"th": "ส่วนตัวผมว่าจุดเด่นแรกของที่นี่คือพนักงาน ทุกคนใส่ใจ มีสีสัน มีอารมณ์ขัน ชวนคุยเรื่องที่ลูกค้าสนใจ แต่ยังคงแมนเนอร์และรักษาระยะห่างอย่างเป็นมืออาชีพ", "en": "Personally, I think the first highlight here is the staff. Everyone is attentive, colourful and humorous, happy to chat about whatever interests the guest, yet they keep their manners and a professional distance.", "from": "intro"}, {"th": "ผมว่านี่คือร้านที่คุ้มค่าแก่การเดินทางมาสัมผัสสักครั้งเมื่อมาถึงมาดริดครับ", "en": "I think this is a restaurant worth travelling for, once, when you come to Madrid.", "from": "intro"}], "weak": false}

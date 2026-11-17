@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 3★"]
+quote: "การบริการของคาชิวายะเรียกได้ว่าเกือบเพอร์เฟค บริกรหญิงสองท่านที่ดูแลผมนั้นมีความใส่ใจในรายละเอียดและมาตรฐานเซอร์วิสที่สูงมาก"
 cover: "./images/kashiwaya/cover.jpg | ข้าวอบในหม้อดินที่ร้านไคเซกิ Kashiwaya Senriyama เมืองโอซาก้า หน้าข้าวโรยผักสีเขียวและส้ม"
 bill: "~50,000 Yen"
 billBand: "฿฿฿฿"

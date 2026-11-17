@@ -1,3 +1,16 @@
-{"slug":"odette","candidates":[
-{"th":"Odette ถือเป็น benchmark ระดับโลก สำหรับผม","en":"For me, Odette is a world-class benchmark.","from":"intro"},
-{"th":"ราคาอาจจะดูสูงสำหรับอาหาร5 คอร์ส แต่วัตถุดิบมีคุณภาพดีสมราคาครับ และcookingที่เนี้ยบสมราคาครับ","en":"The price may look high for a five-course meal, but the ingredients justify it, and the cooking is as polished as the price suggests.","from":"intro"}]}
+{
+ "slug": "odette",
+ "candidates": [
+  {
+   "th": "นี้คงเป็นเครื่องยืนยันถึงมาตรฐานที่สูงลิบของห้องอาหารฝรั่งเศสที่ดีที่สุดในโลกแห่งนึง",
+   "en": "This is surely proof of the sky-high standard of one of the finest French dining rooms in the world.",
+   "from": "intro"
+  },
+  {
+   "th": "อีกจุดเด่นที่ควรกล่าวถึงสำหรับ Odette คือการบริการ ที่แสนจะมีชีวิตชีวาและใส่ใจของทางร้าน และ Odette ถือเป็น benchmark ระดับโลก สำหรับผม",
+   "en": "Another highlight worth mentioning at Odette is the service, which is lively and caring, and for me Odette is a world-class benchmark.",
+   "from": "intro (service)"
+  }
+ ],
+ "weak": false
+}

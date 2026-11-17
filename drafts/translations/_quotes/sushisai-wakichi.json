@@ -2,14 +2,15 @@
  "slug": "sushisai-wakichi",
  "candidates": [
   {
-   "th": "ที่ประทับใจเป็นพิเศษเห็นจะเป็นบรรดา Tsumami ที่มีลายเซ็นเฉพาะตัว อย่างจานไข่ตุ๋นใส่หอยนางรมและปูKoubako ที่ยังประทับใจจนถึงตอนนี้",
-   "en": "What impressed me especially were the signature tsumami, such as the steamed egg custard with oyster and kobako crab, which still impresses me to this day.",
+   "th": "Wakichi เป็นร้านที่จองไม่ยากมากนัก ราคาไม่สูงมากนักในยุคสมัยนี้ราว 36,000เยนและมีคุณภาพที่ดีเหมาะสมกับราคาครับ",
+   "en": "It is not too difficult to book, and the price is not very high by today's standards, at around 36,000 yen, with quality that suits the price.",
    "from": "intro"
   },
   {
-   "th": "ปลาในจานนี้ก็ยังมีคุณภาพที่ยอดเยี่ยมเป็นหนึ่งในกิงกิที่อร่อยที่สุดที่ผมกินในรอบหลายปีเลยครับ",
-   "en": "The fish in this dish was again of superb quality, one of the best kinki I have eaten in years.",
-   "from": "Kinmedai"
+   "th": "ทำให้บรรยากาศในการรับประทานอาหารที่นี้ค่อนข้างสบายๆ อบอุ่นภายในร้านเล็กๆ 8ที่นั่งบริเวณ Maruyama koen แห่งนี้",
+   "en": "which makes the atmosphere of the meal fairly relaxed and warm inside this small restaurant of 8 seats in the Maruyama Koen area.",
+   "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

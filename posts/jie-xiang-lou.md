@@ -18,6 +18,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Zhejiang"
   awards: ["MICHELIN 2★"]
+quote: "คำพูดนี้ดูเรียบง่าย แต่เป็นนิยามของอาหารครีเอทีฟที่พอเหมาะพอดีสำหรับผมครับ"
 cover: "./images/jie-xiang-lou/cover.jpg | ฟัวกราส์เทรีนหั่นชิ้นสามเหลี่ยมวางเรียงในซอสเหล้าข้าวสีอำพัน ประดับดอกไม้สีขาว ในจานกระเบื้องขาว ร้าน Jie Xiang Lou หางโจว"
 billBand: "฿฿฿"
 visit: Oct-2026

@@ -12,6 +12,7 @@ restaurant:
   cuisine: "Modern"
   style: "Innovative"
   awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants"]
+quote: "For me, logy's combinations feel more balanced and more interesting, blending Chinese and Japanese influences beautifully."
 cover: "./images/logy/cover.jpg | Fresh green peas, green cream, a purple borage flower and white and pale green granita on a cream plate, logy, Taipei"
 billBand: "฿฿฿"
 visit: Apr-2026

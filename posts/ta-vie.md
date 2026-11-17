@@ -9,6 +9,7 @@ restaurant:
   chef: "Hideaki Sato"
   cuisine: "French"
   awards: ["MICHELIN 3★"]
+quote: "ประสบการณ์ในวันนี้ผมต้องบอกว่าในแง่เทคนิคและความละเอียดอ่อนแล้ว Ta Vie อยู่ในระดับโลกจริงๆ"
 cover: "./images/ta-vie/cover.jpg | กุ้งล็อบสเตอร์บริทานีย์ย่างกับซอสครีมในจานขาวขอบลอน ร้าน Ta Vie ฮ่องกง"
 bill: "~2980 HKD+ ต่อคน"
 billBand: "฿฿฿฿"
