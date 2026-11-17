@@ -1,0 +1,14 @@
+# hajime - notes for the Boss
+- Thai title has no tagline ("Hajime (Osaka,Japan)"); English title is "Eat Like The Boss in Osaka: Hajime", no tagline field.
+- Brand-rule check: the Chikyu paragraph says "ถ้าผมให้คะแนนได้เฉพาะจานนี้มี10เต็มต้องได้11". Translated faithfully ("If I could give a score ... 10 out of 10 would have to be 11"), but it is a score-like remark; consider removing from both languages given the no-scores rule.
+- Romanisation / guesses to confirm:
+  - Station "Higaboshi" in Thai; I wrote "Higobashi" (the real station near Hajime).
+  - "อัทโชมิโซะ" read as Hatcho miso.
+  - "กั้ง" (Relation dish) rendered "langoustine"; Thai word can also mean mantis shrimp. Please confirm.
+  - "มะม่วงเต๋า" (Kawa dish) unclear; rendered just "mango". "แกนมะเขือ"/"มะเขือเหลือง" read as tomato (cores / yellow tomato). "อบเฉย" = cinnamon. "(chickweed,hakobe jio)" rendered "(chickweed, hakobe)". "ข้าวเกรียบปลาkue" rendered "fish cracker".
+  - "หัวไชเท้าฉีดมะนาว" rendered "daikon sprayed with lemon".
+- Unfinished Thai sentence: "จนนักชิมโต๊ะข้างๆผมถึงกับเอ่ยปากขึ้นมา" (what the neighbour said is missing); translated as "a gourmet at the next table even spoke up".
+- Image 10 (under Sakura) has an alt text about grilled duck, and image 09 (Hope) shows Wagyu; the duck photo probably belongs under Hope part three. Alt texts translated as given; please check the photo order.
+- bill field "~70,000 Yen" vs menu prices in the text (45,360 / 33,480 yen): kept as is.
+- Typos in the Thai source (not fixed): "ชะอุ่ม", "จัดกิน", "ถุกเสิร์ฟ", "ดึ่ง", "ถูดึง", "ซึบซับ", "แปลงใจ", "Higaboshi", "มิชชินไกด์".
+- Dry run: only the "images too small" warning (same as Thai).

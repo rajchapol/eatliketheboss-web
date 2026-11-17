@@ -1,0 +1,12 @@
+# kadeau - notes for the Boss
+- Thai has no `tagline` field; I added "A restaurant with everything except the final Michelin star" from the Thai title.
+- cityNew block copied unchanged (nameTh/country stay Thai, as in the Thai file).
+- Unclear Thai:
+  - Cockles: heading/body say hazelnut milk, then "นมอัลม่อน" (almond milk) in the same dish. Translated as written ("hazelnut milk" ... "almond milk"); please confirm which.
+  - Raw shrimps: "ผมไม้สองชนิด" (probably ผลไม้ = two fruits) and "ถั่วสมองหมู" (unclear nut); rendered "two kinds of fruit ... and nuts".
+  - Signature skin: "คล้ายปลาทาโร่" rendered "similar to Taro fish snacks" (Thai snack brand); "หอมที่ให้ความกรอบ" rendered "crisp onion".
+  - Tomato dish: "โทงเทงฝรั่ง" rendered "cape gooseberry" (after "dried gooseberries" earlier in the same sentence).
+  - Wild duck section ends with a stray ". preserved fruits"; I turned it into a lead-in "Preserved fruits." for the next paragraph.
+  - Maitake pie: "ข้าวแป้งไรน์" read as rye flour.
+- Typos in the Thai source (not fixed): ประสบการณืในวัน, openkitchen, disfusser/Gerranium/Sommerlier, "เสริฟืมา", "แแต่", "เก่อนปิดท้าย", "ซสอ", "อธิบาน", "หหลากหลาย", "แล่โชว์".
+- Dry run: only the "images too small" warning (same as Thai).

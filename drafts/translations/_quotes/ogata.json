@@ -1,0 +1,15 @@
+{
+ "slug": "ogata",
+ "candidates": [
+  {
+   "th": "ต้องยอมรับว่าอาหารของเชฟโอกาตะ นั้นมีเอกลักษณ์และสไตล์เฉพาะตัวจริงๆ และทำออกมาได้ยอดเยี่ยมมากๆ",
+   "en": "I have to admit that Chef Ogata's food has a truly distinctive style of its own and is executed superbly.",
+   "from": "intro"
+  },
+  {
+   "th": "การปรุงรสที่น้อยแต่ทว่ามาก เน้นการจับคู่วัตถุดิบตามธรรมชาติเพื่อดึงความอร่อยของวัตถุดิบ",
+   "en": "The seasoning is minimal yet powerful, emphasising natural pairings of ingredients to draw out their deliciousness.",
+   "from": "intro"
+  }
+ ]
+}
