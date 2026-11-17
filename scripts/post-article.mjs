@@ -146,7 +146,7 @@ const doc = {
   _id: id, _type: 'article', language: lang,
   ...(lang !== 'th' ? { translationOf: { _type: 'reference', _ref: `article-${slug}` } } : {}),
   series: fm.series || 'review', episode: fm.episode, title: fm.title, slug: { _type: 'slug', current: slug },
-  tagline: fm.tagline, city: cityRef, cover: await upload(fm.cover, { cover: true }),
+  tagline: fm.tagline, ...(fm.eventYear ? { eventYear: String(fm.eventYear) } : {}), city: cityRef, cover: await upload(fm.cover, { cover: true }),
   // gallery: ["./images/<slug>/room.jpg | alt text | caption (optional)", …] → ambience / chef photos before the dishes
   gallery: fm.gallery ? await Promise.all([].concat(fm.gallery).map(async (g) => {
     const { caption } = parseImageSpec(g);
@@ -200,7 +200,7 @@ if (!existing) {
   if (old) {
     const sets = {}, unsets = [], changed = [];
     const put = (path, value) => { changed.push(path); if (isEmpty(value)) unsets.push(path); else sets[path] = value; };
-    const FM = { series: 'series', episode: 'episode', title: 'title', tagline: 'tagline', city: 'city', cover: 'cover', gallery: 'gallery', quote: 'quote', tag: 'tag', bill: 'bill', visit: 'visit', hashtags: 'hashtags', publishedAt: 'publishedAt', seoTitle: 'seoTitle', seoDescription: 'seoDescription' };
+    const FM = { series: 'series', episode: 'episode', title: 'title', tagline: 'tagline', eventYear: 'eventYear', city: 'city', cover: 'cover', gallery: 'gallery', quote: 'quote', tag: 'tag', bill: 'bill', visit: 'visit', hashtags: 'hashtags', publishedAt: 'publishedAt', seoTitle: 'seoTitle', seoDescription: 'seoDescription' };
     for (const [k, field] of Object.entries(FM)) if (!same(old.fm[k], fm[k])) put(field, doc[field]);
     if (!same(old.fm.billBand || old.fm.restaurant?.priceBand, fm.billBand || fm.restaurant?.priceBand)) put('billBand', doc.billBand);
     if (!same(old.fm.slug, fm.slug)) throw new Error('slug เปลี่ยนไม่ได้หลังเผยแพร่ (URL จะเสีย) — ถ้าจำเป็นจริงให้ทำใน Studio และเพิ่ม redirect');

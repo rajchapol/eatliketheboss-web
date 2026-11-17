@@ -5,6 +5,7 @@ episode: 27
 title: "ถ้วยสุราปลดอำนาจทหาร ค.ศ. 961 — วงเหล้าที่เปลี่ยนนายพลให้เป็นเศรษฐี"
 slug: cup-of-wine-song-taizu-961
 tagline: "วงเหล้าที่เปลี่ยนนายพลให้เป็นเศรษฐี"
+eventYear: "961"
 cover: "./images/cup-of-wine-song-taizu-961/cover-3x2.jpg | ปกมื้ออาหารเปลี่ยนโลก Ep.27 ภาพวาดพระบรมสาทิสลักษณ์จักรพรรดิซ่งไท่จู่ บนผ้าไหมโบราณ ระยะใกล้ ทรงหมวกดำมีปีกยื่นยาวสองข้าง และพระมัสสุสีดำ พร้อมตัวอักษร Wine Cup"
 hashtags: [บอสพาชิม, eatliketheboss, มื้ออาหารเปลี่ยนโลก, SongTaizu, ZhaoKuangyin, SongDynasty, Kaifeng, ChineseHistory]
 publishedAt: 2026-11-16

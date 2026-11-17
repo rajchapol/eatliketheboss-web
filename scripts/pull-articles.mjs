@@ -28,7 +28,7 @@ const client = createClient({ projectId: process.env.SANITY_PROJECT_ID || 'ohviq
 
 const IMG = '{alt, caption, crop, hotspot, "url": asset->url, "file": asset->originalFilename, "sha1": asset->sha1hash}';
 const articles = await client.fetch(`*[_type == "article" && defined(slug.current) && !(_id in path("drafts.**"))]{
-  _id, _updatedAt, language, series, episode, title, "slug": slug.current, tagline, "city": city->slug.current,
+  _id, _updatedAt, language, series, episode, title, "slug": slug.current, tagline, eventYear, "city": city->slug.current,
   restaurant{..., "sameAs": sameAs->slug.current}, cover${IMG}, gallery[]${IMG}, body, quote,
   dishes[]{name, description, glassesOff, image${IMG}}, tag, bill, billBand, visit, hashtags, publishedAt, seoTitle, seoDescription
 } | order(slug.current asc)`);
@@ -127,7 +127,7 @@ for (const a of articles) {
     cuisine: a.restaurant.cuisine, style: a.restaurant.style, awards: a.restaurant.awards?.map((x) => AWARDS.label(x)).filter(Boolean), aliases: a.restaurant.aliases, sameAs: a.restaurant.sameAs,
   }) : undefined;
   const fm = clean({
-    language: lang, series: a.series, episode: a.episode, title: a.title, slug: a.slug, tagline: a.tagline, city: a.city,
+    language: lang, series: a.series, episode: a.episode, title: a.title, slug: a.slug, tagline: a.tagline, eventYear: a.eventYear, city: a.city,
     cityNew: old?.fm.cityNew, restaurant: r && Object.keys(r).length ? r : undefined,
     cover: line(a.cover, [], old?.cover), gallery: (a.gallery || []).map((g) => line(g, g.caption ? [g.caption] : [])).filter(Boolean),
     quote: a.quote, tag: a.tag, bill: a.bill, billBand: a.billBand, visit: a.visit, hashtags: a.hashtags,

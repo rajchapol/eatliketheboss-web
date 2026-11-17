@@ -16,6 +16,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+## 2026-11-17 · History card year field + Ep.23 cover hand-off
+- New optional article field `eventYear` ("Year on card · ปีบนการ์ด", history/drinks only): cards show it before falling back to the 4-digit year at the end of the slug. Set for Ep.26 (`206 BC`) and Ep.27 (`961`). Wired through Studio schema, GROQ (`content.ts`), `types.ts`, `post-article.mjs` (+ `--since` map), `pull-articles.mjs`, `_template.md`.
+- Checked repeat visits (Sühring 2018/2021/2026): working as designed — prev/next on each review + time capsule `/restaurant/bangkok/suhring/` lists all three.
+- Brand hand-off: Ep.23 cover subtitle doesn't match the episode title (02-brand-graphics §0).
+
 ## Session 2026-11-17 · finder: suggestions under the search box
 - The Boss: typing a correct restaurant name "barely showed anything". Matching worked; the results simply started ~1,400 px down, below the fold, so nothing seemed to happen.
 - `restaurants.astro`: a suggestion list under the search box (`#q-sug`, combobox/listbox ARIA): up to 6 matches with thumbnail and city, names starting with the words first, then names containing them, then other matches (chef, dish, city…); ↑/↓/Enter/Esc work; "ดูผลทั้งหมด N ร้าน ↓" (and Enter with nothing selected) scrolls to the results. Respects the other filters.

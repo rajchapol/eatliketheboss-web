@@ -5,6 +5,7 @@ episode: 26
 title: "งานเลี้ยงหงเหมิน 206 ปีก่อนคริสตกาล — กระบี่ ขาหมูดิบ และคนที่ขอตัวไปห้องน้ำแล้วได้แผ่นดิน"
 slug: hongmen-banquet-206-bc
 tagline: "กระบี่ ขาหมูดิบ และคนที่ขอตัวไปห้องน้ำแล้วได้แผ่นดิน"
+eventYear: "206 BC"
 cover: "./images/hongmen-banquet-206-bc/cover-3x2.jpg | ปกมื้ออาหารเปลี่ยนโลก Ep.26 ภาพจิตรกรรมฝาผนังในสุสานสมัยราชวงศ์ฮั่นตะวันตก ภาพงานเลี้ยงหงเหมิน มีบุคคลในชุดจีนโบราณนั่งร่วมโต๊ะและยืนถืออาวุธ สีชมพูม่วงบนผนังเก่า พร้อมตัวอักษร Hongmen Banquet"
 hashtags: [บอสพาชิม, eatliketheboss, มื้ออาหารเปลี่ยนโลก, HongmenBanquet, XiangYu, LiuBang, HanDynasty, Xianyang]
 publishedAt: 2026-11-16

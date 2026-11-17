@@ -138,7 +138,7 @@ export function getAllArticles(): Promise<Article[]> {
   return (articlesCache ??= client
     .fetch(
       `*[_type=="article" && defined(slug.current) && !(_id in path("drafts.**"))] | order(publishedAt desc){
-        _id, language, series, no, episode, title, tagline, "slug": slug.current,
+        _id, language, series, no, episode, title, tagline, eventYear, "slug": slug.current,
         "baseId": coalesce(translationOf._ref, _id),
         "city": city->${CITY},
         restaurant, cover${IMG}, gallery[]${IMG}, body, quote,
@@ -152,7 +152,7 @@ export function getAllArticles(): Promise<Article[]> {
         const dishes = (r.dishes || []).map((d: any) => ({ name: stripCtrl(d.name || ''), description: cleanDish(d.description || ''), glassesOff: !!d.glassesOff, image: img(d.image, d.name) }));
         return {
           id: r._id, baseId: r.baseId, language: r.language || DEFAULT_LOCALE, series: r.series || 'review',
-          no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, city: r.city || undefined,
+          no: r.no, slug: r.slug, title: r.title, tagline: r.tagline, eventYear: r.eventYear || undefined, city: r.city || undefined,
           restaurant: r.restaurant ? { ...r.restaurant, sameAs: r.restaurant.sameAs?._ref } : undefined, episode: r.episode, cover: img(r.cover, r.title), bodyHtml, quote: r.quote,
           gallery: (r.gallery || []).map((g: any) => ({ ...img(g, r.restaurant?.name || r.title), caption: g.caption || undefined })).filter((g: any) => g.url),
           dishes, bill: r.bill, billBand: r.billBand || undefined, tag: r.tag || undefined, visit: r.visit, hashtags: r.hashtags || [],
