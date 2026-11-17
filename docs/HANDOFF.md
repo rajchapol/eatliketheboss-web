@@ -19,6 +19,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+## 2026-11-17 (afternoon) · Old reviews batch D/F/G — 38 more old reviews published (the Boss approved)
+- Sources: the Boss's own Pantip topics (profile 732782; image comes before its dish text) or Google Docs in Drive "Article" (old eatlikethebossth.com is gone). Photos: Food(upload) packed from his Mac (`pack_photos_device.py`).
+- The Boss's calls this round: visit month = photo EXIF date when it disagrees with the post; blurred people/hands without a clear face are OK; bands count food incl. ++ but not wine; AD for Aimée, Chenin, Gaston, GranMonte; Cote's red (unconfirmed) parsnip millefeuille paragraph removed; Liana's two meals are one restaurant "Liana" (liana.md renamed from "Liana x Champagne Brice").
+- New cities: chiang-mai, khao-yai, pathum-thani.
+
 ## 2026-11-17 · Brand: signature icons (28, 1.0 line)
 - `public/img/brand/icons/*.svg`: cuisine ×9 (keys = cuisines.json), meta ×7, features ×12; currentColor, stroke 1.0 (the Boss's choice). Not wired yet: usage map in 03-web-design §0; preview `docs/handoff/signature-icons-preview.jpg`.
 

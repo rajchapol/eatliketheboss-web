@@ -19,7 +19,7 @@ gallery:
   - ./images/gaston/g04.jpg | เวทีดนตรีแสงสีน้ำเงินและโต๊ะอาหารในโซนใกล้วงดนตรี ร้าน Gaston กรุงเทพ | โซนใกล้วงดนตรี
 billBand: "฿฿"
 bill: ""
-tag: ""
+tag: "AD"
 visit: Feb-2024
 hashtags: [บอสพาชิม, eatliketheboss, Gaston, GrandHyattErawan, Bangkok]
 publishedAt: 2026-11-17

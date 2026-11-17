@@ -16,7 +16,7 @@ gallery:
   - ./images/chenin/g01.jpg | การ์ดชื่อ Eat like the boss ตั้งบนโต๊ะไม้ข้างแก้วไวน์ ร้าน Chenin กรุงเทพ | การ์ดต้อนรับบนโต๊ะ
 billBand: "฿฿"
 bill: ""
-tag: ""
+tag: "AD"
 visit: Jun-2025
 hashtags: [บอสพาชิม, eatliketheboss, CheninBKK, WineBar, NaturalWine, Bangkok]
 publishedAt: 2026-11-17

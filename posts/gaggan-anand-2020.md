@@ -15,7 +15,7 @@ cover: "./images/gaggan-anand-2020/cover.jpg | โต๊ะดำปูผ้า
 gallery:
   - ./images/gaggan-anand-2020/g01.jpg | ก้อนสีขาวทรงกลมโรยกลีบสีชมพูบนช้อนโลหะวางบนจานลายรัศมีสีทอง ร้าน Gaggan Anand กรุงเทพ
   - ./images/gaggan-anand-2020/g02.jpg | ขวดไวน์เรียงเป็นแถวบนเคาน์เตอร์ไม้สีเข้มในห้องอาหาร ร้าน Gaggan Anand กรุงเทพ
-billBand: "฿฿฿฿"
+billBand: "฿฿฿"
 bill: "~9500 baht (including wine pairing)"
 tag: ""
 visit: Jul-2020

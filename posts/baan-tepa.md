@@ -18,7 +18,7 @@ gallery:
 billBand: "฿฿฿"
 bill: "~4000 Baht"
 tag: ""
-visit: Feb-2020
+visit: Mar-2020
 hashtags: [บอสพาชิม, eatliketheboss, BaanTepa, Bangkok, FarmToTable]
 publishedAt: 2026-11-17
 seoTitle: "Baan Tepa Bangkok รีวิว Fine Dining ไทยร่วมสมัย 2020"

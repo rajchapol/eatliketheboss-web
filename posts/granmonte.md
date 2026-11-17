@@ -30,7 +30,7 @@ gallery:
   - ./images/granmonte/g15.jpg | แก้วชิมไวน์เรียงบนแผ่นกระดาษรองและเหยือกน้ำบนโต๊ะไม้ ที่ไร่ไวน์ GranMonte เขาใหญ่ | และแล้วก็มาถึงเวลาที่ทุกคนรอคอย เวลาของการชิมไวน์ครับ
 billBand: ""
 bill: ""
-tag: ""
+tag: "AD"
 visit: Oct-2024
 hashtags: [บอสพาชิม, eatliketheboss, GranMonte, KhaoYai, Winery]
 publishedAt: 2026-11-17

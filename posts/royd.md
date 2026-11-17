@@ -17,7 +17,7 @@ gallery:
 billBand: "฿฿฿"
 bill: "3,590++ (8 คอร์ส)"
 tag: ""
-visit: Sep-2025
+visit: Nov-2025
 hashtags: [บอสพาชิม, eatliketheboss, Royd, หรอย, SouthernThai, Phuket]
 publishedAt: 2026-11-17
 seoTitle: "Royd Phuket รีวิว Southern Thai Tasting Menu | บอสพาชิม"

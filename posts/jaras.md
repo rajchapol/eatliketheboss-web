@@ -18,7 +18,7 @@ gallery:
 billBand: "฿฿"
 bill: ""
 tag: "AD"
-visit: Apr-2026
+visit: May-2026
 hashtags: [บอสพาชิม, eatliketheboss, Jaras, InterContinentalPhuket, Phuket, SouthernThaiFood, SustainableDining]
 publishedAt: 2026-11-17
 seoTitle: "Jaras Phuket รีวิว Fine Dining อาหารปักษ์ใต้ | บอสพาชิม"

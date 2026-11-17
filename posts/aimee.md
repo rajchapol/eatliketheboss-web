@@ -18,7 +18,7 @@ gallery:
   - ./images/aimee/g02.jpg | ตะกร้าขนมปังบาแกตและเนยก้อนบนโต๊ะไม้ ร้าน Aimée Petit Bistro รังสิต | ขนมปังและเนย
 billBand: "฿฿"
 bill: "650 - 850 THB++ per set"
-tag: ""
+tag: "AD"
 visit: Nov-2025
 hashtags: [บอสพาชิม, eatliketheboss, AimeePetitBistro, NovotelRangsit, FrenchCuisine, Rangsit]
 publishedAt: 2026-11-17

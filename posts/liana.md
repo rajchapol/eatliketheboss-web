@@ -6,7 +6,7 @@ slug: liana
 tagline: "เถาวัลย์แห่งรสที่เติบโตเต็มกิ่ง"
 city: bangkok
 restaurant:
-  name: "Liana x Champagne Brice"
+  name: "Liana"
   chef: "Warat Areerom & Soohyun Lee"
   cuisine: "French"
   style: "Contemporary"

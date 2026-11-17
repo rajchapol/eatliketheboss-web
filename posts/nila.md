@@ -14,10 +14,10 @@ restaurant:
 cover: "./images/nila/cover.jpg | กุ้งย่างเครื่องเทศบนจานลายกระเบื้องสีน้ำเงินข้างมะเขือเทศย่าง ร้าน Nila กรุงเทพ"
 gallery:
   - ./images/nila/g01.jpg | ปกเมนูสีน้ำเงินเข้มสลักชื่อร้านบนโต๊ะในห้องอาหาร ร้าน Nila กรุงเทพ | Menu
-billBand: "฿฿"
+billBand: "฿฿฿"
 bill: "~2,999 THB"
 tag: "AD"
-visit: Apr-2024
+visit: May-2024
 hashtags: [บอสพาชิม, eatliketheboss, Nila, AmariWatergate, Bangkok]
 publishedAt: 2026-11-17
 seoTitle: "Nila Bangkok รีวิวอาหารอินเดียสไตล์ Goan ที่ Amari Watergate"
