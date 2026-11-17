@@ -3,7 +3,7 @@ language: th
 series: review
 title: "Mezzaluna (Bangkok, Thailand)"
 slug: mezzaluna-2021
-tagline: ""
+tagline: "ห้องอาหารที่มีความพิเศษในใจผมอยู่เสมอ"
 city: bangkok
 restaurant:
   name: "Mezzaluna"
