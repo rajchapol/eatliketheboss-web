@@ -1,6 +1,7 @@
 ---
 // Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances every 5 s (pauses on touch/hover).
 import Icon from './Icon.astro';
+import { cuisineIcon } from '../lib/config';
 import Photo from './Photo.astro';
 import { articleUrl, visitIso, visitLabel, getSettings, numLabel, numKicker } from '../lib/content';
 import type { Article } from '../lib/types';
@@ -29,7 +30,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
               {a.city && <span class="badge badge-light"><Icon name="pin" size={14} style="color:#c39e5c" />{a.city.nameEn}</span>}
               <span class="badge badge-light"><Icon name="calendar" size={14} style="color:#c39e5c" />Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
-              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name="cuisine" size={14} style="color:#c39e5c" />{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
+              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name={cuisineIcon(a.restaurant.cuisine)} size={16} style="color:#c39e5c" />{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
               {a.dishes.some((d) => d.glassesOff) && <span class="badge badge-dark"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
             </p>
             <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>

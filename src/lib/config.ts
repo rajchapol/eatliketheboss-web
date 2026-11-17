@@ -151,3 +151,9 @@ export function regionOf(c: { region?: string; country?: string }): RegionKey {
   if (c.region && c.region !== 'other' && REGIONS.some((r) => r.id === c.region)) return c.region as RegionKey;
   return 'other';
 }
+
+/** Signature cuisine icon for a broad category (Icon.astro: cuisine-<key>). */
+export const cuisineIcon = (cat?: string) => {
+  const k = (cat || '').toLowerCase();
+  return (['japanese','chinese','thai','french','italian','spanish','nordic','modern'].includes(k) ? `cuisine-${k}` : 'cuisine-other') as 'cuisine-other';
+};

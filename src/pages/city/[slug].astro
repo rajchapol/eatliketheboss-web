@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.astro';
 import Photo from '../../components/Photo.astro';
 import CityCover from '../../components/CityCover.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { motifOf } from '../../lib/config';
+import { motifOf, cuisineIcon } from '../../lib/config';
 import { getCities, getArticles, articleUrl, groupByRestaurant, cityPicks, visitsOf, visitIso, visitLabel, visitYear, capsuleUrl, numLabel } from '../../lib/content';
 import { breadcrumbs } from '../../lib/seo';
 import type { City } from '../../lib/types';
@@ -80,7 +80,7 @@ const chip = "display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-h
     {groups.length > 1 && (
       <div role="group" aria-label="กรองตามประเภทอาหาร" class="sm-scroll" style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:20px">
         <button type="button" class="chip" data-cu="" aria-pressed="true" style={chip}>ทั้งหมด<span style="font-size:12px;opacity:.75">{restaurants.length}</span></button>
-        {groups.map((g) => <button type="button" class="chip" data-cu={g.name} aria-pressed="false" style={chip}><Icon name="cuisine" size={16} />{g.name}<span style="font-size:12px;opacity:.75">{g.rows.length}</span></button>)}
+        {groups.map((g) => <button type="button" class="chip" data-cu={g.name} aria-pressed="false" style={chip}><Icon name={cuisineIcon(g.name)} size={18} />{g.name}<span style="font-size:12px;opacity:.75">{g.rows.length}</span></button>)}
       </div>
     )}
     <div class="rule"></div>
