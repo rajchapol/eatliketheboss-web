@@ -16,6 +16,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## 2026-11-17 · Brand: per-page share images, sharper logo timeline
+- `public/img/og/og-{review,history,drinks,restaurants,destinations,awards,about,contact}.jpg` (1200×630, text inside the centre 560 px). Not wired yet: pass `image` to `Base.astro` on those pages (03-web-design §0). City pages: spec for an `og.ts` image in the same note.
+- `public/img/brand/history/`: 2018, 2021 (Eat Like The BOSS), 2024 and 2026 replaced with crisp originals from the brand Drive (same names, 480 px).
+- Design System "บอสพาชิม" and Manual V5: series colours/names, magazine numerals, In This Issue checkerboard, 4:5 awards cards, the 10 Nov photo rule, header/nav.
+
 ## 2026-11-17 · History card year field + Ep.23 cover hand-off
 - New optional article field `eventYear` ("Year on card · ปีบนการ์ด", history/drinks only): cards show it before falling back to the 4-digit year at the end of the slug. Set for Ep.26 (`206 BC`) and Ep.27 (`961`). Wired through Studio schema, GROQ (`content.ts`), `types.ts`, `post-article.mjs` (+ `--since` map), `pull-articles.mjs`, `_template.md`.
 - Checked repeat visits (Sühring 2018/2021/2026): working as designed — prev/next on each review + time capsule `/restaurant/bangkok/suhring/` lists all three.
