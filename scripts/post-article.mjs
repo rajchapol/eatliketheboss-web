@@ -61,6 +61,20 @@ const smallPhotos = [];
 const sharp = await import('sharp').then((m) => m.default).catch(() => null); // size check only
 // Cover = landscape only (the Boss, 10 Nov 2026): it is the card, slider and share photo, always shown 3:2.
 const coverProblems = [];
+// Sanity refuses too many uploads at once ("Too many in-flight requests"): at most 3 at a time, retry on 429.
+let inFlight = 0; const waiting = [];
+async function limitUpload(fn) {
+  while (inFlight >= 3) await new Promise((r) => waiting.push(r));
+  inFlight++;
+  try {
+    for (let attempt = 0; ; attempt++) {
+      try { return await fn(); } catch (e) {
+        if (attempt >= 5 || !(e?.statusCode === 429 || /Too Many Requests/i.test(String(e?.message)))) throw e;
+        await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+      }
+    }
+  } finally { inFlight--; waiting.shift()?.(); }
+}
 async function upload(spec, { cover = false } = {}) {
   if (!spec) return undefined;
   const { path: p, alt, focus, zoom } = typeof spec === 'string' ? parseImageSpec(spec) : { path: spec.path, alt: spec.alt };
@@ -75,7 +89,7 @@ async function upload(spec, { cover = false } = {}) {
   }
   if (dry) return { _type: 'image', asset: { _ref: `(upload ${p})` }, alt, ...fit };
   const buf = p.startsWith('http') ? Buffer.from(await (await fetch(p)).arrayBuffer()) : readFileSync(resolve(base, p));
-  const asset = await client.assets.upload('image', buf, { filename: basename(p) });
+  const asset = await limitUpload(() => client.assets.upload('image', buf, { filename: basename(p) }));
   return { _type: 'image', asset: { _type: 'reference', _ref: asset._id }, alt, ...fit };
 }
 
