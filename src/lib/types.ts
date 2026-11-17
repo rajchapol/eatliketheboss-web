@@ -54,6 +54,8 @@ export interface Article {
   slug: string;
   title: string; // full title, e.g. "บอสพาชิม in Tokyo: ร้าน (ชื่อเดิม) - คำโปรย"
   tagline?: string;
+  /** Year shown on history/drinks cards when the slug has no 4-digit year (e.g. "206 BC", "961"). */
+  eventYear?: string;
   city?: City;
   restaurant?: Restaurant;
   episode?: number; // มื้ออาหารเปลี่ยนโลก Ep.

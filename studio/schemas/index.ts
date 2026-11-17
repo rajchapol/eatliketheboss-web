@@ -92,6 +92,9 @@ export const article = defineType({
           return !(await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('count(*[_type == "article" && slug.current == $slug && coalesce(language, "th") == $lang && !(_id in [$id, "drafts." + $id])])', { slug, lang: ctx.document?.language || 'th', id }));
         } }, validation: (r) => r.required() }),
     defineField({ name: 'tagline', title: 'Tagline · คำโปรย', type: 'string', group: 'main' }),
+    defineField({ name: 'eventYear', title: 'Year on card · ปีบนการ์ด', type: 'string', group: 'main',
+      description: 'มื้ออาหารเปลี่ยนโลก/บอสพาดื่ม: ปีที่แสดงบนการ์ด เช่น 206 BC, 961 ปล่อยว่าง = ใช้ปีท้าย slug (…-1671)',
+      hidden: ({ document }) => (document?.series || 'review') === 'review' }),
     defineField({ name: 'city', title: 'City · เมือง', type: 'reference', to: [{ type: 'city' }], group: 'main',
       hidden: ({ document }) => document?.series === 'history', validation: (r) => r.custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องเลือกเมือง' : true)) }),
     defineField({ name: 'restaurant', title: 'Restaurant · ร้าน', type: 'object', group: 'main', hidden: ({ document }) => document?.series !== 'review',

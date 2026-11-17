@@ -5,6 +5,7 @@ series: review          # review | history | drinks
 title: "บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรยเชิงศิลปะ"
 slug: restaurant-name   # อังกฤษตัวเล็ก คั่นด้วย - ตั้งแล้วห้ามเปลี่ยน
 tagline: "คำโปรยเชิงศิลปะ"
+# eventYear: "206 BC"   # history/drinks only: year on the card when the slug has no 4-digit year
 city: tokyo             # slug ของเมืองใน Sanity
 # เฉพาะเมืองที่ยังไม่มีใน Sanity · city: ต้องเป็นชื่อเมืองอังกฤษอย่างเดียว (เช่น kyoto, san-sebastian)
 # fact = เรื่องจริงที่แปลกและน่าสนใจของเมือง 1 เรื่อง ภาษาอังกฤษ 1–2 ประโยค ตรวจจากแหล่งจริง (บังคับ แสดงใต้ "Did you know?")
