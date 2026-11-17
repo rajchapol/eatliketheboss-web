@@ -2,14 +2,15 @@
  "slug": "spectrum",
  "candidates": [
   {
-   "th": "เรียกว่าเราเกือบคลานกันออกจากร้านเพราะเชฟจัดเต็มมาก",
-   "en": "We nearly crawled out of the restaurant because the chef went all out.",
+   "th": "เรียกว่าเราเกือบคลานกันออกจากร้านเพราะเชฟจัดเต็มมาก โดยเราใช้เวลาในมื้อนี้ถึงเกือบห้าชั่วโมงเลยทีเดียว",
+   "en": "We nearly crawled out of the restaurant because the chef went all out, and this meal took us almost five hours.",
    "from": "intro"
   },
   {
-   "th": "ขนมปังและเนยทำเองจากนมวัวและนมแพะ ซึ่งอร่อยแสงออกปาก ไม่คาวแต่นุ่มมันและหอมมาก",
-   "en": "The bread and butter, made in-house from cow's milk and goat's milk, were delicious beyond words: not gamey, but soft, rich and very fragrant.",
+   "th": "Sommelier ที่นี้มีความรู้สูงมาก และสามารถแนะนำไวน์หรือเครื่องดื่มอื่นๆได้เป็นอย่างดี",
+   "en": "the sommelier here is extremely knowledgeable and recommends wines and other drinks very well.",
    "from": "intro"
   }
- ]
+ ],
+ "weak": true
 }

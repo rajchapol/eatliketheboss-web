@@ -1,3 +1,16 @@
-{"slug":"les-amis-2020","candidates":[
-{"th":"อาจจะไม่มีคอมบิเนชั่นที่ว้าวมากนักหรือรู้สึกเซอร์ไพรส์ทุกจานแบบร้านอาหาร Innovative ใหม่ๆ แต่ทุกจานกลมกล่อม ยอดเยี่ยมเพอร์เฟ็กต์แม้จะวัดด้วยมาตรฐานระดับสูงที่สุด","en":"There may not be a combination that wows, or a surprise in every dish as at the newer Innovative restaurants, but every dish is well rounded and excellent, perfect even by the highest standards.","from":"intro"},
-{"th":"คำนี้แป้งบางกรอบมากครับ รสอ่อนๆเปรี้ยวนำ ตามด้วยความหวานอุมามิของล็อปสเตอร์มูสเนื้อเนียน","en":"The pastry in this bite is very thin and crisp, with sourness leading, followed by the sweet umami of the smooth lobster mousse.","from":"Amuse Bouche Tartlet"}]}
+{
+ "slug": "les-amis-2020",
+ "candidates": [
+  {
+   "th": "ทุกจานกลมกล่อม ยอดเยี่ยมเพอร์เฟ็กต์แม้จะวัดด้วยมาตรฐานระดับสูงที่สุด",
+   "en": "Every dish is well rounded and excellent, perfect even by the highest standards.",
+   "from": "intro"
+  },
+  {
+   "th": "การบริการที่ยอดเยี่ยม โดยเฉพาะซอมเมอริเย่ผู้แนะนำไวน์ที่ไม่แพงมากแต่มีคุณภาพสูงและเข้ากับอาหารได้อย่างเพอเฟ็กต์",
+   "en": "The service was excellent, especially the sommelier, who recommended wines that were not very expensive but of high quality and matched the food perfectly.",
+   "from": "intro"
+  }
+ ],
+ "weak": false
+}

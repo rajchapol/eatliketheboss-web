@@ -1,15 +1,1 @@
-{
- "slug": "fu-he-hui",
- "candidates": [
-  {
-   "th": "Fu He Hui ถือเป็นPinnacle ของอาหารมังสวิรัติในฝั่งโลกตะวันออกอย่างแท้จริง",
-   "en": "Fu He Hui is truly the pinnacle of vegetarian cooking in the Eastern world.",
-   "from": "intro"
-  },
-  {
-   "th": "ร้านนี้กล้าที่จะหยิบเอา \"ผัก\" ซึ่งมักถูกมองข้ามในจานอาหาร มาสร้างสรรค์ผสมผสานอย่างลงตัวจนเกิดเป็นศิลปะแห่งรสชาติที่มีความซับซ้อน หรูหรา",
-   "en": "It dares to take the \"vegetable\", so often overlooked on the plate, and weave it into an art of flavour that is complex and luxurious.",
-   "from": "intro"
-  }
- ]
-}
+{"slug": "fu-he-hui", "candidates": [{"th": "Fu He Hui ถือเป็นPinnacle ของอาหารมังสวิรัติในฝั่งโลกตะวันออกอย่างแท้จริง", "en": "Fu He Hui is truly the pinnacle of vegetarian cooking in the Eastern world.", "from": "intro"}, {"th": "โดยรวมนี่คือมื้ออาหารที่คู่ควรแก่การเดินทางมาสัมผัสสักครั้ง", "en": "Overall this is a meal well worth the journey to experience at least once.", "from": "intro"}], "weak": false}

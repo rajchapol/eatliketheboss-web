@@ -2,14 +2,15 @@
  "slug": "moliere-2019",
  "candidates": [
   {
-   "th": "จานนี้ประทับใจมากๆครับเสิร์ฟมาในอุณหภูมิที่ร้อนไม่อุ่นแต่ไม่ลวกปาก",
-   "en": "This dish impressed me enormously. It was served hot but not scalding.",
-   "from": "Shiitake Consommé"
+   "th": "ตรงนี้เป็นอีกอย่างที่แสดงถึงความเป็นมืออาชีพขั้นสูงสุด และความเก๋าของทีมบริการส่วนหน้าของร้าน Moliereครับ",
+   "en": "This, too, shows the highest level of professionalism and the seasoned experience of Molière's front-of-house team.",
+   "from": "intro (service)"
   },
   {
-   "th": "มันเป็นจานที่ดูเรียบง่ายมากๆ แต่ว่ามันน่าจะเป็นซุปเห็ดที่อร่อยที่สุดในชีวิตของผม",
-   "en": "It looks very simple, but it may well be the most delicious mushroom soup of my life.",
-   "from": "Shiitake Consommé"
+   "th": "หากผมมีโอกาสกลับมายังSapporo ร้านนี้ก็ยังคงเป็นหนึ่งตัวเลือกในใจของผมแน่นอน",
+   "en": "If I have the chance to return to Sapporo, this restaurant will certainly remain one of my choices.",
+   "from": "intro (value/return)"
   }
- ]
+ ],
+ "weak": false
 }

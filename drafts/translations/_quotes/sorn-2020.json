@@ -2,14 +2,15 @@
  "slug": "sorn-2020",
  "candidates": [
   {
-   "th": "Sorn เป็นหนึ่งในร้านอาหารที่ดีที่สุดในประเทศสำหรับผมอย่างไม่ต้องสงสัย และมีมาตรฐานสมฐานะสองดาวทุกประการ",
-   "en": "Sorn is without doubt one of the best restaurants in the country for me, and its standards fully match its two-star status.",
+   "th": "สรุปง่ายๆ Sorn เป็นหนึ่งในร้านอาหารที่ดีที่สุดในประเทศสำหรับผมอย่างไม่ต้องสงสัย และมีมาตรฐานสมฐานะสองดาวทุกประการ",
+   "en": "In short, Sorn is without doubt one of the best restaurants in the country for me, and its standards fully match its two-star status.",
    "from": "intro"
   },
   {
-   "th": "ปลาเกล็ดกรอบเนื้อฟูนุ่มไม่แพ้ร้านไคเซกิดังของญี่ปุ่น เป็นแกงส้มในอุดมคติของผมครับ",
-   "en": "The scaly fish is crisp, with soft, fluffy flesh no worse than a famous kaiseki restaurant in Japan. It is my ideal sour curry.",
-   "from": "แกงส้มปลาทราย 🕶️"
+   "th": "อาหารเกือบยี่สิบอย่าง ทุกคนในโต๊ะอิ่มแบบแทบคลานกลับบ้าน ถ้าเทียบความพยายามในการนำเสนอ เทคนิค และคุณภาพวัตถุดิบ ผมว่าคุ้มมากๆ",
+   "en": "Nearly twenty dishes, and everyone at the table was so full we could almost crawl home. Judged by the effort in presentation, the technique and the quality of the ingredients, I think it is very good value.",
+   "from": "intro"
   }
- ]
+ ],
+ "weak": false
 }

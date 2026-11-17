@@ -1,1 +1,16 @@
-{"slug":"kanda","candidates":[{"th":"อย่าให้การแต่งจานอันสวยงามมาหลอกคุณ อาหารจานนี้แสดงถึงปรัชญาความเรียบง่ายและความพอดีในจานอาหารของร้าน Kanda ได้แต่เริ่มต้น","en":"Don't let the beautiful plating fool you: this dish shows the restaurant's philosophy of simplicity and balance on the plate from the very start.","from":"หอยนางรมกับถั่วปากอ้า"},{"th":"รสของทั้งซอสและเนื้อปลามันดูขัดแย้งแต่ก็ลงตัวอย่างน่าประหลาด เรียกได้ว่าเป็นเหมือนสวนสนุกทางประสาทรับรส","en":"The sauce and the fish seem to contradict each other, yet they come together in a strangely perfect way. You could call it an amusement park for the taste buds.","from":"ซาชิมิปลาคาวาฮางิ"}]}
+{
+ "slug": "kanda",
+ "candidates": [
+  {
+   "th": "Kanda ถือเป็นร้านที่ได้มิชลินสตาร์สามดาวมาตลอดตั้งแต่ michelin guide เข้ามาในญี่ปุ่น ทำให้ผมคิดว่าร้านนี้ต้องมีอะไรดี",
+   "en": "Kanda has held three Michelin stars ever since the Michelin Guide arrived in Japan, which made me think the place must have something going for it.",
+   "from": "intro"
+  },
+  {
+   "th": "ความใส่ใจในรายละเอียดนั้นแสดงออกมาตั้งแต่ตรงนี้",
+   "en": "The attention to detail begins right here.",
+   "from": "intro"
+  }
+ ],
+ "weak": true
+}

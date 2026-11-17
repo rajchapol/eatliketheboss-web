@@ -2,14 +2,15 @@
  "slug": "r-haan",
  "candidates": [
   {
-   "th": "สำหรับคอร์สฉลองปีที่ 9 นี้ ส่วนตัวบอสขอยกให้เป็นความกลมกล่อมที่แสดงออกถึง Culinary Maturity ของเชฟชุมพลได้ยอดเยี่ยมที่สุดเท่าที่เคยทานมาครับ",
-   "en": "For this ninth-anniversary course, I personally rate it as the finest expression of the harmony and Culinary Maturity of Chef Chumpol that I have ever eaten.",
+   "th": "ส่วนตัวบอสขอยกให้เป็นความกลมกล่อมที่แสดงออกถึง Culinary Maturity ของเชฟชุมพลได้ยอดเยี่ยมที่สุดเท่าที่เคยทานมาครับ",
+   "en": "I personally rate it as the finest expression of the harmony and Culinary Maturity of Chef Chumpol that I have ever eaten.",
    "from": "intro"
   },
   {
-   "th": "แต่ความขมอ่อนๆ ของใบขี้เหล็ก กลับตัดความมันของวากิวได้อย่างลงตัว เป็นการจับคู่ที่ดีและสมดุลมาก",
-   "en": "the gentle bitterness of the cassia leaves cut the richness of the wagyu perfectly. A very good and balanced pairing.",
-   "from": "COURSE 5 | WISDOM OF WELLNESS (โบราณนานมา)"
+   "th": "บรรยากาศของร้านยังคงความคลาสสิก บริกรเนี้ยบกริบ ให้ความรู้สึกเหมือนการนั่งทาน Sit-down Dinner แบบตะวันตก",
+   "en": "The atmosphere remains classic, with immaculate service, and feels like a Western sit-down dinner.",
+   "from": "intro (atmosphere)"
   }
- ]
+ ],
+ "weak": false
 }

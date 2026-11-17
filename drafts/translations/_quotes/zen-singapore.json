@@ -1,3 +1,16 @@
-{"slug":"zen-singapore","candidates":[
-{"th":"จานนี้น่าจะเป็นขนมหวานที่บ้ามากที่สุดที่ผมได้กินในปีนี้จานนึง สุดยอดมากครับ","en":"This is probably one of the craziest desserts I have eaten this year. Superb.","from":"Sorbet (Salted carrot ice cream, Jin Xuan oolong, Vin de Paille)"},
-{"th":"ที่หากเทียบกับร้านพี่น้องอย่าง Villa Frantzen ในไทยแล้วผมว่าร้านนี้มีความเข้าใจง่าย และรสชาติถูกปากคนเอเชียมากกว่า","en":"Compared with its sister restaurant Villa Frantzén in Thailand, I find this place easier to understand and more to the taste of Asians.","from":"intro"}]}
+{
+ "slug": "zen-singapore",
+ "candidates": [
+  {
+   "th": "ในส่วนของการบริการก็ทำได้น่าประทับใจไม่แพ้กัน บริกรใจเย็น มีความเป็นมืออาชีพ แต่ทว่ายังคงความขี้เล่นที่เหมาะสม ทำให้เรารู้สึกผ่อนคลายและอบอุ่น",
+   "en": "The service is no less impressive: the servers are calm and professional, yet retain a fitting playfulness that leaves us feeling relaxed and warm.",
+   "from": "intro"
+  },
+  {
+   "th": "อาหารสแกนมักจะกินยากสำหรับผู้ไม่คุ้นเคย ที่หากเทียบกับร้านพี่น้องอย่าง Villa Frantzen ในไทยแล้วผมว่าร้านนี้มีความเข้าใจง่าย และรสชาติถูกปากคนเอเชียมากกว่า",
+   "en": "Scandinavian food is often hard going for the unfamiliar, but compared with its sister restaurant Villa Frantzén in Thailand, I find this place easier to understand and more to the taste of Asians.",
+   "from": "intro"
+  }
+ ],
+ "weak": false
+}

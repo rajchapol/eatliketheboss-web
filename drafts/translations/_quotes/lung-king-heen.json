@@ -2,14 +2,15 @@
  "slug": "lung-king-heen",
  "candidates": [
   {
-   "th": "แต่ยังคงปฏิเสธไม่ได้ว่า Lung King heen ยังคงเป็นร้านอาหารจีนที่ดีอันดับต้นของโลก",
-   "en": "And yet there is no denying that Lung King Heen remains one of the finest Chinese restaurants in the world.",
+   "th": "Lung King Heen ถือเป็นร้านอาหารประจำแห่งหนึ่งของผมที่มักจะแวะเวียนมาเยี่ยมเยือนเมื่อมาฮ่องกงอยู่เสมอ เพราะ ร้านอาหารระดับตำนานแห่งนี้ มีวิวที่ยอดเยี่ยม การบริการที่ยอดเยี่ยมยิ่งกว่า",
+   "en": "Lung King Heen is one of my regular restaurants, one I always drop in on whenever I am in Hong Kong, because this legendary restaurant offers a superb view, even better service.",
    "from": "intro"
   },
   {
-   "th": "ตัวเต้าหู้หวานหอมอร่อยมากไม่แพ้ร้านเต้าหู้ชื่อดังในญี่ปุ่น ตัวผักหวานกรอบสุดยอด",
-   "en": "The tofu was sweet, fragrant and delicious, every bit the equal of famous tofu shops in Japan, and the vegetable was wonderfully sweet and crisp.",
-   "from": "Asparagus in Bean Curd Skin"
+   "th": "ยังคงปฏิเสธไม่ได้ว่า Lung King heen ยังคงเป็นร้านอาหารจีนที่ดีอันดับต้นของโลก",
+   "en": "There is no denying that Lung King Heen remains one of the finest Chinese restaurants in the world.",
+   "from": "closing"
   }
- ]
+ ],
+ "weak": false
 }

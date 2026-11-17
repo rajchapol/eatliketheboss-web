@@ -2,14 +2,15 @@
  "slug": "smoked-room",
  "candidates": [
   {
-   "th": "เป็นซอสที่ซับซ้อน มีเอกลักษณ์ และมีเสน่ห์อย่างน่าประหลาด แต่ไม่ใช่ซอสสำหรับทุกคนแน่นอนครับ",
-   "en": "It is a complex sauce, distinctive and strangely charming, but certainly not a sauce for everyone.",
-   "from": "Charcoal-Aged Duck with Red Miso and Whiskey"
+   "th": "ส่วนตัวผมว่าที่นี่เป็นร้านที่ชูเรื่องการย่างและกลิ่นควัน แต่ไม่ได้เสิร์ฟมาแบบตรงๆ กลับผสมผสานและนำเสนอในรูปแบบที่ Innovative",
+   "en": "Personally, I think this is a restaurant that champions grilling and the aroma of smoke, but does not serve it head-on; instead it blends and presents it in an innovative form.",
+   "from": "intro"
   },
   {
-   "th": "เป็นจานที่ตอนกินยังงงๆ แต่ถามว่าอร่อยไหม อร่อย เป็นจานที่ดีแบบงงๆ ครับ",
-   "en": "It is a dish that still puzzles me as I eat it, but is it delicious? Yes. A good dish, in a puzzling way.",
-   "from": "Aburi Mackerel and Dashi Tomato"
+   "th": "ราคาถือว่าค่อนข้างโอเคกับวัตถุดิบที่ได้และจำนวนจาน แม้จะรู้สึกหนักจากกลิ่นควัน แต่รสชาตินั้นกลับเบาและรับประทานง่ายครับ",
+   "en": "The price is fairly reasonable for the ingredients and the number of dishes. Although the smoke aroma feels heavy, the flavours are in fact light and easy to eat.",
+   "from": "intro (value)"
   }
- ]
+ ],
+ "weak": false
 }
