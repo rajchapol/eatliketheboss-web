@@ -31,6 +31,7 @@ hashtags: [บอสพาชิม, eatliketheboss, OryouriFujii, Toyama, ไ�
 publishedAt: 2026-11-10
 seoTitle: "Oryouri Fujii โทยามะ ไคเซกิสองดาวมิชลิน | บอสพาชิม"
 seoDescription: "บอสพาชิมไป Oryouri Fujii ในย่านท่าเรือเก่าอิวาเสะ โทยามะ ไคเซกิรสเกียวโตที่ใช้ดาชิเป็นแกน ตั้งแต่ชิโรเอบิ ปลาอายุจินซู ไปจนถึงข้าวโพด"
+quote: "สำหรับผมอาหารที่นี่รสอ่อนแบบเกียวโต แต่ลึกครับ"
 ---
 Oryouri Fujii (御料理ふじ居) คือร้านอาหารญี่ปุ่นของเชฟ Hironori Fujii (藤井寛徳) ตั้งอยู่ย่าน Higashi-Iwase ย่านเมืองเก่าริมท่าเรือที่เงียบสงบของเมืองโทยามะ ร้านได้สองดาวจาก MICHELIN Guide Hokuriku 2021 Special Edition ได้ Tabelog Award ระดับ Silver ต่อเนื่องปี 2024–2026 และติดรายชื่อ Destination Restaurants 2023 ของ The Japan Times ด้วยครับ
 

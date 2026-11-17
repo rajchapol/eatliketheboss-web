@@ -18,6 +18,12 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+## 2026-11-17 · Boss quotes on 12 feature articles + 5 English reviews
+- `quote:` added to 12 posts (hajime, dill, kadeau, leffervescence, florilege, sorn-2024, suhring, goat, oryouri-fujii, numata-sou, small-dinner-club, fu-he-hui). Each is a sentence lifted verbatim from the Boss's own article (only spaces added between Thai and Latin words); it shows as the pull quote. Re-post sends only the changed field (`--since`).
+- New English translations (Boss's critic voice, names untranslated, real prices kept out of the text where the Thai had none): `sorn-2024.en.md`, `suhring.en.md`, `kadeau.en.md`, `leffervescence.en.md`, `florilege.en.md`, each with an English `quote`, seoTitle ≤ 60, description 120–155. All dry-run clean; merging the PR publishes them via post-article.yml.
+- Not done: Google indexing (Search Console daily quota was used up on 16–17 Nov). Next to request: logy, Yong Fu, Suhring, Sorn 2020, Sushi Namba Hibiya, Kiyama, Ao, Ginza Koara, then the new `/en/` pages.
+- Next translations to consider: hajime, dill, goat, nusara-2025, pru-jampa.
+
 ## Session 2026-11-17 · full bug sweep + small upgrades
 - Swept all 211 sitemap pages at 390 px (and the templates + a sample of articles at 1440): no console/JS errors, no failed requests, no broken images, no sideways overflow, one `<h1>` per page, no missing alt. Static check of `dist/`: every internal link resolves, every og:image exists, all JSON-LD parses, no duplicate titles; descriptions 70–160 chars (the only duplicate is the noindex 404 page).
 - Fixed: review titles said the name twice or ran long when the restaurant name carries its original script ("Sushi Namba Hibiya (鮨 なんば 日比谷): Sushi Namba Hibiya …", 98 chars) or punctuation differs ("Kwantip - Samrub…" vs "Kwantip Samrub…"). `pageTitle` now uses the name without the bracketed original, drops the name from the front of the Meta title whatever its punctuation, drops a leading bracket, and keeps a Meta title's own colon instead of adding a second one. Longest title now ~76 chars (English, written with "Review").
