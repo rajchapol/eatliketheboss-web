@@ -10,6 +10,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 3★"]
+quote: "ไม่ต้องสงสัยเลยว่าHajimeในโอซาก้าเป็นหนึ่งในร้านอาหารฝรั่งเศสที่ดีที่สุดในญี่ปุ่นหรืออาจจะในโลกเลยก็ว่าได้"
 cover: "./images/hajime/cover.jpg | จานซิกเนเจอร์ของ Hajime ร้านฝรั่งเศสมิชลินสามดาว โอซาก้า จานผักบนจานกลมสีน้ำเงิน มีก้อนขาวตรงกลาง"
 bill: "~70,000 Yen"
 billBand: "฿฿฿฿"

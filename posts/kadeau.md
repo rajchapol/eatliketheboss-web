@@ -15,6 +15,7 @@ restaurant:
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN 2★", "MICHELIN Green Star"]
+quote: "เป็นอีกหนึ่งร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย"
 cover: "./images/kadeau/cover.jpg | เมนูเล่มสีดำของร้าน Kadeau วางบนโต๊ะไม้ โคเปนเฮเกน"
 bill: "~5100 DKK"
 billBand: "฿฿฿฿"

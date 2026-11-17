@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kappo"
   awards: ["MICHELIN 3★"]
+quote: "ถ้าอยากจะพาใครที่ไม่เคยกินอาหารญี่ปุ่นดีๆเลย ผมก็จะแนะนำให้พามาที่ร้านนี้ครับ"
 cover: "./images/hanakoji-sawada/cover.jpg | มะเขือม่วงย่างสอดไส้มิโซะท็อปอูนิในชามเซรามิกสีเขียว ร้าน Hanakoji Sawada เมืองซัปโปโร"
 bill: "~17,000 Yen"
 billBand: "฿฿฿"

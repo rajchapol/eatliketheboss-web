@@ -10,6 +10,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "ผมเชื่อว่าทุกคนสามารถสนุกไปกับอาหารของFlorilege ได้อย่างไม่ยาก"
 cover: "./images/florilege/cover.jpg | หมูย่างเสิร์ฟบนจานขาวกับซอสไวน์แดงเข้มและของเคียงชิ้นเล็ก ร้าน Florilège เมืองโตเกียว"
 bill: "~9000 Yen"
 billBand: "฿฿"

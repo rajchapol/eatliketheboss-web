@@ -12,6 +12,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "All this white sets off the colourful food at the heart of the chef's cooking beautifully."
 cover: "./images/restaurant-a/cover.jpg | Green tart topped with white foam, beside a beef-wrapped bite on a metal skewer garnished with a purple flower, on a white porcelain stand, Restaurant A, Taipei | focus=0.5,0.55 | zoom=1.2"
 billBand: "฿฿฿"
 visit: Apr-2026

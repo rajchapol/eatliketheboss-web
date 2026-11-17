@@ -9,6 +9,7 @@ restaurant:
   chef: "Yoshiharu Makimura"
   cuisine: "Japanese"
   awards: ["MICHELIN 3★"]
+quote: "โดยส่วนตัวร้านนี้มีคุณภาพในระดับสูงที่สุดในบรรดาร้านซูชิที่เคยทานมา และแตกต่างสมฐานะร้านสามดาวจริงๆ"
 cover: "./images/sushi-shikon/cover.jpg | ปลาคาสึโอะรนไฟกับอูนิที่ Sushi Shikon ฮ่องกง"
 bill: "~3500 HKD ต่อคน"
 billBand: "฿฿฿฿"

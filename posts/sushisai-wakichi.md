@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Sushi"
   awards: ["MICHELIN 2★"]
+quote: "Wakichi เป็นร้านที่จองไม่ยากมากนัก ราคาไม่สูงมากนักในยุคสมัยนี้ราว 36,000เยนและมีคุณภาพที่ดีเหมาะสมกับราคาครับ"
 cover: "./images/sushisai-wakichi/cover.jpg | คินเมไดย่างถ่านเสิร์ฟกับไดกอนโอโรชิและซอสพอนซึในจานเซรามิก ร้าน Sushisai Wakichi เมืองซัปโปโร"
 bill: "~36,000 Yen"
 billBand: "฿฿฿฿"

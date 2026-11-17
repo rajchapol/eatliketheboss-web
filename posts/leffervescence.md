@@ -11,6 +11,7 @@ restaurant:
   cuisine: "French"
   style: "Japanese-influenced"
   awards: ["MICHELIN 3★", "MICHELIN Green Star"]
+quote: "L’Effervescence เป็นหนึ่งในมื้ออาหารที่ผมกินและมีความสุขไปทั้งวัน"
 cover: "./images/leffervescence/cover.jpg | อกเป็ดย่างเนื้อสีชมพูกับซอสพอร์ตไวน์สีเข้มและผักภูเขา บนจานสีขาว ร้าน L'Effervescence โตเกียว"
 bill: "~65000 yen"
 billBand: "฿฿฿฿"

@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Cantonese"
   awards: ["MICHELIN 3★"]
+quote: "ถ้าใครอยากหา Dimsum ดีๆ สักมื้อในเวลากลางวัน Forum นับเป็นตัวเลือกที่ไม่เลวครับ"
 cover: "./images/forum/cover.jpg | ฮะเก๋ากุ้งแป้งใสสี่ลูกในเข่งไม้ไผ่ ร้าน Forum ฮ่องกง | focus=0.57,0.43 | zoom=1.16"
 bill: "~2,200 HKD included wine"
 billBand: "฿฿฿฿"

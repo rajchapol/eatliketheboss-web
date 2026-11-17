@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Cantonese"
   awards: ["MICHELIN 3★"]
+quote: "การตกแต่งนั้นสุดยอดจริงๆแม้จะเทียบกับร้านอาหารระดับเดียวกัน บรรยากาศในร้านนี้สำหรับผมนับเป็นที่ๆพิเศษจริงๆ"
 cover: "./images/le-palais/cover.jpg | ซุปเป๋าฮื้อและหัวไชเท้ายัดไส้กังป๋วยในน้ำซุปสีอำพัน ในชามกระเบื้องขาวลายดอกไม้ ร้าน Le Palais ไทเป"
 bill: "~4980 TWD ++"
 billBand: "฿฿฿"

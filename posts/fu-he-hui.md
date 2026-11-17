@@ -12,6 +12,7 @@ restaurant:
   cuisine: "Chinese"
   style: "Vegetarian"
   awards: ["MICHELIN 2★", "Black Pearl 2 Diamond", "Asia's 50 Best Restaurants"]
+quote: "Fu He Hui ถือเป็นPinnacle ของอาหารมังสวิรัติในฝั่งโลกตะวันออกอย่างแท้จริง"
 cover: "./images/fu-he-hui/cover.jpg | ซุปเห็ดสีน้ำตาลใสมีไอร้อนลอยขึ้น เห็ดไมตาเกะกองกลางชาม โรยต้นหอมซอย ในจานเซรามิกสีเทาเข้ม ร้าน Fu He Hui เซี่ยงไฮ้"
 bill: "988CNY+298CNY(Tea pairing)"
 billBand: "฿฿฿"

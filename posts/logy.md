@@ -17,6 +17,7 @@ restaurant:
   cuisine: "Modern"
   style: "Innovative"
   awards: ["MICHELIN 2★", "Asia's 50 Best Restaurants"]
+quote: "สำหรับผม Combination ของ logy นั้นดูจะลงตัวกว่า น่าสนใจกว่า และผสมกลิ่นอายจีนกับญี่ปุ่นได้อย่างลงตัว"
 cover: "./images/logy/cover.jpg | ถั่วลันเตาเขียวสด ครีมสีเขียว ดอกโบราจสีม่วง กรานิต้าสีขาวและสีเขียวอ่อน บนจานสีครีม ร้าน logy ไทเป"
 billBand: "฿฿฿"
 visit: Apr-2026

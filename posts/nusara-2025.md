@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Thai"
   style: "Contemporary"
   awards: ["MICHELIN 1★", "Asia's 50 Best Restaurants"]
+quote: "เป็นบทสรุปของมื้ออาหารที่เต็มไปด้วยความคิดสร้างสรรค์และรสชาติอันน่าประทับใจอย่างแท้จริง"
 cover: "./images/nusara-2025/cover.jpg | ยอดเจดีย์วัดสีทองยามพลบค่ำเห็นจากดาดฟ้าร้าน Nusara กรุงเทพฯ"
 tag: "Event"
 billBand: "฿฿฿฿"

@@ -11,6 +11,7 @@ restaurant:
   cuisine: "French"
   style: "Contemporary"
   awards: ["MICHELIN 3★"]
+quote: "อีกจุดเด่นที่ควรกล่าวถึงสำหรับ Odette คือการบริการ ที่แสนจะมีชีวิตชีวาและใส่ใจของทางร้าน และ Odette ถือเป็น benchmark ระดับโลก สำหรับผม"
 cover: "./images/odette/cover.jpg | ทาร์ตสตรอว์เบอร์รีแต่งครีมทรงกลมสีขาวและผิวส้มญี่ปุ่น บนจานสีขาวใบใหญ่ ร้าน Odette สิงคโปร์"
 bill: "~348++ SGD /pax"
 billBand: "฿฿฿฿"

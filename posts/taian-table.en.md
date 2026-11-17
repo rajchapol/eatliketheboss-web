@@ -11,6 +11,7 @@ restaurant:
   cuisine: "Modern"
   style: "Innovative"
   awards: ["MICHELIN 3★"]
+quote: "Taian Table is a powerful fine dining experience, brimming with high-level technique. Holding three Michelin stars for so long is no accident."
 cover: "./images/taian-table/cover.jpg | Spiced éclair filled with foie gras mousse, topped with pistachios, purple shiso leaves and a chocolate disc, on a white ceramic base, Taian Table, Shanghai | focus=0.5,0.42 | zoom=1.4"
 bill: "2888 CNY / Pax"
 visit: Jan-2026

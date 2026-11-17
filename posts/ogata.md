@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Kaiseki"
   awards: ["MICHELIN 2★"]
+quote: "ต้องยอมรับว่าอาหารของเชฟโอกาตะ นั้นมีเอกลักษณ์และสไตล์เฉพาะตัวจริงๆ และทำออกมาได้ยอดเยี่ยมมากๆ"
 cover: "./images/ogata/cover.jpg | อุนิวางบนสาหร่ายในจานลายสีสันสดใส ร้าน Ogata Honten เมืองเกียวโต"
 bill: "~60000 Yen"
 billBand: "฿฿฿฿"

@@ -8,6 +8,7 @@ restaurant:
   name: "Lung King Heen"
   cuisine: "Chinese"
   awards: ["MICHELIN 3★"]
+quote: "ยังคงปฏิเสธไม่ได้ว่า Lung King heen ยังคงเป็นร้านอาหารจีนที่ดีอันดับต้นของโลก"
 cover: "./images/lung-king-heen/cover.jpg | หมูแดงบาร์บีคิวที่ Lung King Heen ฮ่องกง"
 billBand: "฿฿฿"
 visit: Jul-2018
