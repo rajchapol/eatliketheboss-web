@@ -861,3 +861,13 @@ img.cover[data-full]:focus-visible{outline:3px solid #c39e5c;outline-offset:-3px
 .q-none{margin:0;padding:14px 12px;font-size:15px;line-height:1.6;color:#3d4955}
 #rs{scroll-margin-top:90px}
 #filters{overflow:visible!important} /* let the search suggestions hang below the box */
+
+/* Review page: other restaurants of the same cuisine as text links (under "More Tasting Notes") */
+.same-cuisine{margin-top:48px;padding-top:24px;border-top:1px solid rgba(195,158,92,.4)}
+.same-cuisine h3{margin:0 0 14px;font-family:'Ekkamai New',sans-serif;font-size:13px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:#6e3f08}
+.same-cuisine ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.same-cuisine a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--r-pill);background:#fff;box-shadow:0 0 0 1px rgba(195,158,92,.55);font-size:15px;color:#1a2632;transition:background-color .2s ease}
+.same-cuisine a:hover{background:#f4ece2}
+.sc-city{font-family:'Ekkamai New',sans-serif;font-size:12px;letter-spacing:.08em;color:#6e3f08}
+/* contents cells: keep short Thai titles on one line on desktop ("จานถอดแว่นชิม" broke mid-word) */
+@container elb (min-width: 721px){.toc-item{column-gap:10px;padding:22px 14px 20px}.toc-no{font-size:54px}.toc-title{font-size:17px}}

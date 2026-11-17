@@ -33,6 +33,12 @@ const capsule = capsuleUrl(visits); // Thai repeat visits → time capsule page
 const others = all.filter((x) => x.language === L && x.id !== a.id && restaurantKey(x) !== restaurantKey(a));
 const sameCity = (x: Article) => Boolean(a.city && x.city?.slug === a.city.slug);
 const more = [...others.filter(sameCity), ...others.filter((x) => !sameCity(x) && x.series === a.series)].slice(0, 3);
+// Same cuisine elsewhere (the Boss, 17 Nov 2026: help "<restaurant> review" searches): up to 8 plain text links to
+// other restaurants of this cuisine, newest visit first — easy for readers to hop and for Google to crawl.
+const seenR = new Set([restaurantKey(a), ...more.map(restaurantKey)]);
+const sameCuisine = a.series === 'review' && a.restaurant?.cuisine
+  ? others.filter((x) => x.series === 'review' && x.restaurant?.cuisine === a.restaurant?.cuisine && !seenR.has(restaurantKey(x)) && (seenR.add(restaurantKey(x)), true)).slice(0, 8)
+  : [];
 const s = SERIES[a.series];
 const glassesDishes = a.dishes.map((d, i) => ({ d, i })).filter(({ d }) => d.glassesOff);
 const name = a.restaurant?.name ?? a.title;
@@ -51,12 +57,19 @@ const REVIEW_RE = /รีวิว|review|レビュー|点评|評論/i;
 const pageTitle = (() => {
   const rw = t(L, 'reviewWord');
   const cityLabel = a.city ? (L === 'th' ? a.city.nameTh : a.city.nameEn) : '';
-  const auto = a.series === 'review' ? `${rw} ${name}${cityLabel ? ` ${cityLabel}` : ''}` : name;
+  const auto = a.series === 'review' ? `${rw} ${name.replace(/\s*\([^)]*\)\s*$/, '')}${cityLabel ? ` ${cityLabel}` : ''}` : name;
   const st = a.seoTitle?.trim();
   if (!st) return auto;
   if (a.series !== 'review' || REVIEW_RE.test(st)) return st;
-  const rest = st.toLowerCase().startsWith(name.toLowerCase()) ? st.slice(name.length).replace(/^[\s:–—-]+/, '') : st;
-  return rest ? `${rw} ${name}: ${rest}` : `${rw} ${name}`;
+  // the title uses the name without the original-script part ("Ao (蒼)" → "Ao"), and drops the name from the
+  // front of the Meta title however it is punctuated ("Kwantip - Samrub…" vs "Kwantip Samrub…"), so it isn't said twice
+  const short = name.replace(/\s*\([^)]*\)\s*$/, '').trim();
+  const key = (x: string) => x.toLowerCase().replace(/[^\p{L}\p{N}]/gu, '');
+  let cut = 0;
+  for (let i = 1; i <= st.length; i++) { const k = key(st.slice(0, i)); if (k === key(short)) { cut = i; break; } if (!key(short).startsWith(k)) break; }
+  const rest = (cut ? st.slice(cut) : st).replace(/^\s*\([^)]*\)/, '').replace(/^[\s:–—-]+/, '');
+  // a Meta title with its own colon ("X Bangkok: …") keeps it; ours would make two
+  return rest ? `${rw} ${short}${rest.includes(':') ? ' ' : ': '}${rest}` : `${rw} ${short}`;
 })();
 const cityName = a.city ? ` ${L === 'th' ? a.city.nameTh : a.city.nameEn}` : '';
 const autoDesc = a.series === 'review'
@@ -256,6 +269,12 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       </div>
       <div class="rule"></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:40px">{more.map((m) => <ArticleCard a={m} visits={visitsOf(m, all)} />)}</div>
+      {sameCuisine.length > 0 && (
+        <nav aria-labelledby="same-cuisine" class="same-cuisine">
+          <h3 id="same-cuisine">{L === 'th' ? `ร้าน ${a.restaurant?.cuisine} อื่นที่บอสรีวิว` : `More ${a.restaurant?.cuisine} reviews`}</h3>
+          <ul>{sameCuisine.map((x) => <li><a href={articleUrl(x)}><span translate="no">{(x.restaurant?.name ?? x.title).replace(/\s*\([^)]*\)\s*$/, '')}</span>{x.city && <span class="sc-city" translate="no">{x.city.nameEn}</span>}</a></li>)}</ul>
+        </nav>
+      )}
     </section>
   )}
   {more.length === 0 && <div style="height:96px"></div>}

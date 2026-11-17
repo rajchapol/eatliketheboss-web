@@ -45,6 +45,8 @@ const toc = [
   { no: '', en: 'The Boss', th: 'เกี่ยวกับบอส', meta: 'F&B มากว่า 15 ปี', href: '#about' },
 ].map((x, i) => ({ ...x, no: String(i + 1).padStart(2, '0') }));
 const tocNo = (href: string) => toc.find((x) => x.href === href)?.no;
+// Thai titles break only between these chunks (Chrome split "มื้ออาหารเปลี่ยน / โลก")
+const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเปลี่ยนโลก': ['มื้ออาหาร', 'เปลี่ยนโลก'], 'จานถอดแว่นชิม': ['จานถอดแว่นชิม'], 'บันทึกการชิม': ['บันทึกการชิม'], 'เกี่ยวกับบอส': ['เกี่ยวกับบอส'], 'บอสพาดื่ม': ['บอสพาดื่ม'] };
 ---
 <Base title="หน้าแรก" active="home" jsonLd={[organization(), website()]}>
   <h1 class="sr-only">บอสพาชิม Eat Like The Boss — รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก</h1>
@@ -73,7 +75,7 @@ const tocNo = (href: string) => toc.find((x) => x.href === href)?.no;
         <li><a href={x.href} class="toc-item">
           <span class="outline-num toc-no" aria-hidden="true" translate="no">{x.no}</span>
           <span class="toc-en" lang="en" translate="no">{x.en}</span>
-          <span class="toc-title">{x.th}</span>
+          <span class="toc-title">{(TOC_CHUNKS[x.th] ?? [x.th]).map((c) => <span class="nb">{c}</span>)}</span>
           <span class="toc-meta">{x.meta}</span>
         </a></li>
       ))}
