@@ -1,9 +1,8 @@
 ---
 language: en
 series: review
-title: "Eat Like The Boss in Tokyo: Kagurazaka Ishikawa - Three-Michelin-Star Kaiseki in Kagurazaka"
+title: "Eat Like The Boss in Tokyo: Kagurazaka Ishikawa"
 slug: ishikawa
-tagline: "Three-Michelin-star kaiseki in Kagurazaka"
 city: tokyo
 restaurant:
   name: "Kagurazaka Ishikawa"

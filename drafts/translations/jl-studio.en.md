@@ -39,7 +39,7 @@ The staff here know wine well and offer their own opinions in an interesting way
 
 My favourite dish had to be the signature chicken rice, served in an exciting way. It uses red grouper cooked rosé, with a springy texture and the scent of chopped ginger, and a rice sauce made from jasmine rice that goes with the green chilli, echoing the chilli dip served with chicken rice. The fish and the bamboo shoot had no off-smell at all, completely.
 
-There were some dishes I did not understand, such as the LAKSA, and some where the cooking was not yet perfectly polished, such as the bak kut teh tart shell, which was rather [word missing in the Thai] and chewy (the waiter said it was like dipping a pa thong go into bak kut teh), or the sauce on the beef dish, whose quantity did not suit the amount of meat. But overall, JL Studio impressed me with a playful concept running through the whole meal, and it will surely impress everyone who comes to try it.
+There were some dishes I did not understand, such as the LAKSA, and some where the cooking was not yet perfectly polished, such as the bak kut teh tart shell, which was rather hard and chewy (the waiter said it was like dipping a pa thong go into bak kut teh), or the sauce on the beef dish, whose quantity did not suit the amount of meat. But overall, JL Studio impressed me with a playful concept running through the whole meal, and it will surely impress everyone who comes to try it.
 
 ## The art of taste in this meal
 

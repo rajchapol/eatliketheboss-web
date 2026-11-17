@@ -22,7 +22,7 @@ publishedAt: 2026-11-05
 seoTitle: "Ginza Harutaka Tokyo Review: Jiro-Lineage Sushi"
 seoDescription: "Ginza Harutaka, a Jiro-lineage sushiya in Ginza, Tokyo: superb hand-shaping, a punchy shari, and highlights in anago, saba, sayori and meji maguro."
 ---
-Harutaka Takashi may well be one of the best sushi shapers I have ever met. Many even call him the true successor, and quite possibly the best sushiya of the Jiro lineage today. That alone is reason enough to try a meal at Harutaka, and with a Tabelog silver and two Michelin stars as well, there is no denying this is one of the most famous sushi restaurants in Tokyo.
+Harutaka Takashi may well be one of the best sushi shapers I have ever met. Many even call him the true successor, and quite possibly the best sushiya of the Jiro lineage today. That alone is reason enough to try a meal at Harutaka, and with a Tabelog silver and three Michelin stars as well, there is no denying this is one of the most famous sushi restaurants in Tokyo.
 
 In its early days this place counted among Tokyo's top sushiya, with scores no lower than Saito or Mizutani. But the prices kept climbing until the value for money shrank, which affected its scores, and now it has become one of the most expensive sushiya in Japan.
 
