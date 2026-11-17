@@ -1,0 +1,15 @@
+{
+ "slug": "restaurant-a",
+ "candidates": [
+  {
+   "th": "ผมว่าคอนเซปต์ของแต่ละจานที่ไล่ตามสีนั้นสวยมาก",
+   "en": "I find the concept of each dish following a colour very beautiful.",
+   "from": "intro"
+  },
+  {
+   "th": "และรสชาติที่นุ่มนวลสง่างามในปาก เหมือนภาพวาดของโมเนต์",
+   "en": "tastes that are soft and elegant on the palate, like a painting by Monet.",
+   "from": "intro"
+  }
+ ]
+}

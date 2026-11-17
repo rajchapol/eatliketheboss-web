@@ -1,0 +1,11 @@
+# maaemo-2018 - notes for the Boss
+- Thai has no `tagline` field; I added "Nature and culture connected through the plate" from the Thai title.
+- Unclear Thai:
+  - "Amuse brioche" body says "แมอแรง" (I read it as meringue); please confirm.
+  - Quail egg "ทำให้สุกที่ผิวในกระดูกสัตว์": rendered "cooked just at the surface in animal-bone stock".
+  - "เห็ดเน่า" (intro) kept literal as "rotten mushrooms".
+  - Intro says Maaemo is "one of three" Scandinavian three-star restaurants and then lists Geranium and Frantzen as the others (so Noma excluded). Translated as written.
+  - Mackerel: "ความหอมสดชื่นจาก" sentence is cut off in the Thai; rendered "the apple bringing freshness and fragrance".
+- bill field is "~ อย่างต่ำ 2800Kr" (Thai text inside); kept identical per brief.
+- Typos in the Thai source (not fixed): ประสบการณืในวัน, เสริฟ, คุณเคย, เข้นข้น, "ชิวเฉียด", "ไม่ใช้", "เค้มจากเนย", "ฉุ่นสาป", "ผลัม", "ไอศครีม/ไอศกรีม" mixed.
+- Dry run: only the "images too small" warning (same as Thai).
