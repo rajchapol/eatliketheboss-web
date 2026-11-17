@@ -1,15 +1,1 @@
-{
- "slug": "forum",
- "candidates": [
-  {
-   "th": "ซึ่งหลังจากรับประทานแล้วต้องบอกว่าผมประทับใจฮะเก๋าในวันนั้นมาก",
-   "en": "Having eaten it, I must say I was very impressed by the har gow that day.",
-   "from": "Ah Yat Steamed Premium Shrimp Dumpling"
-  },
-  {
-   "th": "จานนี้อร่อยครับให้มาเยอะจนตกใจ",
-   "en": "This dish is delicious, and the portion was so generous it startled me.",
-   "from": "Hairy Crab Roe Fried Rice with Shrimp"
-  }
- ]
-}
+{"slug": "forum", "candidates": [{"th": "Forum Hong Kong สำหรับผมแล้วเป็นร้านอาหารจีนที่จองง่าย บรรยากาศสบายๆ ไม่เครียด มีDimsumที่มาตรฐานดี และราคาย่อมเยาว์สำหรับฮ่องกงและร้านติ่มซำในระดับใกล้กันตามโรงแรมต่างๆ", "en": "For me, Forum Hong Kong is a Chinese restaurant that is easy to book, with a relaxed, unstressful atmosphere, dim sum of a good standard, and prices that are reasonable for Hong Kong and for comparable dim sum rooms in hotels.", "from": "intro"}, {"th": "ถ้าใครอยากหา Dimsum ดีๆ สักมื้อในเวลากลางวัน Forum นับเป็นตัวเลือกที่ไม่เลวครับ", "en": "If you are looking for a good dim sum lunch, Forum is a decent choice.", "from": "intro"}], "weak": false}

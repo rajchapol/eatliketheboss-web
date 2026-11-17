@@ -2,14 +2,15 @@
  "slug": "le-palais",
  "candidates": [
   {
-   "th": "กลิ่นยั่วน้ำลายทันทีที่เราเปิดฝาซุปก็ทะลักขึ้นมา กลิ่นหอมนี้มันคืออะไร หอมมาก",
-   "en": "A mouth-watering aroma rose the instant the lid came off the soup. What is this fragrance? It is wonderful.",
-   "from": "Abalone and Conpoy Soup with Morels"
+   "th": "การตกแต่งนั้นสุดยอดจริงๆแม้จะเทียบกับร้านอาหารระดับเดียวกัน บรรยากาศในร้านนี้สำหรับผมนับเป็นที่ๆพิเศษจริงๆ",
+   "en": "The décor is truly superb, even compared with restaurants of the same level, and for me the atmosphere here is a genuinely special place.",
+   "from": "intro"
   },
   {
-   "th": "เป็นจานซุปที่สุดยอดมากครับๆ",
-   "en": "A truly superb soup.",
-   "from": "Abalone and Conpoy Soup with Morels"
+   "th": "อาหารจีนที่ห้องอาหารชั้นเลิศแห่งนี้มีความยอดเยี่ยมควรค่าแก่การมาลองครับ",
+   "en": "The Chinese food at this top-tier dining room is excellent and well worth coming to try.",
+   "from": "closing"
   }
- ]
+ ],
+ "weak": false
 }

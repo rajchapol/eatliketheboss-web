@@ -12,6 +12,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Sushi"
   awards: ["MICHELIN 3★"]
+quote: "เชฟปั้นเก่งมากๆครับ แต่ด้วยราคาคงทำให้การกลับมายากสักนิด"
 cover: "./images/harutaka/cover.jpg | ซูชิปลาซาบะดองหนังสีเงินบนเคาน์เตอร์เคลือบสีดำเงา ร้าน Ginza Harutaka โตเกียว"
 bill: "~65,000 Yen +"
 billBand: "฿฿฿฿"

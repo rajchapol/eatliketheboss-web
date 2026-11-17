@@ -9,6 +9,7 @@ restaurant:
   chef: "Kirk Westaway"
   cuisine: "Modern"
   awards: ["MICHELIN 2★"]
+quote: "Jaan เป็นร้านอาหาร reinnovate British cuisine ที่หลังจากชิมแล้วผมต้องขอบอกว่าอาหารอังกฤษไม่น่าเบื่อ"
 cover: "./images/jaan/cover.jpg | พายเนื้อกินี่ฟาวล์ราดซอสเสิร์ฟกับผักบนจานขาวลายนูน ร้าน Jaan สิงคโปร์"
 bill: "~238 SGD ต่อคน"
 billBand: "฿฿฿"

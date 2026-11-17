@@ -15,6 +15,7 @@ restaurant:
   cuisine: "Nordic"
   style: "New Nordic"
   awards: ["MICHELIN 2★", "MICHELIN Green Star"]
+quote: "เป็นอีกหนึ่งร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย"
 cover: "./images/kadeau/cover.jpg | เมนูเล่มสีดำของร้าน Kadeau วางบนโต๊ะไม้ โคเปนเฮเกน"
 bill: "~5100 DKK"
 billBand: "฿฿฿฿"
@@ -23,7 +24,6 @@ hashtags: [บอสพาชิม, eatliketheboss, Kadeau, Copenhagen]
 publishedAt: 2026-11-05
 seoTitle: "Kadeau Copenhagen รีวิวมิชลิน 2 ดาว"
 seoDescription: "บอสพาชิมรีวิว Kadeau ร้านมิชลิน 2 ดาวพร้อมกรีนสตาร์ในโคเปนเฮเกน เมนู Preservation Season ที่ใส่ใจทุกรายละเอียด ตั้งแต่หน้าร้านจนจบมื้อ"
-quote: "เป็นอีกหนึ่งร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย"
 ---
 เป็นอีกหนึ่งร้านที่มีทุกอย่างแล้วยกเว้นมิชลินดวงสุดท้าย ประสบการณืในวันนี้นั้นน่าประทับใจครับ ตั้งแต่ก่อนเข้าร้านจนถึงจบมื้ออาหาร
 

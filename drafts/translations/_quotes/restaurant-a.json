@@ -2,14 +2,15 @@
  "slug": "restaurant-a",
  "candidates": [
   {
-   "th": "ผมว่าคอนเซปต์ของแต่ละจานที่ไล่ตามสีนั้นสวยมาก",
-   "en": "I find the concept of each dish following a colour very beautiful.",
+   "th": "ลายเซ็นรสชาติของที่นี่ชัดเจน คือหวานอมเปรี้ยว อาหารเบา ไม่เน้นเค็ม เฟลเวอร์โปรไฟล์สวย และรสชาติที่นุ่มนวลสง่างามในปาก เหมือนภาพวาดของโมเนต์",
+   "en": "The flavour signature here is clear: sweet and sour, light food that does not lean on salt, a beautiful flavour profile, and tastes that are soft and elegant on the palate, like a painting by Monet.",
    "from": "intro"
   },
   {
-   "th": "และรสชาติที่นุ่มนวลสง่างามในปาก เหมือนภาพวาดของโมเนต์",
-   "en": "tastes that are soft and elegant on the palate, like a painting by Monet.",
-   "from": "intro"
+   "th": "ความขาวนี้ตัดกับอาหารนานาสีสันที่เป็นแก่นของเชฟได้อย่างดีเยี่ยม",
+   "en": "All this white sets off the colourful food at the heart of the chef's cooking beautifully.",
+   "from": "intro (atmosphere)"
   }
- ]
+ ],
+ "weak": false
 }

@@ -16,6 +16,7 @@ restaurant:
   cuisine: "Modern"
   style: "Contemporary"
   awards: ["MICHELIN 2★"]
+quote: "เรียกว่าเราเกือบคลานกันออกจากร้านเพราะเชฟจัดเต็มมาก โดยเราใช้เวลาในมื้อนี้ถึงเกือบห้าชั่วโมงเลยทีเดียว"
 cover: "./images/spectrum/cover.jpg | ของว่างคำเล็กในกล่องเซรามิกสีดำฝาเปิดวางบนโต๊ะผ้าขาว ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม"
 gallery:
   - ./images/spectrum/01.jpg | ของว่างทรงหอสูงซ้อนชั้นสีดำท็อปด้วยสมุนไพรและของกรอบสีส้ม ร้าน Spectrum (Librije's Zusje) อัมสเตอร์ดัม

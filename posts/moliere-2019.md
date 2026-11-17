@@ -9,6 +9,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 3★"]
+quote: "ตรงนี้เป็นอีกอย่างที่แสดงถึงความเป็นมืออาชีพขั้นสูงสุด และความเก๋าของทีมบริการส่วนหน้าของร้าน Moliereครับ"
 cover: "./images/moliere-2019/cover.jpg | ซอร์เบต์ส้มแมนดารินในถ้วยลายครามบนจานสีฟ้า ร้าน Molière เมืองซัปโปโร"
 bill: "~16000 Yen"
 billBand: "฿฿฿"

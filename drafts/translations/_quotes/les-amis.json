@@ -1,3 +1,16 @@
-{"slug":"les-amis","candidates":[
-{"th":"หากจะมีจานใดที่บรรเลงท่วงทำนองแห่งรสชาติได้หมดจด จานนี้คือคำตอบ","en":"If there is one dish that plays the melody of flavour flawlessly, this is the answer.","from":"Le Caviar Osciètre (Poached egg in a fountain of watercress paired with spring turnip & Oscietra caviar) 🕶️"},
-{"th":"สำหรับผม การได้กลับไปเยือน Les Amis ไม่ใช่แค่การไปเสพความอร่อยระดับ 3 ดาวมิชลิน แต่คือการได้กลับไปซึมซับความประทับใจ และรำลึกถึงความทรงจำที่ล้ำค่า","en":"For me, returning to Les Amis is not just about enjoying a three-Michelin-star meal; it is about soaking up the impression it leaves and recalling precious memories.","from":"intro"}]}
+{
+ "slug": "les-amis",
+ "candidates": [
+  {
+   "th": "Les Amis คือ \"ผู้พิทักษ์\" ศิลปะการทำอาหารฝรั่งเศสชั้นสูงที่กาลเวลาไม่อาจลดทอนคุณค่าลงได้",
+   "en": "Les Amis is the \"guardian\" of haute French culinary art whose value time cannot diminish.",
+   "from": "intro"
+  },
+  {
+   "th": "ในยุคที่โลกวิ่งไล่ตามความแปลกใหม่ ร้านอาหารแห่งนี้กลับยืนหยัดและพิสูจน์ให้เห็นว่าความสม่ำเสมอและความใส่ใจในรายละเอียดคือหัวใจสำคัญของ Gastronomy",
+   "en": "In an age when the world chases novelty, this restaurant stands firm and proves that consistency and attention to detail are the heart of Gastronomy.",
+   "from": "intro"
+  }
+ ],
+ "weak": false
+}

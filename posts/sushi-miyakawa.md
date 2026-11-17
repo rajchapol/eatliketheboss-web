@@ -10,6 +10,7 @@ restaurant:
   cuisine: "Japanese"
   style: "Sushi"
   awards: ["MICHELIN 3★"]
+quote: "อาหารในมื้อนี้นั้นถือว่าไม่มีจุดอะไรเสียหายใหญ่โต คุณภาพเยี่ยม อร่อยสมศักดิ์ศรีมิชลินสตาร์สามดาว"
 cover: "./images/sushi-miyakawa/cover.jpg | ปูต้มเสิร์ฟเย็นราดซอสไข่ปูสีส้มบนจานสีเทาเข้ม ร้าน Sushi Miyakawa เมืองซัปโปโร"
 bill: "~25000 Yen"
 billBand: "฿฿฿"

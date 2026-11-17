@@ -10,6 +10,7 @@ restaurant:
   cuisine: "French"
   style: "Classic"
   awards: ["MICHELIN 3★"]
+quote: "Les Amis คือ \"ผู้พิทักษ์\" ศิลปะการทำอาหารฝรั่งเศสชั้นสูงที่กาลเวลาไม่อาจลดทอนคุณค่าลงได้"
 cover: "./images/les-amis/cover.jpg | พนักงานรินซอสอิมัลชันน้ำมันมะกอกลงบนแลงกูสทีนห่อซูกินีท็อปคาเวียร์ ร้าน Les Amis สิงคโปร์"
 bill: "550 SGD++"
 billBand: "฿฿฿฿"
