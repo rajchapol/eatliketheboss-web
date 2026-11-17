@@ -15,7 +15,7 @@ cover: "./images/gaggan-2018/cover.jpg | จานขาวมีซอสหล
 billBand: "฿฿฿"
 bill: "~6500++ baht / person not included beverage"
 tag: ""
-visit: Sep-2018
+visit: Nov-2018
 hashtags: [บอสพาชิม, eatliketheboss, Gaggan, GagganAnand, Bangkok]
 publishedAt: 2026-11-17
 seoTitle: "Gaggan Bangkok รีวิว Progressive Indian Fine Dining 2018"
