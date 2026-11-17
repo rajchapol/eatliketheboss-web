@@ -17,6 +17,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+
+## Session 2026-11-17 · full bug sweep + small upgrades
+- Swept all 211 sitemap pages at 390 px (and the templates + a sample of articles at 1440): no console/JS errors, no failed requests, no broken images, no sideways overflow, one `<h1>` per page, no missing alt. Static check of `dist/`: every internal link resolves, every og:image exists, all JSON-LD parses, no duplicate titles; descriptions 70–160 chars (the only duplicate is the noindex 404 page).
+- Fixed: review titles said the name twice or ran long when the restaurant name carries its original script ("Sushi Namba Hibiya (鮨 なんば 日比谷): Sushi Namba Hibiya …", 98 chars) or punctuation differs ("Kwantip - Samrub…" vs "Kwantip Samrub…"). `pageTitle` now uses the name without the bracketed original, drops the name from the front of the Meta title whatever its punctuation, drops a leading bracket, and keeps a Meta title's own colon instead of adding a second one. Longest title now ~76 chars (English, written with "Review").
+- New: under "More Tasting Notes" on a review, up to 8 pill links to other restaurants of the same cuisine ("ร้าน Japanese อื่นที่บอสรีวิว", `sameCuisine`, CSS `.same-cuisine`) — internal links for readers and Google.
+- Home contents: Thai titles break only between chunks (`TOC_CHUNKS` in `index.astro`), tighter cells on desktop.
+
 ## 2026-11-17 · Brand: per-page share images, sharper logo timeline
 - `public/img/og/og-{review,history,drinks,restaurants,destinations,awards,about,contact}.jpg` (1200×630, text inside the centre 560 px). Not wired yet: pass `image` to `Base.astro` on those pages (03-web-design §0). City pages: spec for an `og.ts` image in the same note.
 - `public/img/brand/history/`: 2018, 2021 (Eat Like The BOSS), 2024 and 2026 replaced with crisp originals from the brand Drive (same names, 480 px).
