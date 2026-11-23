@@ -255,6 +255,12 @@ if (!existing) {
     if (unsets.length) patch = patch.unset(unsets);
     await patch.commit();
     console.log(`ℹ︎ อัปเดตเฉพาะช่องที่แก้ในไฟล์: ${changed.join(', ')} · ส่วนอื่นใน Studio ไม่ถูกแตะ`);
+  } else if (resend.size) {
+    // No earlier file version to compare, but only some fields were asked for: send just those.
+    const sets = Object.fromEntries([...resend].filter((k) => k in doc && !isEmpty(doc[k])).map((k) => [k, doc[k]]));
+    if (!Object.keys(sets).length) { console.log('ℹ︎ ไม่มีช่องที่ขอให้ส่ง · ไม่ได้ส่งอะไรเข้า Sanity'); process.exit(0); }
+    await client.patch(id).set(sets).commit();
+    console.log(`ℹ︎ ส่งเฉพาะช่องที่ขอ (--resend): ${Object.keys(sets).join(', ')} · ส่วนอื่นใน Studio ไม่ถูกแตะ`);
   } else {
     const keepStudio = (current, next, prefix, kept) => {
       const out = { ...next };

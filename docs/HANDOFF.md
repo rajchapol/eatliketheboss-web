@@ -19,6 +19,9 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+## 2026-11-23 (2) · --resend never sends more than asked
+- Covers re-sent for Ep.1–5 + Ep.23 (Actions, resend=cover). Ep.23's file had only one commit, so the script fell back to "send every field the file fills" — fields Studio had edited since 16 Nov could have been replaced by the file's values. Now `--resend` without a previous file version patches only the named fields.
+
 ## 2026-11-23 · Backlog cleared: share images per page + city, line art, cover re-send
 - Per-page share images (brand 17 Nov) wired: `image="/img/og/og-<page>.jpg"` on about, contact, restaurants, destinations, awards; series pages use `og-${key}.jpg` (review/history/drinks).
 - City share image: `renderCityOg()` in `src/lib/og.ts` → `/og/city/<slug>.jpg` (`src/pages/og/city/[slug].jpg.ts`), used by `city/[slug].astro`. Latest review cover (else the city photo) in real colours, teal shade top + bottom, Crest TH foil, "CITY EDITION" + gold rule, English name (Cormorant 500, new `src/og/fonts/CormorantGaramond-Medium.ttf` converted from the site woff2, family name "Cormorant Garamond Light"), Thai name, eatlikeboss.com; soft shadow under the text. All inside the middle 560 px.
