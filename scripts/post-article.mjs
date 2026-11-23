@@ -5,6 +5,9 @@
 //   npm run post -- posts/sezanne.md --since <git ref>  → for an article that already exists, send ONLY the fields
 //        that changed in this file since <ref> (the post workflow passes the previous commit; without --since the
 //        file's previous commit is used). Everything else, including what the Boss edited in Studio, is left alone.
+//   npm run post -- posts/sezanne.md --resend cover[,gallery]  → also send these fields even if the .md line did not
+//        change (a cover file replaced under the same name). With --since, a cover/gallery file that changed since
+//        <ref> is re-sent automatically.
 // Needs SANITY_PROJECT_ID and SANITY_WRITE_TOKEN in .env (see .env.example).
 // File format: see posts/_template.md
 import { readFileSync, existsSync } from 'node:fs';
@@ -22,6 +25,7 @@ const get = (k) => process.env[k] || env[k];
 const [file, ...flags] = process.argv.slice(2);
 const dry = flags.includes('--dry');
 const since = flags.includes('--since') ? flags[flags.indexOf('--since') + 1] : undefined;
+const resend = new Set(flags.includes('--resend') ? String(flags[flags.indexOf('--resend') + 1] || '').split(',').map((x) => x.trim()).filter(Boolean) : []);
 if (!file) { console.error('ใช้: npm run post -- posts/<slug>.md [--dry]'); process.exit(1); }
 
 // Google Docs pastes can carry vertical tabs / zero-width spaces that show as boxes on the site.
@@ -216,6 +220,16 @@ if (!existing) {
     const put = (path, value) => { changed.push(path); if (isEmpty(value)) unsets.push(path); else sets[path] = value; };
     const FM = { series: 'series', episode: 'episode', title: 'title', tagline: 'tagline', eventYear: 'eventYear', city: 'city', cover: 'cover', gallery: 'gallery', quote: 'quote', tag: 'tag', bill: 'bill', visit: 'visit', hashtags: 'hashtags', publishedAt: 'publishedAt', seoTitle: 'seoTitle', seoDescription: 'seoDescription' };
     for (const [k, field] of Object.entries(FM)) if (!same(old.fm[k], fm[k])) put(field, doc[field]);
+    // Same file name, new picture: the .md line is unchanged, so look at the image files themselves.
+    const imgPath = (spec) => String(spec || '').split('|')[0].trim();
+    const fileChanged = (spec) => {
+      const p = imgPath(spec);
+      if (!since || !p || /^https?:/.test(p)) return false;
+      try { return Boolean(execFileSync('git', ['diff', '--name-only', since, '--', resolve(dirname(file), p)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()); } catch { return false; }
+    };
+    if (fileChanged(fm.cover)) resend.add('cover');
+    if ([].concat(fm.gallery || []).some(fileChanged)) resend.add('gallery');
+    for (const field of resend) if (!changed.includes(field) && field in doc) put(field, doc[field]);
     if (!same(old.fm.billBand || old.fm.restaurant?.priceBand, fm.billBand || fm.restaurant?.priceBand)) put('billBand', doc.billBand);
     if (!same(old.fm.slug, fm.slug)) throw new Error('slug เปลี่ยนไม่ได้หลังเผยแพร่ (URL จะเสีย) — ถ้าจำเป็นจริงให้ทำใน Studio และเพิ่ม redirect');
     const oldR = old.fm.restaurant || {}, newR = fm.restaurant || {};

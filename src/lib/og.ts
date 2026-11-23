@@ -6,11 +6,11 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import sharp from 'sharp';
-import type { Article } from './types';
+import type { Article, City, Img } from './types';
 import { imgUrl, visitLabel } from './content';
 
 const ROOT = process.cwd();
-const FONTS = ['NotoSerifThai-Regular.ttf', 'NotoSerifThai-SemiBold.ttf', 'CormorantGaramond-MediumItalic.ttf'].map((f) => join(ROOT, 'src/og/fonts', f));
+const FONTS = ['NotoSerifThai-Regular.ttf', 'NotoSerifThai-SemiBold.ttf', 'CormorantGaramond-MediumItalic.ttf', 'CormorantGaramond-Medium.ttf'].map((f) => join(ROOT, 'src/og/fonts', f));
 const LOGO = `data:image/png;base64,${readFileSync(join(ROOT, 'public/img/logo-2026.png')).toString('base64')}`;
 
 // SARA AM (ำ) mis-positions with this font in resvg: write it as NIKHAHIT + (tone mark) + SARA AA, which looks the same.
@@ -34,7 +34,7 @@ function wrap(text: string, size: number, maxW: number, max: number) {
   return out;
 }
 
-async function coverData(a: Article) {
+async function coverData(a: { cover?: Img }) {
   const url = a.cover ? imgUrl(a.cover, 1200, 630) : undefined;
   if (!url) return undefined;
   try {
@@ -100,6 +100,47 @@ export async function renderOg(a: Article): Promise<Buffer> {
   <rect x="540" y="${y + 14}" width="120" height="1.5" fill="url(#gold)"/>` : ''}
   ${nameSvg}
   ${meta ? `<text x="600" y="${metaY}" text-anchor="middle" font-family="Noto Serif Thai" font-size="23" fill="#ffffff" fill-opacity=".9" letter-spacing=".5">${esc(meta)}</text>` : ''}
+</svg>`;
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 }, font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: 'Noto Serif Thai' } }).render().asPng();
+  return sharp(Buffer.from(png)).jpeg({ quality: 84, mozjpeg: true }).toBuffer();
+}
+
+// City share image (brand hand-off 17 Nov 2026): the latest review's cover in its real colours, teal shade top and
+// bottom only, Crest TH foil logo top centre, "CITY EDITION" + short gold rule, English city name large, Thai name
+// under it, "eatlikeboss.com" at the bottom. Everything sits inside the middle 560 px (LINE square crop).
+const CREST = `data:image/svg+xml;base64,${readFileSync(join(ROOT, 'public/img/brand/logo-th/crest-th-foil-flat.svg')).toString('base64')}`;
+
+export async function renderCityOg(c: City, latest?: Article): Promise<Buffer> {
+  const cover = (latest && (await coverData(latest))) || (await coverData(c));
+  const en = noCjk(c.nameEn);
+  const enSize = en.length > 14 ? 64 : en.length > 9 ? 80 : 92;
+  const enLines = balance(wrap(en, enSize, 560, 2), enSize, 560);
+  const thY = 508;
+  const enLast = thY - 62;
+  const enSvg = enLines.map((l, i, all) => `<text x="600" y="${enLast - (all.length - 1 - i) * enSize * 1.02}" text-anchor="middle" font-family="Cormorant Garamond Light" font-weight="500" font-size="${enSize}" fill="#ffffff">${esc(l)}</text>`).join('');
+  const ruleY = enLast - (enLines.length - 1) * enSize * 1.02 - enSize * 0.82 - 20;
+  const kickY = ruleY - 18;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#03211f" stop-opacity=".8"/><stop offset=".26" stop-color="#03211f" stop-opacity="0"/>
+      <stop offset=".42" stop-color="#03211f" stop-opacity="0"/><stop offset=".7" stop-color="#03211f" stop-opacity=".66"/>
+      <stop offset="1" stop-color="#03211f" stop-opacity=".92"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c39e5c" stop-opacity="0"/><stop offset=".5" stop-color="#fdeac0"/><stop offset="1" stop-color="#c39e5c" stop-opacity="0"/></linearGradient>
+    <filter id="soft" x="-20%" y="-40%" width="140%" height="180%"><feDropShadow dx="0" dy="2" stdDeviation="7" flood-color="#03211f" flood-opacity=".75"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="#0b5357"/>
+  ${cover ? `<image href="${cover}" x="0" y="0" width="1200" height="630" preserveAspectRatio="xMidYMid slice"/>` : ''}
+  <rect width="1200" height="630" fill="url(#shade)"/>
+  <g filter="url(#soft)">
+  <image href="${CREST}" x="${600 - 170}" y="30" width="340" height="112"/>
+  <text x="600" y="${kickY}" text-anchor="middle" font-family="Cormorant Garamond Light" font-weight="500" font-size="24" fill="#fdeac0" letter-spacing="7">CITY EDITION</text>
+  <rect x="550" y="${ruleY}" width="100" height="1.5" fill="url(#gold)"/>
+  ${enSvg}
+  <text x="600" y="${thY}" text-anchor="middle" font-family="Noto Serif Thai" font-size="34" fill="#ffffff" fill-opacity=".92">${esc(c.nameTh)}</text>
+  <text x="600" y="596" text-anchor="middle" font-family="Cormorant Garamond Medium" font-style="italic" font-size="24" fill="#fdeac0" fill-opacity=".9" letter-spacing="1.5">eatlikeboss.com</text>
+  </g>
 </svg>`;
   const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 }, font: { fontFiles: FONTS, loadSystemFonts: false, defaultFontFamily: 'Noto Serif Thai' } }).render().asPng();
   return sharp(Buffer.from(png)).jpeg({ quality: 84, mozjpeg: true }).toBuffer();

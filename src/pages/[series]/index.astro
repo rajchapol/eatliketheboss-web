@@ -21,8 +21,9 @@ const settings = await getSettings();
 const intro = settings.seriesText;
 const metaDesc = `${intro[key]} อ่านทุกบทความในซีรีส์${s.th}จากบอสพาชิม · Eat Like The Boss รีวิวแบบจริงใจ ไม่ให้ดาว ไม่ให้คะแนน`;
 ---
-<Base title={key === 'review' ? 'รีวิวร้านอาหาร Fine Dining ทั้งหมด' : s.th} description={metaDesc} active="articles" series={key} jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: s.th, href: `/${s.path}/` }])]}>
-  <section class="wrap" style="padding-top:88px;padding-bottom:40px;display:flex;flex-direction:column;gap:16px">
+<Base image={`/img/og/og-${key}.jpg`} title={key === 'review' ? 'รีวิวร้านอาหาร Fine Dining ทั้งหมด' : s.th} description={metaDesc} active="articles" series={key} jsonLd={[breadcrumbs([{ name: 'หน้าแรก', href: '/' }, { name: s.th, href: `/${s.path}/` }])]}>
+  <section class="wrap" style="position:relative;padding-top:88px;padding-bottom:40px;display:flex;flex-direction:column;gap:16px">
+    <img class="series-art" src={`/img/brand/lineart/lineart-${({ review: 'cutlery', history: 'globe', drinks: 'grapes' } as Record<string, string>)[key] ?? 'cutlery'}-teal.svg`} alt="" aria-hidden="true" width="150" height="150" />
     <p class="overline">SERIES</p>
     <h1 class="ink-grad gold-lift" style="margin:0;font-size:clamp(34px,6cqi,52px);font-weight:600;line-height:1.25">{s.th}</h1>
     <p style="margin:0;max-width:34em;font-size:18px;line-height:1.8;font-weight:400">{intro[key]}</p>
