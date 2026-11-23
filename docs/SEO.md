@@ -81,3 +81,8 @@
 
 - โพสต์ Facebook / Instagram ยังห้ามใส่ลิงก์ตามกฎแบรนด์ ให้คนมาที่เว็บผ่านลิงก์ใน bio และปุ่มบนเพจ
 - เว็บเป็นที่เดียวที่บทความเต็มมีลิงก์ภายในและ structured data ครบ จึงเป็นตัวที่ Google เก็บ
+
+## Indexing requests log (Search Console → URL inspection, ~10/day)
+Property: Domain `sc-domain:eatlikeboss.com` (owner rajchapol@gmail.com, verified by DNS). Sitemap `sitemap-index.xml` submitted 12 Nov.
+- 2026-11-23 · 46 indexed / 157 not (151 "Discovered – currently not indexed"). Already indexed: /city/bangkok/, sorn-2024, hajime, leffervescence, fu-he-hui, logy, odette. Requested: suhring-2026, gaggan-2018, odette, zen-singapore, lung-king-heen, forum, mingles, ta-vie, les-amis-2020, sushi-saito-hong-kong.
+- Next in line (famous, not yet checked): geranium, kadeau, maaemo, harutaka, ishikawa, kanda, kashiwaya, jl-studio, le-palais, lasarte, sushi-shikon, taian-table, hanakoji-sawada, sushi-miyakawa, moliere-2019, then `/en/` of the same.
