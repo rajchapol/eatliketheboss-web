@@ -33,7 +33,7 @@ const totalRestaurants = groupByRestaurant(articles).length;
 // Map: every city with a review, with the month of the first meal there (for the route order).
 const mapCities = withReviews.map(({ city, count }) => ({ city, count, firstVisit: inCity(city.slug).map(visitIso).sort()[0] ?? '' }));
 ---
-<Base title="จุดหมาย — ร้าน Fine Dining แยกตามเมือง" description="เลือกเมือง แล้วดูทุกร้าน Fine Dining ที่บอสไปชิม ทั้งกรุงเทพฯ โตเกียว โอซาก้า ฮ่องกง และอีกหลายเมืองทั่วโลก" active="destinations">
+<Base image="/img/og/og-destinations.jpg" title="จุดหมาย — ร้าน Fine Dining แยกตามเมือง" description="เลือกเมือง แล้วดูทุกร้าน Fine Dining ที่บอสไปชิม ทั้งกรุงเทพฯ โตเกียว โอซาก้า ฮ่องกง และอีกหลายเมืองทั่วโลก" active="destinations">
   <section aria-labelledby="dt" class="wrap" style="padding-top:80px;padding-bottom:72px;display:flex;flex-direction:column;gap:20px">
     <p class="overline">DESTINATIONS</p>
     <h1 id="dt" class="ink-grad" style="margin:0;font-size:clamp(36px,6.4cqi,56px);font-weight:600;line-height:1.2">{st.destinationsTitle}</h1>

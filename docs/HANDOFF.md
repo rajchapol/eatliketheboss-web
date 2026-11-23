@@ -19,6 +19,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 
 
+## 2026-11-23 · Backlog cleared: share images per page + city, line art, cover re-send
+- Per-page share images (brand 17 Nov) wired: `image="/img/og/og-<page>.jpg"` on about, contact, restaurants, destinations, awards; series pages use `og-${key}.jpg` (review/history/drinks).
+- City share image: `renderCityOg()` in `src/lib/og.ts` → `/og/city/<slug>.jpg` (`src/pages/og/city/[slug].jpg.ts`), used by `city/[slug].astro`. Latest review cover (else the city photo) in real colours, teal shade top + bottom, Crest TH foil, "CITY EDITION" + gold rule, English name (Cormorant 500, new `src/og/fonts/CormorantGaramond-Medium.ttf` converted from the site woff2, family name "Cormorant Garamond Light"), Thai name, eatlikeboss.com; soft shadow under the text. All inside the middle 560 px.
+- Line art: 404 = cloche, finder "no results" = menu card, series pages = cutlery / globe / grapes beside the heading (`.series-art`, hidden ≤760 px). Old `error-404.svg` / `empty-state-cloche.svg` left in place (unused).
+- Covers replaced under the same file name never reached Sanity (`--since` only compared the .md). `post-article.mjs`: new `--resend cover[,gallery]`, and with `--since` a changed cover/gallery file is re-sent automatically; `post-article.yml` now also triggers on `posts/images/**` and re-posts the article whose folder changed; manual run has a `resend` input. Still to do once after merge: Actions → Post article → resend `cover` for Ep.1–5 + Ep.23 (Sanity still has the 13/16 Nov covers).
+- Studio text (needs the Boss, no token here): About short bio reads "PanelistTatler" and "และAward" (missing spaces). "Stared" is already fixed.
+
 ## 2026-11-17 (afternoon) · Old reviews batch D/F/G — 38 more old reviews published (the Boss approved)
 - Sources: the Boss's own Pantip topics (profile 732782; image comes before its dish text) or Google Docs in Drive "Article" (old eatlikethebossth.com is gone). Photos: Food(upload) packed from his Mac (`pack_photos_device.py`).
 - The Boss's calls this round: visit month = photo EXIF date when it disagrees with the post; blurred people/hands without a clear face are OK; bands count food incl. ++ but not wine; AD for Aimée, Chenin, Gaston, GranMonte; Cote's red (unconfirmed) parsnip millefeuille paragraph removed; Liana's two meals are one restaurant "Liana" (liana.md renamed from "Liana x Champagne Brice").
