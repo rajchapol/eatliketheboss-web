@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "บอสพาชิม : Chenin ไวน์บาร์สุดแซ่บ (Bangkok,Thailand)"
 slug: chenin
 tagline: "ไวน์บาร์สไตล์ loft กับเมนูอร่อยเหนือคาด"

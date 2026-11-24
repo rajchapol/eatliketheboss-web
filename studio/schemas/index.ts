@@ -79,7 +79,7 @@ export const article = defineType({
         return dup ? 'บทความนี้มีคำแปลภาษานี้อยู่แล้ว เปิดอันเดิมแก้แทนได้ (ดูรายการด้านล่าง)' : true;
       }) }),
     defineField({ name: 'series', title: 'Series · ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
-      options: { list: [{ title: 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }], layout: 'radio' },
+      options: { list: [{ title: 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }, { title: 'Boss Goes Chilling · บอสพาชิล (ร้าน casual)', value: 'chill' }], layout: 'radio' },
       validation: (r) => r.required() }),
     defineField({ name: 'no', title: 'Tasting Notes No. (retired)', description: 'เว็บนับเลขให้อัตโนมัติตามวัน Visit', type: 'number', hidden: true }),
     defineField({ name: 'episode', title: 'Ep.', description: 'สร้างจากปุ่ม "ตอนใหม่" ระบบใส่เลขตอนถัดไปให้เอง', type: 'number', group: 'main', hidden: ({ document }) => (document?.series || 'review') === 'review' }),
@@ -94,10 +94,10 @@ export const article = defineType({
     defineField({ name: 'tagline', title: 'Tagline · คำโปรย', type: 'string', group: 'main' }),
     defineField({ name: 'eventYear', title: 'Year on card · ปีบนการ์ด', type: 'string', group: 'main',
       description: 'มื้ออาหารเปลี่ยนโลก/บอสพาดื่ม: ปีที่แสดงบนการ์ด เช่น 206 BC, 961 ปล่อยว่าง = ใช้ปีท้าย slug (…-1671)',
-      hidden: ({ document }) => (document?.series || 'review') === 'review' }),
+      hidden: ({ document }) => ['review', 'chill'].includes(document?.series || 'review') }),
     defineField({ name: 'city', title: 'City · เมือง', type: 'reference', to: [{ type: 'city' }], group: 'main',
-      hidden: ({ document }) => document?.series === 'history', validation: (r) => r.custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องเลือกเมือง' : true)) }),
-    defineField({ name: 'restaurant', title: 'Restaurant · ร้าน', type: 'object', group: 'main', hidden: ({ document }) => document?.series !== 'review',
+      hidden: ({ document }) => document?.series === 'history', validation: (r) => r.custom((v, ctx: any) => (['review', 'chill'].includes(ctx.document?.series) && !v ? 'รีวิวร้านต้องเลือกเมือง' : true)) }),
+    defineField({ name: 'restaurant', title: 'Restaurant · ร้าน', type: 'object', group: 'main', hidden: ({ document }) => !['review', 'chill'].includes(document?.series || 'review'),
       fields: [
         defineField({ name: 'name', title: 'Name · ชื่อร้าน', description: 'ไปซ้ำให้พิมพ์ชื่อเดิมทุกครั้ง เว็บจะรวมทุกครั้งที่ไปเป็นร้านเดียวกัน', type: 'string' }),
         defineField({ name: 'originalName', title: 'Original name · ชื่อภาษาเดิม', type: 'string' }),
@@ -114,7 +114,7 @@ export const article = defineType({
           }) }),
         defineField({ name: 'priceBand', title: 'Price band (old)', type: 'string', hidden: true }), // older entries; now set in the Bill tab
         defineField({ name: 'sameAs', title: 'Earlier review of this restaurant (optional) · รีวิวครั้งก่อน', description: 'ใช้เฉพาะเมื่อร้านเปลี่ยนชื่อหรือพิมพ์ชื่อไม่ตรงกับครั้งก่อน · ชื่อร้านเดิมในเมืองเดียวกัน เว็บรวมให้เองอยู่แล้ว', type: 'reference', weak: true, to: [{ type: 'article' }],
-          options: { filter: 'language == "th" && series == "review"' } }),
+          options: { filter: 'language == "th" && series in ["review", "chill"]' } }),
         defineField({ name: 'aliases', title: 'Search aliases (optional) · ชื่อเรียกอื่นสำหรับค้นหา', description: 'ชื่อที่คนอาจพิมพ์ค้นหา เช่น ชื่อร้านสะกดไทย "หย่งฟู" หรือชื่อเล่นของร้าน · ไม่แสดงบนเว็บ ใช้ค้นหาเท่านั้น · ชื่อเมือง/ประเภทอาหารภาษาไทย-อังกฤษ เว็บรู้เองอยู่แล้ว', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' } }),
         defineField({ name: 'awards', title: 'Awards · รางวัล (ตรวจจากแหล่งจริงแล้ว)', description: 'กด Add item → เลือกรางวัลจากรายการ (จัดตามสถาบัน) · ใส่ปีถ้ามี · หมายเหตุสั้นๆ เช่น ชื่อเชฟ หรือประเทศ · ลากเพื่อเรียงลำดับ · รางวัลจริงที่ยังไม่มีในรายการ: ขอฝ่ายเว็บเพิ่มใน src/data/awards.json',
           type: 'array', of: [defineArrayMember({ type: 'award' })] }),
@@ -149,7 +149,7 @@ export const article = defineType({
       options: { list: [{ title: 'None · ไม่ใช่', value: '' }, { title: 'Event', value: 'Event' }, { title: 'AD · ได้รับเชิญ', value: 'AD' }, { title: 'AD + Event', value: 'AD · Event' }], layout: 'radio', direction: 'horizontal' } }),
     defineField({ name: 'bill', title: 'Real price (hidden, optional) · ราคาจริง', description: 'เช่น 6,999 THB++ หรือ 1,688 CNY · ใช้คำนวณระดับราคาให้อัตโนมัติเมื่อไม่ได้เลือกด้านบน', type: 'string', group: 'meta' }),
     defineField({ name: 'visit', title: 'Visit', description: 'เดือนที่ไปกินจริง รูปแบบ Mon-YYYY เช่น Oct-2026 · เว็บใช้เรียงเลข Tasting Notes No. (มื้อเก่าสุด = No. 001)', type: 'string', group: 'meta',
-      validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }).custom((v, ctx: any) => (ctx.document?.series === 'review' && !v ? 'รีวิวร้านต้องใส่ Visit' : true)) }),
+      validation: (r) => r.regex(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$/, { name: 'Mon-YYYY' }).custom((v, ctx: any) => (['review', 'chill'].includes(ctx.document?.series) && !v ? 'รีวิวร้านต้องใส่ Visit' : true)) }),
     defineField({ name: 'hashtags', title: 'Hashtags · แฮชแท็ก (ไม่ต้องใส่ #, ไม่เกิน 10)', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { layout: 'tags' }, group: 'meta', validation: (r) => r.max(10) }),
     defineField({ name: 'publishedAt', title: 'Publish date · วันที่เผยแพร่', type: 'date', group: 'meta', initialValue: () => new Date().toISOString().slice(0, 10), validation: (r) => r.required() }),
     defineField({ name: 'seoTitle', title: 'Meta title', description: '≤ 60 ตัวอักษร เช่น "ร้าน X Tokyo รีวิว Fine Dining" (ระบบเติม "— บอสพาชิม" ให้)', type: 'string', group: 'seo', components: { input: seoInput('title', 0, 60) }, validation: (r) => r.max(60) }),
@@ -161,7 +161,7 @@ export const article = defineType({
     // The restaurant name first, so lists and the "แปลจากบทความ" picker show which article it is at a glance.
     // e.g. "TH · Tokyo · Visit Apr-2024 · ฿฿฿฿ · Japanese · Sushi · Event"
     prepare: ({ title, name, series, ep, visit, lang, city, media, band, cu, st, tag }: any) => ({
-      title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : (name || title || 'ไม่มีชื่อ'),
+      title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : series === 'chill' ? `Ep.${ep ?? '?'} ${name || title || ''}` : (name || title || 'ไม่มีชื่อ'),
       subtitle: [LANGS.find((l) => l.id === (lang || 'th'))?.short ?? 'TH', city, visit && `Visit ${visit}`, band, [cu, st].filter(Boolean).join(' · '), tag].filter(Boolean).join(' · '),
       media,
     }) },
@@ -201,7 +201,7 @@ export const city = defineType({
       }) }),
     defineField({ name: 'picks', title: "Boss's Picks · ร้านแนะนำของเมืองนี้", description: 'เลือกได้สูงสุด 3 ร้าน เรียงตามลำดับที่ใส่ · เว้นว่าง = เว็บเลือกให้เอง (ร้านล่าสุดที่มีจานถอดแว่นชิม)', type: 'array',
       of: [defineArrayMember({ type: 'reference', weak: true, to: [{ type: 'article' }], // weak: deleting an article is never blocked
-        options: { filter: ({ document }: any) => ({ filter: '!defined(translationOf) && series == "review" && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
+        options: { filter: ({ document }: any) => ({ filter: '!defined(translationOf) && series in ["review", "chill"] && city._ref == $city', params: { city: String(document?._id || '').replace(/^drafts\./, '') } }) } })],
       validation: (r) => r.max(3) }),
   ],
   // ★ = featured on Destinations · how many Boss's Picks · "no photo" when the city still needs one
@@ -267,6 +267,7 @@ export const settings = defineType({
       defineField({ name: 'review', title: 'Eat Like The Boss · บอสพาชิม', type: 'text', rows: 2 }),
       defineField({ name: 'history', title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', type: 'text', rows: 2 }),
       defineField({ name: 'drinks', title: 'Drink Like The Boss · บอสพาดื่ม', type: 'text', rows: 2 }),
+      defineField({ name: 'chill', title: 'Boss Goes Chilling · บอสพาชิล', type: 'text', rows: 2 }),
     ] }),
     // เกี่ยวกับบอส
     txt('aboutHeadline', 'About headline · หัวข้อหน้าเกี่ยวกับบอส', 'about'),

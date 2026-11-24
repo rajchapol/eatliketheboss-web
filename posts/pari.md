@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "Pari Izakaya สุดมินิมอล (Chiangmai, Thailand)"
 slug: pari
 tagline: "Izakaya กลิ่นอายไทยสุดมินิมอล"

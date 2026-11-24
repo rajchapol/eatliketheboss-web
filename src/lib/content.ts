@@ -6,7 +6,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, type Locale, type SeriesKey } from './config';
+import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, isRestaurantSeries, type Locale, type SeriesKey } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -190,7 +190,7 @@ export async function getSettings(): Promise<Settings> { return settingsLoaded; 
 /** Public URL of an article, e.g. /review/tokyo/sezanne/ or /en/review/tokyo/sezanne/ */
 export function articleUrl(a: Pick<Article, 'series' | 'slug' | 'city' | 'language'>) {
   const base = SERIES[a.series].path;
-  const mid = a.series === 'review' && a.city ? `${a.city.slug}/` : '';
+  const mid = isRestaurantSeries(a.series) && a.city ? `${a.city.slug}/` : '';
   return `${localePrefix(a.language)}/${base}/${mid}${a.slug}/`;
 }
 
@@ -255,7 +255,7 @@ export const visitYear = (a: Pick<Article, 'visit' | 'publishedAt'>) => visitIso
 
 /** Cities that have at least one review, most restaurants first (ties by name). */
 export async function citiesByCount() {
-  const reviews = (await getArticles(DEFAULT_LOCALE)).filter((a) => a.series === 'review');
+  const reviews = (await getArticles(DEFAULT_LOCALE)).filter((a) => isRestaurantSeries(a.series));
   const n = (slug: string) => groupByRestaurant(reviews.filter((a) => a.city?.slug === slug)).length;
   return (await getCities()).map((c) => ({ city: c, count: n(c.slug) })).filter((x) => x.count > 0)
     .sort((a, b) => b.count - a.count || a.city.nameEn.localeCompare(b.city.nameEn));
@@ -279,7 +279,7 @@ export function restaurantKey(a: Article) {
   return nameKey(a);
 }
 function nameKey(a: Article) {
-  if (a.series !== 'review' || !a.restaurant?.name) return `article:${a.baseId}`;
+  if (!isRestaurantSeries(a.series) || !a.restaurant?.name) return `article:${a.baseId}`;
   return `${a.city?.slug ?? ''}|${a.restaurant.name.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '')}`;
 }
 /**
@@ -299,7 +299,7 @@ function linkRestaurants(all: Article[]): Article[] {
   }
   const ids = new Set(originals.map((a) => a.baseId));
   for (const a of originals) if (a.restaurant?.sameAs && ids.has(a.restaurant.sameAs)) union(a.restaurant.sameAs, a.baseId);
-  return all.map((a) => ({ ...a, restaurantGroup: a.series === 'review' ? `r:${find(a.baseId)}` : `article:${a.baseId}` }));
+  return all.map((a) => ({ ...a, restaurantGroup: isRestaurantSeries(a.series) ? `r:${find(a.baseId)}` : `article:${a.baseId}` }));
 }
 /** All visits to the same restaurant in the given list (newest visit first, as the list is sorted). */
 export function visitsOf(a: Article, list: Article[]) {
@@ -317,7 +317,7 @@ function restaurantSlug(visits: Article[]) {
  * `visits` newest first. Returns undefined for a single visit (the review itself is the page).
  */
 export function capsuleUrl(visits: Article[]) {
-  if (visits.length < 2 || visits[0].language !== DEFAULT_LOCALE || visits[0].series !== 'review') return undefined;
+  if (visits.length < 2 || visits[0].language !== DEFAULT_LOCALE || !isRestaurantSeries(visits[0].series)) return undefined;
   return `/restaurant/${visits[0].city?.slug ?? 'other'}/${restaurantSlug(visits)}/`;
 }
 /** Dishes served on 2+ visits (names compared without case, spaces or brackets), with the visits they appear in. */

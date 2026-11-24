@@ -1,4 +1,5 @@
 ---
+import { isRestaurantSeries } from '../../lib/config';
 // City page: Boss's Picks (chosen in Studio → เมือง → Boss's Picks, or automatic), then every restaurant
 // grouped by cuisine with a cuisine filter. Repeat visits to one restaurant share one row.
 import Base from '../../layouts/Base.astro';
@@ -15,7 +16,7 @@ export async function getStaticPaths() {
   return (await getCities()).map((c) => ({ params: { slug: c.slug }, props: { c } }));
 }
 const { c } = Astro.props as { c: City };
-const list = (await getArticles('th')).filter((a) => a.city?.slug === c.slug && a.series === 'review');
+const list = (await getArticles('th')).filter((a) => a.city?.slug === c.slug && isRestaurantSeries(a.series));
 const restaurants = groupByRestaurant(list);
 const motif = motifOf(c);
 const glassesCount = list.reduce((n, a) => n + a.dishes.filter((d) => d.glassesOff).length, 0);

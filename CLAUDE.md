@@ -23,7 +23,7 @@ You never need to touch `src/` to post.
 - No stars, no scores, no `reviewRating` in JSON-LD. Impressions come through writing and the 🕶️ glasses-off dish (max 2 per meal).
 - The Boss's Bill = an approximate **price band** (฿฿ / ฿฿฿ / ฿฿฿฿), never the real amount. Special event meals carry an `Event` pill; invited meals `AD` (the Boss, 7 Nov 2026: AD = ได้รับเชิญ, still show the band); both = `AD · Event`. Band = Studio "The Boss's Bill" (Bill tab), else worked out from the hidden real price (`priceBandFromBill()` in `content.ts`: <3,000 / <8,000 / 8,000+ THB).
 - Boss's Pairing is retired (3 Nov 2026). Don't add it back.
-- Series are kept apart (the Boss, 13 Nov 2026): Tasting Notes No. counts reviews only; other series show "Ep.N" (`numLabel()` / `numKicker()` in `content.ts`), carry their own colour and English name (`SERIES` in `config.ts`), and มื้ออาหารเปลี่ยนโลก has its own masthead (`.hist-mast`).
+- Series are kept apart (the Boss, 13 Nov 2026): Tasting Notes No. counts reviews only; other series show "Ep.N" (`numLabel()` / `numKicker()` in `content.ts`), carry their own colour and English name (`SERIES` in `config.ts`), and มื้ออาหารเปลี่ยนโลก has its own masthead (`.hist-mast`). บอสพาชิล (`chill`, "Boss Goes Chilling", 24 Nov 2026) = casual restaurants: a restaurant series like reviews (`isRestaurantSeries()` in `config.ts`: city in URL, restaurant box, Bill, Restaurants/Destinations/city pages, repeat visits) but numbered Ep.N.
 - Don't name the Boss's employer. Career: "Hospitality และ F&B มากว่า 15 ปี"; judging: "Tatler Best Asia-Pacific panelist & more".
 - Icons: `src/components/Icon.astro` line icons only, never emoji in the UI.
 - Copy protection (deterrent only): AI-training crawlers blocked in `public/robots.txt`; photos can't be right-clicked/dragged/long-pressed; copied text (80+ chars) gets a credit + link (`Effects.astro`); footer rights notice; photo copyright in JSON-LD (`seo.ts`).
@@ -36,7 +36,7 @@ You never need to touch `src/` to post.
 | --- | --- |
 | Colours, patterns, motifs, effects, phone layout | `src/styles/site.css` |
 | Fonts (self-hosted woff2 + SIL OFL licences, no Google Fonts) | `public/fonts/`, `@font-face` at the top of `site.css` |
-| Menu: English names on every page + small Thai name underneath (phones: short English names, 5 tabs that always fit), logo. "Notes" opens the series menu (บอสพาชิม · มื้ออาหารเปลี่ยนโลก · บอสพาดื่ม; the Boss, 13 Nov 2026) | `src/components/NavLinks.astro` (used by `SiteHeader.astro` + `MiniBar.astro`); items `NAV_ITEMS`, names `NAV_LABELS` / `NAV_SHORT` in `src/lib/i18n.ts` |
+| Menu: English names on every page + small Thai name underneath (phones: short English names, 5 tabs that always fit), logo. "Notes" opens the series menu (บอสพาชิม · มื้ออาหารเปลี่ยนโลก · บอสพาดื่ม · บอสพาชิล; the Boss, 13 + 24 Nov 2026) | `src/components/NavLinks.astro` (used by `SiteHeader.astro` + `MiniBar.astro`); items `NAV_ITEMS`, names `NAV_LABELS` / `NAV_SHORT` in `src/lib/i18n.ts` |
 | Line art + footer links | `src/components/SiteFooter.astro` |
 | `<head>`, meta, hreflang, OG | `src/layouts/Base.astro` |
 | JSON-LD | `src/lib/seo.ts` |
@@ -60,7 +60,7 @@ You never need to touch `src/` to post.
 | Repeat visits | Same city + same restaurant name = one restaurant (`restaurantKey()` in `src/lib/content.ts`): one card with every visit, and a visit list on each article |
 
 ## URLs (never change once live; add a redirect in `public/_redirects` if you must)
-`/review/<city>/<slug>/` · `/history/<slug>/` · `/drinks/<slug>/` · `/city/<slug>/` · `/restaurants/` · `/destinations/` · `/glasses-off-awards/` · `/about/` · other languages prefixed `/en/ /ja/ /zh/`.
+`/review/<city>/<slug>/` · `/chill/<city>/<slug>/` · `/history/<slug>/` · `/drinks/<slug>/` · `/city/<slug>/` · `/restaurants/` · `/destinations/` · `/glasses-off-awards/` · `/about/` · other languages prefixed `/en/ /ja/ /zh/`.
 
 ## Numbering
 Tasting Notes No. is automatic: order of `visit` (Mon-YYYY; oldest meal = No. 001, same month → earlier publish date first). Lists show newest visit first. Never set `no` by hand.

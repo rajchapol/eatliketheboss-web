@@ -50,7 +50,7 @@ export default defineConfig({
         const TH = '_type == "article" && !defined(translationOf)';
         // Restaurants A–Z: one entry per restaurant (same name + same city = same restaurant, as on the site), every visit inside.
         const restaurants = (repeatOnly: boolean) => async () => {
-          const rows: any[] = await client.fetch(`*[${TH} && series == "review" && !(_id in path("drafts.**"))]{_id, "n": restaurant.name, "c": city->nameEn, "cid": city._ref}`);
+          const rows: any[] = await client.fetch(`*[${TH} && series in ["review", "chill"] && !(_id in path("drafts.**"))]{_id, "n": restaurant.name, "c": city->nameEn, "cid": city._ref}`);
           const by = new Map<string, { n: string; c: string; ids: string[] }>();
           rows.filter((r) => r.n).forEach((r) => {
             const k = `${String(r.n).trim().toLowerCase()}|${r.cid}`;
@@ -81,6 +81,7 @@ export default defineConfig({
               item('th-review', 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
               S.listItem().id('th-history').title('Meals That Changed the World · มื้ออาหารเปลี่ยนโลก').schemaType('article').child(list('th-history', 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`).defaultOrdering([{ field: 'episode', direction: 'asc' }])),
               item('th-drinks', 'The Boss Pours · บอสพาดื่ม', `${TH} && series == "drinks"`),
+              item('th-chill', 'Boss Goes Chilling · บอสพาชิล (ร้าน casual)', `${TH} && series == "chill"`),
               S.divider(),
               S.listItem().id('th-by-city').title('By city · แยกตามเมือง').icon(PinIcon).child(
                 S.documentTypeList('city').title('Choose a city · เลือกเมือง').apiVersion(API)
@@ -106,11 +107,11 @@ export default defineConfig({
               item('todo-drafts-new', 'New drafts, never published · ร่างใหม่', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) == 0', EditIcon),
               item('todo-drafts-edit', 'Unpublished edits · แก้ไขค้างไว้', '_type == "article" && _id in path("drafts.**") && count(*[_id == string::split(^._id, "drafts.")[1]]) > 0', EditIcon),
               S.divider(),
-              item('todo-band', 'No price band · ยังไม่มีระดับราคา', `${TH} && series == "review" && !defined(billBand) && !defined(bill) && !defined(restaurant.priceBand)`, WarningOutlineIcon),
+              item('todo-band', 'No price band · ยังไม่มีระดับราคา', `${TH} && series in ["review", "chill"] && !defined(billBand) && !defined(bill) && !defined(restaurant.priceBand)`, WarningOutlineIcon),
               item('todo-visit', 'No Visit · ยังไม่ใส่ Visit', `${TH} && !defined(visit)`, WarningOutlineIcon),
               item('todo-cover', 'No cover photo · ไม่มีรูปปก', '_type == "article" && !defined(cover.asset)', WarningOutlineIcon),
               item('todo-alt', 'Photos without alt text · รูปยังไม่มีคำบรรยาย', '_type == "article" && ((defined(cover.asset) && !defined(cover.alt)) || count(dishes[defined(image.asset) && !defined(image.alt)]) > 0 || count(gallery[defined(asset) && !defined(alt)]) > 0)', WarningOutlineIcon),
-              item('todo-style', 'No cuisine style · ยังไม่มีประเภทย่อย', `${TH} && series == "review" && !defined(restaurant.style)`, TagIcon),
+              item('todo-style', 'No cuisine style · ยังไม่มีประเภทย่อย', `${TH} && series in ["review", "chill"] && !defined(restaurant.style)`, TagIcon),
               S.listItem().id('todo-awards').title('Awards not in the list · รางวัลที่ไม่อยู่ในรายการ').icon(TrophyIcon).schemaType('article').child(
                 list('todo-awards', 'Awards not in the list · รางวัลที่ไม่อยู่ในรายการ', '_type == "article" && count(restaurant.awards[!defined(award) || !(award in $names)]) > 0', { names: AWARD_NAMES })),
               item('todo-seo', 'SEO missing or wrong length · SEO ยังไม่ครบ', '_type == "article" && (!defined(seoTitle) || !defined(seoDescription) || length(seoTitle) > 60 || length(seoDescription) < 120 || length(seoDescription) > 155)', SearchIcon),
@@ -161,8 +162,8 @@ export default defineConfig({
     templates: (prev) => [
       ...prev,
       { id: 'article-review', title: 'Review · รีวิวร้านใหม่', schemaType: 'article', value: () => ({ series: 'review', language: 'th', publishedAt: new Date().toISOString().slice(0, 10) }) },
-      ...(['history', 'drinks'] as const).map((series) => ({
-        id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
+      ...(['history', 'drinks', 'chill'] as const).map((series) => ({
+        id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : series === 'chill' ? 'Boss Goes Chilling · ร้านใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
         value: async (_p: unknown, ctx: any) => {
           const max = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('math::max(*[_type == "article" && !defined(translationOf) && series == $series].episode)', { series });
           return { series, language: 'th', episode: (max || 0) + 1, publishedAt: new Date().toISOString().slice(0, 10) };

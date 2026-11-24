@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "บอสพาชิม : Rangoon Tea House ICONSIAM ตำนานจากพม่าสู่สุนทรียภาพริมเจ้าพระยา (Bangkok, Thailand)"
 slug: rangoon-tea-house-iconsiam
 city: bangkok

@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "Niku Yama (Bangkok, Thailand)"
 slug: niku-yama
 tagline: "เนื้อดีๆ ย่างไงก็อร่อย"

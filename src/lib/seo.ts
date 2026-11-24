@@ -1,3 +1,4 @@
+import { isRestaurantSeries } from './config';
 // JSON-LD builders. No reviewRating anywhere: the brand gives no stars or scores.
 import { SITE, HREFLANG } from './config';
 import { articleUrl, imgUrl } from './content';
@@ -80,7 +81,7 @@ export function articleLd(a: Article) {
     publisher: { '@id': abs('/#org') },
     mainEntityOfPage: url,
   };
-  if (a.series === 'review' && a.restaurant) {
+  if (isRestaurantSeries(a.series) && a.restaurant) {
     return {
       ...base,
       '@type': 'Review',

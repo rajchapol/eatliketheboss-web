@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "บอสพาชิม: ศรีตราด - อาหารไทยแสนละมุนจากชายฝั่งตะวันออก"
 slug: sri-trat
 tagline: "อาหารไทยแสนละมุนจากชายฝั่งตะวันออก"

@@ -1,4 +1,5 @@
 ---
+import { isRestaurantSeries } from '../../../lib/config';
 // Time capsule: one page per restaurant the Boss reviewed 2+ times (Thai). Every visit on a vertical
 // timeline, newest first, with what came back and what changed. Lists link here instead of listing
 // every visit, so repeat reviews never crowd the site. Texts: Studio → ตั้งค่าเว็บ → ไทม์แคปซูล.
@@ -11,7 +12,7 @@ import { SITE } from '../../../lib/config';
 import type { Article } from '../../../lib/types';
 
 export async function getStaticPaths() {
-  const reviews = (await getArticles('th')).filter((a) => a.series === 'review');
+  const reviews = (await getArticles('th')).filter((a) => isRestaurantSeries(a.series));
   return groupByRestaurant(reviews)
     .map((g) => ({ g, url: capsuleUrl(g.visits) }))
     .filter((x) => x.url)

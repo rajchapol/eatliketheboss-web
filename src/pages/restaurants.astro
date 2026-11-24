@@ -1,4 +1,5 @@
 ---
+import { isRestaurantSeries } from '../lib/config';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import ArticleCard from '../components/ArticleCard.astro';
@@ -6,7 +7,7 @@ import { getArticles, getCities, getSettings, groupByRestaurant } from '../lib/c
 import { AWARDS, CUISINES, REGIONS, regionOf } from '../lib/config';
 const st = await getSettings();
 
-const list = (await getArticles('th')).filter((a) => a.series === 'review');
+const list = (await getArticles('th')).filter((a) => isRestaurantSeries(a.series));
 // One card per restaurant; repeat visits are listed inside the card.
 const groups = groupByRestaurant(list);
 const cityList = (await getCities()).filter((c) => list.some((a) => a.city?.slug === c.slug));

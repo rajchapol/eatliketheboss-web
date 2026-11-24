@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "บอสพาชิม in Bangkok: Ise Suriwong - มนต์เสน่ห์แห่ง Yoshoku และการผสมผสานรสชาติข้ามวัฒนธรรมที่ลงตัว"
 slug: ise-suriwong
 tagline: "มนต์เสน่ห์แห่ง Yoshoku และการผสมผสานรสชาติข้ามวัฒนธรรมที่ลงตัว"
