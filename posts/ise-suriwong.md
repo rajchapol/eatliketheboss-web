@@ -1,7 +1,7 @@
 ---
 language: th
 series: chill
-title: "บอสพาชิม in Bangkok: Ise Suriwong - มนต์เสน่ห์แห่ง Yoshoku และการผสมผสานรสชาติข้ามวัฒนธรรมที่ลงตัว"
+title: "บอสพาชิล in Bangkok: Ise Suriwong - มนต์เสน่ห์แห่ง Yoshoku และการผสมผสานรสชาติข้ามวัฒนธรรมที่ลงตัว"
 slug: ise-suriwong
 tagline: "มนต์เสน่ห์แห่ง Yoshoku และการผสมผสานรสชาติข้ามวัฒนธรรมที่ลงตัว"
 city: bangkok
@@ -20,7 +20,7 @@ tag: ""
 visit: Sep-2026
 hashtags: [บอสพาชิม, eatliketheboss, IseSuriwong, Izakaya, Yoshoku, Bangkok]
 publishedAt: 2026-11-17
-seoTitle: "Ise Suriwong Bangkok รีวิว Izakaya Yoshoku | บอสพาชิม"
+seoTitle: "Ise Suriwong Bangkok รีวิว Izakaya Yoshoku | บอสพาชิล"
 seoDescription: "บอสพาชิมพาไปร้าน Ise Suriwong Izakaya สไตล์ Yoshoku ที่เชฟเคยทำร้านอิตาเลียนในญี่ปุ่น ตั้งแต่ Aquapazza ชูโตะถึง Namero รสไทย-ญี่ปุ่น"
 ---
 การค้นพบร้านอาหารที่ไม่ค่อยเป็นกระแส แต่เต็มไปด้วยความอบอุ่นและลูกเล่นแพรวพราว และสามารถกลับมากินได้บ่อยๆ มักจะเป็นเรื่องดี บอสขอพาทุกท่านมาสัมผัสศิลปะแห่งรสชาติที่ร้าน Ise Suriwong  ร้าน Izakaya ที่ไม่ค่อยเป็นกระแสนัก ซึ่งนอกจากจะมี อาหารIzakaya แบบปกติ รวมทั้งทำ Mabo tofu ได้เด็ดขาด แต่ที่โดดเด่นด้วยสไตล์อาหารแบบ Yoshoku (อาหารตะวันตกสไตล์ญี่ปุ่น) และการผสานกลิ่นอายแบบ Fusion Thai-Japan ที่น่าสนใจยิ่งนัก เพราะเชฟเคยทำงานร้านอาหารอิตาลีในญี่ปุ่นมาก่อน

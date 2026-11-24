@@ -1,7 +1,7 @@
 ---
 language: th
 series: chill
-title: "บอสพาชิม : Sri’s Room ห้องของศรี Your Eastern saloon next door (Bangkok, Thailand)"
+title: "บอสพาชิล : Sri’s Room ห้องของศรี Your Eastern saloon next door (Bangkok, Thailand)"
 slug: sris-room
 city: bangkok
 restaurant:

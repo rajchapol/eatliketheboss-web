@@ -1,7 +1,7 @@
 ---
 language: th
 series: chill
-title: "บอสพาชิม in Hongkong : Yardbird"
+title: "บอสพาชิล in Hongkong : Yardbird"
 slug: yardbird
 city: hong-kong
 restaurant:

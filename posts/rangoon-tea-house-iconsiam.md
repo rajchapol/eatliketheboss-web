@@ -1,7 +1,7 @@
 ---
 language: th
 series: chill
-title: "บอสพาชิม : Rangoon Tea House ICONSIAM ตำนานจากพม่าสู่สุนทรียภาพริมเจ้าพระยา (Bangkok, Thailand)"
+title: "บอสพาชิล : Rangoon Tea House ICONSIAM ตำนานจากพม่าสู่สุนทรียภาพริมเจ้าพระยา (Bangkok, Thailand)"
 slug: rangoon-tea-house-iconsiam
 city: bangkok
 restaurant:
@@ -14,7 +14,7 @@ billBand: "฿฿"
 visit: Dec-2025
 hashtags: [บอสพาชิม, eatliketheboss, RangoonTeaHouse, RTH, ICONSIAM, ModernBurmese, BurmeseFood, Bangkok]
 publishedAt: 2026-11-07
-seoTitle: "Rangoon Tea House ICONSIAM รีวิวอาหารพม่า | บอสพาชิม"
+seoTitle: "Rangoon Tea House ICONSIAM รีวิวอาหารพม่า | บอสพาชิล"
 seoDescription: "บอสพาชิมพาไปชิมอาหารพม่าสมัยใหม่ที่ Rangoon Tea House สาขาไอคอนสยาม ตั้งแต่ยำใบชา โมฮิงกา ไปจนถึงบริยานีไก่ใต้ฝาแป้งพายและค็อกเทลชา"
 ---
 จากความสำเร็จอันลือลั่นของสาขาแรกที่ทองหล่อ วันนี้ตำนานแห่งย่างกุ้งได้ขยายอาณาจักรสู่หมุดหมายใหมริมแม่น้ำเจ้าพระยา บอสขอพาทุกท่านไปสัมผัส **Rangoon Tea House (RTH)** ณ ไอคอนสยาม ซึ่งนับเป็น **สาขาที่สองในประเทศไทย** อย่างเป็นทางการ

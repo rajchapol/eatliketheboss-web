@@ -1,7 +1,7 @@
 ---
 language: th
 series: chill
-title: "บอสพาชิม : Aimée Petit Bistro {A Hidden Parisian Gem in Rangsit} (Pathum Thani, Thailand)"
+title: "บอสพาชิล : Aimée Petit Bistro {A Hidden Parisian Gem in Rangsit} (Pathum Thani, Thailand)"
 slug: aimee
 tagline: "Bistro เล็กๆ ในตรอกซอยของปารีสที่รังสิต"
 city: pathum-thani
