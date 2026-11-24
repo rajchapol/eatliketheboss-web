@@ -7,7 +7,7 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 ## 2026-11-24 · รีวิวใหม่ สักกะวา (Sakkwa) — Claude (ฝ่ายโพสต์)
 - `posts/sakkwa.md` + `posts/images/sakkwa/` (ปก + 16 จาน รูปต้นฉบับย่อ 2400 px ไม่ครอป ไม่มีโลโก้) · Bangkok · Thai · Contemporary · ฿฿ · AD · visit Nov-2026 · ถอดแว่น 2 จาน (กุ้งลายเสือ, Amberjack Sashimi)
 - ใส่ `quote:` จากบทความคำต่อคำ, originalName สักกะวา, area Talat Noi · FB/IG ตั้งเวลา ศ. 27 พ.ย. 19:00 แล้ว
-- มื้อ Feb-2026 ของร้านนี้ยังไม่ได้ลงเว็บ ถ้าลงทีหลังใช้ slug `sakkwa-2026-02` และ restaurant.name "Sakkwa" ให้ตรงกัน
+- มื้อ Feb-2026 ลงด้วย: `posts/sakkwa-2026-02.md` (Doc เก่า "สักกะวา" 1YLFf1Rd… · 7 จาน + รูปห้อง · restaurant.name "Sakkwa" เดียวกัน → รวมเป็นร้านเดียว 2 visit) · คำไทยผิดที่บอสอนุมัติแก้: มะกรด→มะกรูด หรึย→หรือ หอยเซลล์→หอยเชลล์ โอซุ่นค→โอซุ่น · รูปมีแค่ 1225 px (ชุดเก่าลายน้ำฝัง ไม่มีต้นฉบับใหญ่กว่าใน Food(upload)) `--dry` เตือนรูปเล็ก
 
 ## 2026-11-24 · ซีรีส์บอสพาชิล (chill) — Claude (ฝ่ายโพสต์ ทำแทนฝ่ายเว็บตามที่บอสสั่ง)
 - `SERIES.chill` = บอสพาชิล / **Boss Goes Chilling** · dot `#c8704a` ink `#8a4326` (ส้มดินเผา ต่างจากเขียว ทิฟฟานี ทอง · ฝ่ายแบรนด์ปรับได้) · path `chill` · URL `/chill/<city>/<slug>/`
