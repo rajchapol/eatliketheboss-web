@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม in Bangkok: Folk Lane by Toby's - การกำเนิดใหม่ของคาเฟ่บรันช์สู่ศิลปะแห่ง Comfort Food ที่ไร้กรอบ"
+series: chill
+title: "บอสพาชิล in Bangkok: Folk Lane by Toby's - การกำเนิดใหม่ของคาเฟ่บรันช์สู่ศิลปะแห่ง Comfort Food ที่ไร้กรอบ"
 slug: folk-lane
 tagline: "การกำเนิดใหม่ของคาเฟ่บรันช์สู่ศิลปะแห่ง Comfort Food ที่ไร้กรอบ"
 city: bangkok
@@ -17,7 +17,7 @@ billBand: "฿฿"
 visit: Sep-2026
 hashtags: [บอสพาชิม, eatliketheboss, FolkLane, TobysSukhumvit38, Bangkok]
 publishedAt: 2026-11-05
-seoTitle: "Folk Lane by Toby's กรุงเทพฯ รีวิวบรันช์ | บอสพาชิม"
+seoTitle: "Folk Lane by Toby's กรุงเทพฯ รีวิวบรันช์ | บอสพาชิล"
 seoDescription: "บอสพาชิมไปชิม Folk Lane by Toby's สุขุมวิท 38 บรันช์ออซซี่ที่กำเนิดใหม่ ผสมกลิ่นอายเอเชียและตะวันออกกลาง มีจานซิกเนเจอร์ที่บอสถอดแว่นชิม"
 ---
 การกลับมาครั้งนี้ไม่ใช่แค่การปรับปรุงโฉม แต่คือการ Rebirth หรือการกำเนิดใหม่ของ "Toby's สุขุมวิท 38" ที่หลายคนคุ้นเคย ภาพจำของบรันช์ออซซี่แบบเรียบง่ายถูกยกระดับให้เติบโตขึ้น กลายเป็นร้าน Folk Lane ที่ก้าวข้ามกรอบเดิมๆ พร้อมปล่อยของด้วยการผสานกลิ่นอายความอร่อยจากฝั่งเอเชียและตะวันออกกลางเข้ามาอย่างลงตัว ภายใต้คอนเซปต์ "By A Friend For A Friend" ร้านนี้ตั้งใจสร้าง Community Space ที่หลอมรวมผู้คนเข้ากับอาหาร

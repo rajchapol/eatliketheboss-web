@@ -1,7 +1,7 @@
 ---
 # แม่แบบบทความ: คัดลอกเป็น posts/<slug>.md แล้วกรอก จากนั้น npm run post -- posts/<slug>.md
 language: th            # th | en | ja | zh (คำแปลใช้ slug เดียวกับต้นฉบับไทย)
-series: review          # review | history | drinks
+series: review          # review | history | drinks | chill (บอสพาชิล = ร้าน casual: ใช้ช่องร้าน/เมือง/Bill เหมือนรีวิว แต่ขึ้น Ep.N)
 title: "บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรยเชิงศิลปะ"
 slug: restaurant-name   # อังกฤษตัวเล็ก คั่นด้วย - ตั้งแล้วห้ามเปลี่ยน
 tagline: "คำโปรยเชิงศิลปะ"

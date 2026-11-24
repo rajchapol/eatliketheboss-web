@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "Odashi Hakkei โอเด้งคือความใส่ใจ (Bangkok, Thailand)"
 slug: odashi-hakkei
 tagline: "อาหารของความใส่ใจอย่างแท้จริง"

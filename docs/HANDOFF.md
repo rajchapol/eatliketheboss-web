@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-24 · ซีรีส์บอสพาชิล (chill) — Claude (ฝ่ายโพสต์ ทำแทนฝ่ายเว็บตามที่บอสสั่ง)
+- `SERIES.chill` = บอสพาชิล / **Boss Goes Chilling** · dot `#c8704a` ink `#8a4326` (ส้มดินเผา ต่างจากเขียว ทิฟฟานี ทอง · ฝ่ายแบรนด์ปรับได้) · path `chill` · URL `/chill/<city>/<slug>/`
+- `isRestaurantSeries()` (review + chill) แทน `series === 'review'` ทุกจุดที่เป็นเรื่องร้าน: URL มีเมือง, กล่องร้าน/Bill, Restaurants, Destinations, หน้าเมือง, รูปแชร์เมือง, สไลด์ล่าสุด, 404, repeat visits, JSON-LD Restaurant, การ์ดแบบร้าน · เลข Tasting Notes No. ยังนับเฉพาะ review · chill ขึ้น Ep.N (Studio episode ไม่งั้นเรียงตาม publishedAt)
+- The Index บนหน้าแรกยังเป็นรีวิวอย่างเดียว · chill มีแถบซีรีส์ของตัวเอง (strips) · เมนู Notes · หน้า /chill/ (ลายเส้น espresso) · about · Studio (ตัวเลือก series, รายการ "Boss Goes Chilling", เทมเพลต "ร้านใหม่", ช่องร้าน/เมือง/Visit แสดงเหมือนรีวิว, Boss's Picks รวม chill) · seriesText.chill · `public/img/og/og-chill.jpg`
+- ย้าย 16 ร้าน (PR #85): `series: chill` ใน posts + 301 ใน `public/_redirects` (th/en/ja/zh) · ชื่อเรื่องเก่าของ 16 บทยังขึ้นต้น "บอสพาชิม in" ไม่ได้แก้ (ถามบอสก่อน)
+- บทแรก `posts/fav-bangkok.md` (Fav. Bangkok, ฿฿ · AD)
+
 
 
 

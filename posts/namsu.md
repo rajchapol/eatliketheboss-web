@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม Namsu: ประตูสู่รสชาติแห่งรัฐฉาน ณ ตรอกถั่วงอก"
+series: chill
+title: "บอสพาชิล Namsu: ประตูสู่รสชาติแห่งรัฐฉาน ณ ตรอกถั่วงอก"
 slug: namsu
 tagline: "กลิ่นข้าวหมักที่เข้ากับสาเกอย่างน่าประหลาด"
 city: bangkok

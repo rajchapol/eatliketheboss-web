@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม in Hongkong : Yardbird"
+series: chill
+title: "บอสพาชิล in Hongkong : Yardbird"
 slug: yardbird
 city: hong-kong
 restaurant:

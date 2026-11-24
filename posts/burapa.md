@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "Burapa อาหารไทยภาคตะวันออกแห่ง Michelin guide (Bangkok,Thailand)"
 slug: burapa
 tagline: "อาหารไทยภาคตะวันออกแห่ง Michelin guide"

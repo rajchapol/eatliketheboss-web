@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม : Gaston Bangkok (Bangkok, Thailand)"
+series: chill
+title: "บอสพาชิล : Gaston Bangkok (Bangkok, Thailand)"
 slug: gaston
 tagline: "เฟรนช์บิสโทรที่เป็นตัวเลือกใหม่ในใจผม"
 city: bangkok

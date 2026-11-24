@@ -12,7 +12,7 @@ const EN = NAV_LABELS.en;
 const SUB = lang === 'en' ? undefined : { ...NAV_LABELS[lang], ...(lang === 'th' ? { awards: 'รางวัลถอดแว่น' } : {}) };
 const all = await getArticles('th');
 const counts = Object.fromEntries((Object.keys(SERIES) as SeriesKey[]).map((k) => [k, all.filter((a) => (a.series || 'review') === k).length]));
-const unit: Record<SeriesKey, string> = { review: 'รีวิว', history: 'ตอน', drinks: 'บทความ' };
+const unit: Record<SeriesKey, string> = { review: 'รีวิว', history: 'ตอน', drinks: 'บทความ', chill: 'ร้าน' };
 ---
 {NAV_ITEMS.map(([key, href, icon]) => key === 'articles' ? (
   <button type="button" class="nav-series" popovertarget={menuId} aria-haspopup="menu" aria-current={key === active ? 'page' : undefined}>

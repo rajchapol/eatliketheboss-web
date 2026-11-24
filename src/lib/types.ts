@@ -91,7 +91,7 @@ export interface Settings {
   homeAwardsText: string;
   invitedNote: string;
   aboutStats: { value: string; label: string }[];
-  seriesText: { review: string; history: string; drinks: string };
+  seriesText: { review: string; history: string; drinks: string; chill: string };
   finderTitle: string;
   finderIntro: string;
   destinationsIntro: string;

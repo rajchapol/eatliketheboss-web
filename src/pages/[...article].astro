@@ -1,4 +1,5 @@
 ---
+import { isRestaurantSeries } from '../lib/config';
 // Every article in every language and series: /review/tokyo/x/, /history/x/, /en/review/tokyo/x/ …
 // Interface text follows the article's language (src/lib/i18n.ts).
 import Base from '../layouts/Base.astro';
@@ -36,8 +37,8 @@ const more = [...others.filter(sameCity), ...others.filter((x) => !sameCity(x) &
 // Same cuisine elsewhere (the Boss, 17 Nov 2026: help "<restaurant> review" searches): up to 8 plain text links to
 // other restaurants of this cuisine, newest visit first — easy for readers to hop and for Google to crawl.
 const seenR = new Set([restaurantKey(a), ...more.map(restaurantKey)]);
-const sameCuisine = a.series === 'review' && a.restaurant?.cuisine
-  ? others.filter((x) => x.series === 'review' && x.restaurant?.cuisine === a.restaurant?.cuisine && !seenR.has(restaurantKey(x)) && (seenR.add(restaurantKey(x)), true)).slice(0, 8)
+const sameCuisine = isRestaurantSeries(a.series) && a.restaurant?.cuisine
+  ? others.filter((x) => isRestaurantSeries(x.series) && x.restaurant?.cuisine === a.restaurant?.cuisine && !seenR.has(restaurantKey(x)) && (seenR.add(restaurantKey(x)), true)).slice(0, 8)
   : [];
 const s = SERIES[a.series];
 const glassesDishes = a.dishes.map((d, i) => ({ d, i })).filter(({ d }) => d.glassesOff);
@@ -48,7 +49,7 @@ const crumbs = [
   { name: L === 'th' ? s.th : t(L, 'review'), href: `/${s.path}/` },
   ...(a.city ? [{ name: a.city.nameEn, href: `/city/${a.city.slug}/` }] : []),
   // "รีวิว <restaurant>" in the last crumb: Google shows it in the result's breadcrumb trail
-  { name: a.series === 'review' ? `${t(L, 'reviewWord')} ${name}` : name, href: articleUrl(a) },
+  { name: isRestaurantSeries(a.series) ? `${t(L, 'reviewWord')} ${name}` : name, href: articleUrl(a) },
 ];
 // Page title: people search "<restaurant> รีวิว" / "รีวิว <restaurant>", so a review's title always starts with the
 // review word and the restaurant name, read like a magazine headline: "รีวิว Sushi Iwai: โอมากาเสะสุขุมวิท 22"
@@ -57,10 +58,10 @@ const REVIEW_RE = /รีวิว|review|レビュー|点评|評論/i;
 const pageTitle = (() => {
   const rw = t(L, 'reviewWord');
   const cityLabel = a.city ? (L === 'th' ? a.city.nameTh : a.city.nameEn) : '';
-  const auto = a.series === 'review' ? `${rw} ${name.replace(/\s*\([^)]*\)\s*$/, '')}${cityLabel ? ` ${cityLabel}` : ''}` : name;
+  const auto = isRestaurantSeries(a.series) ? `${rw} ${name.replace(/\s*\([^)]*\)\s*$/, '')}${cityLabel ? ` ${cityLabel}` : ''}` : name;
   const st = a.seoTitle?.trim();
   if (!st) return auto;
-  if (a.series !== 'review' || REVIEW_RE.test(st)) return st;
+  if (!isRestaurantSeries(a.series) || REVIEW_RE.test(st)) return st;
   // the title uses the name without the original-script part ("Ao (蒼)" → "Ao"), and drops the name from the
   // front of the Meta title however it is punctuated ("Kwantip - Samrub…" vs "Kwantip Samrub…"), so it isn't said twice
   const short = name.replace(/\s*\([^)]*\)\s*$/, '').trim();
@@ -72,7 +73,7 @@ const pageTitle = (() => {
   return rest ? `${rw} ${short}${rest.includes(':') ? ' ' : ': '}${rest}` : `${rw} ${short}`;
 })();
 const cityName = a.city ? ` ${L === 'th' ? a.city.nameTh : a.city.nameEn}` : '';
-const autoDesc = a.series === 'review'
+const autoDesc = isRestaurantSeries(a.series)
   ? `${a.tagline ? a.tagline + ' — ' : ''}${t(L, 'autoDesc', { name, city: cityName })}`
   : `${a.tagline ? a.tagline + ' — ' : ''}${a.title} — ${SERIES[a.series].th} · Eat Like The Boss`;
 const description = a.seoDescription || autoDesc;
@@ -110,7 +111,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
           <span>{t(L, 'published')} <time datetime={a.publishedAt}>{formatDate(a.publishedAt, L)}</time></span>
           {a.visit && <><span aria-hidden="true">·</span><span>Visit <time datetime={visitIso(a)}>{a.visit}</time></span></>}<span aria-hidden="true">·</span><span>{t(L, 'readMin', { n: a.readingMinutes })}</span>
         </p>
-        {a.series === 'review' && (
+        {isRestaurantSeries(a.series) && (
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:8px">
             <section aria-label={t(L, 'atGlance')} class="glance rc">
               <p class="glance-head">{t(L, 'atGlance')}</p>
@@ -248,17 +249,17 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
 
     <section aria-label={t(L, 'summary')} class="rc" style="max-width:720px;margin:88px auto 0;padding:28px 32px;display:flex;flex-direction:column;gap:14px;font-family:'Ekkamai New',sans-serif;background:#fbf7ef;box-shadow:0 0 0 1px rgba(212,179,114,.5)">
       {a.visit && <div style="display:flex;align-items:baseline;gap:12px;font-size:18px"><span>Visit</span><span aria-hidden="true" style="flex:1;border-bottom:1px dotted #926633"></span><strong>{a.visit}</strong></div>}
-      {a.series === 'review' && <div style="display:flex;align-items:baseline;gap:12px;font-size:18px"><span>The Boss's Bill</span><span aria-hidden="true" style="flex:1;border-bottom:1px dotted #926633"></span><strong>{bill}</strong></div>}
+      {isRestaurantSeries(a.series) && <div style="display:flex;align-items:baseline;gap:12px;font-size:18px"><span>The Boss's Bill</span><span aria-hidden="true" style="flex:1;border-bottom:1px dotted #926633"></span><strong>{bill}</strong></div>}
       {a.hashtags.length > 0 && <p style="margin:12px 0 0;display:flex;flex-wrap:wrap;gap:8px;font-size:14px">{a.hashtags.map((h) => <span class="badge" style="font-size:13px;border:1px solid rgba(11,83,87,.35);color:#0b5357">#{h}</span>)}</p>}
     </section>
-    {a.series === 'review' && (
+    {isRestaurantSeries(a.series) && (
       /* Colophon, as a magazine closes a feature: the review word + restaurant in plain view (the Boss, 16 Nov 2026) */
       <p class="colophon">
         <span class="colophon-mark" aria-hidden="true"></span>
         <span>{L === 'th' ? 'บอสพาชิมรีวิว' : `${t(L, 'reviewWord')} ·`} <span translate="no">{name}</span>{a.city && <> · {L === 'th' ? a.city.nameTh : a.city.nameEn}</>}{a.visit && <> · <span translate="no">Visit {visitLabel(a).replace("-", " ")}</span></>}</span>
       </p>
     )}
-    <div style="max-width:720px;margin:28px auto 0;padding:0 32px"><ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} heading={a.series && a.series !== 'review' ? (L === 'th' ? st.articleShareTitleHistory || t(L, 'shareStory') : t(L, 'shareStory')) : L === 'th' ? st.articleShareTitle : true} /></div>
+    <div style="max-width:720px;margin:28px auto 0;padding:0 32px"><ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} heading={!isRestaurantSeries(a.series) ? (L === 'th' ? st.articleShareTitleHistory || t(L, 'shareStory') : t(L, 'shareStory')) : L === 'th' ? st.articleShareTitle : true} /></div>
   </article>
 
   {more.length > 0 && (

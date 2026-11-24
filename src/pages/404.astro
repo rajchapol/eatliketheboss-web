@@ -1,11 +1,12 @@
 ---
+import { isRestaurantSeries } from '../lib/config';
 // Not found: a way back in — search the restaurants, or pick one of the latest reviews.
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import { getArticles, getSettings, groupByRestaurant } from '../lib/content';
 const st = await getSettings();
-const latest = groupByRestaurant((await getArticles('th')).filter((a) => a.series === 'review')).slice(0, 3).map((r) => r.latest);
+const latest = groupByRestaurant((await getArticles('th')).filter((a) => isRestaurantSeries(a.series))).slice(0, 3).map((r) => r.latest);
 ---
 <Base title="ไม่พบหน้านี้" noindex>
   <section class="wrap" style="padding-top:96px;padding-bottom:72px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center">

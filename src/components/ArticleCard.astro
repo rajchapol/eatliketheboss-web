@@ -3,7 +3,7 @@
 // to show "รีวิว N ครั้ง" and a link to each visit.
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
-import { AWARDS, SERIES, cuisineIcon } from '../lib/config';
+import { AWARDS, SERIES, cuisineIcon, isRestaurantSeries } from '../lib/config';
 import { articleUrl, visitIso, visitLabel, capsuleUrl, getSettings, numLabel, numKicker } from '../lib/content';
 import { searchText } from '../lib/search';
 import type { Article } from '../lib/types';
@@ -15,10 +15,10 @@ const glasses = all.some((v) => v.dishes.some((d) => d.glassesOff));
 const s = SERIES[a.series];
 const repeat = all.length > 1;
 const L = a.language; // cards on translated pages speak that language
-const seriesName = t(L, a.series === 'history' ? 'seriesHistory' : a.series === 'drinks' ? 'seriesDrinks' : 'seriesReview');
+const seriesName = t(L, a.series === 'history' ? 'seriesHistory' : a.series === 'drinks' ? 'seriesDrinks' : a.series === 'chill' ? 'seriesChill' : 'seriesReview');
 const st = await getSettings();
 // Series other than reviews (history, drinks): the year in the slug ("…-1671") as the kicker, the tagline under the title.
-const story = !!a.series && a.series !== 'review';
+const story = !isRestaurantSeries(a.series); // บอสพาชิล cards are restaurant cards
 const storyYear = story ? (a.eventYear || a.slug.match(/-(\d{4}s?)$/)?.[1]) : undefined; // Studio "Year on card" first (206 BC, 961)
 const y0 = visitIso(all[all.length - 1]).slice(0, 4), y1 = visitIso(all[0]).slice(0, 4);
 // Finder search text: names, chef, city and every dish name from every visit.
@@ -59,6 +59,6 @@ const text = searchText(all.flatMap((v) => [v.title, v.tagline, v.restaurant?.na
       <span style="display:inline-flex;align-items:center;gap:8px"><Icon name="clock" size={16} style="color:#c39e5c" />{st.capsuleTitle} · ไป {all.length} ครั้ง · {y0 === y1 ? y1 : `${y0}–${y1}`}</span><Icon name="arrow" size={16} />
     </a>
   ) : (
-    <span class="pat-linen fx-arrow" aria-hidden="true" style="margin-top:auto;padding:14px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">{t(L, a.series && a.series !== 'review' ? 'readStory' : 'readNotes')}<Icon name="arrow" style="color:#c39e5c" /></span>
+    <span class="pat-linen fx-arrow" aria-hidden="true" style="margin-top:auto;padding:14px 20px;border-top:1px solid rgba(195,158,92,.35);display:flex;justify-content:space-between;align-items:center;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#0b5357">{t(L, !isRestaurantSeries(a.series) ? 'readStory' : 'readNotes')}<Icon name="arrow" style="color:#c39e5c" /></span>
   )}
 </article>

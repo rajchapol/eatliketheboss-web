@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม: Heiyin คอร์สอาหารชุดมงคล (Bangkok,Thailand)"
+series: chill
+title: "บอสพาชิล: Heiyin คอร์สอาหารชุดมงคล (Bangkok,Thailand)"
 slug: heiyin
 tagline: "อาหารจีนกวางตุ้งขนานแท้ ในรูปแบบทันสมัย"
 city: bangkok

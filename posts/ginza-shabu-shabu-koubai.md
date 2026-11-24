@@ -1,6 +1,6 @@
 ---
 language: th
-series: review
+series: chill
 title: "Ginza Shabu-Shabu Koubai - สัมผัสวากิวมายา แห่ง Kumamoto"
 slug: ginza-shabu-shabu-koubai
 tagline: "สัมผัสวากิวมายา แห่ง Kumamoto"

@@ -53,6 +53,7 @@ const T = {
   seriesReview: { th: 'บอสพาชิม', en: 'Restaurant review', ja: 'レストランレビュー', zh: '餐厅点评' },
   seriesHistory: { th: 'มื้ออาหารเปลี่ยนโลก', en: 'Meals that changed the world', ja: '世界を変えた食事', zh: '改变世界的一餐' },
   seriesDrinks: { th: 'บอสพาดื่ม', en: 'Drinks with the Boss', ja: 'ボスと一杯', zh: '与 Boss 小酌' },
+  seriesChill: { th: 'บอสพาชิล', en: 'Boss Goes Chilling', ja: 'Boss Goes Chilling', zh: 'Boss Goes Chilling' },
   readNotes: { th: 'อ่าน Tasting Notes', en: 'Read the Tasting Notes', ja: 'テイスティングノートを読む', zh: '阅读品鉴笔记' },
   readStory: { th: 'อ่านเรื่องนี้', en: 'Read the story', ja: '記事を読む', zh: '阅读全文' },
   reviewedTimes: { th: 'รีวิว {n} ครั้ง', en: 'Reviewed {n} times', ja: '{n}回レビュー', zh: '点评 {n} 次' },
