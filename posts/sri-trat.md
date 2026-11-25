@@ -45,7 +45,7 @@ seoDescription: "บอสพาชิมรีวิวศรีตราด �
 
 ### FA - RANG - JAI
 image: ./images/sri-trat/01.jpg | ค็อกเทลสีชมพูและค็อกเทลฟองครีมท็อปคาราเมลถั่วชนแก้วกันเหนือโต๊ะ ร้านศรีตราด กรุงเทพ
-Sod Chaeng Rum,Prucia Plum Liqueur, Pandar syzups Maraschino, Shack Super Spiced Rum ,Pink guava juice, Lemon, Honey. ranene ,PLum Powder
+Sod Chaeng Rum,Prucia Plum Liqueur, Pandan syrup Maraschino, Shack Super Spiced Rum ,Pink guava juice, Lemon, Honey. ranene , Plum Powder
 
 ### Matoom Sour
 Johnnie Walker Black Label, Bael Syrup Dried Chili, Egg White, Lemon and Bitee

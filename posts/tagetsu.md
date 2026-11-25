@@ -29,7 +29,7 @@ seoDescription: "บอสพาชิมไปกิน Tagetsu ร้านไ
 
 ### Welcome Drink
 image: ./images/tagetsu/01.jpg | แชมเปญหนึ่งแก้วทรงฟลุตวางบนเคาน์เตอร์ไม้ ร้าน Tagetsu เมืองโตเกียว
-แชมเปญ welcomedrink  รสค่อนข้างdry ให้ความรู้สึกของผลไม้กลุ่มcitrus apircot และ capistiuse ช่วยเปิดประสาทรับรสของลิ้นได้ดี
+แชมเปญ welcomedrink  รสค่อนข้างdry ให้ความรู้สึกของผลไม้กลุ่มcitrus apricot และ capistiuse ช่วยเปิดประสาทรับรสของลิ้นได้ดี
 
 ### ไข่ตุ๋น (Chawanmushi)
 image: ./images/tagetsu/02.jpg | ไข่ตุ๋นในถ้วยเซรามิกโรยต้นหอมซอยวางบนจานรองสีแดง ร้าน Tagetsu เมืองโตเกียว

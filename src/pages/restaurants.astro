@@ -29,7 +29,12 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
 ---
 <Base image="/img/og/og-restaurants.jpg" title="ค้นหาร้าน — ร้าน Fine Dining ที่บอสไปชิมแล้ว" description="ค้นหาร้าน Fine Dining ที่บอสไปชิมมาแล้ว จากชื่อร้าน เชฟ เมือง ประเภทอาหาร หรือระดับราคา พร้อมจานถอดแว่นชิม" active="finder">
   <style is:global>
-        .card[hidden]{display:none!important}
+        .card[hidden],.card[data-more]{display:none!important}
+        /* phones: 24 cards first, then "ดูเพิ่ม" (the Boss, 25 Nov 2026: 169 cards in one page was too long); before the script runs */
+        #results.paged>.card:nth-child(n+25){display:none}
+        .load-more{display:flex;justify-content:center;margin-top:40px}
+        .load-more button{min-height:48px;padding:0 28px;border-radius:999px;border:1px solid #c39e5c;background:#fbf7ef;color:#0b5357;font-family:'Ekkamai New',sans-serif;font-size:16px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+        .load-more[hidden]{display:none}
   </style>
   <section aria-labelledby="ft" style="position:relative;overflow:hidden">
     <div aria-hidden="true" class="pat-loop-light" style="position:absolute;top:0;right:0;bottom:0;width:60%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 75%);mask-image:linear-gradient(90deg,transparent,#000 75%)"></div>
@@ -101,9 +106,10 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
       <button type="button" id="reset" style="display:inline-flex;align-items:center;gap:6px;min-height:44px;border:0;background:none;padding:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357"><span style="border-bottom:1px solid #c39e5c">ล้างตัวกรอง</span></button>
     </div>
     <div class="rule"></div>
-    <div id="results" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:40px">
+    <div id="results" class="paged" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:36px 28px;padding-top:40px">
       {groups.map((g) => <ArticleCard a={g.latest} visits={g.visits} />)}
     </div>
+    <p class="load-more" id="load-more" hidden={groups.length <= 24}><button type="button">ดูเพิ่มอีก <span id="more-n2">{Math.min(24, groups.length - 24)}</span> ร้าน <span style="color:#8a6a3a">(เหลือ <span id="left-n">{groups.length - 24}</span>)</span></button></p>
     <p id="empty" hidden style="margin-top:48px;text-align:center;font-size:18px;font-weight:400"><img src="/img/brand/lineart/lineart-menu-card-teal.svg" alt="" width="140" height="140" style="display:block;margin:0 auto 16px;height:auto" />ยังไม่พบร้านที่ตรงกับตัวกรอง ลองล้างตัวกรองหรือค้นด้วยคำอื่นครับ</p>
   </section>
 
@@ -120,16 +126,24 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
       // phones: "ตัวกรองเพิ่มเติม" opens the cuisine / award / price / glasses filters; the badge counts the ones in use
       const more = document.getElementById('more-filters'), moreBtn = document.getElementById('more-toggle'), moreN = document.getElementById('more-n');
       moreBtn.addEventListener('click', () => { const open = moreBtn.getAttribute('aria-expanded') !== 'true'; moreBtn.setAttribute('aria-expanded', String(open)); more.classList.toggle('open', open); });
-      const run = () => {
+      const PAGE = 24; let limit = PAGE;
+      const lm = document.getElementById('load-more');
+      const run = (keep) => {
+        if (keep !== true) limit = PAGE;
         const term = st.q.trim(); let n = 0;
         cards.forEach((c) => {
           const ok = (!st.city || c.dataset.city === st.city) && (!st.price || c.dataset.price === st.price) && (!st.cuisine || c.dataset.cuisine === st.cuisine) && (!st.award || (c.dataset.awards || '').split('|').includes(st.award)) && (!st.glasses || c.dataset.glasses) && (!term || matches(c.dataset.text, term));
           c.hidden = !ok; if (ok) n++;
+          if (ok && n > limit) c.dataset.more = ''; else delete c.dataset.more;
         });
         document.getElementById('count').textContent = n; document.getElementById('empty').hidden = n > 0;
+        document.getElementById('results').classList.remove('paged');
+        const left = Math.max(0, n - limit); lm.hidden = !left;
+        document.getElementById('more-n2').textContent = Math.min(PAGE, left); document.getElementById('left-n').textContent = left;
         const used = [st.cuisine, st.award, st.price, st.glasses].filter(Boolean).length;
         moreN.hidden = !used; moreN.textContent = used;
       };
+      lm.querySelector('button').addEventListener('click', () => { limit += PAGE; run(true); });
       // Suggestions under the search box (the Boss, 17 Nov 2026: typing a name "barely showed anything" — the
       // results were below the fold). Up to 6 matches appear right under the box: names that start with the
       // words first, then names that contain them, then the rest (chef, dish, city…). Enter / "ดูทั้งหมด" jumps

@@ -30,7 +30,7 @@ const tr = await translationsOf(a);
 const alternates = tr.map((x) => ({ lang: x.language, href: articleUrl(x) }));
 const visits = visitsOf(a, all); // every review of this restaurant (newest visit first)
 const capsule = capsuleUrl(visits); // Thai repeat visits → time capsule page
-// More Tasting Notes: same city first, then the same series; other visits of this restaurant are already listed above.
+// More from The Boss: same city first, then the same series; other visits of this restaurant are already listed above.
 const others = all.filter((x) => x.language === L && x.id !== a.id && restaurantKey(x) !== restaurantKey(a));
 const sameCity = (x: Article) => Boolean(a.city && x.city?.slug === a.city.slug);
 const more = [...others.filter(sameCity), ...others.filter((x) => !sameCity(x) && x.series === a.series)].slice(0, 3);
@@ -169,8 +169,7 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
             {a.restaurant.chef && <><dt style="padding-top:12px;color:#3d4955">{t(L, 'chef')}</dt><dd style={`${fact};padding-top:2px;font-weight:700`}>{a.restaurant.chef}</dd></>}
             {a.restaurant.awards?.length ? <><dt style="padding-top:12px;color:#3d4955">{t(L, 'awards')}</dt><dd style={`${fact};padding-top:2px;font-weight:700`}>{a.restaurant.awards.join(' · ')}</dd></> : null}
             {a.city && <><dt style="padding-top:12px;color:#3d4955">{t(L, 'cityArea')}</dt><dd style={`${fact};padding-top:2px;font-weight:700`}><a href={`/city/${a.city.slug}/`} style="border-bottom:1px solid #c39e5c">{a.city.nameEn}</a>{a.restaurant.area && ` — ${a.restaurant.area}`}</dd></>}
-            <dt style="padding-top:12px;color:#3d4955">The Boss's Bill</dt><dd style={`${fact};padding-top:2px;font-weight:700`}>{bill}</dd>
-            {a.visit && <><dt style="padding-top:12px;color:#3d4955">Visit</dt><dd style="margin:0;padding-top:2px;font-weight:700">{a.visit}</dd></>}
+            {/* Bill and Visit are not repeated here: the summary box above and the ticket at the end show them (the Boss, 25 Nov 2026: easier to read) */}
           </dl>
         </aside>
       )}
@@ -265,7 +264,10 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
   {more.length > 0 && (
     <section aria-labelledby="more" class="wrap" style="padding-top:96px;padding-bottom:96px">
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin:0 0 16px">
+        <div>
         <h2 id="more" class="ink-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:44px;line-height:1.1">{t(L, 'more')}</h2>
+        {t(L, 'moreSub') && <p style="margin:6px 0 0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#3d4955">{t(L, 'moreSub')}</p>}
+        </div>
         {a.city && L === 'th' && more.some(sameCity) && <a href={`/city/${a.city.slug}/`} class="fx-under" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;display:inline-flex;align-items:center;gap:8px">ดูทุกร้านใน{a.city.nameTh}<Icon name="arrow" size={16} style="color:#c39e5c" /></a>}
       </div>
       <div class="rule"></div>

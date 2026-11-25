@@ -4,6 +4,15 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-25 (2) · อ่านง่ายขึ้น: ปุ่ม ดูเพิ่ม ข้อมูลซ้ำ ภาษา สะกดอังกฤษ — Claude
+- บอสเลือกข้อ 1–3, 5–9 จากรายการตรวจเว็บบนมือถือ (25 พ.ย.)
+- ป้าย: การ์ดร้าน "อ่าน Tasting Notes" → **อ่านรีวิว** (`readNotes` ใน i18n), ปุ่มสไลด์หน้าแรกตามซีรีส์ (อ่านรีวิว / อ่านเรื่องนี้), ท้ายบทความ "More Tasting Notes" → **More from The Boss** + บรรทัดไทย "บทความอื่นของบอส" (`moreSub`)
+- หน้าค้นหาร้าน: โชว์ 24 ใบแรก + ปุ่ม "ดูเพิ่มอีก 24 ร้าน (เหลือ N)" (`#load-more`, การ์ดที่เกินใช้ `data-more`; ค้นหา/กรองแล้วเริ่มนับใหม่; ช่องแนะนำใต้ช่องค้นหายังค้นทุกการ์ด)
+- หน้าแรก: ลิงก์สำรอง "ดูบันทึกก่อนหน้าอีก …" ซ่อนจริงเมื่อสคริปต์ทำงาน (`.idx-more[hidden]` — เดิม CSS display ทับ เลยเห็นสองลิงก์) · LATEST VISITS มีไทย "มื้อล่าสุดของบอส" ใต้
+- บทความ: กล่อง AT THE TABLE ไม่ซ้ำ Bill / Visit แล้ว (อยู่ในกล่องสรุปบนและบัตรท้าย)
+- ข้อความใน Studio: `scripts/data/settings-fixes.json` (fill-settings แก้ให้เฉพาะเมื่อช่องยังเป็นข้อความเดิมเป๊ะ): เกี่ยวกับบอส "PanelistTatler / และAward" → เว้นวรรค · ช่องค้นหาหน้าแรก "chefs restaurants dishes" → "ชื่อร้าน เชฟ หรือชื่อจาน" — สั่งผ่าน Actions → Fill settings texts
+- สะกดอังกฤษในบทความไทย 36 ไฟล์ 57 จุด (เช่น reserach, Restuarant, FIne dine, langustine, cerviche, hezelnut, chardonay, Riesling, eggnog) — merge แล้ว post-article.yml ส่งเฉพาะ body ที่เปลี่ยน · ไม่แน่ใจ ยังไม่แก้: juksunchae "ilmusion", tagetsu "capistiuse", niku-yama "เห็ด orangi"
+
 ## 2026-11-25 · ลงเว็บ DiverXO (มาดริด) — Claude (ฝ่ายโพสต์)
 - `posts/diverxo.md` + `posts/images/diverxo/` (ปก = เซวิเช่แช่แข็ง _DSC0842 + 12 จาน) จาก Doc แท็บ final · บอสยืนยันคำผิดชุดใหม่แล้ว: "อุมามิ" → "อูมามิ" 4 จุด
 - รูปต้นฉบับมีแค่ 1224×816 (ชุดเก่า) `--dry` เตือนรูปเล็ก แต่ผ่าน · Motril Prawn Yakitori และ Hake Kokotxa (🕶️) ไม่มีรูป

@@ -569,6 +569,7 @@ img.cover,.hx img,.slide-photo img{-webkit-touch-callout:none;-webkit-user-selec
 }
 .idx-more{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:14px 4px;border-bottom:1px solid rgba(195,158,92,.35);font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357}
 .idx-more span{border-bottom:1px solid #c39e5c}
+.idx-more[hidden]{display:none} /* the link is the no-script fallback; the script hides it and shows the button */
 .idx-row[hidden]{display:none!important}
 .idx-toggle{width:100%;border:0;background:none;cursor:pointer;text-align:left}
 .idx-toggle svg{transition:transform .3s}.idx-toggle.is-open svg{transform:rotate(180deg)}
