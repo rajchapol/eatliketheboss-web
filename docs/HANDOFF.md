@@ -27,6 +27,7 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 - ตัดคอลัมน์ชื่อซีรีส์ในแถวรายการหน้าแรก (ทุกแถวเป็นบอสพาชิม) · ลบช่อง Studio `homeIndexTitle` · id `#notes` / `#index` คงเดิม
 - ฝ่ายแบรนด์ (แชทเดียวกัน): รูปแชร์หน้าซีรีส์ `public/img/og/og-review.jpg` → THE BOSS DINES และ `og-chill.jpg` → THE BOSS GOES CHILLING (ลบบรรทัดเดิมแล้ววางใหม่ ฟอนต์ Cormorant Garamond ตำแหน่งเดิม) · Brand Identity Manual แท็บ V5 แก้ชื่อครบ 7 จุด · Design System "Eat Like The Boss" แก้ README (ตารางซีรีส์, section kicker, บอสพาชิล) + tokens (ตัวอย่าง The Index)
 - บอสสั่ง (25 พ.ย.): ต่อไปฝ่ายโพสต์ ฝ่ายแบรนด์ และฝ่ายเว็บ ทำงานในแชทเดียวกันได้ (CLAUDE.md)
+- ⏳ **แชทถัดไปทำก่อนเริ่มงาน:** แชทนี้เปิดโฟลเดอร์ ELB Claude Workspace ไม่ได้ จึงยังไม่ได้ลง NOW.md / learning (บอสบอกว่าสิทธิ์โฟลเดอร์มีอยู่แล้ว) ให้ลงสรุปวันที่ 25 พ.ย. นี้ใน `NOW.md` (ชื่ออังกฤษซีรีส์ใหม่ The Boss Dines / The Boss Goes Chilling, เลขรีวิวคง Tasting Notes No., หน้าแรกเลิก The Index, og-review/og-chill ใหม่, Manual V5 + Design System แก้แล้ว, PR #91 + #92) และกฎใหม่ "แชทเดียวทำได้ทุกฝ่าย" ใน `learning/pending-rules.md` + `learning/log/`
 
 ## 2026-11-24 · รีวิวใหม่ สักกะวา (Sakkwa) — Claude (ฝ่ายโพสต์)
 - `posts/sakkwa.md` + `posts/images/sakkwa/` (ปก + 16 จาน รูปต้นฉบับย่อ 2400 px ไม่ครอป ไม่มีโลโก้) · Bangkok · Thai · Contemporary · ฿฿ · AD · visit Nov-2026 · ถอดแว่น 2 จาน (กุ้งลายเสือ, Amberjack Sashimi)
