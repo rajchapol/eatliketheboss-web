@@ -79,7 +79,7 @@ export const article = defineType({
         return dup ? 'บทความนี้มีคำแปลภาษานี้อยู่แล้ว เปิดอันเดิมแก้แทนได้ (ดูรายการด้านล่าง)' : true;
       }) }),
     defineField({ name: 'series', title: 'Series · ซีรีส์', type: 'string', group: 'main', initialValue: 'review',
-      options: { list: [{ title: 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }, { title: 'Boss Goes Chilling · บอสพาชิล (ร้าน casual)', value: 'chill' }], layout: 'radio' },
+      options: { list: [{ title: 'The Boss Dines · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }, { title: 'The Boss Goes Chilling · บอสพาชิล (ร้าน casual)', value: 'chill' }], layout: 'radio' },
       validation: (r) => r.required() }),
     defineField({ name: 'no', title: 'Tasting Notes No. (retired)', description: 'เว็บนับเลขให้อัตโนมัติตามวัน Visit', type: 'number', hidden: true }),
     defineField({ name: 'episode', title: 'Ep.', description: 'สร้างจากปุ่ม "ตอนใหม่" ระบบใส่เลขตอนถัดไปให้เอง', type: 'number', group: 'main', hidden: ({ document }) => (document?.series || 'review') === 'review' }),
@@ -243,7 +243,6 @@ export const settings = defineType({
     txt('homeFinderLabel', 'Search label · ข้อความหน้าช่องค้นหา', 'home'),
     txt('homeSearchPlaceholder', 'Search placeholder · ข้อความจางในช่องค้นหา', 'home'),
     txt('homeLatestTitle', 'Latest visits title · หัวข้อสไลด์ร้านล่าสุด', 'home'),
-    txt('homeIndexTitle', 'Index title · หัวข้อรายการบทความ', 'home'),
     txt('homeIndexLink', 'Index link · ลิงก์ "ดูทั้งหมด"', 'home'),
     para('tagline', 'Brand tagline · คำโปรยแบรนด์', 'home', 2),
     txt('homeAwardsText', 'Awards strip text · ข้อความแถบ Glasses Off Awards', 'home'),
@@ -267,7 +266,7 @@ export const settings = defineType({
       defineField({ name: 'review', title: 'Eat Like The Boss · บอสพาชิม', type: 'text', rows: 2 }),
       defineField({ name: 'history', title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', type: 'text', rows: 2 }),
       defineField({ name: 'drinks', title: 'Drink Like The Boss · บอสพาดื่ม', type: 'text', rows: 2 }),
-      defineField({ name: 'chill', title: 'Boss Goes Chilling · บอสพาชิล', type: 'text', rows: 2 }),
+      defineField({ name: 'chill', title: 'The Boss Goes Chilling · บอสพาชิล', type: 'text', rows: 2 }),
     ] }),
     // เกี่ยวกับบอส
     txt('aboutHeadline', 'About headline · หัวข้อหน้าเกี่ยวกับบอส', 'about'),

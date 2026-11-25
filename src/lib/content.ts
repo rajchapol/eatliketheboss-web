@@ -99,8 +99,8 @@ function numberByVisit(all: Article[]): Article[] {
 /** "No. 007" for reviews, "Ep.1" for the other series. */
 export const numLabel = (a: Pick<Article, 'series' | 'no' | 'episode'>) =>
   isReview(a) ? `No. ${String(a.no).padStart(3, '0')}` : `Ep.${a.episode ?? 1}`;
-/** Small overline above the number: "TASTING NOTES" for reviews, the series name otherwise. */
-export const numKicker = (a: Pick<Article, 'series'>) => (SERIES[(a.series || 'review') as SeriesKey]?.en ?? 'Tasting Notes').toUpperCase();
+/** Small overline above the number: "TASTING NOTES" for reviews (kept when the series became The Boss Dines, 25 Nov 2026), the series name otherwise. */
+export const numKicker = (a: Pick<Article, 'series'>) => (isReview(a) ? 'Tasting Notes' : SERIES[a.series as SeriesKey]?.en ?? 'Tasting Notes').toUpperCase();
 
 /**
  * Price band from a written price (Studio "ราคาจริง", not shown on the site): the first amount converted to THB

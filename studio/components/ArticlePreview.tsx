@@ -7,9 +7,10 @@ import { Box, Card, Flex, Stack, Text } from '@sanity/ui';
 const PROJECT = 'ohviqc5c';
 const SITE = 'eatlikeboss.com';
 const SERIES: Record<string, { en: string; th: string; path: string; dot: string }> = {
-  review: { en: 'Tasting Notes', th: 'บอสพาชิม', path: 'review', dot: '#0b5357' },
+  review: { en: 'The Boss Dines', th: 'บอสพาชิม', path: 'review', dot: '#0b5357' },
   history: { en: 'Meals That Changed the World', th: 'มื้ออาหารเปลี่ยนโลก', path: 'history', dot: '#0abab5' },
   drinks: { en: 'The Boss Pours', th: 'บอสพาดื่ม', path: 'drinks', dot: '#c39e5c' },
+  chill: { en: 'The Boss Goes Chilling', th: 'บอสพาชิล', path: 'chill', dot: '#c8704a' },
 };
 
 // image-<id>-<w>x<h>-<ext> → CDN URL (crop centre; the site also honours the hotspot)
@@ -63,7 +64,7 @@ export function ArticlePreview(props: any) {
             <div style={{ aspectRatio: '3 / 2', background: '#e8dfcf' }}>{cover && <img src={cover} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}</div>
             <Box padding={4}>
               <Stack space={3}>
-                <Text size={0} style={{ letterSpacing: '.16em', textTransform: 'uppercase', color: s.dot }}>{s.en}{!isReview && a.episode ? ` · Ep.${a.episode}` : ''}</Text>
+                <Text size={0} style={{ letterSpacing: '.16em', textTransform: 'uppercase', color: s.dot }}>{isReview ? 'Tasting Notes' : s.en}{!isReview && a.episode ? ` · Ep.${a.episode}` : ''}</Text>
                 <Text size={3} weight="semibold" style={{ color: '#1a2632' }}>{name || 'ยังไม่มีชื่อ'}</Text>
                 {a.tagline && <Text size={1} style={{ color: '#3d4955' }}>{a.tagline}</Text>}
                 <Flex gap={2} wrap="wrap">{pills.map((p) => <Card key={String(p)} paddingX={2} paddingY={1} radius={5} style={{ boxShadow: '0 0 0 1px rgba(195,158,92,.6)', background: '#fff' }}><Text size={0}>{p}</Text></Card>)}</Flex>

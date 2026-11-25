@@ -106,7 +106,6 @@ export interface Settings {
   // Texts that used to be fixed in the code (defaults in src/data/settings.json)
   homeSearchPlaceholder: string;
   homeLatestTitle: string;
-  homeIndexTitle: string;
   homeIndexLink: string;
   articleMenuTitle: string;
   articleGlassesQuote: string;

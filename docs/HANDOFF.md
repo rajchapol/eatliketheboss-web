@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-25 · ชื่อซีรีส์บนหน้าแรก + ชื่ออังกฤษใหม่ — Claude (ฝ่ายเว็บ)
+- บอสเลือก (25 พ.ย.): ทุกส่วนซีรีส์บนหน้าแรกตั้งชื่อตามซีรีส์ ส่วนรีวิวเลิกใช้ "The Index" เป็น **"01 — The Boss Dines" / หัวข้อ "บอสพาชิม"** หน้าตาเดียวกับแถบซีรีส์อื่น (หัวเล็กอังกฤษ + หัวใหญ่ไทย สี `SERIES.review.ink` + ลิงก์ลูกศร) · สารบัญ In This Issue ข้อ 01 ตามกัน
+- **ชื่ออังกฤษใหม่** (`SERIES` ใน `config.ts`): บอสพาชิม = **The Boss Dines** (เดิม Tasting Notes) · บอสพาชิล = **The Boss Goes Chilling** (เดิม Boss Goes Chilling) · บอสพาดื่ม / มื้ออาหารเปลี่ยนโลก คงเดิม · **เลขรีวิวยังเป็น "Tasting Notes No."** (`numKicker()` คืน TASTING NOTES ให้รีวิว, รูปแชร์บทความ, หน้าร้าน) และคำ "More Tasting Notes" / "อ่าน Tasting Notes" คงไว้
+- แก้ตาม: i18n `seriesChill`, Studio (รายการ, ตัวเลือก series, เทมเพลต, ข้อความซีรีส์, preview + เพิ่ม chill ใน preview), `llms.txt`, CLAUDE.md
+- ตัดคอลัมน์ชื่อซีรีส์ในแถวรายการหน้าแรก (ทุกแถวเป็นบอสพาชิม) · ลบช่อง Studio `homeIndexTitle` · id `#notes` / `#index` คงเดิม
+- ⏳ รูปแชร์หน้าซีรีส์ `public/img/og/og-review.jpg` (เขียน "Tasting Notes") และ `og-chill.jpg` ("Boss Goes Chilling") ยังเป็นชื่อเดิม ขอฝ่ายแบรนด์ทำใหม่ (§0 `02-brand-graphics.md`)
+
 ## 2026-11-24 · รีวิวใหม่ สักกะวา (Sakkwa) — Claude (ฝ่ายโพสต์)
 - `posts/sakkwa.md` + `posts/images/sakkwa/` (ปก + 16 จาน รูปต้นฉบับย่อ 2400 px ไม่ครอป ไม่มีโลโก้) · Bangkok · Thai · Contemporary · ฿฿ · AD · visit Nov-2026 · ถอดแว่น 2 จาน (กุ้งลายเสือ, Amberjack Sashimi)
 - ใส่ `quote:` จากบทความคำต่อคำ, originalName สักกะวา, area Talat Noi · FB/IG ตั้งเวลา ศ. 27 พ.ย. 19:00 แล้ว
