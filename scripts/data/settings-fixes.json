@@ -1,0 +1,15 @@
+{
+  "_why": "One-off text fixes the Boss approved (25 Nov 2026). Applied by scripts/fill-settings.mjs only when the field still holds exactly \"from\", so a later edit in Studio is never overwritten.",
+  "fixes": [
+    {
+      "field": "aboutShortBio",
+      "from": "รีวิว Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี PanelistTatler Best Asia-Pacific & Thailand และAward อีกหลายงาน",
+      "to": "รีวิว Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก โดยคนในวงการ Hospitality และ F&B กว่า 15 ปี · Panelist Tatler Best Asia-Pacific & Thailand และ Award อีกหลายงาน"
+    },
+    {
+      "field": "homeSearchPlaceholder",
+      "from": "chefs restaurants dishes",
+      "to": "ชื่อร้าน เชฟ หรือชื่อจาน"
+    }
+  ]
+}

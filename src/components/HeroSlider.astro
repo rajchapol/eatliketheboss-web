@@ -1,7 +1,7 @@
 ---
 // Home slider: the latest restaurants the Boss visited (newest visit first). Swipe, arrows, dots; auto-advances every 5 s (pauses on touch/hover).
 import Icon from './Icon.astro';
-import { cuisineIcon } from '../lib/config';
+import { cuisineIcon, isRestaurantSeries } from '../lib/config';
 import Photo from './Photo.astro';
 import { articleUrl, visitIso, visitLabel, getSettings, numLabel, numKicker } from '../lib/content';
 import type { Article } from '../lib/types';
@@ -13,8 +13,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
 {slides.length > 0 && (
   <section class="slider wrap" aria-roledescription="carousel" aria-label="ร้านล่าสุดที่บอสไปชิม" data-slider style="padding-top:72px;padding-bottom:88px">
     <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px">
-      <p class="overline">{st.homeLatestTitle}</p>
-      <a href="/review/" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้งหมด</a>
+      <div style="display:flex;flex-direction:column;gap:4px"><p class="overline"><span lang="en" translate="no">{st.homeLatestTitle}</span></p><span style="padding-left:44px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">มื้อล่าสุดของบอส</span></div>
+      <a href="/review/" style="white-space:nowrap;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้งหมด</a>
     </div>
     <div class="slides" data-track tabindex="-1">
       {slides.map((a, i) => (
@@ -33,7 +33,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
               {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name={cuisineIcon(a.restaurant.cuisine)} size={16} style="color:#c39e5c" />{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
               {a.dishes.some((d) => d.glassesOff) && <span class="badge badge-dark"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
             </p>
-            <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">อ่าน Tasting Notes <Icon name="arrow" style="color:#d4b372" /></a>
+            <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">{isRestaurantSeries(a.series) ? 'อ่านรีวิว' : 'อ่านเรื่องนี้'} <Icon name="arrow" style="color:#d4b372" /></a>
           </div>
         </div>
       ))}
