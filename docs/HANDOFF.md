@@ -4,6 +4,13 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-25 · ลงเว็บ DiverXO (มาดริด) — Claude (ฝ่ายโพสต์)
+- `posts/diverxo.md` + `posts/images/diverxo/` (ปก = เซวิเช่แช่แข็ง _DSC0842 + 12 จาน) จาก Doc แท็บ final · บอสยืนยันคำผิดชุดใหม่แล้ว: "อุมามิ" → "อูมามิ" 4 จุด
+- รูปต้นฉบับมีแค่ 1224×816 (ชุดเก่า) `--dry` เตือนรูปเล็ก แต่ผ่าน · Motril Prawn Yakitori และ Hake Kokotxa (🕶️) ไม่มีรูป
+- FB ลงไปแล้ว 22 พ.ย. · IG ตั้งเวลา 29 พ.ย. 19:00
+
+---
+
 ## 2026-11-25 · ชื่อซีรีส์บนหน้าแรก + ชื่ออังกฤษใหม่ — Claude (ฝ่ายเว็บ)
 - บอสเลือก (25 พ.ย.): ทุกส่วนซีรีส์บนหน้าแรกตั้งชื่อตามซีรีส์ ส่วนรีวิวเลิกใช้ "The Index" เป็น **"01 — The Boss Dines" / หัวข้อ "บอสพาชิม"** หน้าตาเดียวกับแถบซีรีส์อื่น (หัวเล็กอังกฤษ + หัวใหญ่ไทย สี `SERIES.review.ink` + ลิงก์ลูกศร) · สารบัญ In This Issue ข้อ 01 ตามกัน
 - **ชื่ออังกฤษใหม่** (`SERIES` ใน `config.ts`): บอสพาชิม = **The Boss Dines** (เดิม Tasting Notes) · บอสพาชิล = **The Boss Goes Chilling** (เดิม Boss Goes Chilling) · บอสพาดื่ม / มื้ออาหารเปลี่ยนโลก คงเดิม · **เลขรีวิวยังเป็น "Tasting Notes No."** (`numKicker()` คืน TASTING NOTES ให้รีวิว, รูปแชร์บทความ, หน้าร้าน) และคำ "More Tasting Notes" / "อ่าน Tasting Notes" คงไว้
