@@ -4,6 +4,14 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-26 · Sakkwa ย้ายเข้าบอสพาชิล + ลงมื้อ ก.พ. 2026 — Claude (ฝ่ายโพสต์)
+- บอสตัดสิน (26 พ.ย.): ร้านแบบ **อาลาคาร์ต (สั่งตามเมนู ไม่ใช่คอร์ส)** = บอสพาชิล (`chill`) ไม่ใช่บอสพาชิม
+- `posts/sakkwa.md` → `series: chill` · ชื่อเรื่องขึ้นต้น "บอสพาชิล in Bangkok:" · แฮชแท็กแรก บอสพาชิล · redirect `/review/bangkok/sakkwa/` → `/chill/bangkok/sakkwa/` (+ en/ja/zh) ใน `public/_redirects`
+- `posts/sakkwa-2026-02.md` + `posts/images/sakkwa-2026-02/` จาก branch `post/sakkwa` (commit 141cf56 ที่ไม่เข้า main หลัง PR #90) · ปรับเป็น chill แบบเดียวกัน · restaurant.name "Sakkwa" เดียวกัน → ร้านเดียว 2 visit · รูป 1225 px (ชุดเก่า) `--dry` เตือนรูปเล็ก ยอมรับได้
+- ถัดไป (ฝ่ายโพสต์): ลงเว็บเป็นบอสพาชิล 4 ร้านที่ลง FB แล้วแต่ยังไม่มีบนเว็บ — Indochine (อุบลฯ) · Smør Studio · VIVIN Grocery · Fongs Runjuan
+
+---
+
 ## 2026-11-25 (2) · อ่านง่ายขึ้น: ปุ่ม ดูเพิ่ม ข้อมูลซ้ำ ภาษา สะกดอังกฤษ — Claude
 - บอสเลือกข้อ 1–3, 5–9 จากรายการตรวจเว็บบนมือถือ (25 พ.ย.)
 - ป้าย: การ์ดร้าน "อ่าน Tasting Notes" → **อ่านรีวิว** (`readNotes` ใน i18n), ปุ่มสไลด์หน้าแรกตามซีรีส์ (อ่านรีวิว / อ่านเรื่องนี้), ท้ายบทความ "More Tasting Notes" → **More from The Boss** + บรรทัดไทย "บทความอื่นของบอส" (`moreSub`)
