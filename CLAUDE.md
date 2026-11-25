@@ -3,7 +3,7 @@
 Read this first. Keep edits small: read only the files you need, prefer find-and-replace over rewrites.
 What earlier sessions changed, why, and what is still open: `docs/HANDOFF.md` (add your own entry at the top when you finish).
 Role hand-offs (posting & translation · brand & graphics · web design, incl. how to use the Studio): `docs/handoff/`.
-To tell another role (posting · brand & design) something, write it in section "0. ข่าวล่าสุด" of their `docs/handoff/` file and open a PR; read your own role's section 0 when you start.
+One chat may do every role (the Boss, 25 Nov 2026): posting, brand & design and web work can be done in the same chat; do the other role's part yourself instead of only leaving a note. When a part is left for later or for another chat, write it in section "0. ข่าวล่าสุด" of that role's `docs/handoff/` file and open a PR; read your own role's section 0 when you start.
 
 ## Stack
 - **Astro** static site (`src/`), built on **Cloudflare Workers (static assets, `wrangler.jsonc`)** from `main`, domain eatlikeboss.com.
