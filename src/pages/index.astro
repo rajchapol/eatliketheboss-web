@@ -39,7 +39,7 @@ const quickCities = settings.homeCitySlugs?.length
   : (await citiesByCount()).slice(0, 3).map((x) => x.city);
 // "In this issue" contents (the Boss, 16 Nov 2026: magazine style): numbered like a contents page, each links to its section.
 const toc = [
-  // Every series section is named by its series (the Boss, 25 Nov 2026): Tasting Notes · บอสพาชิม, like the strips below.
+  // Every series section is named by its series (the Boss, 25 Nov 2026): The Boss Dines · บอสพาชิม, like the strips below.
   { no: '01', en: SERIES.review.en, th: SERIES.review.th, meta: `${index.length} รีวิว`, href: '#notes', icon: 'index' },
   ...strips.map((x) => ({ no: '', en: x.s.en, th: x.s.th, meta: `${x.total} ตอน`, href: `#strip-${x.key}`, icon: x.key === 'drinks' ? 'drinks' : 'history' })),
   { no: '', en: 'Glasses Off Awards', th: 'จานถอดแว่นชิม', meta: `${allAwards.length} จาน`, href: '#awards', icon: 'glasses' },

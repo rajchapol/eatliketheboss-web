@@ -78,10 +78,10 @@ export default defineConfig({
             S.list().id('articles-th-menu').title('Articles (Thai) · บทความภาษาไทย').items([
               item('th-all', 'All, newest first · ทั้งหมด', TH),
               S.divider(),
-              item('th-review', 'Tasting Notes · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
+              item('th-review', 'The Boss Dines · บอสพาชิม (รีวิวร้าน)', `${TH} && series == "review"`),
               S.listItem().id('th-history').title('Meals That Changed the World · มื้ออาหารเปลี่ยนโลก').schemaType('article').child(list('th-history', 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', `${TH} && series == "history"`).defaultOrdering([{ field: 'episode', direction: 'asc' }])),
               item('th-drinks', 'The Boss Pours · บอสพาดื่ม', `${TH} && series == "drinks"`),
-              item('th-chill', 'Boss Goes Chilling · บอสพาชิล (ร้าน casual)', `${TH} && series == "chill"`),
+              item('th-chill', 'The Boss Goes Chilling · บอสพาชิล (ร้าน casual)', `${TH} && series == "chill"`),
               S.divider(),
               S.listItem().id('th-by-city').title('By city · แยกตามเมือง').icon(PinIcon).child(
                 S.documentTypeList('city').title('Choose a city · เลือกเมือง').apiVersion(API)
@@ -163,7 +163,7 @@ export default defineConfig({
       ...prev,
       { id: 'article-review', title: 'Review · รีวิวร้านใหม่', schemaType: 'article', value: () => ({ series: 'review', language: 'th', publishedAt: new Date().toISOString().slice(0, 10) }) },
       ...(['history', 'drinks', 'chill'] as const).map((series) => ({
-        id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : series === 'chill' ? 'Boss Goes Chilling · ร้านใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
+        id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : series === 'chill' ? 'The Boss Goes Chilling · ร้านใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
         value: async (_p: unknown, ctx: any) => {
           const max = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('math::max(*[_type == "article" && !defined(translationOf) && series == $series].episode)', { series });
           return { series, language: 'th', episode: (max || 0) + 1, publishedAt: new Date().toISOString().slice(0, 10) };

@@ -21,16 +21,17 @@ export const HREFLANG: Record<Locale, string> = { th: 'th', en: 'en', ja: 'ja', 
 export const localePrefix = (l: Locale) => (l === DEFAULT_LOCALE ? '' : `/${l}`);
 
 export const SERIES = {
-  // en = the series' English name (menu, overline above the number); ink = a darker shade of dot for text on cream.
-  review: { th: 'บอสพาชิม', en: 'Tasting Notes', dot: '#0b5357', ink: '#0b5357', path: 'review' },
+  // en = the series' English name (menu, section and page headings). English names (the Boss, 25 Nov 2026): every series
+  // reads "The Boss …" except มื้ออาหารเปลี่ยนโลก; reviews keep the number label "Tasting Notes No." (numKicker). ink = a darker shade of dot for text on cream.
+  review: { th: 'บอสพาชิม', en: 'The Boss Dines', dot: '#0b5357', ink: '#0b5357', path: 'review' },
   history: { th: 'มื้ออาหารเปลี่ยนโลก', en: 'Meals That Changed the World', dot: '#0abab5', ink: '#077a76', path: 'history' },
   drinks: { th: 'บอสพาดื่ม', en: 'The Boss Pours', dot: '#c39e5c', ink: '#6e3f08', path: 'drinks' },
   // บอสพาชิล (the Boss, 23–24 Nov 2026): casual restaurants, kept apart from Tasting Notes. Still restaurant visits
   // (city in the URL, restaurant box, Bill, Restaurants/Destinations/city pages) but numbered Ep.N, not No.
-  chill: { th: 'บอสพาชิล', en: 'Boss Goes Chilling', dot: '#c8704a', ink: '#8a4326', path: 'chill' },
+  chill: { th: 'บอสพาชิล', en: 'The Boss Goes Chilling', dot: '#c8704a', ink: '#8a4326', path: 'chill' },
 } as const;
 export type SeriesKey = keyof typeof SERIES;
-/** Series whose articles are restaurant visits (city, restaurant, Bill, repeat visits): Tasting Notes + บอสพาชิล. */
+/** Series whose articles are restaurant visits (city, restaurant, Bill, repeat visits): บอสพาชิม + บอสพาชิล. */
 export const RESTAURANT_SERIES: readonly string[] = ['review', 'chill'];
 export const isRestaurantSeries = (s?: string) => !s || RESTAURANT_SERIES.includes(s);
 

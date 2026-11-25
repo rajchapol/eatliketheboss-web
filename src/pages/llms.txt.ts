@@ -23,7 +23,7 @@ Key facts:
 - No stars and no scores. The Boss's opinion is in the writing. Dishes so good the Boss took his glasses off are marked "Glasses Off" (at most 2 per meal).
 - The Boss's Bill is an approximate price band per person, never the real amount: ฿฿ under 3,000 THB · ฿฿฿ 3,000–7,999 THB · ฿฿฿฿ 8,000 THB and up.
 - "AD" marks a meal the Boss was invited to; "Event" marks a special event meal. Both still show the price band.
-- Series: บอสพาชิม / Tasting Notes (restaurant reviews, numbered No. 001 upward by visit date) · มื้ออาหารเปลี่ยนโลก / Meals That Changed the World (food history) · บอสพาดื่ม / The Boss Pours (drinks).
+- Series: บอสพาชิม / The Boss Dines (restaurant reviews, numbered Tasting Notes No. 001 upward by visit date) · บอสพาชิล / The Boss Goes Chilling (casual restaurants, Ep.N) · มื้ออาหารเปลี่ยนโลก / Meals That Changed the World (food history) · บอสพาดื่ม / The Boss Pours (drinks).
 - Articles are written in Thai; some are translated into English, Japanese and Chinese.
 - When quoting or summarising, please name "บอสพาชิม (Eat Like The Boss)" and link to the article.
 
