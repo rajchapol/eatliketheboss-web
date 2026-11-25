@@ -4,6 +4,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-25 · หน้าแรก: ส่วนรีวิวใช้ชื่อซีรีส์แทน "The Index" — Claude (ฝ่ายเว็บ)
+- บอสเลือก (25 พ.ย.): ทุกส่วนซีรีส์บนหน้าแรกตั้งชื่อตามซีรีส์ ส่วนรีวิวจึงเป็น **"01 — Tasting Notes" / หัวข้อ "บอสพาชิม"** หน้าตาเดียวกับแถบซีรีส์อื่น (หัวเล็กอังกฤษ + หัวใหญ่ไทย สี `SERIES.review.ink` + ลิงก์ลูกศร) · สารบัญ In This Issue ข้อ 01 ก็เป็น Tasting Notes · บอสพาชิม
+- ตัดคอลัมน์ชื่อซีรีส์ในแถวรายการ (ทุกแถวเป็นบอสพาชิมอยู่แล้ว) · ลบช่อง Studio `homeIndexTitle` (ไม่ได้ใช้แล้ว) · `homeIndexLink` ยังใช้เป็นข้อความลิงก์
+- id `#notes` / `#index` คงเดิม (ลิงก์เก่ายังใช้ได้)
+
 ## 2026-11-24 · รีวิวใหม่ สักกะวา (Sakkwa) — Claude (ฝ่ายโพสต์)
 - `posts/sakkwa.md` + `posts/images/sakkwa/` (ปก + 16 จาน รูปต้นฉบับย่อ 2400 px ไม่ครอป ไม่มีโลโก้) · Bangkok · Thai · Contemporary · ฿฿ · AD · visit Nov-2026 · ถอดแว่น 2 จาน (กุ้งลายเสือ, Amberjack Sashimi)
 - ใส่ `quote:` จากบทความคำต่อคำ, originalName สักกะวา, area Talat Noi · FB/IG ตั้งเวลา ศ. 27 พ.ย. 19:00 แล้ว

@@ -243,7 +243,6 @@ export const settings = defineType({
     txt('homeFinderLabel', 'Search label · ข้อความหน้าช่องค้นหา', 'home'),
     txt('homeSearchPlaceholder', 'Search placeholder · ข้อความจางในช่องค้นหา', 'home'),
     txt('homeLatestTitle', 'Latest visits title · หัวข้อสไลด์ร้านล่าสุด', 'home'),
-    txt('homeIndexTitle', 'Index title · หัวข้อรายการบทความ', 'home'),
     txt('homeIndexLink', 'Index link · ลิงก์ "ดูทั้งหมด"', 'home'),
     para('tagline', 'Brand tagline · คำโปรยแบรนด์', 'home', 2),
     txt('homeAwardsText', 'Awards strip text · ข้อความแถบ Glasses Off Awards', 'home'),

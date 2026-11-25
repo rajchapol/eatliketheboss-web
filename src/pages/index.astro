@@ -39,7 +39,8 @@ const quickCities = settings.homeCitySlugs?.length
   : (await citiesByCount()).slice(0, 3).map((x) => x.city);
 // "In this issue" contents (the Boss, 16 Nov 2026: magazine style): numbered like a contents page, each links to its section.
 const toc = [
-  { no: '01', en: 'The Index', th: 'บันทึกการชิม', meta: `${index.length} รีวิว`, href: '#notes', icon: 'index' },
+  // Every series section is named by its series (the Boss, 25 Nov 2026): Tasting Notes · บอสพาชิม, like the strips below.
+  { no: '01', en: SERIES.review.en, th: SERIES.review.th, meta: `${index.length} รีวิว`, href: '#notes', icon: 'index' },
   ...strips.map((x) => ({ no: '', en: x.s.en, th: x.s.th, meta: `${x.total} ตอน`, href: `#strip-${x.key}`, icon: x.key === 'drinks' ? 'drinks' : 'history' })),
   { no: '', en: 'Glasses Off Awards', th: 'จานถอดแว่นชิม', meta: `${allAwards.length} จาน`, href: '#awards', icon: 'glasses' },
   { no: '', en: 'Destinations', th: 'จุดหมาย', meta: `${allCities.length} เมือง`, href: '/destinations/', icon: 'destinations' },
@@ -85,10 +86,12 @@ const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเ�
 
 
   <section id="notes" aria-labelledby="index" class="wrap" style="padding-bottom:96px">
-    <p class="sec-kicker" aria-hidden="true" translate="no"><span>{tocNo('#notes')}</span>The Index</p>
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-bottom:16px">
-      <h2 id="index" class="ink-grad gold-lift" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:56px;line-height:1">{settings.homeIndexTitle}</h2>
-      <a href="/review/" style="font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">{settings.homeIndexLink}</a>
+    <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 16px;padding-bottom:16px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span lang="en" translate="no" class="sec-kicker" style={`color:${SERIES.review.ink}`}><span>{tocNo('#notes')}</span>{SERIES.review.en}</span>
+        <h2 id="index" style={`margin:0;font-size:clamp(28px,4.4cqi,40px);font-weight:600;line-height:1.3;color:${SERIES.review.ink}`}>{SERIES.review.th}</h2>
+      </div>
+      <a href="/review/" class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">{settings.homeIndexLink}<Icon name="arrow" size={16} /></a>
     </div>
     <div class="rule fx-draw"></div>
     {index.length === 0 && (
@@ -103,7 +106,6 @@ const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเ�
         <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">{numLabel(a)}</span>
         <span class="idx-thumb"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[192, 288]} sizes="96px" /></span>
         <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}{a.series === 'review' && returnNo(a) > 1 && <span class="band-pill" style="margin-left:8px;padding:1px 10px;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:400;vertical-align:3px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">กลับไปครั้งที่ {returnNo(a)}</span>}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
-        <span class="idx-series" style="display:inline-flex;align-items:center;gap:10px;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955"><span aria-hidden="true" style={`width:8px;height:8px;border-radius:50%;background:${SERIES[a.series].dot}`}></span>{SERIES[a.series].th}</span>
         <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
