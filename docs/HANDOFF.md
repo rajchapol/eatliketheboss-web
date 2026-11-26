@@ -4,6 +4,11 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-26 (3) · Post article: merge หลาย PR ติดกันแล้วบทความหลุด — Claude (แกนกลาง)
+- เหตุ: บอส merge #96 #97 #98 ห่างกันไม่กี่วินาที · concurrency group `post-article` เก็บ run รอได้ตัวเดียว GitHub จึง cancel run ของ #97 · run ของ #98 diff จาก `github.event.before` (commit ของ #97) → Indochine / Smør Studio / Fongs Runjuan ไม่ถูกส่ง (แก้ตอนนั้นด้วย Run workflow ทีละไฟล์)
+- แก้ `post-article.yml` ขั้น Find post files: หา `head_sha` ของ push run ล่าสุดที่จบ (success หรือ skipped [sanity-sync]) ถ้าเก่ากว่า `before` และเป็นบรรพบุรุษ ให้ diff จากตรงนั้นแทน (+ `--since` ตามกัน) · เพิ่ม `permissions: contents: read, actions: read` และ `GH_TOKEN`
+- run ที่ถูก cancel ยังขึ้นสีเทาใน Actions ได้ตามปกติ ไม่ต้องกดซ้ำแล้ว
+
 ## 2026-11-26 (2) · บอสพาชิล 3 ร้านใหม่: Indochine (อุบลฯ) · Smør Studio · Fongs Runjuan — Claude (ฝ่ายโพสต์)
 - 3 ร้านอาลาคาร์ตที่ลง FB แล้ว (ส.ค.–ก.ย. 2026) แต่ยังไม่มีบนเว็บ → `series: chill` ทั้งหมด · ข้อความจาก Doc ใน Article (export ข้อความ + หัวจากตัวหนา) · ชื่อเรื่อง "บอสพาชิม…" → "บอสพาชิล…"
 - `indochine` เมืองใหม่ `ubon-ratchathani` (cityNew + fact เทศกาลแห่เทียน 125 ปี · Nation Thailand 29 ก.ค. 2026) · Other · Vietnamese · MICHELIN Bib Gourmand · ฿฿ · AD · ถอดแว่น ยำหัวปลี
