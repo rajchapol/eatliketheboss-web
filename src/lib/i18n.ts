@@ -88,7 +88,7 @@ export const formatDate = (iso: string, lang: Locale) =>
 export const NAV_ITEMS = [
   ['finder', '/restaurants/', 'search'],
   ['destinations', '/destinations/', 'pin'],
-  ['articles', '/#notes', 'book'],
+  ['articles', '/review/', 'book'],
   ['awards', '/glasses-off-awards/', 'glasses'],
   ['about', '/about/', 'user'],
 ] as const;

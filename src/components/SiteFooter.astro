@@ -1,6 +1,6 @@
 ---
-import { SITE } from '../lib/config';
-import { citiesByCount, getSettings } from '../lib/content';
+import { SITE, SERIES, type SeriesKey } from '../lib/config';
+import { citiesByCount, getSettings, getArticles } from '../lib/content';
 import { t, NAV_LABELS } from '../lib/i18n';
 import type { Locale } from '../lib/config';
 interface Props { lineart?: boolean; lang?: Locale }
@@ -9,6 +9,9 @@ const N = NAV_LABELS[lang];
 const st = await getSettings();
 const cities = (await citiesByCount()).slice(0, 4).map((x) => x.city); // cities with the most restaurants
 const year = new Date().getFullYear();
+// Series links: same order as the menu, only series that have articles (the Boss, 26 Nov 2026).
+const arts = await getArticles('th');
+const footSeries = (['review', 'chill', 'history', 'drinks'] as SeriesKey[]).filter((k) => arts.some((a) => (a.series || 'review') === k));
 ---
 <div style="font-family:'Ekkamai New',sans-serif">
   {lineart && (
@@ -21,9 +24,7 @@ const year = new Date().getFullYear();
     <nav aria-label={t(lang, 'allLinks')} class="wrap foot-grid" style="padding-top:48px;padding-bottom:8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;font-size:14px">
       <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">SERIES</span>
-        <a href="/review/">{t(lang, 'footReview')}</a>
-        <a href="/history/">{t(lang, 'footHistory')}</a>
-        <a href="/drinks/">{t(lang, 'footDrinks')}</a>
+        {footSeries.map((k) => <a href={`/${SERIES[k].path}/`}>{lang === 'th' ? SERIES[k].th : SERIES[k].en}</a>)}
       </div>
       <div class="foot-col" style="display:flex;flex-direction:column;gap:10px">
         <span style="font-size:12px;letter-spacing:.24em;color:#d4b372">CITIES</span>
@@ -35,8 +36,7 @@ const year = new Date().getFullYear();
         <a href="/restaurants/">{N.finder}</a>
         <a href="/glasses-off-awards/">{N.awards}</a>
         <a href="/about/">{N.about}</a>
-        <a href="/contact/">{t(lang, 'workWith')}</a>
-        <a href="/contact/">{t(lang, 'recommend')}</a>
+        <a href="/contact/">{t(lang, 'workWith')} · {t(lang, 'recommend')}</a>
       </div>
     </nav>
     <div class="wrap" style="padding-top:32px;padding-bottom:40px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:14px">
