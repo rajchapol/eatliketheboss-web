@@ -4,6 +4,17 @@ For the next Claude (or person) working on this repo. Read `CLAUDE.md` first; th
 
 ---
 
+## 2026-11-26 (2) · บอสพาชิล 3 ร้านใหม่: Indochine (อุบลฯ) · Smør Studio · Fongs Runjuan — Claude (ฝ่ายโพสต์)
+- 3 ร้านอาลาคาร์ตที่ลง FB แล้ว (ส.ค.–ก.ย. 2026) แต่ยังไม่มีบนเว็บ → `series: chill` ทั้งหมด · ข้อความจาก Doc ใน Article (export ข้อความ + หัวจากตัวหนา) · ชื่อเรื่อง "บอสพาชิม…" → "บอสพาชิล…"
+- `indochine` เมืองใหม่ `ubon-ratchathani` (cityNew + fact เทศกาลแห่เทียน 125 ปี · Nation Thailand 29 ก.ค. 2026) · Other · Vietnamese · MICHELIN Bib Gourmand · ฿฿ · AD · ถอดแว่น ยำหัวปลี
+- `smor-studio` Nordic · Finnish · Chef Sonny · ฿฿฿ · AD · ถอดแว่น Grilled Tiger Prawn · รูป Arkshell/Scallop บอสยืนยันแล้ว
+- `fongs-runjuan` Thai · Contemporary · เชฟโต้ง ยุทธจักร แสงศาสตรา · ฿฿ · AD · คำโปรย = ประโยคแรกของบทความ (บอสอนุมัติ) · ตัดข้อความโปรโมตเพจท้ายโพสต์ FB ออก
+- รูปทั้ง 3 ร้านเป็นชุดเก่า 1224 px ลายน้ำฝัง (ไม่มีต้นฉบับใหญ่ใน Food(upload)) `--dry` เตือนรูปเล็ก
+- บอสถาม: Indochine ราคาน่าจะ "฿" เดียว — ตอนนี้ระบบมีแค่ ฿฿/฿฿฿/฿฿฿฿ (Studio list + `priceBandFromBill`) ใส่ ฿฿ ไว้ก่อน · ถ้าจะเพิ่มระดับ ฿ ต้องแก้ Studio schema, `content.ts`, ตัวกรองหน้า Restaurants (งานฝ่ายเว็บ รอบอสสั่ง)
+- ค้าง: VIVIN Grocery (Suk 22) ไม่มีรูปใน Food(upload) บอสให้ดึงรูปจากโพสต์ FB · ชีตทะเบียนรีวิว K ของ 3 ร้านหลังหน้าขึ้น
+
+---
+
 ## 2026-11-26 · Sakkwa ย้ายเข้าบอสพาชิล + ลงมื้อ ก.พ. 2026 — Claude (ฝ่ายโพสต์)
 - บอสตัดสิน (26 พ.ย.): ร้านแบบ **อาลาคาร์ต (สั่งตามเมนู ไม่ใช่คอร์ส)** = บอสพาชิล (`chill`) ไม่ใช่บอสพาชิม
 - `posts/sakkwa.md` → `series: chill` · ชื่อเรื่องขึ้นต้น "บอสพาชิล in Bangkok:" · แฮชแท็กแรก บอสพาชิล · redirect `/review/bangkok/sakkwa/` → `/chill/bangkok/sakkwa/` (+ en/ja/zh) ใน `public/_redirects`
