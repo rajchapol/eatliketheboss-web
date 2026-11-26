@@ -24,6 +24,10 @@ on:
         required: false
         default: ''
 
+permissions:
+  contents: read
+  actions: read # Find post files reads earlier runs of this workflow
+
 concurrency:
   group: post-article
   cancel-in-progress: false
@@ -49,12 +53,23 @@ jobs:
       - run: npm ci --ignore-scripts
       - name: Find post files
         id: files
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "list=${{ inputs.file }}" >> "$GITHUB_OUTPUT"
           else
             BEFORE="${{ github.event.before }}"
             if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then BEFORE="HEAD~1"; fi
+            # PRs merged seconds apart: GitHub keeps only one pending run per concurrency group and cancels the others,
+            # so a push can arrive without its own run. Diff from the last push run that finished (success or skipped
+            # [sanity-sync]) instead, when that commit is older: nothing in between is left out (26 Nov 2026, PR #97).
+            LAST=$(gh api "repos/${{ github.repository }}/actions/workflows/post-article.yml/runs?branch=main&event=push&status=completed&per_page=20" \
+              --jq '[.workflow_runs[] | select(.conclusion=="success" or .conclusion=="skipped") | select(.id != ${{ github.run_id }})][0].head_sha // empty' 2>/dev/null || true)
+            if [ -n "$LAST" ] && git cat-file -e "$LAST^{commit}" 2>/dev/null && git merge-base --is-ancestor "$LAST" "$BEFORE" 2>/dev/null && [ "$LAST" != "$BEFORE" ]; then
+              echo "::notice::Earlier push run(s) did not finish: diffing from $LAST (last finished run) instead of $BEFORE"
+              BEFORE="$LAST"
+            fi
             LIST=$(git diff --name-only --diff-filter=AM "$BEFORE" "${{ github.sha }}" -- 'posts/*.md' | grep -v '_template.md')
             # a photo replaced under the same name: re-post the article(s) whose folder it is in (the script sends only that photo's field)
             for d in $(git diff --name-only --diff-filter=AM "$BEFORE" "${{ github.sha }}" -- 'posts/images/' | cut -d/ -f3 | sort -u); do
