@@ -11,7 +11,7 @@ restaurant:
   area: "Xinyi"
   cuisine: "Chinese"
   style: "Taiwanese"
-  awards: []
+  awards: ["MICHELIN Selected 2026 (สาขาต้นตำรับ 創始店)"]
 cover: "./images/shin-yeh/cover.jpg | ผักกาดขาวตุ๋นในหม้อดินโรยคอนปอยทอดกรอบ ร้าน Shin Yeh ไทเป"
 gallery:
   - "./images/shin-yeh/g01.jpg | โต๊ะริมกระจกพร้อมกาน้ำชาและตะเกียบ ห้องอาหาร Shin Yeh สาขาซินอี้ A9 ไทเป | โต๊ะริมกระจก ชั้น 8"
