@@ -89,7 +89,7 @@ export function HomeTool() {
                 <IntentLink key={a._id} intent="edit" params={{ id: a._id.replace(/^drafts\./, ''), type: 'article' }} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <Flex justify="space-between" gap={3}>
                     <Stack space={2} style={{ minWidth: 0 }}>
-                      <Text size={1} weight="medium" textOverflow="ellipsis">{a.series === 'review' ? (a.name || a.title) : `Ep.${a.episode ?? '?'} ${a.title}`}</Text>
+                      <Text size={1} weight="medium" textOverflow="ellipsis">{a.series !== 'history' ? (a.name || a.title) : `Ep.${a.episode ?? '?'} ${a.title}`}</Text>
                       <Text size={0} muted>{[a.city, a.visit && `Visit ${a.visit}`, a.draft && 'ร่าง'].filter(Boolean).join(' · ')}</Text>
                     </Stack>
                     <Text size={0} muted style={{ whiteSpace: 'nowrap' }}>{when(a._updatedAt)}</Text>

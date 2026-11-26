@@ -1,7 +1,7 @@
 // /llms.txt — a plain-text guide for AI assistants and answer engines (the Boss, 16 Nov 2026):
 // who บอสพาชิม / Eat Like The Boss is, how the reviews work, and where the main pages are.
 // Built from live content at every deploy. Format: https://llmstxt.org
-import { SITE, SERIES } from '../lib/config';
+import { SITE, SERIES, usesNo } from '../lib/config';
 import { getArticles, articleUrl, citiesByCount, glassesOffDishes, groupByRestaurant } from '../lib/content';
 
 export async function GET() {
@@ -23,7 +23,7 @@ Key facts:
 - No stars and no scores. The Boss's opinion is in the writing. Dishes so good the Boss took his glasses off are marked "Glasses Off" (at most 2 per meal).
 - The Boss's Bill is an approximate price band per person, never the real amount: ฿฿ under 3,000 THB · ฿฿฿ 3,000–7,999 THB · ฿฿฿฿ 8,000 THB and up.
 - "AD" marks a meal the Boss was invited to; "Event" marks a special event meal. Both still show the price band.
-- Series: บอสพาชิม / The Boss Dines (restaurant reviews, numbered Tasting Notes No. 001 upward by visit date) · บอสพาชิล / The Boss Goes Chilling (casual restaurants, Ep.N) · มื้ออาหารเปลี่ยนโลก / Meals That Changed the World (food history) · บอสพาดื่ม / The Boss Pours (drinks).
+- Series: บอสพาชิม / The Boss Dines (restaurant reviews, numbered Tasting Notes No. 001 upward by visit date) · บอสพาชิล / The Boss Goes Chilling (casual restaurants, numbered No. 001 upward by visit date, own count) · มื้ออาหารเปลี่ยนโลก / Meals That Changed the World (food history, Ep.N) · บอสพาดื่ม / The Boss Pours (drinks reviews, No.).
 - Articles are written in Thai; some are translated into English, Japanese and Chinese.
 - When quoting or summarising, please name "บอสพาชิม (Eat Like The Boss)" and link to the article.
 
@@ -42,7 +42,7 @@ ${cities.map((c) => `- [${c.city.nameEn} (${c.city.nameTh})](${abs(`/city/${c.ci
 
 ## Latest reviews
 ${reviews.slice(0, 40).map(line).join('\n')}
-${others.map(({ k, list }) => `\n## ${SERIES[k].en} (${SERIES[k].th})\n${[...list].sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0)).map(line).join('\n')}`).join('\n')}
+${others.map(({ k, list }) => `\n## ${SERIES[k].en} (${SERIES[k].th})\n${(usesNo(k) ? list : [...list].sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0))).map(line).join('\n')}`).join('\n')}
 
 ## Optional
 - [All reviews](${abs('/review/')})
