@@ -1,7 +1,7 @@
 ---
 language: th
-series: review
-title: "บอสพาชิม in Bangkok: สักกะวา (Sakkwa) - ไทยจัดจ้าน ฝรั่งนิดไทยหน่อย 2026"
+series: chill
+title: "บอสพาชิล in Bangkok: สักกะวา (Sakkwa) - ไทยจัดจ้าน ฝรั่งนิดไทยหน่อย 2026"
 slug: sakkwa
 tagline: "ไทยจัดจ้าน ฝรั่งนิดไทยหน่อย 2026"
 city: bangkok
@@ -19,7 +19,7 @@ bill: "฿฿ · AD"
 tag: "AD"
 quote: "ผมว่าเชฟเต้เป็นเชฟที่เก่งมาก แต่ยังไม่ค่อยดังเท่าที่ควรครับ"
 visit: Nov-2026
-hashtags: [บอสพาชิม, eatliketheboss, Sakkwa, สักกะวา, Bangkok, ตลาดน้อย, ModernThai, อาหารไทยร่วมสมัย]
+hashtags: [บอสพาชิล, eatliketheboss, Sakkwa, สักกะวา, Bangkok, ตลาดน้อย, ModernThai, อาหารไทยร่วมสมัย]
 publishedAt: 2026-11-24
 seoTitle: "สักกะวา (Sakkwa) ตลาดน้อย อาหารไทยร่วมสมัยไฟถ่าน"
 seoDescription: "สักกะวา ร้านอาหารไทยร่วมสมัยชั้น 4 ตึกแถวตลาดน้อยของเชฟเต้ ไฟถ่าน รมควัน กลิ่นมะกรูด ข้าวพอง กุ้งลายเสือและซาชิมิแอมเบอร์แจ็คที่บอสต้องถอดแว่นชิม"
