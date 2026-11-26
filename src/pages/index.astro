@@ -30,6 +30,8 @@ const strips = (Object.keys(SERIES) as (keyof typeof SERIES)[]).filter((k) => k 
 // Repeat visit marker in The Index: 2 = second time at this restaurant (counted by visit order).
 const returnNo = (a: (typeof articles)[number]) => { const vs = articles.filter((x) => restaurantKey(x) === restaurantKey(a)); return vs.length - vs.indexOf(a); };
 // Glasses Off band: this year's dishes (by visit); before the first one of the year, the latest year that has any.
+// Boss quote of the latest review that has one (the Boss, 26 Nov 2026: a magazine pull quote on the home page).
+const quoted = articles.find((a) => isRestaurantSeries(a.series) && a.quote && !a.quote.startsWith('['));
 const allAwards = glassesOffDishes(articles);
 const thisYear = String(new Date().getFullYear());
 const year = allAwards.some((x) => visitYear(x.article) === thisYear) ? thisYear : (allAwards.map((x) => visitYear(x.article)).sort().pop() ?? thisYear);
@@ -101,6 +103,13 @@ const allCities = await getCities();
     </section>
   ))}
 
+
+  {quoted && (
+    <figure class="wrap pull-quote home-quote" style="padding-bottom:96px">
+      <blockquote>{quoted.quote}</blockquote>
+      <figcaption>— บอส · <a href={articleUrl(quoted)} translate="no">{quoted.restaurant?.name ?? quoted.title}</a></figcaption>
+    </figure>
+  )}
 
   <section id="awards" aria-labelledby="aw" class="band-fan on-dark spot" style="color:#fff">
     <div class="goldrule"></div>

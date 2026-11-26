@@ -57,6 +57,9 @@ You never need to touch `src/` to post.
 | Destinations groups (Thailand + continents → countries) | `REGIONS` / `regionOf()` in `src/lib/config.ts`; set per city in Studio → เมือง → ภูมิภาค + ประเทศ |
 | Destinations map (pins, route, zoom) | `src/components/DestinationsMap.astro`; pin positions `src/data/city-coords.json` (read by `config.ts` and `post-article.mjs`: a new city not listed needs `cityNew.lat/lng`) or Studio → City → Map position; dots `public/img/map/` in 3 levels by zoom (world / mid / fine; rebuild: `scripts/make-map-dots.mjs`); continent buttons appear for each continent with reviews (one sideways-scrolling row on phones); zoom/drag only transform the drawn map while moving and redraw once when it settles (keep it that way: per-frame redraws made it laggy); pins also match a slug like `norway-oslo` by its English name (`cityCoords()`) |
 | Boss's Picks on a city page | Studio → เมือง → Boss's Picks (max 3); empty = latest reviews with a glasses-off dish |
+| Full-text search ("พบในเนื้อหาบทความ" on /restaurants/, the Boss 26 Nov 2026): exact substring match over every Thai article (body + dishes), index fetched on the first search only. Pagefind was tried and dropped: its Thai word splitting gave wrong hits | `src/pages/search-index.json.ts` + the last `<script>` in `src/pages/restaurants.astro` |
+| Previous / next in a series at the end of an article (by No. for review series, by Ep. for knowledge series) | `seq` in `src/pages/[...article].astro`, `.seq-nav` in `site.css` |
+| Home pull quote: the Boss quote of the latest restaurant article that has one | `quoted` in `src/pages/index.astro` (`.home-quote`) |
 | Repeat visits | Same city + same restaurant name = one restaurant (`restaurantKey()` in `src/lib/content.ts`): one card with every visit, and a visit list on each article |
 
 ## URLs (never change once live; add a redirect in `public/_redirects` if you must)
