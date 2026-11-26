@@ -6,7 +6,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import { toHTML } from '@portabletext/to-html';
 import * as seed from '../data/seed';
 import type { Article, City, Img, Settings } from './types';
-import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, isRestaurantSeries, type Locale, type SeriesKey } from './config';
+import { AWARDS, DEFAULT_LOCALE, SERIES, SITE, cuisineOf, styleOf, localePrefix, isRestaurantSeries, usesNo, type Locale, type SeriesKey } from './config';
 
 const envId = import.meta.env.SANITY_PROJECT_ID || process.env.SANITY_PROJECT_ID || 'ohviqc5c';
 const projectId = envId === 'sample' ? '' : envId;
@@ -75,30 +75,33 @@ const visitKey = (a: Article) => {
 /**
  * Tasting Notes No. = order of the visit (oldest meal = No. 001), counted on the original (Thai) reviews only.
  * Translations share the number of their original. Lists come back newest visit first.
- * Other series (มื้ออาหารเปลี่ยนโลก, บอสพาดื่ม) are not restaurant visits: no Tasting Notes number (no = 0); they show
- * "Ep.N" instead (Studio "episode", else their order by publish date within the series). 13 Nov 2026: history Ep.1
+ * บอสพาชิล and บอสพาดื่ม are reviews too: "No." by visit, each series counted on its own (the Boss, 26 Nov 2026).
+ * Knowledge series (มื้ออาหารเปลี่ยนโลก) have no number (no = 0); they show "Ep.N" instead (Studio "episode", else their order by publish date within the series). 13 Nov 2026: history Ep.1
  * had taken No. 124 and pushed every later review up one.
  */
 const isReview = (a: Pick<Article, 'series'>) => !a.series || a.series === 'review';
 function numberByVisit(all: Article[]): Article[] {
   const originals = all.filter((a) => a.id === a.baseId);
-  const counted = originals.filter(isReview).sort((a, b) => visitKey(a).localeCompare(visitKey(b)));
-  const noOf = new Map(counted.map((a, i) => [a.baseId, i + 1]));
+  const noOf = new Map<string, number>();
+  for (const series of new Set(originals.filter((a) => usesNo(a.series)).map((a) => a.series || 'review'))) {
+    originals.filter((a) => (a.series || 'review') === series).sort((a, b) => visitKey(a).localeCompare(visitKey(b)))
+      .forEach((a, i) => noOf.set(a.baseId, i + 1));
+  }
   const epOf = new Map<string, number>();
-  for (const series of new Set(originals.filter((a) => !isReview(a)).map((a) => a.series))) {
+  for (const series of new Set(originals.filter((a) => !usesNo(a.series)).map((a) => a.series))) {
     originals.filter((a) => a.series === series)
       .sort((a, b) => (a.publishedAt || '').localeCompare(b.publishedAt || '') || a.slug.localeCompare(b.slug))
       .forEach((a, i) => epOf.set(a.baseId, a.episode ?? i + 1));
   }
   const keyOf = new Map(originals.map((a) => [a.baseId, visitKey(a)]));
   return all
-    .map((a) => (isReview(a) ? { ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 } : { ...a, no: 0, episode: a.episode ?? epOf.get(a.baseId) ?? 1 }))
+    .map((a) => (usesNo(a.series) ? { ...a, no: noOf.get(a.baseId) ?? a.no ?? 0 } : { ...a, no: 0, episode: a.episode ?? epOf.get(a.baseId) ?? 1 }))
     .sort((a, b) => (keyOf.get(b.baseId) ?? visitKey(b)).localeCompare(keyOf.get(a.baseId) ?? visitKey(a)) || a.language.localeCompare(b.language));
 }
 
-/** "No. 007" for reviews, "Ep.1" for the other series. */
+/** "No. 007" for review series (บอสพาชิม · บอสพาชิล · บอสพาดื่ม), "Ep.1" for knowledge series. */
 export const numLabel = (a: Pick<Article, 'series' | 'no' | 'episode'>) =>
-  isReview(a) ? `No. ${String(a.no).padStart(3, '0')}` : `Ep.${a.episode ?? 1}`;
+  usesNo(a.series) ? `No. ${String(a.no).padStart(3, '0')}` : `Ep.${a.episode ?? 1}`;
 /** Small overline above the number: "TASTING NOTES" for reviews (kept when the series became The Boss Dines, 25 Nov 2026), the series name otherwise. */
 export const numKicker = (a: Pick<Article, 'series'>) => (isReview(a) ? 'Tasting Notes' : SERIES[a.series as SeriesKey]?.en ?? 'Tasting Notes').toUpperCase();
 

@@ -8,6 +8,7 @@ import { Resvg } from '@resvg/resvg-js';
 import sharp from 'sharp';
 import type { Article, City, Img } from './types';
 import { imgUrl, visitLabel } from './content';
+import { SERIES, usesNo, type SeriesKey } from './config';
 
 const ROOT = process.cwd();
 const FONTS = ['NotoSerifThai-Regular.ttf', 'NotoSerifThai-SemiBold.ttf', 'CormorantGaramond-MediumItalic.ttf', 'CormorantGaramond-Medium.ttf'].map((f) => join(ROOT, 'src/og/fonts', f));
@@ -79,7 +80,7 @@ export async function renderOg(a: Article): Promise<Buffer> {
   let y = metaY - 44;
   const nameSvg = nameLines.map((l, i, all) => `<text x="600" y="${y - (all.length - 1 - i) * nameSize * 1.12}" text-anchor="middle" font-family="Noto Serif Thai" font-weight="600" font-size="${nameSize}" fill="#ffffff">${esc(l)}</text>`).join('');
   y -= (nameLines.length - 1) * nameSize * 1.12 + nameSize + 26;
-  const noLabel = a.series === 'review' || !a.series ? `Tasting Notes  No. ${String(a.no).padStart(3, '0')}` : '';
+  const noLabel = !usesNo(a.series) ? '' : `${a.series === 'review' || !a.series ? 'Tasting Notes' : SERIES[a.series as SeriesKey].en}  No. ${String(a.no).padStart(3, '0')}`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
     <linearGradient id="bottom" x1="0" y1="0" x2="0" y2="1">

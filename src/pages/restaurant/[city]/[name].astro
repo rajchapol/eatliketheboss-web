@@ -100,7 +100,7 @@ const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
                 <p style="margin:0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-family:'Ekkamai New',sans-serif;font-size:14px;color:#4a5560">
                   <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;line-height:1;color:#0b5357"><time datetime={visitIso(v)}>{visitLabel(v)}</time></span>
                   <span>{i === 0 ? 'ครั้งล่าสุด' : n === 1 ? 'ครั้งแรก' : `ครั้งที่ ${n}`}</span>
-                  <span>Tasting Notes No. {String(v.no).padStart(3, '0')}</span>
+                  <span>{(!v.series || v.series === 'review') ? 'Tasting Notes ' : ''}No. {String(v.no).padStart(3, '0')}</span>
                   {v.billBand && <span class="band-pill" style="padding:2px 10px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">{v.billBand}</span>}
                   {v.tag && <span style="color:#6e3f08;font-weight:700">{v.tag}</span>}
                 </p>

@@ -166,7 +166,8 @@ export default defineConfig({
         id: `article-${series}`, title: series === 'history' ? 'Meals That Changed the World · ตอนใหม่' : series === 'chill' ? 'The Boss Goes Chilling · ร้านใหม่' : 'The Boss Pours · บทใหม่', schemaType: 'article',
         value: async (_p: unknown, ctx: any) => {
           const max = await ctx.getClient({ apiVersion: '2025-01-01' }).fetch('math::max(*[_type == "article" && !defined(translationOf) && series == $series].episode)', { series });
-          return { series, language: 'th', episode: (max || 0) + 1, publishedAt: new Date().toISOString().slice(0, 10) };
+          // Only knowledge series get an Ep. number; review series (chill, drinks) are numbered No. by visit on the site (the Boss, 26 Nov 2026).
+          return { series, language: 'th', ...(series === 'history' ? { episode: (max || 0) + 1 } : {}), publishedAt: new Date().toISOString().slice(0, 10) };
         },
       })),
     ],

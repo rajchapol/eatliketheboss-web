@@ -1,5 +1,5 @@
 ---
-import { isRestaurantSeries } from '../lib/config';
+import { isRestaurantSeries, usesNo } from '../lib/config';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import Photo from '../components/Photo.astro';
@@ -15,14 +15,16 @@ const settings = await getSettings();
 const featured = articles.find((a) => a.id === settings.featuredArticleId || a.baseId === settings.featuredArticleId);
 const latest = groupByRestaurant(articles.filter((a) => isRestaurantSeries(a.series))).map((g) => g.latest);
 const slides = (featured ? [featured, ...latest.filter((a) => restaurantKey(a) !== restaurantKey(featured))] : latest).slice(0, 5);
-// The Index: every article is in the HTML (search engines see them all); the latest 10 show first and
-// "ดูทั้งหมด" opens the rest in place, 20 at a time. Without JS the row links to /review/ instead.
-const INDEX_FIRST = 10, INDEX_STEP = 20;
+// Home shows only the latest reviews (the Boss, 26 Nov 2026: no duplicate of the full list); the full list lives on /review/.
+const INDEX_SHOW = 8;
 // Reviews only (the Boss, 14 Nov 2026): other series get their own strip below, so 20 episodes posted on one day don't push the reviews off the list.
-const index = articles.filter((a) => a.series === 'review'); // newest visit first; No. 001 is the oldest
+const reviews = articles.filter((a) => a.series === 'review'); // newest visit first; No. 001 is the oldest
+const index = reviews.slice(0, INDEX_SHOW);
 // One strip per other series that has articles: newest episodes first, 4 cards.
 const strips = (Object.keys(SERIES) as (keyof typeof SERIES)[]).filter((k) => k !== 'review').map((k) => {
-  const all = articles.filter((a) => a.series === k).sort((a, b) => (b.episode ?? 0) - (a.episode ?? 0));
+  const inSeries = articles.filter((a) => a.series === k);
+  // Review series (No.) keep newest visit first; knowledge series newest episode first.
+  const all = usesNo(k) ? inSeries : inSeries.sort((a, b) => (b.episode ?? 0) - (a.episode ?? 0));
   return { key: k, s: SERIES[k], total: all.length, items: all.slice(0, 4) };
 }).filter((x) => x.total > 0);
 // Repeat visit marker in The Index: 2 = second time at this restaurant (counted by visit order).
@@ -33,65 +35,31 @@ const thisYear = String(new Date().getFullYear());
 const year = allAwards.some((x) => visitYear(x.article) === thisYear) ? thisYear : (allAwards.map((x) => visitYear(x.article)).sort().pop() ?? thisYear);
 const awards = allAwards.filter((x) => visitYear(x.article) === year).slice(0, 4);
 const allCities = await getCities();
-// Quick city buttons: chosen in Sanity, else the 3 cities with the most restaurants.
-const quickCities = settings.homeCitySlugs?.length
-  ? (settings.homeCitySlugs.map((sl) => allCities.find((c) => c.slug === sl)).filter(Boolean) as typeof allCities)
-  : (await citiesByCount()).slice(0, 3).map((x) => x.city);
-// "In this issue" contents (the Boss, 16 Nov 2026: magazine style): numbered like a contents page, each links to its section.
-const toc = [
-  // Every series section is named by its series (the Boss, 25 Nov 2026): The Boss Dines · บอสพาชิม, like the strips below.
-  { no: '01', en: SERIES.review.en, th: SERIES.review.th, meta: `${index.length} รีวิว`, href: '#notes', icon: 'index' },
-  ...strips.map((x) => ({ no: '', en: x.s.en, th: x.s.th, meta: `${x.total} ตอน`, href: `#strip-${x.key}`, icon: x.key === 'drinks' ? 'drinks' : 'history' })),
-  { no: '', en: 'Glasses Off Awards', th: 'จานถอดแว่นชิม', meta: `${allAwards.length} จาน`, href: '#awards', icon: 'glasses' },
-  { no: '', en: 'Destinations', th: 'จุดหมาย', meta: `${allCities.length} เมือง`, href: '/destinations/', icon: 'destinations' },
-  { no: '', en: 'The Boss', th: 'เกี่ยวกับบอส', meta: 'F&B มากว่า 15 ปี', href: '#about', icon: 'the-boss' },
-].map((x, i) => ({ ...x, no: String(i + 1).padStart(2, '0') }));
-const tocNo = (href: string) => toc.find((x) => x.href === href)?.no;
-// Thai titles break only between these chunks (Chrome split "มื้ออาหารเปลี่ยน / โลก")
-const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเปลี่ยนโลก': ['มื้ออาหาร', 'เปลี่ยนโลก'], 'จานถอดแว่นชิม': ['จานถอดแว่นชิม'], 'บันทึกการชิม': ['บันทึกการชิม'], 'เกี่ยวกับบอส': ['เกี่ยวกับบอส'], 'บอสพาดื่ม': ['บอสพาดื่ม'] };
 ---
 <Base title="หน้าแรก" active="home" jsonLd={[organization(), website()]}>
   <h1 class="sr-only">บอสพาชิม Eat Like The Boss — รีวิวร้านอาหาร Fine Dining แบบจริงใจและเจาะลึก ทั้งในไทยและทั่วโลก</h1>
 
   <section aria-label="ค้นหาร้าน" class="pat-linen" style="background-color:#fbf7ef;box-shadow:0 10px 24px rgba(195,158,92,.18)">
     <form action="/restaurants/" method="get" class="wrap" style="padding-top:20px;padding-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;font-family:'Ekkamai New',sans-serif">
-      <label for="q" style="font-size:15px;color:#4a5560">{settings.homeFinderLabel}</label>
       <span style="flex:1 1 320px;position:relative;display:block">
         <Icon name="search" style="position:absolute;left:18px;top:14px;color:#0b5357" />
-        <input id="q" name="q" type="search" class="field" placeholder={settings.homeSearchPlaceholder} style="width:100%;height:48px;padding:0 56px 0 48px;border:1px solid rgba(11,83,87,.4);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
+        <input id="q" name="q" type="search" aria-label={settings.homeFinderLabel} class="field" placeholder={settings.homeSearchPlaceholder} style="width:100%;height:48px;padding:0 56px 0 48px;border:1px solid rgba(11,83,87,.4);background:#fff;font:inherit;font-size:16px;color:#1a2632" />
         <button type="submit" class="search-go" aria-label="ค้นหา"><Icon name="arrow" size={18} /></button>
-      </span>
-      <span style="display:flex;flex-wrap:wrap;gap:8px;font-size:14px">
-        {quickCities.map((c) => <a href={`/city/${c.slug}/`} class="fx-btn chip" style="display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 16px;border:1px solid rgba(11,83,87,.35);background:#fff"><Icon name="pin" size={16} style="color:#0b5357" />{c.nameEn}</a>)}
-        <a href="/destinations/" style="display:inline-flex;align-items:center;min-height:40px;padding:0 14px;color:#0b5357">ทุกเมือง</a>
       </span>
     </form>
   </section>
 
   <HeroSlider slides={slides} />
 
-  <nav aria-labelledby="toc-h" class="wrap toc" style="padding-bottom:96px">
-    <div class="toc-head"><span id="toc-h" lang="en" translate="no">In This Issue</span><span class="toc-th">ในฉบับนี้</span></div>
-    <ol class="toc-list">
-      {toc.map((x) => (
-        <li><a href={x.href} class="toc-item">
-          <span class="outline-num toc-no" aria-hidden="true" translate="no">{x.no}</span>
-          <span class="toc-en" lang="en" translate="no"><Icon name={x.icon as any} size={22} class="toc-ico" />{x.en}</span>
-          <span class="toc-title">{(TOC_CHUNKS[x.th] ?? [x.th]).map((c) => <span class="nb">{c}</span>)}</span>
-          <span class="toc-meta">{x.meta}</span>
-        </a></li>
-      ))}
-    </ol>
-  </nav>
 
 
   <section id="notes" aria-labelledby="index" class="wrap" style="padding-bottom:96px">
     <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 16px;padding-bottom:16px">
       <div style="display:flex;flex-direction:column;gap:6px">
-        <span lang="en" translate="no" class="sec-kicker" style={`color:${SERIES.review.ink}`}><span>{tocNo('#notes')}</span>{SERIES.review.en}</span>
+        <span lang="en" translate="no" class="sec-kicker" style={`color:${SERIES.review.ink}`}>{SERIES.review.en}</span>
         <h2 id="index" style={`margin:0;font-size:clamp(28px,4.4cqi,40px);font-weight:600;line-height:1.3;color:${SERIES.review.ink}`}>{SERIES.review.th}</h2>
       </div>
-      <a href="/review/" class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">{settings.homeIndexLink}<Icon name="arrow" size={16} /></a>
+      <a href="/review/" class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้ง {reviews.length} รีวิว<Icon name="arrow" size={16} /></a>
     </div>
     <div class="rule fx-draw"></div>
     {index.length === 0 && (
@@ -102,39 +70,30 @@ const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเ�
       </div>
     )}
     {index.map((a, i) => (
-      <a href={articleUrl(a)} class="idx-row fx-row" hidden={i >= INDEX_FIRST} data-idx-row>
+      <a href={articleUrl(a)} class="idx-row fx-row">
         <span class="idx-no" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#6e3f08">{numLabel(a)}</span>
         <span class="idx-thumb"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[192, 288]} sizes="96px" /></span>
-        <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}{a.series === 'review' && returnNo(a) > 1 && <span class="band-pill" style="margin-left:8px;padding:1px 10px;font-family:'Ekkamai New',sans-serif;font-size:12px;font-weight:400;vertical-align:3px;box-shadow:0 0 0 1px rgba(195,158,92,.6);color:#6e3f08">กลับไปครั้งที่ {returnNo(a)}</span>}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
+        <span class="idx-title" style="min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:600;line-height:1.4">{a.series === 'review' ? (a.restaurant?.name ?? a.title) : a.title}{a.series === 'review' && returnNo(a) > 1 && <span style="margin-left:10px;font-family:'Cormorant Garamond','Ekkamai New',serif;font-style:italic;font-size:16px;font-weight:400;color:#8a6a2e">· กลับไปครั้งที่ {returnNo(a)}</span>}</span>{a.series === 'review' && <span style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955">{[a.city?.nameEn, a.tagline].filter(Boolean).join(' · ')}</span>}</span>
         <span class="idx-date" style="font-family:'Ekkamai New',sans-serif;font-size:14px;color:#3d4955;text-align:right"><span class="sr-only">ไปเยือน </span><time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
       </a>
     ))}
-    {index.length > INDEX_FIRST && (
-      <div class="idx-more-wrap" data-idx-more data-first={INDEX_FIRST} data-step={INDEX_STEP}>
-        <a href="/review/" class="idx-more fx-arrow" data-idx-link>
-          <span>ดูบันทึกก่อนหน้าอีก {index.length - INDEX_FIRST} เรื่อง · No. {[...new Set([index[index.length - 1].no, index[INDEX_FIRST].no])].map((n) => String(n).padStart(3, '0')).join('–')}</span>
-          <Icon name="arrow" size={16} />
-        </a>
-        <button type="button" class="idx-more idx-toggle" data-idx-btn hidden aria-controls="notes" aria-expanded="false"><span data-idx-label></span><Icon name="down" size={16} /></button>
-      </div>
-    )}
   </section>
 
   {strips.map(({ key, s, total, items }) => (
     <section aria-labelledby={`strip-${key}`} class="wrap series-strip" style={`--sdot:${s.dot};--sink:${s.ink};padding-bottom:96px`}>
       <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 16px;padding-bottom:16px">
         <div style="display:flex;flex-direction:column;gap:6px">
-          <span lang="en" translate="no" class="sec-kicker" style="color:var(--sink)"><span>{tocNo(`#strip-${key}`)}</span>{s.en}</span>
+          <span lang="en" translate="no" class="sec-kicker" style="color:var(--sink)">{s.en}</span>
           <h2 id={`strip-${key}`} style="margin:0;font-size:clamp(28px,4.4cqi,40px);font-weight:600;line-height:1.3;color:var(--sink)">{s.th}</h2>
         </div>
-        <a href={`/${s.path}/`} class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้ง {total} ตอน<Icon name="arrow" size={16} /></a>
+        <a href={`/${s.path}/`} class="fx-arrow" style="display:inline-flex;align-items:center;gap:8px;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#0b5357;border-bottom:1px solid #c39e5c">ดูทั้ง {total} {usesNo(key) ? 'ร้าน' : 'ตอน'}<Icon name="arrow" size={16} /></a>
       </div>
       <div class="rule fx-draw" style="background:linear-gradient(90deg,var(--sink),rgba(195,158,92,.4))"></div>
       <div class="strip-row">
         {items.map((a) => (
           <a href={articleUrl(a)} class="strip-card fx-row">
             <span class="strip-photo"><Photo img={a.cover} label="ภาพ" ratio={0.6667} widths={[360, 540, 720]} sizes="(max-width: 720px) 72vw, 280px" /></span>
-            <span class="strip-ep" translate="no">Ep.{a.episode}</span>
+            <span class="strip-ep" translate="no">{numLabel(a)}</span>
             <span class="strip-title">{a.title}</span>
           </a>
         ))}
@@ -142,17 +101,12 @@ const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเ�
     </section>
   ))}
 
-  <section aria-label="สโลแกน" class="wrap" style="padding-bottom:104px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center">
-    <div class="divider" aria-hidden="true" style="margin-bottom:24px;width:100%"><span></span><svg viewBox="0 0 40 16" width="40" height="16"><path d="M20 1l7 7-7 7-7-7z" fill="none" stroke="#c39e5c" stroke-width="1.2"/><circle cx="20" cy="8" r="2" fill="#c39e5c"/><path d="M2 8h8M30 8h8" stroke="#c39e5c" stroke-width="1.2"/></svg><span></span></div>
-    <span aria-hidden="true" class="gold-grad" style="font-family:'Cormorant Garamond',serif;font-size:128px;line-height:.8">“</span>
-    <p style="margin:0;max-width:28em;font-size:clamp(22px,3.4cqi,28px);line-height:1.6;font-weight:400">{SITE.tagline}</p>
-  </section>
 
   <section id="awards" aria-labelledby="aw" class="band-fan on-dark spot" style="color:#fff">
     <div class="goldrule"></div>
     <div class="wrap sm-tight" style="padding-top:96px;padding-bottom:96px;display:flex;flex-direction:column;gap:48px">
       <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
-        <p class="sec-kicker on-dark-k" aria-hidden="true" translate="no" style="flex-basis:100%"><span>{tocNo('#awards')}</span>Glasses Off Awards</p>
+        <p class="sec-kicker on-dark-k" aria-hidden="true" translate="no" style="flex-basis:100%">Glasses Off Awards</p>
         <div style="display:flex;align-items:center;gap:20px"><Icon name="glasses" size={56} class="gold-glow" style="color:#d4b372;stroke-width:1.2" />
           <div><h2 id="aw" style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5cqi,44px);line-height:1">Glasses Off <span class="fx-shimmer gold-glow" style="font-style:italic">Awards</span> {year}</h2><p style="margin:10px 0 0;font-size:18px;font-weight:500;letter-spacing:.02em;color:#fdeac0">จานถอดแว่นชิมแห่งปี</p></div></div>
         <p style="margin:0;max-width:26em;font-size:17px;line-height:1.8;font-weight:400">{settings.homeAwardsText}</p>
@@ -181,31 +135,12 @@ const TOC_CHUNKS: Record<string, string[]> = { 'มื้ออาหารเ�
       <img src="/img/monogram.webp" alt="ELB monogram" width="160" height="160" loading="lazy" style="width:160px;height:auto" />
     </div>
     <div style="flex:1 1 480px;min-width:0;display:flex;flex-direction:column;gap:16px">
-      <p class="sec-kicker" aria-hidden="true" translate="no"><span>{tocNo('#about')}</span>The Boss</p>
+      <p class="sec-kicker" aria-hidden="true" translate="no">The Boss</p>
       <h2 id="ab" style="margin:0;font-size:32px;font-weight:600;line-height:1.3"><a href="/about/">เกี่ยวกับบอส</a></h2>
+      {SITE.tagline && <p class="gold-grad" style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.4">{SITE.tagline}</p>}
       <p style="margin:0;max-width:36em;font-size:17px;line-height:1.85;font-weight:400">{settings.aboutShortBio}</p>
       <p style="margin:0;font-family:'Ekkamai New',sans-serif;font-size:15px;color:#4a5560">{settings.invitedNote}</p>
     </div>
   </section>
 </Base>
 
-<script>
-  // The Index: open the remaining rows in place, 20 at a time; when all are open the button folds them away again.
-  document.querySelectorAll('[data-idx-more]').forEach((box) => {
-    const rows = [...document.querySelectorAll('[data-idx-row]')], first = +box.dataset.first, step = +box.dataset.step;
-    const link = box.querySelector('[data-idx-link]'), btn = box.querySelector('[data-idx-btn]'), label = box.querySelector('[data-idx-label]');
-    link.hidden = true; btn.hidden = false;
-    let shown = first;
-    const paint = () => {
-      rows.forEach((r, i) => (r.hidden = i >= shown));
-      const left = rows.length - shown;
-      label.textContent = left <= 0 ? 'ย่อรายการ' : left <= step ? `ดูทั้งหมด ${rows.length} เรื่อง` : `ดูเพิ่มอีก ${step} เรื่อง (เหลือ ${left})`;
-      btn.classList.toggle('is-open', left <= 0); btn.setAttribute('aria-expanded', String(shown > first));
-    };
-    btn.addEventListener('click', () => {
-      if (shown >= rows.length) { shown = first; paint(); document.getElementById('notes')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); return; }
-      const next = rows[shown]; shown = Math.min(rows.length, shown + step); paint(); next?.focus({ preventScroll: true });
-    });
-    paint();
-  });
-</script>

@@ -82,7 +82,7 @@ export const article = defineType({
       options: { list: [{ title: 'The Boss Dines · บอสพาชิม (รีวิวร้าน)', value: 'review' }, { title: 'Meals That Changed the World · มื้ออาหารเปลี่ยนโลก', value: 'history' }, { title: 'The Boss Pours · บอสพาดื่ม', value: 'drinks' }, { title: 'The Boss Goes Chilling · บอสพาชิล (ร้าน casual)', value: 'chill' }], layout: 'radio' },
       validation: (r) => r.required() }),
     defineField({ name: 'no', title: 'Tasting Notes No. (retired)', description: 'เว็บนับเลขให้อัตโนมัติตามวัน Visit', type: 'number', hidden: true }),
-    defineField({ name: 'episode', title: 'Ep.', description: 'สร้างจากปุ่ม "ตอนใหม่" ระบบใส่เลขตอนถัดไปให้เอง', type: 'number', group: 'main', hidden: ({ document }) => (document?.series || 'review') === 'review' }),
+    defineField({ name: 'episode', title: 'Ep.', description: 'สร้างจากปุ่ม "ตอนใหม่" ระบบใส่เลขตอนถัดไปให้เอง', type: 'number', group: 'main', hidden: ({ document }) => ['review', 'chill', 'drinks'].includes((document?.series as string) || 'review') }), // review series are numbered No. by visit (the Boss, 26 Nov 2026)
     defineField({ name: 'title', title: 'Title · ชื่อบทความเต็ม', description: 'เช่น บอสพาชิม in Tokyo: ชื่อร้าน (ชื่อเดิม) - คำโปรย (ไม่ต้องใส่อีโมจิ)', type: 'string', group: 'main', validation: (r) => r.required() }),
     defineField({ name: 'slug', title: 'Slug · ส่วนท้าย URL', description: 'ภาษาอังกฤษตัวเล็ก คั่นด้วย - เช่น sezanne — ตั้งแล้วห้ามเปลี่ยน', type: 'slug', group: 'main',
       options: { source: (doc: any) => doc.restaurant?.name || doc.title, maxLength: 80,
@@ -161,7 +161,7 @@ export const article = defineType({
     // The restaurant name first, so lists and the "แปลจากบทความ" picker show which article it is at a glance.
     // e.g. "TH · Tokyo · Visit Apr-2024 · ฿฿฿฿ · Japanese · Sushi · Event"
     prepare: ({ title, name, series, ep, visit, lang, city, media, band, cu, st, tag }: any) => ({
-      title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : series === 'chill' ? `Ep.${ep ?? '?'} ${name || title || ''}` : (name || title || 'ไม่มีชื่อ'),
+      title: series === 'history' ? `Ep.${ep ?? '?'} ${title ?? ''}` : (name || title || 'ไม่มีชื่อ'),
       subtitle: [LANGS.find((l) => l.id === (lang || 'th'))?.short ?? 'TH', city, visit && `Visit ${visit}`, band, [cu, st].filter(Boolean).join(' · '), tag].filter(Boolean).join(' · '),
       media,
     }) },

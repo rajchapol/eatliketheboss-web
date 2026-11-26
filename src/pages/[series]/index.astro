@@ -2,7 +2,7 @@
 // Series listing: /review/, /history/, /drinks/, /chill/
 import Base from '../../layouts/Base.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { SERIES, type SeriesKey } from '../../lib/config';
+import { SERIES, usesNo, type SeriesKey } from '../../lib/config';
 import { articleUrl, getArticles, getSettings, groupByRestaurant } from '../../lib/content';
 import Icon from '../../components/Icon.astro';
 import { breadcrumbs } from '../../lib/seo';
@@ -14,8 +14,9 @@ const { key } = Astro.props as { key: SeriesKey };
 const s = SERIES[key];
 const all = (await getArticles('th')).filter((a) => a.series === key);
 // Reviews: newest visit first (as loaded). Other series: newest episode first (the Boss, 16 Nov 2026, after trying Ep.1 first), with a link to start at Ep.1.
-const list = key === 'review' ? all : [...all].sort((a, b) => (b.episode ?? 0) - (a.episode ?? 0));
-const first = key === 'review' ? undefined : list[list.length - 1];
+// Review series numbered No. (บอสพาชิม · บอสพาชิล · บอสพาดื่ม, the Boss 26 Nov 2026) keep newest visit first, no "start at Ep.1" link.
+const list = usesNo(key) ? all : [...all].sort((a, b) => (b.episode ?? 0) - (a.episode ?? 0));
+const first = usesNo(key) ? undefined : list[list.length - 1];
 const groups = groupByRestaurant(list); // repeat visits share one card
 const settings = await getSettings();
 const intro = settings.seriesText;
