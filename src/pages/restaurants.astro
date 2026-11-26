@@ -111,6 +111,11 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
     </div>
     <p class="load-more" id="load-more" hidden={groups.length <= 24}><button type="button">ดูเพิ่มอีก <span id="more-n2">{Math.min(24, groups.length - 24)}</span> ร้าน <span style="color:#8a6a3a">(เหลือ <span id="left-n">{groups.length - 24}</span>)</span></button></p>
     <p id="empty" hidden style="margin-top:48px;text-align:center;font-size:18px;font-weight:400"><img src="/img/brand/lineart/lineart-menu-card-teal.svg" alt="" width="140" height="140" style="display:block;margin:0 auto 16px;height:auto" />ยังไม่พบร้านที่ตรงกับตัวกรอง ลองล้างตัวกรองหรือค้นด้วยคำอื่นครับ</p>
+    <div id="pf" class="pf" hidden aria-live="polite">
+      <h2 class="pf-h">พบในเนื้อหาบทความ <span id="pf-n" class="bronze-grad"></span></h2>
+      <p class="pf-sub">ชื่อจาน วัตถุดิบ เชฟ หรือคำที่บอสเขียนไว้ในรีวิว</p>
+      <ol id="pf-list" class="pf-list"></ol>
+    </div>
   </section>
 
   <script>
@@ -190,5 +195,40 @@ const chip = "display:inline-flex;align-items:center;gap:6px;flex:0 0 auto;heigh
       // came from the home-page search (?q=…): show the results, not the empty top of the page
       if (st.q.trim()) requestAnimationFrame(() => rs.scrollIntoView({ block: 'start' }));
     })();
+  </script>
+
+  <script>
+    // Full-text search in every Thai article (the Boss, 26 Nov 2026): a dish, ingredient or chef the Boss wrote about,
+    // not only restaurant names. /search-index.json is fetched on the first search only; exact substring match.
+    const q = document.getElementById('q') as HTMLInputElement | null;
+    const box = document.getElementById('pf'), list = document.getElementById('pf-list'), num = document.getElementById('pf-n');
+    type Doc = { u: string; n: string; l: string; t: string; low?: string };
+    let docs: Promise<Doc[]> | undefined, timer = 0;
+    const esc = (v: string) => v.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
+    const load = () => (docs ??= fetch('/search-index.json').then((r) => r.json()).then((d: Doc[]) => d.map((x) => ({ ...x, low: x.t.toLowerCase() }))));
+    const excerpt = (d: Doc, term: string) => {
+      const at = d.low!.indexOf(term); let from = Math.max(0, at - 60), to = Math.min(d.t.length, at + term.length + 90);
+      // never start or end inside a Thai syllable (vowel / tone marks sit on the letter before them)
+      const mark = (i: number) => /[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/.test(d.t[i] || '');
+      while (from > 0 && mark(from)) from--;
+      while (to < d.t.length && mark(to)) to++;
+      return (from ? '…' : '') + esc(d.t.slice(from, at)) + '<mark>' + esc(d.t.slice(at, at + term.length)) + '</mark>' + esc(d.t.slice(at + term.length, to)) + (to < d.t.length ? '…' : '');
+    };
+    const run = async () => {
+      const term = (q?.value || '').trim().toLowerCase();
+      if (term.length < 2 || !box || !list || !num) { if (box) box.hidden = true; return; }
+      try {
+        const all = await load(); if ((q?.value || '').trim().toLowerCase() !== term) return;
+        const hits = all.map((d) => ({ d, n: d.low!.split(term).length - 1, inName: d.n.toLowerCase().includes(term) }))
+          .filter((x) => x.n > 0).sort((a, b) => Number(b.inName) - Number(a.inName) || b.n - a.n);
+        num.textContent = hits.length ? String(hits.length) : '';
+        list.innerHTML = hits.length ? hits.slice(0, 12).map(({ d }) => `<li><a href="${esc(d.u)}"><span class="pf-label">${esc(d.l)}</span><strong>${esc(d.n)}</strong><span class="pf-ex">${excerpt(d, term)}</span></a></li>`).join('')
+          + (hits.length > 12 ? `<li class="pf-none">และอีก ${hits.length - 12} บทความ ลองพิมพ์คำให้เจาะจงขึ้น</li>` : '')
+          : '<li class="pf-none">ไม่พบคำนี้ในบทความ</li>';
+        box.hidden = false;
+      } catch { box.hidden = true; }
+    };
+    q?.addEventListener('input', () => { clearTimeout(timer); timer = window.setTimeout(run, 250); });
+    if (new URLSearchParams(location.search).get('q')) setTimeout(run, 50);
   </script>
 </Base>

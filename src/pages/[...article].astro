@@ -41,6 +41,13 @@ const sameCuisine = isRestaurantSeries(a.series) && a.restaurant?.cuisine
   ? others.filter((x) => isRestaurantSeries(x.series) && x.restaurant?.cuisine === a.restaurant?.cuisine && !seenR.has(restaurantKey(x)) && (seenR.add(restaurantKey(x)), true)).slice(0, 8)
   : [];
 const s = SERIES[a.series];
+// Previous / next in the same series and language (the Boss, 26 Nov 2026): by No. for review series, by Ep. for knowledge series.
+const seq = all.filter((x) => x.language === L && x.series === a.series)
+  .sort((x, y) => (usesNo(a.series) ? x.no - y.no : (x.episode ?? 0) - (y.episode ?? 0)));
+const pos = seq.findIndex((x) => x.id === a.id);
+const prevA = pos > 0 ? seq[pos - 1] : undefined;
+const nextA = pos >= 0 && pos < seq.length - 1 ? seq[pos + 1] : undefined;
+const seqName = (x: Article) => x.restaurant?.name ?? x.title;
 const glassesDishes = a.dishes.map((d, i) => ({ d, i })).filter(({ d }) => d.glassesOff);
 const name = a.restaurant?.name ?? a.title;
 const glassesIdx = a.dishes.findIndex((d) => d.glassesOff);
@@ -259,6 +266,12 @@ const fact = "margin:0;padding:12px 0;border-bottom:1px solid rgba(195,158,92,.3
       </p>
     )}
     <div style="max-width:720px;margin:28px auto 0;padding:0 32px"><ShareBar path={articleUrl(a)} title={`${name} — Eat Like The Boss`} lang={L} heading={!isRestaurantSeries(a.series) ? (L === 'th' ? st.articleShareTitleHistory || t(L, 'shareStory') : t(L, 'shareStory')) : L === 'th' ? st.articleShareTitle : true} /></div>
+    {(prevA || nextA) && (
+      <nav aria-label={L === 'th' ? `อ่านต่อใน${s.th}` : s.en} class="seq-nav" style={`--sink:${s.ink}`}>
+        {prevA ? <a href={articleUrl(prevA)} class="seq-prev"><span class="seq-k"><Icon name="prev" size={14} />{numLabel(prevA)}</span><span class="seq-t">{seqName(prevA)}</span></a> : <span></span>}
+        {nextA ? <a href={articleUrl(nextA)} class="seq-next"><span class="seq-k">{numLabel(nextA)}<Icon name="next" size={14} /></span><span class="seq-t">{seqName(nextA)}</span></a> : <span></span>}
+      </nav>
+    )}
   </article>
 
   {more.length > 0 && (
