@@ -27,12 +27,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
             <p class="overline" style="letter-spacing:.2em">{numKicker(a)} <span style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;letter-spacing:0;color:#6e3f08">{numLabel(a)}</span></p>
             <h2 class="ink-grad" style="margin:0;font-weight:600;font-size:clamp(30px,4.6cqi,44px);line-height:1.25"><a href={articleUrl(a)} translate={a.restaurant?.name ? "no" : undefined}>{a.restaurant?.name ?? a.title}</a>{a.restaurant?.originalName && <span style="display:block;font-size:.5em;font-weight:400;-webkit-text-fill-color:#3d4955">{a.restaurant.originalName}</span>}</h2>
             {a.tagline && <p style="margin:0;font-size:21px;line-height:1.6"><span class="mark">{a.tagline}</span></p>}
-            <p style="margin:0;display:flex;flex-wrap:wrap;gap:8px;font-family:'Ekkamai New',sans-serif">
-              {a.city && <span class="badge badge-light"><Icon name="pin" size={14} style="color:#c39e5c" />{a.city.nameEn}</span>}
-              <span class="badge badge-light"><Icon name="calendar" size={14} style="color:#c39e5c" />Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
-              {a.restaurant?.cuisine && <span class="badge badge-light"><Icon name={cuisineIcon(a.restaurant.cuisine)} size={16} style="color:#c39e5c" />{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
-              {a.dishes.some((d) => d.glassesOff) && <span class="badge badge-dark"><Icon name="glasses" size={14} />ถอดแว่นชิม</span>}
+            <p class="mag-meta">
+              {a.city && <span>{a.city.nameEn}</span>}
+              <span>Visit <time datetime={visitIso(a)}>{visitLabel(a)}</time></span>
+              {a.restaurant?.cuisine && <span>{[a.restaurant.cuisine, a.restaurant.style].filter(Boolean).join(' · ')}</span>}
             </p>
+            {a.dishes.some((d) => d.glassesOff) && <p class="mag-go"><Icon name="glasses" size={18} />ถอดแว่นชิม</p>}
             <a href={articleUrl(a)} class="btn-teal fx-btn" style="align-self:flex-start;margin-top:4px">{isRestaurantSeries(a.series) ? 'อ่านรีวิว' : 'อ่านเรื่องนี้'} <Icon name="arrow" style="color:#d4b372" /></a>
           </div>
         </div>
